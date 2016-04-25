@@ -1,0 +1,16 @@
+{
+  "name": "raster",
+  "homepage": "https://github.com/agrc/raster",
+  "authors": [
+    "Scott Davis <stdavis@utah.gov>"
+  ],
+  "description": "Raster Discovery App",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "esri": "arcgis-js-api#~3.16.0",
+    "agrc": "agrc-widgets#~4.2.0"
+  }
+}

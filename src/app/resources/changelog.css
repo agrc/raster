@@ -1,0 +1,28 @@
+body {
+    font: normal 15px/20px Aerial,sans-serif;
+    color: #444;
+}
+h1 {
+    font-size: 40px;
+    letter-spacing: -2px;
+    font-weight: normal;
+}
+h2 {
+    font-size: 20px;
+}
+small {
+    color: #888;
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: 0px;
+}
+ul {
+    list-style: none;
+    
+    padding: 0;
+}
+li {
+    background: url(../images/plus.png) no-repeat;
+    padding-left: 19px;
+}

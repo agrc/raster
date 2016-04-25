@@ -1,0 +1,106 @@
+<div>
+    <div dojoAttachPoint='accordionContainer' dojotype='dijit.layout.AccordionContainer'>
+        <div dojoType='dijit.layout.ContentPane' title='Step 1 - Select Products' open='true'>
+            Please select the type of product(s) that you are looking for...
+            <div class='select-products'>
+                <label>
+                    <input value='0' type='checkbox' dojoType='dijit.form.CheckBox'/>
+                    <span>Aerial Photography</span>
+                </label>
+                <label>
+                    <input value='1' type='checkbox' dojoType='dijit.form.CheckBox'/>
+                    <span>Contours</span>
+                </label>
+                <label>
+                    <input value='2' type='checkbox' dojoType='dijit.form.CheckBox'/>
+                    <span>DEM's</span>
+                </label>
+                <label>
+                    <input value='3' type='checkbox' dojoType='dijit.form.CheckBox'/>
+                    <span>LiDAR</span>
+                </label>
+                <label>
+                    <input value='4' type='checkbox' dojoType='dijit.form.CheckBox'/>
+                    <span>USGS Topo Maps</span>
+                </label>
+            </div>
+            ...then proceed to Step 2 below.
+            <br><br>
+            <div dojoType="raster.MainAppLink"></div>
+        </div>
+        <div dojoType='dijit.layout.ContentPane' title='Step 2 - Define Area of Interest'>
+            <strong>Find an address</strong>
+            <div id='find-address'></div>
+            <br>
+            <strong>Or draw on the map</strong>
+            <div class="draw-toolbar" dojoType="dijit.Toolbar" dojoAttachPoint='dijitToolbar'>
+                <div dojoType="dijit.form.ToggleButton" iconClass="icon iconDrawPoint"
+                showLabel="false" value="POINT">
+                    Draw Point
+                </div>
+                <div dojoType="dijit.form.ToggleButton" iconClass="icon iconDrawLine"
+                showLabel="false" value="POLYLINE">
+                    Draw Line
+                </div>
+                <div dojoType="dijit.form.ToggleButton" iconClass="icon iconDrawLineFreehand"
+                showLabel="false" value="FREEHAND_POLYLINE">
+                    Draw Line (Freehand)
+                </div>
+                <div dojoType="dijit.form.ToggleButton" iconClass="icon iconDrawPolygon"
+                showLabel="false" value="POLYGON">
+                    Draw Polygon
+                </div>
+                <div dojoType="dijit.form.ToggleButton" iconClass="icon iconDrawPolygonFreehand"
+                showLabel="false" value="FREEHAND_POLYGON">
+                    Draw Polygon (Freehand)
+                </div>
+                <div dojoType='dijit.form.Button' iconClass='icon iconClear'
+                showLabel='false' dojoAttachPoint='clearAOIBtn'>
+                    Clear Drawings
+                </div>
+            </div>
+            You may use the tools above to draw your area of interest on the map.
+            <hr>
+            <div dojoAttachPoint="searchLoading" class='hidden'>Searching... <img src="images/ajax-loader.gif" alt="loading image"></div>
+            <div dojoAttachPoint='searchWarning' class='search-warning hidden'></div>
+        </div>
+        <div dojoType='dijit.layout.ContentPane' title='Step 3 - Results' dojoAttachPoint='resultsPane'>
+            <div class='results-pane-inner'>
+                <div class='btn-container hidden' dojoAttachPoint='clearBtnContainer'>
+                    <button dojoType='dijit.form.Button' dojoAttachPoint='clearPreviewBtn' class='btn'>Clear Preview</button>
+                </div>
+                <div dojoAttachPoint='0ResultsContainer' class='results-container hidden'>
+                    <div data-dojo-attach-point='0Results' data-dojo-type='raster.ResultGroup' data-dojo-props="'class': 'main-product-container', 'title': 'Aerial Photography', 'forceOpen': true"></div>
+                </div>
+                <div dojoAttachPoint='1ResultsContainer' class='results-container hidden'>
+                    <div data-dojo-attach-point='1Results' data-dojo-props="'title': 'Contours', 'class': 'main-product-container', 'forceOpen': true" data-dojo-type='raster.ResultGroup'></div>
+                </div>
+                <div dojoAttachPoint='2ResultsContainer' class='results-container hidden'>
+                    <div data-dojo-attach-point='2Results' data-dojo-props="'title': 'DEMs', 'class': 'main-product-container', 'forceOpen': true" data-dojo-type='raster.ResultGroup'></div>
+                </div>
+                <div dojoAttachPoint='3ResultsContainer' class='results-container hidden'>
+                    <div data-dojo-attach-point='3Results' data-dojo-props="'title': 'LiDAR', 'class': 'main-product-container', 'forceOpen': true" data-dojo-type='raster.ResultGroup'></div>
+                </div>
+                <div dojoAttachPoint='4ResultsContainer' class='results-container hidden'>
+                    <div data-dojo-attach-point='4Results' data-dojo-props="'title': 'USGS Topo Maps', 'class': 'main-product-container', 'forceOpen': true" data-dojo-type='raster.ResultGroup'></div>
+                </div>
+                <br>
+                <div dojoType="raster.MainAppLink"></div>
+                <div dojoAttachPoint='noResults'>No results yet. Please define a search above.</div>
+            </div>
+        </div>
+        <div dojoType='dijit.layout.ContentPane' title='Step 4 - Download Data' dojoAttachPoint='downloadPane'>
+            <div dojoAttachPoint='downloadDiv'></div>
+        </div>
+        <div dojoType='dijit.layout.ContentPane' title='Help | AGRC Image Server Info'>
+            <strong>Map Navigation</strong><br>
+            Drag the mouse to pan<br>
+            SHIFT + Drag the mouse to zoom in<br>
+            SHIFT + CTRL + Drag the mouse to zoom out<br>
+            Mouse Scroll Forward to zoom in<br>
+            Mouse Scroll Backward to zoom out<br>
+            <br>
+            <a href='http://gis.utah.gov/data/sgid-imagery-services/' target="_blank">Utah SGID Image Service Info</a>
+        </div>
+    </div>
+</div>

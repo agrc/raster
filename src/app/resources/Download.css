@@ -1,0 +1,8 @@
+@import 'Tile.css';
+
+.download .result-group .rasterTitlePaneContentInner {
+	padding-left: 21px;
+}
+.download .result-group .rasterTitlePaneTitle {
+    padding-left: 5px;
+}

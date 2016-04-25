@@ -1,0 +1,11 @@
+.raster-find-address .error-msg {
+    display: none;
+    color: red;
+    margin: 8px;
+}
+.raster-find-address .find-btn {
+    margin: 0;
+}
+.raster-find-address .label-cell-inner {
+	text-align: right;
+}

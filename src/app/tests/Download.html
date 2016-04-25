@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>raster.Download Tests</title>
+
+	<style type='text/css'>
+		@import 'http://serverapi.arcgisonline.com/jsapi/arcgis/2.8/js/dojo/dijit/themes/claro/claro.css';
+		@import '../../css/core.css';
+
+		#map-div {
+			width: 400px;
+			height: 400px;
+			border: solid 1px gray;
+		}
+		.panestack {
+			width: 329px;
+		}
+	</style>
+
+	<script src="../../js/globals.js" type="text/javascript" charset="utf-8"></script>
+	<script type='text/javascript'>
+		djConfig = {
+			isDebug: true,
+			debugAtAllCosts: true,
+			baseUrl: './',
+			modulePaths: {
+				raster: '../../raster',
+				agrc: '../../agrc',
+				ijit: '../../ijit',
+				doh: '../../doh'
+			}
+		}
+	</script>
+	<script src='http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.8' type="text/javascript" charset="utf-8"></script>
+
+	<script type='text/javascript'>
+		dojo.require('doh._browserRunner');
+		dojo.require('raster.Download');
+		dojo.require('agrc.widgets.map.BaseMap');
+
+		var rasterapp;
+		dojo.ready(function () {
+			// set up
+			var map = new agrc.widgets.map.BaseMap('map-div');
+			var lname = 'SGID10.INDICES.NAIP2011_4_Band_QQuads'
+			var graphic = new esri.Graphic(dojo.fromJson(dojo.cache('raster.tests.data', 'ProductResult_graphic.json')));
+			var drawingGeo = new esri.geometry.Polygon(dojo.fromJson(dojo.cache('raster.tests.data', 'AOI_geometry.json')));
+			var drawingLayer = {
+				graphics: [{geometry: drawingGeo}]
+			};
+			rasterapp = {
+				map: map
+			};
+
+			testWidget = new raster.Download({
+				drawingGraphicsLayer: drawingLayer
+			}, 'test-div');
+
+			testWidget.graphic = graphic;
+
+			dojo.connect(testWidget.layer, 'onLoad', function () {
+				doh.register('getLayerId', [{
+					name: 'successfully find layer',
+					runTest: function () {
+						var id = testWidget.getLayerId(lname);
+						doh.is(5, id);
+					}
+				}, {
+					name: 'throw error if no layer found',
+					runTest: function () {
+						doh.e(TypeError, testWidget, 'getLayerId', ['junky-junk']);
+					}
+				}
+				]);
+
+				doh.register('setGraphic', [{
+					name: 'set graphic',
+					runTest: function () {
+						testWidget.setGraphic(graphic);
+					}
+				}
+				]);
+
+				doh.run();
+			});
+		});
+	</script>
+</head>
+<body class='claro'>
+	<div id='map-div'></div>
+	<div class='panestack'>
+		<div id='test-div'></div>
+	</div>
+</body>
+</html>

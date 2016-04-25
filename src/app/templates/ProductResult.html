@@ -1,0 +1,32 @@
+
+<div class='dijitTitlePane'>
+	<div dojoAttachEvent="onclick:_onTitleClick, onkeypress:_onTitleKey" dojoAttachPoint="titleBarNode" class='rasterTitlePaneTitle'>
+		<div class="rasterTitlePaneTitleFocus" dojoAttachPoint="focusNode">
+		    <div class='btn-container'>
+		    	<button dojoAttachPoint='extentBtn' class='btn' dojoType='dijit.form.Button'>Extent</button>
+                <button dojoAttachPoint='previewBtn' class='btn hidden' dojoType='dijit.form.ToggleButton'>Preview</button>
+            </div>
+			<img src="${_blankGif}" alt="" dojoAttachPoint="arrowNode" class="dijitArrowNode" role="presentation"/>
+			<span dojoAttachPoint="arrowNodeInner" class="dijitArrowNodeInner"></span>
+			<span dojoAttachPoint="titleNode" class="dijitTitlePaneTextNode"></span>
+		</div>
+	</div>
+	<div dojoAttachPoint="hideNode" role="presentation">
+		<div class="dijitReset" dojoAttachPoint="wipeNode" role="presentation">
+			<div class="rasterTitlePaneContentInner" dojoAttachPoint="containerNode" role="region">
+				<!-- nested divs because wipeIn()/wipeOut() doesn't work right on node w/padding etc.  Put padding on inner div. -->
+
+			</div>
+		</div>
+	</div>
+	<div dojoAttachPoint='innerContent' class='inner-content'>
+		<div dojoAttachPoint='description'></div>
+		<div class='more-info-container'>
+			<a dojoAttachPoint='moreInfo' title='click for more info' href=''>more info</a>
+		</div>
+		<div class='btn-container-bottom'>
+			<a dojoAttachPoint='link' title='web page' href='to be populated in buildContent' target='_blank'>web page</a>
+			<button dojoAttachPoint='downloadBtn' class='btn' dojoType='dijit.form.Button'>Download</button>
+		</div>
+	</div>
+</div>

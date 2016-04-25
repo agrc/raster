@@ -1,0 +1,125 @@
+@import 'FindAddress.css';
+@import 'ProductResult.css';
+@import 'ResultGroup.css';
+@import 'Download.css';
+@import 'TilePopup.css';
+
+.raster-toolbox {
+    margin: -1px;
+    height: 100%;
+}
+.raster-toolbox .dijitTitlePaneContentInner {
+    padding: 10px !important;
+    height: 100%;
+}
+.raster-toolbox .dijitAccordionContainer {
+    height: 100%;
+}
+.dijitContentPane.dijitAccordionContainer-child {
+    overflow-x: hidden;
+}
+
+/* SELECT */
+label {
+    display: block;
+}
+.claro label .dijitCheckBox {
+    margin-top: -6px;
+}
+
+/* SEARCH */
+
+/* drawing toolbar */
+.raster-toolbox .draw-toolbar {
+    margin: 2px -10px 10px 1px;
+    border: solid 1px #B5BCC7;
+    width: 182px;
+}
+.raster-toolbox .draw-toolbar .icon {
+    background-repeat: no-repeat;
+    height: 18px;
+    width: 18px;
+    text-align: center;
+    background-image: url('images/drawSprite.png');
+    background-repeat: no-repeat;
+}
+.raster-toolbox .draw-toolbar .iconDrawPoint {
+    background-position: -1px -1px;
+}
+.raster-toolbox .draw-toolbar .iconDrawLine {
+    background-position: -19px -1px;
+}
+.raster-toolbox .draw-toolbar .iconDrawLineFreehand {
+    background-position: -36px -1px;
+}
+.raster-toolbox .draw-toolbar .iconDrawPolygon {
+    background-position: -54px -1px;
+}
+.raster-toolbox .draw-toolbar .iconDrawPolygonFreehand {
+    background-position: -71px -1px;
+}
+.raster-toolbox .draw-toolbar .iconClear {
+    background-position: -89px -1px;
+}
+.raster-toolbox .search-btn {
+    position: absolute;
+    left: 50%;
+    margin-left: -109px;
+}
+.raster-toolbox .search-btn-inner {
+    width: 200px;
+}
+.raster-toolbox .search-image {
+    float: right;
+    margin-top: 2px;
+}
+.raster-toolbox .search-btn-outter {
+    height: 35px;
+    position: relative;
+}
+.raster-toolbox .search-warning {
+    color: red;
+}
+
+/* RESULTS */
+.raster-toolbox .results-pane-inner {
+   /* max-height: 500px;
+    overflow-y: auto;*/
+    margin: -10px;
+    padding: 10px 5px;
+    position: relative;
+}
+.btn-container {
+    float: right;
+    margin-right: 2px;
+    margin-top: 1px;
+   z-index: 99;
+}
+.results-pane-inner > .btn-container {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.btn-container .btn {
+   font-size: 11px;
+   margin: 0;
+}
+.claro .results-pane-inner .btn .dijitButtonNode {
+    padding: 0px 1px 1px 1px;
+}
+.hidden {
+    display: none !important;
+}
+.results-container strong {
+    margin-top: 10px;
+    display: block;
+}
+.results-container {
+    position: relative;
+}
+.main-product-container {
+    font-weight: bold;
+}
+.main-product-container .rasterTitlePaneContentInner {
+    font-weight: normal;
+}
