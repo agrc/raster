@@ -1,0 +1,8 @@
+{
+    "name": "raster",
+    "version": "1.4.1",
+    "main": "main",
+    "description": "Raster App",
+    "homepage": "https://github.com/agrc/raster",
+    "dojoBuild": "app.profile.js"
+}

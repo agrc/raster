@@ -16,6 +16,7 @@ var profile = {
                 'dojo/has',
                 'app/run',
                 'app/App',
+                'app/packages',
                 'dojox/gfx/path',
                 'dojox/gfx/svg',
                 'dojox/gfx/shape'
