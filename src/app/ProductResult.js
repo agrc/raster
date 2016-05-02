@@ -1,342 +1,345 @@
-/*global dojo, console, dijit, rasterglobal, esri, raster, rasterapp, dojox*/
+define([
+    'app/config',
+    'app/_CaretCollapseMixin',
 
-// provide namespace
-dojo.provide("raster.ProductResult");
+    'dijit/_TemplatedMixin',
+    'dijit/_WidgetBase',
+    'dijit/_WidgetsInTemplateMixin',
 
-// other dojo requires
-dojo.require("dijit.TitlePane");
-dojo.require('dijit.form.ToggleButton');
-dojo.require('dijit.Dialog');
-dojo.require('dojo.string');
-dojo.require('raster.Toolbox');
-dojo.require('dojox.html.entities');
+    'dojo/dom-class',
+    'dojo/dom-construct',
+    'dojo/dom-style',
+    'dojo/query',
+    'dojo/string',
+    'dojo/text!app/html/MoreInfo_Aerials.html',
+    'dojo/text!app/html/MoreInfo_Contours.html',
+    'dojo/text!app/html/MoreInfo_DEMs.html',
+    'dojo/text!app/html/MoreInfo_LiDAR.html',
+    'dojo/text!app/html/MoreInfo_Topos.html',
+    'dojo/text!app/templates/ProductResult.html',
+    'dojo/topic',
+    'dojo/_base/declare',
+    'dojo/_base/lang',
 
-dojo.declare("raster.ProductResult", [dijit.TitlePane], {
-    // description:
-    //      Widget that displays info and functionality for a specific 
-    //      product.
-    
-    // widgetsInTemplate: [private] Boolean
-    //      Specific to dijit._Templated.
-    widgetsInTemplate: true,
-    
-    templateString: dojo.cache("raster", "templates/ProductResult.html"),
-    
-    // baseClass: [private] String
-    //    The css class that is applied to the base div of the widget markup
-    baseClass: "product-result",
-    
-    // buttonClick: Boolean
-    //      Used to prevent the pane from toggling when clicking on the extent
-    //      or preview buttons
-    buttonClick: false,
+    'dojox/html/entities',
 
-    // showPreviewChannelName: String
-    showPreviewChannelName: 'raster.ProductResult.onPreviewShow',
+    'esri/layers/ArcGISImageServiceLayer',
+    'esri/layers/ImageServiceParameters',
 
-    // hidePreviewChannelName: String
-    hidePreviewChannelName: 'raster.ProductResult.onPreviewHide',
+    'bootstrap'
+], function (
+    config,
+    _CaretCollapseMixin,
 
-    // downloadClickChannelName: String
-    downloadClickChannelName: 'raster.ProductResult.onDownloadClick',
+    _TemplatedMixin,
+    _WidgetBase,
+    _WidgetsInTemplateMixin,
 
-    // previewLyr: esri.layers.ArcGISImageServiceLayer
-    previewLyr: null,
-    
-    // moreInfoDialog: dijit.Dialog
-    moreInfoDialog: null,
+    domClass,
+    domConstruct,
+    domStyle,
+    query,
+    dojoString,
+    aerialsHTML,
+    contoursHTML,
+    demsHTML,
+    lidarHTML,
+    toposHTML,
+    template,
+    topic,
+    declare,
+    lang,
+
+    entities,
+
+    ArcGISImageServiceLayer,
+    ImageServiceParameters
+) {
+    return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _CaretCollapseMixin], {
+        // description:
+        //      Widget that displays info and functionality for a specific
+        //      product.
+
+        widgetsInTemplate: true,
+        templateString: template,
+
+        // baseClass: [private] String
+        //    The css class that is applied to the base div of the widget markup
+        baseClass: 'product-result panel panel-default',
+
+        // previewLyr: ArcGISImageServiceLayer
+        previewLyr: null,
+
+        // moreInfoDialog: dijit.Dialog
+        moreInfoDialog: null,
 
 
-    // Parameters to constructor
-    
-    // title: String
-    
-    // gLayer: esri.layers.GraphicsLayer
-    gLayer: null,
-    
-    // graphic: esri.Graphic
-    graphic: null,
+        // Parameters to constructor
 
-    // map: esri.Map
-    map: null,
+        // title: String
 
-    // extentLayerId: String
-    //      The id of the extent layer that this feature came from
-    //      Used to separate image service parameters in addLayer
-    extentLayerId: null,
-    
-    constructor: function(params, div) {
-        // summary:
-        //    Constructor method
-        // params: Object
-        //    Parameters to pass into the widget. Required values include:
-        // div: String|DomNode
-        //    A reference to the div that you want the widget to be created in.
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);      
-    },
-    postCreate: function() {
-        // summary:
-        //    Overrides method of same name in dijit._Widget.
-        // tags:
-        //    private
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-    
-        this._wireEvents();
-        
-        this.inherited(arguments);
-        
-        // doing it this way prevents the animation from happening
-        this.set('open', false);
+        // gLayer: GraphicsLayer
+        gLayer: null,
 
-        // show preview button
-        var rest = this.graphic.attributes[rasterglobal.fields.common.REST_Endpoint];
-        if (rest && rest !== 'n/a' && rest !== '' && rest !== 'Null') {
-            dojo.removeClass(this.previewBtn.domNode, 'hidden');
-        }
+        // graphic: esri.Graphic
+        graphic: null,
 
-        dojo.place(this.innerContent, this.containerNode);
+        // map: esri.Map
+        map: null,
 
-        this.buildContent();
-    },
-    buildContent: function () {
-        // summary:
-        //      description
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
+        // extentLayerId: String
+        //      The id of the extent layer that this feature came from
+        //      Used to separate image service parameters in addLayer
+        extentLayerId: null,
 
-        var htmlpage = this.graphic.attributes[rasterglobal.fields.common.HTML_Page];
-        var inhouse = this.graphic.attributes[rasterglobal.fields.common.In_House];
+        constructor: function () {
+            // summary:
+            //    Constructor method
+            // params: Object
+            //    Parameters to pass into the widget. Required values include:
+            // div: String|DomNode
+            //    A reference to the div that you want the widget to be created in.
+            console.log('app/ProductResult:constructor', arguments);
+        },
+        postCreate: function () {
+            // summary:
+            //    Overrides method of same name in dijit._Widget.
+            // tags:
+            //    private
+            console.log('app/ProductResult:postCreate', arguments);
 
-        this.description.innerHTML = this.graphic.attributes[rasterglobal.fields.common.Description];
+            this._wireEvents();
 
-        // web page link
-        if (htmlpage !== 'n/a' && htmlpage !== '') {
-            this.link.href = htmlpage;
-        } else {
-            dojo.destroy(this.link);
-        }
-
-        // download button
-        if (inhouse === 'No') {
-            this.downloadBtn.destroy();
-        }
-    },
-    _wireEvents: function() {
-        // summary:
-        //    Wires events.
-        // tags:
-        //    private
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-        
-        this.connect(this.previewBtn, 'onClick', this.onPreviewClick);
-        this.connect(this.domNode, 'onmouseenter', this.onMouseEnter);
-        this.connect(this.domNode, 'onmouseleave', this.onMouseLeave);
-        // hide this preview if another one is clicked
-        this.subscribe(this.showPreviewChannelName, this.hidePreview);
-        this.subscribe(raster.Toolbox.prototype.clearPreviewChannelName, this.hidePreview);
-        this.connect(this.downloadBtn, 'onClick', this.onDownloadClick);
-        this.connect(this.extentBtn, 'onClick', this.onExtentClick);
-        this.connect(this.moreInfo, 'onclick', this.onMoreInfoClick);
-    },
-    hidePreview: function (params) {
-        // summary:
-        //      description
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-    
-        if (!this.buttonClicked) {
-            this.previewBtn.set('checked', false);
-            if (this.previewLyr) {
-                this.previewLyr.hide();
+            // hide preview button
+            var rest = this.graphic.attributes[config.fields.common.REST_Endpoint];
+            if (!rest || rest === 'n/a' || rest === '' || rest === 'Null') {
+                domConstruct.destroy(this.previewBtnLabel);
             }
-        }
-    },
-    onPreviewClick: function(evt){
-        // summary:
-        //      description
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-        
-        this.preventToggle(evt);
+            this.buildContent();
 
-        var show = this.previewBtn.get('checked');
-
-        if (!this.previewLyr) {
-            this.addLayer();
-        } else {
-            this.previewLyr.setVisibility(show);
-        }
-
-        if (show) {
-            dojo.publish(this.showPreviewChannelName);
-        } else {
-            dojo.publish(this.hidePreviewChannelName);
-        }
-
-        // this is because _onTitleClick never fires in IE < 9 so 
-        // we manually have to set buttonClicked to false so that
-        // the next time hidePreview fires, the code will run correctly
-        if (dojo.isIE < 9) {
-            this.buttonClicked = false;
-        }
-    },
-    addLayer: function () {
-        // summary:
-        //      addes the image service layer to the map
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-        
-        var params = new esri.layers.ImageServiceParameters();
-        params.format = 'jpg';
-        if (this.extentLayerId === '0' || this.extentLayerId === '4') {
-            // aerials, drg's
-            params.bandIds = [0,1,2];
-        } else {
-            // hillshades
-            params.bandIds = [0];
-        }
-        params.interpolation = params.INTERPOLATION_BILINEAR;
-        var url = this.graphic.attributes[rasterglobal.fields.common.REST_Endpoint];
-        this.previewLyr = new esri.layers.ArcGISImageServiceLayer(url, {
-            imageServiceParameters: params,
-            id: 'preview' + (this.map.layerIds.length + 1)
-        });
-        this.map.addLayer(this.previewLyr, 1);
-        this.map.addLoaderToLayer(this.previewLyr);
-
-        // add event to toggle preview button when the layer is hidden via the clear preview button
-        this.connect(this.previewLyr, 'onVisibilityChange', function (visibility) {
-            if (!visibility) {
-                this.previewBtn.set('checked', false);
-            }
-        });
-    },
-    preventToggle: function(evt){
-        // summary:
-        //      Prevents the title pane from toggling
-        // evt: Event{}
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-
-        this.buttonClicked = true;
-        evt.stopPropagation();
-    },
-    _onTitleClick: function(evt){
-        // summary:
-        //      Overridden to check to see if a button was clicked.
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-        
-        if (!this.buttonClicked) {
             this.inherited(arguments);
-        } else {
-            this.buttonClicked = false;
-        }
-    },
-    onMouseEnter: function(){
-        // summary:
-        //      description
-        // console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-        
-        this.gLayer.add(this.graphic);
-    },
-    onMouseLeave: function(){
-        // summary:
-        //      description
-        // console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-        
-        this.gLayer.clear();
-    },
-    destroy: function () {
-        // summary:
-        //      description
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-        
-        if (this.previewLyr) {
-            this.map.removeLayer(this.previewLyr);
-        }
+        },
+        buildContent: function () {
+            // summary:
+            //      description
+            console.log('app/ProductResult:buildContent', arguments);
 
-        this.inherited(arguments);
-    },
-    onDownloadClick: function (evt) {
-        // summary:
-        //      description
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-        
-        dojo.publish(this.downloadClickChannelName, [this.graphic]);
-    },
-    onExtentClick: function (evt) {
-        // summary:
-        //      Fires when the user clicks the extent button.
-        //      Zooms the map to the extent of the graphic.
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-    
-        this.preventToggle(evt);
+            var htmlpage = this.graphic.attributes[config.fields.common.HTML_Page];
+            var inhouse = this.graphic.attributes[config.fields.common.In_House];
 
-        // zoom the correct map
-        if (dojo.style('map-div', 'display') === 'block') {
-            rasterapp.map.setExtent(this.graphic.geometry.getExtent(), true);
-        } else {
-            this.map.setExtent(this.graphic.geometry.getExtent(), true);
-        }
-    },
-    onMoreInfoClick: function (evt) {
-        // summary:
-        //        fires when the user clicks on the more info link
-        // evt: dojo normalized event
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-        
-        var template;
+            this.description.innerHTML = this.graphic.attributes[config.fields.common.Description];
 
-        evt.preventDefault();
+            // web page link
+            if (htmlpage !== 'n/a' && htmlpage !== '') {
+                this.link.href = htmlpage;
+            } else {
+                domConstruct.destroy(this.link);
+            }
 
-        // I realize this could be written using a simple look up object, but then
-        // the build system wouldn't know where to get the cache string, so lay off man!
-        switch(this.graphic.attributes.layerId) {
-            case 0:
-                template = dojo.cache(dojo.moduleUrl('raster', 'html/MoreInfo_Aerials.html'));
-                break;
-            case 1:
-                template = dojo.cache(dojo.moduleUrl('raster', 'html/MoreInfo_Contours.html'));
-                break;
-            case 2:
-                template = dojo.cache(dojo.moduleUrl('raster', 'html/MoreInfo_DEMs.html'));
-                break;
-            case 3:
-                template = dojo.cache(dojo.moduleUrl('raster', 'html/MoreInfo_LiDAR.html'));
-                break;
-            case 4:
-                template = dojo.cache(dojo.moduleUrl('raster', 'html/MoreInfo_Topos.html'));
-                break;
-        }
+            // download button
+            if (inhouse === 'No') {
+                domConstruct.destroy(this.downloadBtn);
+            }
+        },
+        _wireEvents: function () {
+            // summary:
+            //    Wires events.
+            // tags:
+            //    private
+            console.log('app/ProductResult:_wireEvents', arguments);
 
-        if (!template) {
-            throw TypeError('No template found for: ' + this.graphic.layerId);
-        }
+            this.connect(this.domNode, 'onmouseenter', this.onMouseEnter);
+            this.connect(this.domNode, 'onmouseleave', this.onMouseLeave);
 
-        // encode attribute values
-        for (var att in this.graphic.attributes) {
-            var v = this.graphic.attributes[att];
-            if (this.graphic.attributes.hasOwnProperty(att) && typeof v === 'string')
-            this.graphic.attributes[att] = dojox.html.entities.encode(v);
-        }
+            // hide this preview if another one is clicked
+            topic.subscribe(config.topics.showPreview, lang.hitch(this, 'hidePreview'));
+            topic.subscribe(config.topics.clearPreview, lang.hitch(this, 'hidePreview'));
+        },
+        hidePreview: function (widget) {
+            // summary:
+            //      description
+            console.log('app/ProductResult:hidePreview', arguments);
 
-        if (!this.moreInfoDialog) {
-            this.moreInfoDialog = new dijit.Dialog({
-                title: "More Information",
-                content: dojo.string.substitute(template, this.graphic.attributes)
+            if (this !== widget) {
+                this.previewBtn.checked = false;
+                domClass.remove(this.previewBtnLabel, 'active');
+                if (this.previewLyr) {
+                    this.previewLyr.hide();
+                }
+            }
+        },
+        onPreviewClick: function (evt) {
+            // summary:
+            //      description
+            console.log('app/ProductResult:onPreviewClick', arguments);
+
+            this.previewBtn.checked = !this.previewBtn.checked;
+            var show = this.previewBtn.checked;
+            console.debug('show', show);
+
+            domClass.toggle(this.previewBtnLabel, 'active', show);
+
+            if (!this.previewLyr) {
+                this.addLayer();
+            } else {
+                this.previewLyr.setVisibility(show);
+            }
+
+            if (show) {
+                topic.publish(config.topics.showPreview, this);
+            } else {
+                topic.publish(config.topics.hidePreview);
+            }
+
+            this.preventToggle(evt);
+        },
+        preventToggle: function (evt) {
+            // summary:
+            //      prevent the panel from toggling collapsed state
+            // evt: Mouse Click Event
+            console.log('app/ProductResult:preventToggle', arguments);
+
+            evt.stopPropagation();
+            evt.preventDefault();
+        },
+        addLayer: function () {
+            // summary:
+            //      addes the image service layer to the map
+            console.log('app/ProductResult:addLayer', arguments);
+
+            var params = new ImageServiceParameters();
+            params.format = 'jpg';
+            if (this.extentLayerId === '0' || this.extentLayerId === '4') {
+                // aerials, drg's
+                params.bandIds = [0,1,2];
+            } else {
+                // hillshades
+                params.bandIds = [0];
+            }
+            params.interpolation = params.INTERPOLATION_BILINEAR;
+            var url = this.graphic.attributes[config.fields.common.REST_Endpoint];
+            this.previewLyr = new ArcGISImageServiceLayer(url, {
+                imageServiceParameters: params,
+                id: 'preview' + (this.previewMap.layerIds.length + 1)
             });
-        }
+            this.previewMap.addLayer(this.previewLyr, 1);
+            this.previewMap.addLoaderToLayer(this.previewLyr);
 
-        // hide layer file link if there is no data
-        var lfile = this.graphic.attributes[rasterglobal.fields.common.LYR_File];
-        var links = dojo.query('.layer-file-link');
-        if (lfile === 'n/a' || lfile === '' || !lfile) {
-            links.style('display', 'none');
-        } else {
-            links.style('display', 'table-row');
+            // add event to toggle preview button when the layer is hidden via the clear preview button
+            this.connect(this.previewLyr, 'onVisibilityChange', function (visibility) {
+                if (!visibility) {
+                    this.previewBtn.checked = false;
+                    domClass.remove(this.previewBtnLabel, 'active');
+                }
+            });
+        },
+        onMouseEnter: function () {
+            // summary:
+            //      description
+            console.log('app/ProductResult:onMouseEnter', arguments);
+
+            this.gLayer.add(this.graphic);
+        },
+        onMouseLeave: function () {
+            // summary:
+            //      description
+            console.log('app/ProductResult:onMouseLeave', arguments);
+
+            this.gLayer.clear();
+        },
+        destroy: function () {
+            // summary:
+            //      description
+            console.log('app/ProductResult:destroy', arguments);
+
+            if (this.previewLyr) {
+                this.previewMap.removeLayer(this.previewLyr);
+            }
+
+            this.inherited(arguments);
+        },
+        onDownloadClick: function () {
+            // summary:
+            //      description
+            console.log('app/ProductResult:onDownloadClick', arguments);
+
+            topic.publish(config.topics.downloadClick, this.graphic);
+        },
+        onExtentClick: function (evt) {
+            // summary:
+            //      Fires when the user clicks the extent button.
+            //      Zooms the map to the extent of the graphic.
+            console.log('app/ProductResult:onExtentClick', arguments);
+
+            this.preventToggle(evt);
+
+            // zoom the correct map
+            if (domStyle.get('map-div', 'display') !== 'block') {
+                this.previewMap.setExtent(this.graphic.geometry.getExtent(), true);
+            } else {
+                this.map.setExtent(this.graphic.geometry.getExtent(), true);
+            }
+        },
+        onMoreInfoClick: function (evt) {
+            // summary:
+            //        fires when the user clicks on the more info link
+            // evt: dojo normalized event
+            console.log('app/ProductResult:onMoreInfoClick', arguments);
+
+            var template;
+
+            evt.preventDefault();
+
+            // I realize this could be written using a simple look up object, but then
+            // the build system wouldn't know where to get the cache string, so lay off man!
+            switch (this.graphic.attributes.layerId) {
+                case 0:
+                    template = aerialsHTML;
+                    break;
+                case 1:
+                    template = contoursHTML;
+                    break;
+                case 2:
+                    template = demsHTML;
+                    break;
+                case 3:
+                    template = lidarHTML;
+                    break;
+                case 4:
+                    template = toposHTML;
+                    break;
+            }
+
+            if (!template) {
+                throw new TypeError('No template found for: ' + this.graphic.layerId);
+            }
+
+            // encode attribute values
+            for (var att in this.graphic.attributes) {
+                if (this.graphic.attributes.hasOwnProperty(att)) {
+                    var v = this.graphic.attributes[att];
+                    if (this.graphic.attributes.hasOwnProperty(att) && typeof v === 'string') {
+                        this.graphic.attributes[att] = entities.encode(v);
+                    }
+                }
+            }
+
+            this.modalContent.innerHTML = dojoString.substitute(template, this.graphic.attributes);
+
+            if (!this.modalInitialized) {
+                $(this.modal).modal();
+            } else {
+                $(this.modal).modal('show');
+            }
+
+            // hide layer file link if there is no data
+            var lfile = this.graphic.attributes[config.fields.common.LYR_File];
+            var links = query('.layer-file-link');
+            if (lfile === 'n/a' || lfile === '' || !lfile) {
+                links.style('display', 'none');
+            } else {
+                links.style('display', 'table-row');
+            }
         }
-        this.moreInfoDialog.show();
-    },
-    resize: function () {
-        // summary:
-        //      description
-        // console.log(this.declaredClass + "::" + arguments.callee.nom, arguments);
-    
-        // do nothing! It's parent is a fixed size.
-    }
+    });
 });

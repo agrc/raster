@@ -1,11 +1,10 @@
 <div>
-    <span dojoAttachPoint='nothingMessage'>${nothingMessageTxt}</span>
-	<strong dojoAttachPoint='titleSpan' class='hidden'></strong>
-	<div dojoAttachPoint='tilesContainerContainer' class='hidden'>
-        <p dojoAttachPoint='noteTxt'></p>
+    <span data-dojo-attach-point='nothingMessage'>${nothingMessageTxt}</span>
+    <strong data-dojo-attach-point='titleSpan' class='hidden'>${title}</strong>
+    <div data-dojo-attach-point='tilesContainerContainer' class='hidden'>
+        <p data-dojo-attach-point='noteTxt'></p>
         <span>Click on a tile on the map or in the list below to download it's associated files.</span>
         <span>${rightClickTxt}</span>
-		<div dojoAttachPoint='tilesContainer'></div>		
-	</div>
-	<!-- <button dojoAttachPoint='downloadAllBtn' dojoType='dijit.form.Button' class='btn hidden' disabled>Download all tiles</button> -->
+        <div data-dojo-attach-point='tilesContainer'></div>
+    </div>
 </div>

@@ -57,7 +57,7 @@
         "Category": "2 Meter",
         "Estimated_Date": "10/1/2006",
         "HTML_Page": "http://gis.utah.gov/data/elevation-terrain-data/2-meter-contours-salt-lake-county-only/",
-        "REST_Endpoint": "blah",
+        "REST_Endpoint": "n/a",
         "LYR_File": "n/a",
         "FlightDate_Location": "n/a",
         "Tile_Index": "SGID10.INDICES.Contours_2meter_SLCo",

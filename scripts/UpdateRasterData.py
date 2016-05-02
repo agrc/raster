@@ -5,19 +5,17 @@
 # 8-23-11
 # stdavis@utah.gov
 
-# Updated 4-17-2013
-
 import arcpy, os
 from agrc import logging
 from agrc import update
-from agrc import email
+from agrc import messaging
 
-fgdb = r'\\<server>\ArcGISServer\data\Raster\Raster.gdb'
-sde = r'C:\PythonScripts\DatabaseConnections\DC_Indices@SGID10@gdb10.agrc.utah.gov.sde'
+fgdb = r'C:\MapData\Raster\Raster.gdb'
+sde = r'SGID10 as INDICES.sde'
 errors = []
 
 logger = logging.Logger()
-emailer = email.Emailer('stdavis@utah.gov')
+emailer = messaging.Emailer('stdavis@utah.gov')
 
 class Runner(object):
     def run(self):

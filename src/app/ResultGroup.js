@@ -1,53 +1,55 @@
-/*global dojo, raster, dijit, console*/
+define([
+    'app/_CaretCollapseMixin',
 
-// provide namespace
-dojo.provide('raster.ResultGroup');
+    'dijit/_TemplatedMixin',
+    'dijit/_WidgetBase',
 
-dojo.require('dijit.TitlePane');
+    'dojo/text!app/templates/ResultGroup.html',
+    'dojo/_base/declare'
+], function (
+    _CaretCollapseMixin,
 
-dojo.declare('raster.ResultGroup', [dijit.TitlePane], {
-    // description:
-    
-    // widgetsInTemplate: [private] Boolean
-    //      Specific to dijit._Templated.
-    widgetsInTemplate: true,
-    
-    // templateString: [private] String
-    //      Template string. See dijit._Templated
-    templateString: dojo.cache('raster', 'templates/ResultGroup.html'),
-    
-    // baseClass: [private] String
-    //    The css class that is applied to the base div of the widget markup
-    baseClass: 'result-group',
+    _TemplatedMixin,
+    _WidgetBase,
 
-    // forceOpen: Boolean
-    //      Force the dialog to be open by default
-    forceOpen: null,
-    
+    template,
+    declare
+) {
+    return declare([_WidgetBase, _TemplatedMixin, _CaretCollapseMixin], {
+        // description:
 
-    // Parameters to constructor
-    
-    constructor: function(params, div) {
-        // summary:
-        //    Constructor method
-        // params: Object
-        //    Parameters to pass into the widget. Required values include:
-        // div: String|DomNode
-        //    A reference to the div that you want the widget to be created in.
-        console.info(this.declaredClass + '::' + arguments.callee.nom, arguments);
-    },
-    postCreate: function() {
-        // summary:
-        //    Overrides method of same name in dijit._Widget.
-        // tags:
-        //    private
-        console.info(this.declaredClass + '::' + arguments.callee.nom, arguments);
+        templateString: template,
+        baseClass: 'result-group',
 
-        // for to be closed
-        if (!this.forceOpen) {
-            this.set('open', false);
+        // forceOpen: Boolean
+        //      Force the dialog to be open by default
+        forceOpen: null,
+
+
+        // Parameters to constructor
+
+        constructor: function () {
+            // summary:
+            //    Constructor method
+            // params: Object
+            //    Parameters to pass into the widget. Required values include:
+            // div: String|DomNode
+            //    A reference to the div that you want the widget to be created in.
+            console.log('app/ResultGroup:constructor', arguments);
+        },
+        postCreate: function () {
+            // summary:
+            //    Overrides method of same name in dijit._Widget.
+            // tags:
+            //    private
+            console.log('app/ResultGroup:postCreate', arguments);
+
+            this.inherited(arguments);
+
+            // for to be closed
+            if (this.forceOpen) {
+                $(this.collapsible).collapse('show');
+            }
         }
-
-        this.inherited(arguments);
-    }
+    });
 });

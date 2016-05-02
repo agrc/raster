@@ -1,31 +1,8 @@
-@import 'FindAddress.css';
+@import '../../agrc/resources/locate/FindAddress.css';
 @import 'ProductResult.css';
 @import 'ResultGroup.css';
 @import 'Download.css';
 @import 'TilePopup.css';
-
-.raster-toolbox {
-    margin: -1px;
-    height: 100%;
-}
-.raster-toolbox .dijitTitlePaneContentInner {
-    padding: 10px !important;
-    height: 100%;
-}
-.raster-toolbox .dijitAccordionContainer {
-    height: 100%;
-}
-.dijitContentPane.dijitAccordionContainer-child {
-    overflow-x: hidden;
-}
-
-/* SELECT */
-label {
-    display: block;
-}
-.claro label .dijitCheckBox {
-    margin-top: -6px;
-}
 
 /* SEARCH */
 
@@ -37,7 +14,7 @@ label {
 }
 .raster-toolbox .draw-toolbar .icon {
     background-repeat: no-repeat;
-    height: 18px;
+    height: 17px;
     width: 18px;
     text-align: center;
     background-image: url('images/drawSprite.png');
@@ -82,44 +59,16 @@ label {
 }
 
 /* RESULTS */
-.raster-toolbox .results-pane-inner {
-   /* max-height: 500px;
-    overflow-y: auto;*/
-    margin: -10px;
-    padding: 10px 5px;
+#step3>.panel-body
     position: relative;
-}
-.btn-container {
-    float: right;
-    margin-right: 2px;
-    margin-top: 1px;
-   z-index: 99;
-}
-.results-pane-inner > .btn-container {
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-.btn-container .btn {
-   font-size: 11px;
-   margin: 0;
-}
-.claro .results-pane-inner .btn .dijitButtonNode {
-    padding: 0px 1px 1px 1px;
-}
-.hidden {
-    display: none !important;
-}
-.results-container strong {
-    margin-top: 10px;
-    display: block;
-}
-.results-container {
+    [data-dojo-attach-point='clearPreviewBtn']
+        position: absolute
+        top: 5px
+        right: 5px
+        z-index: 1
+.results-container
     position: relative;
-}
-.main-product-container {
-    font-weight: bold;
-}
-.main-product-container .rasterTitlePaneContentInner {
-    font-weight: normal;
-}
+    .result-group
+        &, .product-result
+            margin-top: 0
+            margin-bottom: 1px

@@ -1,59 +1,44 @@
 <!DOCTYPE html>
 <html>
-	<head>
+    <head>
         <title>AGRC Raster Data Discovery</title>
 
         <!-- META TAGS -->
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
         <meta name="description" content="We should do some SEO" />
         <meta name="keywords" content="Comma, Separated List"/>
-        <link rel="shortcut icon" href="content/images/favicon.png" type="image/png" />
-		
-		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="css/core.css" />
-		<link rel="stylesheet" type="text/css" href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.8/js/dojo/dijit/themes/claro/claro.css">
-		
-		<!-- JAVASCRIPT -->
-		<script type="text/javascript" src='js/globals.js'></script>
-		<script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.8"></script>
-		<!-- <script type="text/javascript" src="content/nls/PROJECTNAMELyr_en-us.js"></script>
-		<script type="text/javascript" src="content/PROJECTNAMELyr.js"></script> -->
-		<script type="text/javascript" src="js/core.js"></script> <!-- remove this for build -->
-		
-		<!-- GOOGLE ANALYTICS -->
-		<script type="text/javascript">
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', 'UA-11849964-44']);
-			_gaq.push(['_trackPageview']);
+        <link rel="shortcut icon" href="resources/images/favicon.png" type="image/png" />
 
-			(function() {
-				var ga = document.createElement('script');
-				ga.type = 'text/javascript';
-				ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0];
-				s.parentNode.insertBefore(ga, s);
-			})();
-		</script>
-	</head>
-	<body class="claro">
-	    <div id='loading-overlay'>Loading Application...<img src="images/ajax-loader.gif"></div>
-	    <!-- <div id='toolbox-pane' dojoType='dijit.TitlePane' title='Toolbox'>
-            
-        </div> -->
-        <div id='main-container' dojoType='dijit.layout.BorderContainer'>
-            <div id='title-pane' dojoType='dijit.layout.ContentPane' region='top'>
-                <h1><span id='title'>AGRC Raster Data Discovery</span> 
-                	<a id='version' href='ChangeLog.html' target="_blank"></a>
-                </h1>
-            </div>
-            <div dojoattachpoint='sideBar' class='side-bar' dojotype='dijit.layout.ContentPane' region='left'>
-                <div id='raster-toolbox'></div>
-            </div>
-            <div id='maps-container' dojoType='dijit.layout.ContentPane' region='center'>
-                <div id='map-div'></div>
-                <div id='preview-map-div'></div>
-            </div>
-        </div>
-	</body>
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="app/resources/App.css" />
+    </head>
+    <body>
+        <div data-dojo-type='app/App'></div>
+
+        <!-- build:template
+        <script data-dojo-config="deps:['app/packages', 'app/run']" src='dojo/dojo.js'></script>
+        /build -->
+
+        <!-- build:remove -->
+        <script data-dojo-config="isDebug: 1" src='dojo/dojo.js'></script>
+        <script src='app/packages.js'></script>
+        <script src='app/run.js'></script>
+        <!-- /build -->
+
+        <!-- GOOGLE ANALYTICS -->
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-11849964-44']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </body>
 </html>

@@ -26,15 +26,15 @@
 	<script type='text/javascript'>
 		dojo.require("doh._browserRunner");
 		dojo.require("doh._browserRunner");
-		dojo.require('raster.FindAddress');
+		dojo.require('app/FindAddress');
 
 		dojo.ready(function () {
 			doh.register('FindAddress Widget Tests', [
 				{
 					name: 'widget creation',
 					runTest: function () {
-						var fa = new raster.FindAddress();
-						doh.t(fa instanceof dijit._Widget);
+						var fa = new app/FindAddress();
+						doh.t(fa instanceof dijit/_Widget);
 					}
 				}
 			]);

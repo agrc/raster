@@ -1,0 +1,33 @@
+{
+  "name": "raster",
+  "version": "1.4.1",
+  "description": "Raster Discovery App",
+  "main": "src/index.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agrc/raster.git"
+  },
+  "author": "Scott Davis <stdavis@utah.gov>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agrc/raster/issues"
+  },
+  "homepage": "https://github.com/agrc/raster#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-bump": "^0.8.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-compress": "^1.2.0",
+    "grunt-contrib-connect": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-imagemin": "^1.0.0",
+    "grunt-contrib-stylus": "^1.2.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-dojo": "^1.1.1",
+    "grunt-eslint": "^18.1.0",
+    "grunt-newer": "^1.2.0",
+    "grunt-processhtml": "^0.3.13",
+    "grunt-ssh": "^0.12.9",
+    "load-grunt-tasks": "^3.5.0"
+  }
+}

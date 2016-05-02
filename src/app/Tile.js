@@ -1,68 +1,71 @@
-/*global dojo, dijit, raster, console, rasterglobal, window, rasterapp*/
+define([
+    'app/_BuildTileFileLinksMixin',
 
-// provide namespace
-dojo.provide('raster.Tile');
+    'dijit/_TemplatedMixin',
+    'dijit/_WidgetBase',
 
-dojo.require('dijit._Widget');
-dojo.require('dijit._Templated');
-dojo.require('raster._BuildTileFileLinksMixin');
+    'dojo/text!app/templates/Tile.html',
+    'dojo/_base/declare'
+], function (
+    _BuildTileFileLinksMixin,
 
-dojo.declare('raster.Tile', [dijit._Widget, dijit._Templated, raster._BuildTileFileLinksMixin], {
-    // description:
+    _TemplatedMixin,
+    _WidgetBase,
 
-    // widgetsInTemplate: [private] Boolean
-    //      Specific to dijit._Templated.
-    widgetsInTemplate: true,
-    
-    // templatePath: [private] String
-    //      Path to template. See dijit._Templated
-    templatePath: dojo.moduleUrl('raster', 'templates/Tile.html'),
-    
-    // baseClass: [private] String
-    //    The css class that is applied to the base div of the widget markup
-    baseClass: 'tile-widget',
-    
+    template,
+    declare
+) {
+    return declare([_WidgetBase, _TemplatedMixin, _BuildTileFileLinksMixin], {
+        // description:
 
-    // Parameters to constructor
+        templateString: template,
 
-    // graphic: esri.Graphic
-    graphic: null,
+        // baseClass: [private] String
+        //    The css class that is applied to the base div of the widget markup
+        baseClass: 'tile-widget',
 
-    // graphicsLayer: esri.layers.GraphicsLayer
-    graphicsLayer: null,
 
-    constructor: function(params, div) {
-        // summary:
-        //    Constructor method
-        // params: Object
-        //    Parameters to pass into the widget. Required values include:
-        // div: String|DomNode
-        //    A reference to the div that you want the widget to be created in.
-        console.info(this.declaredClass + '::' + arguments.callee.nom, arguments);
-    },
-    postCreate: function() {
-        // summary:
-        //    Overrides method of same name in dijit._Widget.
-        // tags:
-        //    private
-        console.info(this.declaredClass + '::' + arguments.callee.nom, arguments);
+        // Parameters to constructor
 
-        this.buildFileLinks();
+        // graphic: esri.Graphic
+        graphic: null,
 
-        this.wireEvents();
-    },
-    wireEvents: function () {
-        // summary:
-        //      sets up the events for this widget
-        console.info(this.declaredClass + "::" + arguments.callee.nom, arguments);
-    
-        // set up events to show tile on map on hover
-        this.connect(this.domNode, 'onmouseenter', function () {
-            this.graphicsLayer.clear();
-            this.graphicsLayer.add(this.graphic);
-        });
-        this.connect(this.domNode, 'onmouseleave', function () {
-            this.graphicsLayer.clear();
-        });
-    }
+        // graphicsLayer: GraphicsLayer
+        graphicsLayer: null,
+
+        constructor: function () {
+            // summary:
+            //    Constructor method
+            // params: Object
+            //    Parameters to pass into the widget. Required values include:
+            // div: String|DomNode
+            //    A reference to the div that you want the widget to be created in.
+            console.log('app/Tile:constructor', arguments);
+        },
+        postCreate: function () {
+            // summary:
+            //    Overrides method of same name in dijit._Widget.
+            // tags:
+            //    private
+            console.log('app/Tile:postCreate', arguments);
+
+            this.buildFileLinks();
+
+            this.wireEvents();
+        },
+        wireEvents: function () {
+            // summary:
+            //      sets up the events for this widget
+            console.log('app/Tile:wireEvents', arguments);
+
+            // set up events to show tile on map on hover
+            this.connect(this.domNode, 'onmouseenter', function () {
+                this.graphicsLayer.clear();
+                this.graphicsLayer.add(this.graphic);
+            });
+            this.connect(this.domNode, 'onmouseleave', function () {
+                this.graphicsLayer.clear();
+            });
+        }
+    });
 });

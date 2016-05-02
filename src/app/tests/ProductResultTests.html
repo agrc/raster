@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>app/ProductResult Widget Tests</title>
+
+    <!-- CSS -->
+    <style type='text/css'>
+        @import '../resources/App.css';
+
+        #map-div, #map-div2 {
+            width: 400px;
+            height: 400px;
+            border: solid 1px gray;
+        }
+        #map-div2 {
+            float: right;
+        }
+        .panestack {
+            width: 329px;
+        }
+    </style>
+
+    <!-- JAVASCRIPT -->
+    <script type='text/javascript' src='../../dojo/dojo.js'></script>
+    <script type='text/javascript' src='../../jquery/dist/jquery.js'></script>
+    <script type='text/javascript' src='../packages.js'></script>
+    <script type='text/javascript'>
+        require({baseUrl: '../../'}, [
+            'app/ProductResult',
+
+            'agrc/widgets/map/BaseMap',
+
+            'esri/graphic',
+
+            'dojo/text!app/tests/data/ProductResult_graphic.json',
+            'dojo/text!app/tests/data/ProductResult_graphic2.json',
+            'dojo/domReady!'
+        ], function (
+            ProductResult,
+
+            BaseMap,
+
+            Graphic,
+
+            resultGraphicTxt,
+            resultGraphicTxt2
+        ) {
+            var testWidget;
+            var graphic;
+            var symbol;
+
+            var map = new BaseMap('map-div');
+            var previewMap = new BaseMap('map-div2');
+            map.on('load', function () {
+                testWidget = new ProductResult({
+                    gLayer: map.graphics,
+                    graphic: new Graphic(JSON.parse(resultGraphicTxt)),
+                    showPreview: true,
+                    map: map,
+                    previewMap: previewMap,
+                    title: 'testWidget very, very, very, very, very long'
+                }, 'test-div');
+                var testWidget2 = new ProductResult({
+                    gLayer: map.graphics,
+                    graphic: new Graphic(JSON.parse(resultGraphicTxt2)),
+                    showPreview: true,
+                    map: map,
+                    previewMap: previewMap,
+                    title: 'testWidget2'
+                }, 'test-div2');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class='panestack results-pane-inner'>
+        <div id='test-div'></div>
+        <div id='test-div2'></div>
+    </div>
+    <div id='map-div'></div>
+    <div id='map-div2'></div>
+</body>
+</html>

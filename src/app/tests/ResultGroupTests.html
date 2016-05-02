@@ -1,0 +1,70 @@
+<html>
+<head>
+    <title>app/ResultGroup Widget Tests</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../resources/App.css">
+    <style type='text/css'>
+        #map-div {
+            width: 400px;
+            height: 400px;
+            border: solid 1px gray;
+        }
+        .panestack {
+            width: 329px;
+        }
+    </style>
+
+    <!-- JAVASCRIPT -->
+    <script type='text/javascript' src='../../dojo/dojo.js'></script>
+    <script type='text/javascript' src='../../jquery/dist/jquery.js'></script>
+    <script type='text/javascript' src='../packages.js'></script>
+    <script type='text/javascript'>
+        require({baseUrl: '../../'}, [
+            'app/ResultGroup',
+            'app/ProductResult',
+
+            'esri/graphic',
+
+            'dojo/dom-construct',
+
+            'dojo/text!app/tests/data/ProductResult_graphic.json',
+            'dojo/domReady!'
+        ], function (
+            ResultGroup,
+            ProductResult,
+
+            Graphic,
+
+            domConstruct,
+            resultGraphicTxt
+        ) {
+            var group = new ResultGroup({
+                title: 'Title of Result Group',
+                forceOpen: true
+            }, 'test-div');
+            group.startup();
+
+            new ProductResult({
+                title: 'Product Title',
+                gLayer: {},
+                graphic: new Graphic(JSON.parse(resultGraphicTxt)),
+                map: {},
+                extentLayerId: 1
+            }, domConstruct.create('div', null, group.collapsible));
+            new ProductResult({
+                title: 'Product Title 2',
+                gLayer: {},
+                graphic: new Graphic(JSON.parse(resultGraphicTxt)),
+                map: {},
+                extentLayerId: 1
+            }, domConstruct.create('div', null, group.collapsible));
+        });
+    </script>
+</head>
+<body>
+    <div class='panestack results-pane-inner'>
+        <div id='test-div'></div>
+    </div>
+</body>
+</html>
