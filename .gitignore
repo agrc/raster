@@ -1,5 +1,7 @@
 .DS_Store
 *.sde
+deploy/
+dist/
 node_modules/
 scripts/agrc*
 scripts/Logs/

@@ -8,6 +8,7 @@ require({
         'dojox',
         'esri',
         'layer-selector',
+        'moment',
         'put-selector',
         'xstyle',
         {
