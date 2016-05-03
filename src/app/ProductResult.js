@@ -331,15 +331,6 @@ define([
             } else {
                 $(this.modal).modal('show');
             }
-
-            // hide layer file link if there is no data
-            var lfile = this.graphic.attributes[config.fields.common.LYR_File];
-            var links = query('.layer-file-link');
-            if (lfile === 'n/a' || lfile === '' || !lfile) {
-                links.style('display', 'none');
-            } else {
-                links.style('display', 'table-row');
-            }
         }
     });
 });
