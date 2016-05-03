@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Raster App Changelog</title>
+    <title>Raster App Changelog</title>
 
-	<!-- CSS -->
-	<link rel="stylesheet" href="css/changelog.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.min.css"/>
+    <style type="text/css">
+        body {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-	<h1>Raster App Changelog</h1>
+    <h1>Raster App Changelog</h1>
+    <a href="./" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span> Back to the app</a>
+    <a href="https://github.com/agrc/raster/issues?state=open" class="btn btn-default">Open Issues</a>
+    <h2>2.0.0-0 <small>May 3, 2016</small></h2>
+    <ul>
+        <li>Upgraded all dependencies including Dojo & ESRI JS API.</li>
+        <li>Ported most layouts from Dijit to Bootstrap.</li>
+        <li>Upgraded project to latest boilerplate (<a href='https://github.com/agrc/raster/issues/6'>#6</a>).</li>
+    </ul>
     <h2>1.4.1 <small>Aug 5, 2013</small></h2>
     <ul>
         <li>Fixed bug that was showing extra results when using cat or catGroup url parameters. Ref <a href="https://redmine.dts.utah.gov/issues/24822">#24833</a>.</li>
@@ -34,13 +46,15 @@
         <li>Added the back and full extent buttons to the preview map.</li>
         <li>Added a disclaimer to the Download pane for Auto-Correlated DEM products only.</li>
         <li>Moved the toolbox to a sidebar layout.</li>
+    </ul>
     <h2>1.1.1 <small>Aug 2, 2012</small></h2>
     <ul>
         <li>Fixed bug that caused "Getting tiles..." message to show up incorrectly in the Download pane.</li>
         <li>All download links open in new tabs to prevent loss of the application in the current tab.</li>
         <li>Switched backend map service to use the new SHOW field instead of searching for 'n/a' values for *_Extents feature classes.</li>
         <li>Shrunk the toolbox window height by 50 pixels to hopefully prevent scrolling issues.</li>
-        <li>Change the query for tiles to download to use the intersection of the area of interest and the extent feature instead of just the area of interest alone. This fixed a few bugs including incorrect FTP paths and to many tiles showing in download tab.</li>
+        <li>Change the query for tiles to download to use the intersection of the area of interest and the extent feature instead of just the area of interest alone. This fixed a few bugs including incorrect FTP paths and to many tiles showing in download
+            tab.</li>
         <li>Changed the link to download tiles in the map popup from "Image Tile" to "Tile" to eliminate confusion with non-aerial photography tiles.</li>
         <li>Added "Flight Date Location" to the more info box for aerial photography products.</li>
         <li>Removed "Resolution" from Topo more info box and added "Year" to LiDAR more info box.</li>
@@ -60,6 +74,7 @@
         <li>Fixed a bug that was causing the "No data found" text to show up even if there were results found.</li>
         <li>Added a filter to remove {}'s in categories passed in via the url.</li>
         <li>Clear drawings button now disables any drawing tools that are activated.</li>
+    </ul>
     <h2>1.0.0 <small>Jul 17, 2012</small></h2>
     <ul>
         <li>Added a link to the associated layer file for products that have layer files.</li>
@@ -105,13 +120,14 @@
         <li>Added a max-height and scrollbar to the download pane to help with long lists of tiles.</li>
         <li>Worked with ftp server admin to force the browser to download all file types instead of trying to open them up.</li>
     </ul>
-	<h2>0.1.0 <small>Jun 5, 2012</small></h2>
-	<ul>
-		<li>Added release notes page.</li>
+    <h2>0.1.0 <small>Jun 5, 2012</small></h2>
+    <ul>
+        <li>Added release notes page.</li>
         <li>Added download pane functionality including listing selected tiles and wiring them to the map.</li>
         <li>Toned down the generalization on the return extent graphics (yellow).</li>
         <li>Handled IN_House = 'NO'.</li>
         <li>Added 'more info' link and associated dialog to product result widget.</li>
-	</ul>
+    </ul>
 </body>
+
 </html>
