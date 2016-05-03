@@ -176,7 +176,8 @@ define([
                 graphicsLayer: this.drawingGraphics,
                 onFind: lang.hitch(this, function () {
                     this.onSearchClick();
-                })
+                }),
+                zoomLevel: 17
             }, 'find-address');
 
             this.initDrawingToolbar();

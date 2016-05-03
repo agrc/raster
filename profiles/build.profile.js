@@ -59,6 +59,6 @@ var profile = {
         'dojo-test-sniff': 0
     },
     userConfig: {
-        packages: ['app', 'dojo', 'dijit', 'dojox', 'agrc', 'ijit', 'esri']
+        packages: ['app', 'dojo', 'dijit', 'dojox', 'agrc', 'ijit', 'esri', 'layer-selector']
     }
 };

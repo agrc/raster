@@ -1,6 +1,5 @@
 define([
     'agrc/widgets/map/BaseMap',
-    'agrc/widgets/map/BaseMapSelector',
 
     'app/config',
     'app/Toolbox',
@@ -13,10 +12,13 @@ define([
     'dojo/dom',
     'dojo/dom-style',
     'dojo/text!app/templates/App.html',
-    'dojo/_base/declare'
+    'dojo/_base/declare',
+
+    'esri/geometry/Extent',
+
+    'layer-selector/LayerSelector'
 ], function (
     BaseMap,
-    BaseMapSelector,
 
     config,
     Toolbox,
@@ -29,7 +31,11 @@ define([
     dom,
     domStyle,
     template,
-    declare
+    declare,
+
+    Extent,
+
+    LayerSelector
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
         templateString: template,
@@ -98,13 +104,22 @@ define([
 
             this.map = new BaseMap('map-div', {
                 useDefaultBaseMap: false,
-                includeFullExtentButton: true
+                includeFullExtentButton: true,
+                extent: new Extent({
+                    xmax: -11762120.612131765,
+                    xmin: -13074391.513731329,
+                    ymax: 5225035.106177688,
+                    ymin: 4373832.359194187,
+                    spatialReference: {
+                        wkid: 3857
+                    }
+                })
             });
 
-            var selector = new BaseMapSelector({
+            var selector = new LayerSelector({
                 map: this.map,
-                id: 'claro',
-                position: 'BL'
+                quadWord: config.quadWord,
+                baseLayers: ['Terrain', 'Hybrid', 'Lite', 'Topo']
             });
             selector.startup();
 
