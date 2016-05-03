@@ -201,6 +201,17 @@ define([
             } else {
                 this.noteTxt.innerHTML = '';
             }
+
+            var checkProjectLevelLink = function (fld, node) {
+                var value = that.graphic.attributes[fld];
+                var hasValue = value && value.length > 0;
+                if (hasValue) {
+                    node.href = that.graphic.attributes[config.fields.common.FTP_Path] + value;
+                }
+                domClass.toggle(node, 'hidden', !hasValue);
+            }
+            checkProjectLevelLink(config.fields.common.METADATA, this.metadataLink);
+            checkProjectLevelLink(config.fields.common.REPORT, this.reportLink);
         },
         onQueryTaskError: function (err) {
             // summary:
@@ -238,7 +249,7 @@ define([
                 var ids = [];
                 fSet.features.forEach(function (f) {
                     ids.push(f.attributes[config.fields.indices.TILE]);
-                    // add extra fields from DEM's & LiDAR data Extents graphic
+                    // add extra fields from DEM's & LiDAR data Extents graphic on popup
                     f.attributes.EXTENT_ATTRIBUTES = {
                         METADATA: this.graphic.attributes[config.fields.common.METADATA],
                         REPORT: this.graphic.attributes[config.fields.common.REPORT]

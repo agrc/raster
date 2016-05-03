@@ -5,6 +5,10 @@
         <p data-dojo-attach-point='noteTxt'></p>
         <span>Click on a tile on the map or in the list below to download it's associated files.</span>
         <span>${rightClickTxt}</span>
+        <ul data-dojo-attach-point='projectLinks' class='list-unstyled'>
+            <li><a href='#' data-dojo-attach-point='metadataLink' class='hidden'>Metadata</a></li>
+            <li><a href='#' data-dojo-attach-point='reportLink' class='hidden'>Report</a></li>
+        </ul>
         <div data-dojo-attach-point='tilesContainer'></div>
     </div>
 </div>

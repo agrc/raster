@@ -44,8 +44,6 @@ define([
 
             this.createExtraFileLink(this[config.fields.indices.WORLDFILE], true);
             this.createExtraFileLink(this[config.fields.indices.METADATA], true);
-            this.createExtraFileLink(this.EXTENT_ATTRIBUTES[config.fields.common.METADATA], false);
-            this.createExtraFileLink(this.EXTENT_ATTRIBUTES[config.fields.common.REPORT], false);
         },
         createExtraFileLink: function (ext, useTileName, linkName) {
             // summary:
