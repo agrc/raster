@@ -1,4 +1,5 @@
 .DS_Store
+*.pyc
 *.sde
 deploy/
 dist/
@@ -6,6 +7,7 @@ node_modules/
 scripts/agrc*
 scripts/Logs/
 scripts/requests*
+scripts/secrets.py
 secrets.json
 src/**/*.css
 src/agrc-jasmine-matchers/
