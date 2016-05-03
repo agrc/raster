@@ -363,32 +363,54 @@ define([
             // fSet: esri.tasks.FeatureSet
             console.log('app/Download:onQueryTaskCompleteMapClick', arguments);
 
+            var that = this;
+            var addToGraphicsLayer = function (g) {
+                g.setSymbol(that.toolbox.resultsSymbol);
+                that.tilesGraphicsLayer.add(g);
+            };
+
             // make sure that we got a tile
             if (fSet.features.length === 0) {
                 this.map.infoWindow.hide();
                 return;
+            } else if (fSet.features.length > 1) {
+                var content = domConstruct.create('div', {
+                    innerHTML: 'Please select a tile below:',
+                    className: 'multi-tiles-popup-content'
+                });
+                fSet.features.forEach(function processFeature(f) {
+                    addToGraphicsLayer(f);
+
+                    domConstruct.create('button', {
+                        innerHTML: f.attributes[config.fields.indices.TILE],
+                        className: 'btn btn-default btn-xs',
+                        click: function () {
+                            that.onQueryTaskCompleteMapClick({features: [f]});
+                        }
+                    }, content);
+                }, this);
+                this.map.infoWindow.setContent(content);
+                this.map.infoWindow.setTitle('Multiple Tiles Found');
+            } else {
+                // highlight tile on map
+                var g = fSet.features[0];
+                addToGraphicsLayer(g);
+
+                // create content for popup
+                // add extra fields from DEM's & LiDAR data Extents graphic
+                g.attributes.EXTENT_ATTRIBUTES = {
+                    METADATA: this.graphic.attributes[config.fields.common.METADATA],
+                    REPORT: this.graphic.attributes[config.fields.common.REPORT]
+                };
+                var tilePopup = new TilePopup({
+                    graphic: g
+                }, domConstruct.create('div'));
+                tilePopup.startup();
+                this.map.infoWindow.setContent(tilePopup.domNode);
+                this.map.infoWindow.setTitle((tilePopup.EXT) ? tilePopup.TILE : tilePopup.NAME);
             }
 
-            // highlight tile on map
-            var g = fSet.features[0];
-            g.setSymbol(this.toolbox.resultsSymbol);
-            this.tilesGraphicsLayer.add(g);
-
-            // create content for popup
-            // add extra fields from DEM's & LiDAR data Extents graphic
-            g.attributes.EXTENT_ATTRIBUTES = {
-                METADATA: this.graphic.attributes[config.fields.common.METADATA],
-                REPORT: this.graphic.attributes[config.fields.common.REPORT]
-            };
-            var tilePopup = new TilePopup({
-                graphic: g
-            }, domConstruct.create('div'));
-            tilePopup.startup();
-            this.map.infoWindow.setContent(tilePopup.domNode);
-            this.map.infoWindow.setTitle((tilePopup.EXT) ? tilePopup.TILE : tilePopup.NAME);
-
             this.map.infoWindow.show(this.mapClickedPoint);
-
             this.mapClickedPoint = false;
         },
         addMapConnects: function () {
