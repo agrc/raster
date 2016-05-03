@@ -67,7 +67,8 @@ define([
         config.apiKey = 'AGRC-81AF0E22246112';
         config.quadWord = 'alfred-plaster-crystal-dexter';
     } else if (has('agrc-build') === 'stage') {
-        // quadWord = 'opera-event-little-pinball';
+        config.quadWord = 'opera-event-little-pinball';
+        config.apiKey = 'AGRC-AC122FA9671436';
     } else {
         xhr(require.baseUrl + 'secrets.json', {
             handleAs: 'json',
