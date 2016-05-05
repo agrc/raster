@@ -1,6 +1,6 @@
 {
     "name": "raster",
-    "version": "2.0.0-1",
+    "version": "2.0.0-2",
     "main": "main",
     "description": "Raster App",
     "homepage": "https://github.com/agrc/raster",
