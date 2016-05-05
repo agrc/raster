@@ -56,17 +56,21 @@
                     graphic: new Graphic(JSON.parse(resultGraphicTxt)),
                     showPreview: true,
                     map: map,
-                    previewMap: previewMap,
+                    previewMapUtm: previewMap,
+                    previewMapWebMerc: previewMap,
                     title: 'testWidget very, very, very, very, very long'
                 }, 'test-div');
+                testWidget.startup();
                 var testWidget2 = new ProductResult({
                     gLayer: map.graphics,
                     graphic: new Graphic(JSON.parse(resultGraphicTxt2)),
                     showPreview: true,
                     map: map,
-                    previewMap: previewMap,
+                    previewMapUtm: previewMap,
+                    previewMapWebMerc: previewMap,
                     title: 'testWidget2'
                 }, 'test-div2');
+                testWidget2.startup();
             });
         });
     </script>

@@ -20,6 +20,10 @@ require({
             location: './jquery/dist',
             main: 'jquery'
         }, {
+            name: 'ladda',
+            location: './ladda-bootstrap',
+            main: 'dist/ladda'
+        }, {
             name: 'spin',
             location: './spinjs',
             main: 'spin'

@@ -28,6 +28,8 @@ define([
     'esri/layers/TileInfo',
     'esri/layers/WebTiledLayer',
 
+    'ladda',
+
     'bootstrap'
 ], function (
     config,
@@ -57,7 +59,9 @@ define([
     ArcGISImageServiceLayer,
     ImageServiceParameters,
     TileInfo,
-    WebTiledLayer
+    WebTiledLayer,
+
+    ladda
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _CaretCollapseMixin], {
         // description:
@@ -115,6 +119,15 @@ define([
                 domConstruct.destroy(this.previewBtnLabel);
             }
             this.buildContent();
+
+            var that = this;
+            $(this.collapsible).on('shown.bs.collapse', function () {
+                if (!that.downloadLoading) {
+                    that.downloadLoading = ladda.create(that.downloadBtn);
+
+                    topic.subscribe(config.topics.downloadComplete, lang.hitch(that.downloadLoading, 'stop'));
+                }
+            })
 
             this.inherited(arguments);
         },
@@ -335,6 +348,8 @@ define([
             // summary:
             //      description
             console.log('app/ProductResult:onDownloadClick', arguments);
+
+            this.downloadLoading.start();
 
             topic.publish(config.topics.downloadClick, this.graphic);
         },

@@ -223,6 +223,8 @@ define([
             //     type: 'danger',
             //     message: 'Error during query for tiles!'
             // });
+
+            topic.publish(config.topics.downloadComplete);
         },
         onQueryTaskComplete: function (result) {
             // summary:

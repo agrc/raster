@@ -19,6 +19,7 @@
   "resolutions": {
     "dgrid": "0.3.17/esri-3.14.0",
     "xstyle": "0.1.3/esri-3.14.0",
-    "esri": "~3.16.0"
+    "esri": "~3.16.0",
+    "ladda-bootstrap": "0d70f54b7e16f8d9f2ac4f2fba7dfe480b651162"
   }
 }
