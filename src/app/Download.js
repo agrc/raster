@@ -146,14 +146,12 @@ define([
                 forceOpen: true
             }, this.tilesContainer);
 
-            topic.subscribe(config.topics.showPreview, lang.hitch(this, function () {
-                this.togglePreview(window.rasterapp.previewMap);
-            }));
+            topic.subscribe(config.topics.showPreview, lang.hitch(this, 'togglePreview'));
             topic.subscribe(config.topics.hidePreview, lang.hitch(this, function () {
-                this.togglePreview(window.rasterapp.map);
+                this.togglePreview(this.map);
             }));
             topic.subscribe(config.topics.clearPreview, lang.hitch(this, function () {
-                this.togglePreview(window.rasterapp.map);
+                this.togglePreview(this.map);
             }));
 
             this.addMapConnects();
@@ -425,13 +423,13 @@ define([
                 this.tilesGraphicsLayer.clear();
             }));
         },
-        togglePreview: function (newMap) {
+        togglePreview: function (productResult) {
             // summary:
             //      description
             console.log('app/Download:togglePreview', arguments);
 
             // only switch layers if map is not switched
-            if (newMap !== this.map) {
+            if (productResult.previewLyr && productResult.previewLyr.getMap() !== this.map) {
                 // remove existing connects
                 this.mapConnects.forEach(this.disconnect, this);
 
@@ -439,7 +437,7 @@ define([
                 this.map.removeLayer(this.layer);
                 this.map.removeLayer(this.tilesGraphicsLayer);
 
-                this.map = newMap;
+                this.map = productResult.previewLyr.getMap();
 
                 this.map.addLayer(this.layer);
                 this.map.addLayer(this.tilesGraphicsLayer);

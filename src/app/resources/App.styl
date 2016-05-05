@@ -1,77 +1,68 @@
-@import '../../dijit/themes/claro/claro.css';
-@import '../../bootstrap/dist/css/bootstrap.css';
-@import '../../esri/css/esri.css';
-@import '../../agrc/resources/map/BaseMap.css';
-@import '../../agrc/resources/map/BaseMapSelector.css';
-@import '../../layer-selector/resources/LayerSelector.css';
-@import 'Toolbox.css';
-body, html, .app {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
+@import '../../dijit/themes/claro/claro.css'
+@import '../../bootstrap/dist/css/bootstrap.css'
+@import '../../esri/css/esri.css'
+@import '../../agrc/resources/map/BaseMap.css'
+@import '../../agrc/resources/map/BaseMapSelector.css'
+@import '../../layer-selector/resources/LayerSelector.css'
+@import 'Toolbox'
+body, html, .app
+    width: 100%
+    height: 100%
+    margin: 0
+    padding: 0
+    overflow: hidden
 
 /* TITLE PANE */
-#title-pane {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    padding: 8px;
-}
-#title-pane h1 {
-    margin: 0;
-    font-size: 40px;
-    letter-spacing: -2px;
-    font-weight: normal;
-}
-[data-dojo-attach-point='version'] {
-    font-size: 16px;
-    text-decoration: none;
-    color: gray;
-    letter-spacing: 0;
-}
-[data-dojo-attach-point='version']:hover {
-    text-decoration: underline !important;
-}
+#title-pane
+    position: absolute
+    top: 5px
+    left: 5px
+    right: 5px
+    padding: 8px
+#title-pane h1
+    margin: 0
+    font-size: 40px
+    letter-spacing: -2px
+    font-weight: normal
+[data-dojo-attach-point='version']
+    font-size: 16px
+    text-decoration: none
+    color: gray
+    letter-spacing: 0
+[data-dojo-attach-point='version']:hover
+    text-decoration: underline !important
 
 /* SIDE BAR */
-.side-bar {
-    width: 371px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: absolute;
-    left: 5px;
-    top: 75px;
-    bottom: 5px;
-}
+.side-bar
+    width: 371px
+    overflow-y: auto
+    overflow-x: hidden
+    position: absolute
+    left: 5px
+    top: 75px
+    bottom: 5px
 
 /* MAP */
-#map-div, #preview-map-div {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-}
-#maps-container {
-    position: absolute;
-    top: 75px;
-    left: 383px;
-    bottom: 5px;
-    right: 5px;
-    overflow: hidden;
-    border: 1px solid #ddd;
+#map-div, #preview-map-utm-div, #preview-map-webmerc-div
+    width: 100%
+    height: 100%
+    position: absolute
+#maps-container
+    position: absolute
+    top: 75px
+    left: 383px
+    bottom: 5px
+    right: 5px
+    overflow: hidden
+    border: 1px solid #ddd
     border-radius: 3px
-}
-#map-div .mapContainer .loadingImg {
-    bottom: 11px;
-    left: 79px;
-}
-#preview-map-div .esriScalebarLabel {
-    color: white;
-    text-shadow: 1px 1px 2px black, 0 0 1em gray, 0 0 0.2em gray;
-}
+#map-div .mapContainer .loadingImg
+    bottom: 11px
+    left: 79px
+#preview-map-utm-div, #preview-map-webmerc-div
+    .esriScalebarLabel
+        color: white
+        text-shadow: 1px 1px 2px black, 0 0 1em gray, 0 0 0.2em gray
 
 /* tweaks to bootstrap panels */
 .panel-heading
@@ -82,25 +73,22 @@ a[data-toggle='collapse']
     &:hover, &:focus
         text-decoration: none
 .panel-body
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #ddd
 
 /* MISC */
 /* remove orange outline in chrome */
 *:focus
     outline: none !important
-
-.map .tooltip {
-    width: 100px;
-    position: absolute;
-    border: 1px solid #7EABCD;
-    background-color: white;
-    padding: 5px;
-    font-size: 9pt;
-    z-index: 9999;
-    border-radius: 4px;
-    opacity: 1;
-}
-.hidden {
-    display: none;
-    visibility: hidden;
-}
+.map .tooltip
+    width: 100px
+    position: absolute
+    border: 1px solid #7EABCD
+    background-color: white
+    padding: 5px
+    font-size: 9pt
+    z-index: 9999
+    border-radius: 4px
+    opacity: 1
+.hidden
+    display: none
+    visibility: hidden

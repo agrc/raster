@@ -45,8 +45,11 @@ define([
         // map: agrc.widgets.map.BaseMap
         map: null,
 
-        // previewMap: agrc.widgets.map.BaseMap
-        previewMap: null,
+        // previewMapUtm: agrc.widgets.map.BaseMap
+        previewMapUtm: null,
+
+        // previewMapWebMerc: agrc.widgets.map.BaseMap
+        previewMapWebMerc: null,
 
         // isProductSpecific: Boolean
         //      true if cat or catgroup is passed
@@ -77,7 +80,8 @@ define([
 
             var toolbox = new Toolbox({
                 map: this.map,
-                previewMap: this.previewMap,
+                previewMapUtm: this.previewMapUtm,
+                previewMapWebMerc: this.previewMapWebMerc,
                 cat: cat,
                 catGroup: (catGroup) ? catGroup.split(',') : null
             }, 'raster-toolbox');
@@ -123,14 +127,20 @@ define([
             });
             selector.startup();
 
-            this.previewMap = new BaseMap('preview-map-div', {
+            this.previewMapUtm = new BaseMap('preview-map-utm-div', {
+                useDefaultBaseMap: false,
+                includeFullExtentButton: true,
+                includeBackButton: true
+            });
+            this.previewMapWebMerc = new BaseMap('preview-map-webmerc-div', {
                 useDefaultBaseMap: false,
                 includeFullExtentButton: true,
                 includeBackButton: true
             });
 
             // set display to none after map has creation to make sure that it sized correctly
-            domStyle.set(this.previewMap.container, 'display', 'none');
+            domStyle.set(this.previewMapUtm.container, 'display', 'none');
+            domStyle.set(this.previewMapWebMerc.container, 'display', 'none');
         },
         getMbOrGb: function (mbs) {
             // summary:

@@ -25,6 +25,8 @@ define([
 
     'esri/layers/ArcGISImageServiceLayer',
     'esri/layers/ImageServiceParameters',
+    'esri/layers/TileInfo',
+    'esri/layers/WebTiledLayer',
 
     'bootstrap'
 ], function (
@@ -53,7 +55,9 @@ define([
     entities,
 
     ArcGISImageServiceLayer,
-    ImageServiceParameters
+    ImageServiceParameters,
+    TileInfo,
+    WebTiledLayer
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _CaretCollapseMixin], {
         // description:
@@ -87,20 +91,17 @@ define([
         // map: esri.Map
         map: null,
 
+        // previewMapUtm: esri.Map
+        previewMapUtm: null,
+
+        // previewMapWebMerc: esri.Map
+        previewMapWebMerc: null,
+
         // extentLayerId: String
         //      The id of the extent layer that this feature came from
         //      Used to separate image service parameters in addLayer
         extentLayerId: null,
 
-        constructor: function () {
-            // summary:
-            //    Constructor method
-            // params: Object
-            //    Parameters to pass into the widget. Required values include:
-            // div: String|DomNode
-            //    A reference to the div that you want the widget to be created in.
-            console.log('app/ProductResult:constructor', arguments);
-        },
         postCreate: function () {
             // summary:
             //    Overrides method of same name in dijit._Widget.
@@ -110,14 +111,91 @@ define([
 
             this._wireEvents();
 
-            // hide preview button
-            var rest = this.graphic.attributes[config.fields.common.REST_Endpoint];
-            if (!rest || rest === 'n/a' || rest === '' || rest === 'Null') {
+            if (!this.getPreviewLayer()) {
                 domConstruct.destroy(this.previewBtnLabel);
             }
             this.buildContent();
 
             this.inherited(arguments);
+        },
+        getPreviewLayer: function () {
+            // summary:
+            //      look for service name first then rest then undefined
+            // returns: Object with url, LayerClass, map & props properties
+            console.log('app/ProductResult:getPreviewLayer', arguments);
+
+            var rest = this.graphic.attributes[config.fields.common.REST_Endpoint];
+            var serviceName = this.graphic.attributes[config.fields.common.ServiceName];
+            var isEmpty = function (value) {
+                return !value || value === 'n/a' || value === '' || value === 'Null';
+            }
+
+            if (isEmpty(serviceName)) {
+                if (isEmpty(rest)) {
+                    return null;
+                } else {
+                    var params = new ImageServiceParameters();
+                    params.format = 'jpg';
+                    if (this.extentLayerId === '0' || this.extentLayerId === '4') {
+                        // aerials, drg's
+                        params.bandIds = [0,1,2];
+                    } else {
+                        // hillshades
+                        params.bandIds = [0];
+                    }
+                    params.interpolation = params.INTERPOLATION_BILINEAR;
+
+                    return {
+                        LayerClass: ArcGISImageServiceLayer,
+                        url: rest,
+                        props: {
+                            imageServiceParameters: params,
+                            id: 'preview' + (this.previewMapUtm.layerIds.length + 1)
+                        },
+                        map: this.previewMapUtm
+                    }
+                }
+            } else {
+                var tilesize = 256;
+                var earthCircumference = 40075016.685568;
+                var inchesPerMeter =  39.37;
+                var initialResolution = earthCircumference / tilesize;
+
+                var lods = [];
+                for (var level = 0; level <= 20; level++) {
+                    var resolution = initialResolution / Math.pow(2, level);
+                    var scale = resolution * 96 * inchesPerMeter;
+                    lods.push({
+                        level: level,
+                        scale: scale,
+                        resolution: resolution
+                    });
+                }
+
+                var tileInfo = new TileInfo({
+                    dpi: 96,
+                    rows: 256,
+                    cols: 256,
+                    width: 256,
+                    origin: {
+                        x: -20037508.342787,
+                        y: 20037508.342787
+                    },
+                    spatialReference: {
+                        wkid: 3857
+                    },
+                    lods: lods
+                });
+                return {
+                    LayerClass: WebTiledLayer,
+                    url: config.urls.discover.replace('<quadWord>', config.quadWord).replace('<serviceName>', serviceName),
+                    props: {
+                        tileInfo: tileInfo,
+                        id: 'preview' + (this.previewMapWebMerc.layerIds.length + 1)
+                    },
+                    map: this.previewMapWebMerc
+                }
+            }
         },
         buildContent: function () {
             // summary:
@@ -175,7 +253,6 @@ define([
 
             this.previewBtn.checked = !this.previewBtn.checked;
             var show = this.previewBtn.checked;
-            console.debug('show', show);
 
             domClass.toggle(this.previewBtnLabel, 'active', show);
 
@@ -186,7 +263,14 @@ define([
             }
 
             if (show) {
-                topic.publish(config.topics.showPreview, this);
+                if (!this.previewLyr.loaded) {
+                    var that = this;
+                    this.previewLyr.on('load', function () {
+                        topic.publish(config.topics.showPreview, that);
+                    });
+                } else {
+                    topic.publish(config.topics.showPreview, this);
+                }
             } else {
                 topic.publish(config.topics.hidePreview);
             }
@@ -207,23 +291,12 @@ define([
             //      addes the image service layer to the map
             console.log('app/ProductResult:addLayer', arguments);
 
-            var params = new ImageServiceParameters();
-            params.format = 'jpg';
-            if (this.extentLayerId === '0' || this.extentLayerId === '4') {
-                // aerials, drg's
-                params.bandIds = [0,1,2];
-            } else {
-                // hillshades
-                params.bandIds = [0];
-            }
-            params.interpolation = params.INTERPOLATION_BILINEAR;
-            var url = this.graphic.attributes[config.fields.common.REST_Endpoint];
-            this.previewLyr = new ArcGISImageServiceLayer(url, {
-                imageServiceParameters: params,
-                id: 'preview' + (this.previewMap.layerIds.length + 1)
-            });
-            this.previewMap.addLayer(this.previewLyr, 1);
-            this.previewMap.addLoaderToLayer(this.previewLyr);
+            var lyrProps = this.getPreviewLayer();
+
+            this.previewLyr = new lyrProps.LayerClass(lyrProps.url, lyrProps.props);
+
+            lyrProps.map.addLayer(this.previewLyr, 1);
+            lyrProps.map.addLoaderToLayer(this.previewLyr);
 
             // add event to toggle preview button when the layer is hidden via the clear preview button
             this.connect(this.previewLyr, 'onVisibilityChange', function (visibility) {
@@ -253,7 +326,7 @@ define([
             console.log('app/ProductResult:destroy', arguments);
 
             if (this.previewLyr) {
-                this.previewMap.removeLayer(this.previewLyr);
+                this.previewLyr.getMap().removeLayer(this.previewLyr);
             }
 
             this.inherited(arguments);
@@ -275,7 +348,7 @@ define([
 
             // zoom the correct map
             if (domStyle.get('map-div', 'display') !== 'block') {
-                this.previewMap.setExtent(this.graphic.geometry.getExtent(), true);
+                this.previewLyr.getMap().setExtent(this.graphic.geometry.getExtent(), true);
             } else {
                 this.map.setExtent(this.graphic.geometry.getExtent(), true);
             }

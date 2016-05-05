@@ -9,3 +9,7 @@ raster.utah.gov
 2. Add new layer to `Raster.mxd`.
 3. Save and run `scripts/checkMxd.py`.
 4. Republish service.
+
+## Notes
+### Preview URL's
+The preview button is wired up to the `ServiceName` field first, then `REST`. If there is no value in either field the button is hidden.

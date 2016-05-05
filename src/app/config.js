@@ -11,7 +11,8 @@ define([
         wkid: 26912,
         urls: {
             mapService: '/ArcGIS/rest/services/Raster/MapServer',
-            geoService: '/ArcGIS/rest/services/Geometry/GeometryServer'
+            geoService: '/ArcGIS/rest/services/Geometry/GeometryServer',
+            discover: 'https://discover.agrc.utah.gov/login/path/<quadWord>/tiles/<serviceName>/${level}/${col}/${row}'
         },
         topics: {
             clearPreview: 'raster.clearPreview',
@@ -40,7 +41,8 @@ define([
                 Tile_Index: 'Tile_Index',
                 METADATA: 'METADATA',
                 REPORT: 'REPORT',
-                LYR_File: 'LYR_File'
+                LYR_File: 'LYR_File',
+                ServiceName: 'ServiceName'
             },
             indices: {
                 TILE: 'TILE',

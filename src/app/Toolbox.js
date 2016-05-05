@@ -31,8 +31,11 @@ define([
     'esri/dijit/Scalebar',
     'esri/graphic',
     'esri/layers/GraphicsLayer',
+    'esri/SpatialReference',
     'esri/symbols/SimpleFillSymbol',
     'esri/symbols/SimpleLineSymbol',
+    'esri/tasks/GeometryService',
+    'esri/tasks/ProjectParameters',
     'esri/tasks/query',
     'esri/tasks/QueryTask',
     'esri/toolbars/draw',
@@ -71,8 +74,11 @@ define([
     Scalebar,
     Graphic,
     GraphicsLayer,
+    SpatialReference,
     SimpleFillSymbol,
     SimpleLineSymbol,
+    GeometryService,
+    ProjectParameters,
     Query,
     QueryTask,
     Draw
@@ -136,8 +142,11 @@ define([
         // map: esri.Map
         map: null,
 
-        // previewMap: esri.Map
-        previewMap: null,
+        // previewMapUtm: esri.Map
+        previewMapUtm: null,
+
+        // previewMapWebMerc: esri.Map
+        previewMapWebMerc: null,
 
         // cat: [optional] String
         //      The category as passed in via the cat url parameter, if any
@@ -480,7 +489,8 @@ define([
                                 title: prod.attributes[config.fields.common.Product],
                                 gLayer: this.extentGraphics,
                                 graphic: prod,
-                                previewMap: this.previewMap,
+                                previewMapUtm: this.previewMapUtm,
+                                previewMapWebMerc: this.previewMapWebMerc,
                                 map: this.map,
                                 extentLayerId: id
                             }, domConstruct.create('div', null, group.collapsible));
@@ -533,59 +543,75 @@ define([
             //      Clears the preview if any
             console.log('app/Toolbox:clearPreview', arguments);
 
-            // don't do anything if the default map is already showing
-            if (domStyle.set('map-div', 'display') === 'block') {
+            var activePreviewMap = (domStyle.get(this.previewMapUtm.container, 'display') === 'block') ?
+                this.previewMapUtm : this.previewMapWebMerc;
+            this.toggleMaps(this.map, activePreviewMap);
+        },
+        toggleMaps: function (newMap, currentMap) {
+            // summary:
+            //      description
+            // newMap: Map
+            // currentMap: Map
+            console.log('app/Toolbox:toggleMaps', arguments);
+
+            // don't do anything if the newMap is already showing
+            if (domStyle.get(newMap.container, 'display') === 'block') {
                 return;
             }
 
-            // show default map and hide preview map
-            domStyle.set('map-div', 'display', 'block');
-            domStyle.set('preview-map-div', 'display', 'none');
+            // move graphics layer
+            currentMap.removeLayer(this.drawingGraphics);
+            newMap.addLayer(this.drawingGraphics);
 
-            window.rasterapp.previewMap.removeLayer(this.drawingGraphics);
-            this.map.addLayer(this.drawingGraphics);
+            var that = this;
+            var setExtent = function (extent) {
+                // toggle visibility of map dom elements
+                query('#maps-container .mapContainer').style('display', 'none');
+                domStyle.set(newMap.container, 'display', 'block');
 
-            esriConfig.defaults.map.zoomDuration = 0;
-            esriConfig.defaults.map.panDuration = 0;
+                esriConfig.defaults.map.zoomDuration = 0;
+                esriConfig.defaults.map.panDuration = 0;
 
-            window.rasterapp.map.setExtent(window.rasterapp.previewMap.extent);
+                newMap.setExtent(extent);
 
-            esriConfig.defaults.map.zoomDuration = this.defaultZoomDuration;
-            esriConfig.defaults.map.panDuration = this.defaultPanDuration;
+                esriConfig.defaults.map.zoomDuration = that.defaultZoomDuration;
+                esriConfig.defaults.map.panDuration = that.defaultPanDuration;
+            };
+
+            if (newMap.spatialReference.wkid !== currentMap.spatialReference.wkid) {
+                if (!this.geometryService) {
+                    this.geometryService = new GeometryService(config.urls.geoService);
+                }
+
+                var projParams = new ProjectParameters();
+                projParams.outSR = newMap.spatialReference;
+                projParams.geometries = [this.map.extent];
+                this.geometryService.project(projParams, function (geometries) {
+                    setExtent(geometries[0]);
+                });
+            } else {
+                setExtent(this.map.extent);
+            }
         },
-        showPreview: function () {
+        showPreview: function (productResult) {
             // summary:
             //      shows the preview map
+            // previewMap: BaseMap
+            //      The preview map (previewUtm or previewWebMerc) that is to be shown
             console.log('app/Toolbox:showPreview', arguments);
 
-            // don't do anything if the preview map is already showing
-            if (domStyle.get(this.previewMap.container, 'display') === 'block') {
-                return;
-            }
+            var previewMap = productResult.previewLyr.getMap();
+            this.toggleMaps(previewMap, this.map);
 
-            if (!this.previewScalebar) {
-                var handle = this.previewMap.on('load', lang.hitch(this, function () {
-                    this.previewScalebar = new Scalebar({
-                        map: this.previewMap,
+            if (!previewMap.previewScalebar) {
+                var handle = previewMap.on('load', lang.hitch(this, function () {
+                    previewMap.previewScalebar = new Scalebar({
+                        map: previewMap,
                         attachTo: 'top-right'
                     });
                     handle.remove();
                 }));
             }
-
-            this.map.removeLayer(this.drawingGraphics);
-            window.rasterapp.previewMap.addLayer(this.drawingGraphics);
-
-            domStyle.set(this.map.container, 'display', 'none');
-            domStyle.set(this.previewMap.container, 'display', 'block');
-
-            esriConfig.defaults.map.zoomDuration = 0;
-            esriConfig.defaults.map.panDuration = 0;
-
-            this.previewMap.setExtent(this.map.extent);
-
-            esriConfig.defaults.map.zoomDuration = this.defaultZoomDuration;
-            esriConfig.defaults.map.panDuration = this.defaultPanDuration;
         },
         clearSearchResults: function () {
             // summary:
