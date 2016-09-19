@@ -27,6 +27,8 @@ define([
     'esri/layers/ImageServiceParameters',
     'esri/layers/TileInfo',
     'esri/layers/WebTiledLayer',
+    'esri/tasks/GeometryService',
+    'esri/tasks/ProjectParameters',
 
     'ladda',
 
@@ -60,6 +62,8 @@ define([
     ImageServiceParameters,
     TileInfo,
     WebTiledLayer,
+    GeometryService,
+    ProjectParameters,
 
     ladda
 ) {
@@ -363,7 +367,22 @@ define([
 
             // zoom the correct map
             if (domStyle.get('map-div', 'display') !== 'block') {
-                this.previewLyr.getMap().setExtent(this.graphic.geometry.getExtent(), true);
+                var previewMap = this.previewLyr.getMap();
+                if (this.graphic.geometry.spatialReference.wkid !== previewMap.spatialReference.wkid) {
+                    if (!this.geometryService) {
+                        this.geometryService = new GeometryService(config.urls.geoService);
+                    }
+                    var params = new ProjectParameters();
+                    params.geometries = [this.graphic.geometry.getExtent()]
+                    params.outSR = previewMap.spatialReference;
+                    this.geometryService.project(params, function (geometries) {
+                        previewMap.setExtent(geometries[0], true);
+                    }, function (error) {
+                        console.error(error);
+                    });
+                } else {
+                    previewMap.setExtent(this.graphic.geometry.getExtent(), true);
+                }
             } else {
                 this.map.setExtent(this.graphic.geometry.getExtent(), true);
             }
