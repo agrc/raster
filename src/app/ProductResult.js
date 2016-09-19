@@ -365,27 +365,7 @@ define([
 
             this.preventToggle(evt);
 
-            // zoom the correct map
-            if (domStyle.get('map-div', 'display') !== 'block') {
-                var previewMap = this.previewLyr.getMap();
-                if (this.graphic.geometry.spatialReference.wkid !== previewMap.spatialReference.wkid) {
-                    if (!this.geometryService) {
-                        this.geometryService = new GeometryService(config.urls.geoService);
-                    }
-                    var params = new ProjectParameters();
-                    params.geometries = [this.graphic.geometry.getExtent()]
-                    params.outSR = previewMap.spatialReference;
-                    this.geometryService.project(params, function (geometries) {
-                        previewMap.setExtent(geometries[0], true);
-                    }, function (error) {
-                        console.error(error);
-                    });
-                } else {
-                    previewMap.setExtent(this.graphic.geometry.getExtent(), true);
-                }
-            } else {
-                this.map.setExtent(this.graphic.geometry.getExtent(), true);
-            }
+            topic.publish(config.topics.zoomToExtent, this.graphic.geometry.getExtent());
         },
         onMoreInfoClick: function (evt) {
             // summary:

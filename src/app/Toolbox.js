@@ -322,6 +322,29 @@ define([
             topic.subscribe(config.topics.downloadComplete, lang.hitch(this, function () {
                 this.step4header.click();
             }));
+            topic.subscribe(config.topics.zoomToExtent, lang.hitch(this, 'zoomToExtent'));
+        },
+        zoomToExtent: function (extent) {
+            // summary:
+            //      zooms the currently visible map to the given extent
+            // extent: Extent
+            console.log('app/Toolbox:zoomToExtent', arguments);
+
+            var map = this.getCurrentMap();
+
+            if (extent.spatialReference.wkid !== map.spatialReference.wkid) {
+                if (!this.geometryService) {
+                    this.geometryService = new GeometryService(config.urls.geoService);
+                }
+                var params = new ProjectParameters();
+                params.geometries = [extent]
+                params.outSR = map.spatialReference;
+                this.geometryService.project(params, function (geometries) {
+                    map.setExtent(geometries[0], true);
+                });
+            } else {
+                map.setExtent(extent, true);
+            }
         },
         addDrawingToMap: function (geometry) {
             // summary:
@@ -585,12 +608,25 @@ define([
 
                 var projParams = new ProjectParameters();
                 projParams.outSR = newMap.spatialReference;
-                projParams.geometries = [this.map.extent];
+                projParams.geometries = [currentMap.extent];
                 this.geometryService.project(projParams, function (geometries) {
                     setExtent(geometries[0]);
                 });
             } else {
-                setExtent(this.map.extent);
+                setExtent(currentMap.extent);
+            }
+        },
+        getCurrentMap: function () {
+            // summary:
+            //      returns the currently visible map
+            console.log('app/Toolbox:getCurrentMap', arguments);
+
+            if (domStyle.get(this.previewMapUtm.container, 'display') === 'block') {
+                return this.previewMapUtm;
+            } else if (domStyle.get(this.previewMapWebMerc.container, 'display') === 'block') {
+                return this.previewMapWebMerc;
+            } else {
+                return this.map;
             }
         },
         showPreview: function (productResult) {
@@ -601,7 +637,7 @@ define([
             console.log('app/Toolbox:showPreview', arguments);
 
             var previewMap = productResult.previewLyr.getMap();
-            this.toggleMaps(previewMap, this.map);
+            this.toggleMaps(previewMap, this.getCurrentMap());
 
             if (!previewMap.previewScalebar) {
                 var handle = previewMap.on('load', lang.hitch(this, function () {

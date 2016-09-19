@@ -21,7 +21,8 @@ define([
             downloadComplete: 'raster.downloadComplete',
             downloadClick: 'raster.downloadClick',
             showPreview: 'raster.showPreview',
-            hidePreview: 'raster.hidePreview'
+            hidePreview: 'raster.hidePreview',
+            zoomToExtent: 'raster.zoomToExtent'
         },
         fields: {
             common: {
