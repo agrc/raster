@@ -227,9 +227,9 @@ define([
             } else {
                 querytxt = config.fields.common.Category + ' IN (\'' + this.catGroup.join('\',\'') + '\')';
             }
-            var query = new Query();
-            query.where = querytxt;
-            query.returnGeometry = true;
+            var queryTaskQuery = new Query();
+            queryTaskQuery.where = querytxt;
+            queryTaskQuery.returnGeometry = true;
 
             var tasks = [];
             // loop through checkboxes and create a query task for each one
@@ -240,7 +240,7 @@ define([
                 });
 
                 // disable them as well
-                registry.getEnclosingWidget(input).set('disabled', true);
+                input.disabled = true;
 
                 // set layer defs on identify task
                 if (!this.search.iParams.layerDefinitions) {
@@ -253,10 +253,10 @@ define([
             var i = tasks.length;
             var found = false;
             tasks.forEach(function (task) {
-                task.qTask.execute(query, lang.hitch(this, function (fSet) {
+                task.qTask.execute(queryTaskQuery, lang.hitch(this, function (fSet) {
                     if (fSet.features.length > 0) {
                         var gLayer = new GraphicsLayer();
-                        registry.getEnclosingWidget(task.input).set('checked', true);
+                        task.input.checked = true;
                         this.step2header.click();
                         found = true;
 
