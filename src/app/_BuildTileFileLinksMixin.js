@@ -75,7 +75,8 @@ define([
             domConstruct.create('a', {
                 href: url,
                 innerHTML: txt,
-                target: '_blank'
+                target: '_blank',
+                download: true
             }, this.extraFilesSpan);
         }
     });
