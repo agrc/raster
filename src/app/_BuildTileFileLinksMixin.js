@@ -40,6 +40,7 @@ define([
                 this.titleSpan.innerHTML = this.NAME;
                 this.tileLink.innerHTML = 'PDF';
                 this.tileLink.target = '_blank';
+                this.tileLink.removeAttribute('download');
             }
 
             this.createExtraFileLink(this[config.fields.indices.WORLDFILE], true);
