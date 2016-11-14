@@ -284,9 +284,11 @@ define([
                     var that = this;
                     this.previewLyr.on('load', function () {
                         topic.publish(config.topics.showPreview, that);
+                        this.previewLyr.resume();
                     });
                 } else {
                     topic.publish(config.topics.showPreview, this);
+                    this.previewLyr.resume();
                 }
             } else {
                 topic.publish(config.topics.hidePreview);
@@ -311,6 +313,7 @@ define([
             var lyrProps = this.getPreviewLayer();
 
             this.previewLyr = new lyrProps.LayerClass(lyrProps.url, lyrProps.props);
+            this.previewLyr.suspend();
 
             lyrProps.map.addLayer(this.previewLyr, 1);
             lyrProps.map.addLoaderToLayer(this.previewLyr);
