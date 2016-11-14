@@ -127,18 +127,18 @@ define([
             });
             selector.startup();
 
-            this.previewMapUtm = new BaseMap('preview-map-utm-div', {
+            var previewMapDefaults = {
                 useDefaultBaseMap: false,
                 includeFullExtentButton: true,
-                includeBackButton: true
-            });
-            this.previewMapWebMerc = new BaseMap('preview-map-webmerc-div', {
-                useDefaultBaseMap: false,
-                includeFullExtentButton: true,
-                includeBackButton: true
-            });
-
+                includeBackButton: true,
+                // this prevents a css clip being applied to the mapContainer thus
+                // causing the map to be cliped on the sides
+                wrapAround180: false
+            };
+            this.previewMapUtm = new BaseMap('preview-map-utm-div', previewMapDefaults);
             this.previewMapUtm.setVisibility(false);
+
+            this.previewMapWebMerc = new BaseMap('preview-map-webmerc-div', previewMapDefaults);
             this.previewMapWebMerc.setVisibility(false);
         },
         getMbOrGb: function (mbs) {
