@@ -138,9 +138,8 @@ define([
                 includeBackButton: true
             });
 
-            // set display to none after map has creation to make sure that it sized correctly
-            domStyle.set(this.previewMapUtm.container, 'display', 'none');
-            domStyle.set(this.previewMapWebMerc.container, 'display', 'none');
+            this.previewMapUtm.setVisibility(false);
+            this.previewMapWebMerc.setVisibility(false);
         },
         getMbOrGb: function (mbs) {
             // summary:

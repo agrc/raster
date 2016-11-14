@@ -588,9 +588,11 @@ define([
 
             var that = this;
             var setExtent = function (extent) {
-                // toggle visibility of map dom elements
-                query('#maps-container .mapContainer').style('display', 'none');
-                domStyle.set(newMap.container, 'display', 'block');
+                currentMap.setVisibility(false);
+                newMap.setVisibility(true);
+                window.setTimeout(function () {
+                    newMap.resize(true);
+                }, 1000);
 
                 esriConfig.defaults.map.zoomDuration = 0;
                 esriConfig.defaults.map.panDuration = 0;
