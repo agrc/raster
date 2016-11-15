@@ -1,6 +1,6 @@
 {
   "name": "raster",
-  "version": "2.0.3-0",
+  "version": "2.0.3",
   "description": "Raster Discovery App",
   "main": "src/index.html",
   "repository": {
