@@ -69,6 +69,7 @@ class RasterPallet(Pallet):
                          'NAIP2006_County',
                          'NAIP2009_County',
                          'NAIP2011_County',
+                         'NAIP2016_County',
                          'NED10_County',
                          'NED10_Quads',
                          'NED30_County',
