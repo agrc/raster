@@ -4,9 +4,11 @@ that are referenced in the *_Extents feature classes.
 """
 
 import arcpy
+from os import path
 
-mxd = arcpy.mapping.MapDocument(r'Z:\Raster\maps\Raster.mxd')
+mxd = arcpy.mapping.MapDocument(path.join(path.dirname(__file__), '..', 'maps', 'Raster.mxd'))
 lyrs = arcpy.mapping.ListLayers(mxd)
+
 
 def FindLayer(name):
     for l in lyrs:
