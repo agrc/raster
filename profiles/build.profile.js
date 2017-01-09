@@ -26,7 +26,14 @@ var profile = {
             boot: true
         }
     },
-    packages: ['bootstrap', {
+    packages: [{
+        name: 'bootstrap',
+        resourceTags: {
+            copyOnly: function (filename, mid) {
+                return mid === 'bootstrap/grunt/change-version';
+            }
+        }
+    }, {
         name: 'spin',
         resourceTags: {
             copyOnly: function (filename, mid) {
