@@ -67,7 +67,7 @@ define([
     };
 
     if (has('agrc-build') === 'prod') {
-        config.apiKey = 'AGRC-81AF0E22246112';
+        config.apiKey = 'AGRC-30967AD0866524';
         config.quadWord = 'alfred-plaster-crystal-dexter';
     } else if (has('agrc-build') === 'stage') {
         config.quadWord = 'opera-event-little-pinball';
