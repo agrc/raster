@@ -13,9 +13,6 @@ from os.path import join
 
 
 class RasterPallet(Pallet):
-    def __init__(self):
-        super(RasterPallet, self).__init__()
-        
     def build(self, configuration):
         self.drg = join(self.staging_rack, 'drg.gdb')
         self.raster = join(self.staging_rack, 'raster.gdb')
