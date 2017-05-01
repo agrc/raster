@@ -9,16 +9,19 @@ The DRG.gdb database is managed manually in staging.
 '''
 
 from forklift.models import Pallet
-from os.path import join
+from os.path import join, dirname, realpath
+
+
+current_folder = dirname(realpath(__file__))
 
 
 class RasterPallet(Pallet):
     def build(self, configuration):
-        self.drg = join(self.staging_rack, 'drg.gdb')
         self.raster = join(self.staging_rack, 'raster.gdb')
         self.sgid = join(self.garage, 'SGID10 as INDICES.sde')
 
-        self.copy_data = [self.drg, self.raster]
+        self.static_data = [join(current_folder, '..', 'data', 'drg.gdb')]
+        self.copy_data = [self.raster]
         self.arcgis_services = [('Raster', 'MapServer')]
 
         self.add_crates(['Aerial_Photography_Extents',
