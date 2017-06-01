@@ -284,7 +284,7 @@ define([
                     var that = this;
                     this.previewLyr.on('load', function () {
                         topic.publish(config.topics.showPreview, that);
-                        this.previewLyr.resume();
+                        that.previewLyr.resume();
                     });
                 } else {
                     topic.publish(config.topics.showPreview, this);
