@@ -329,14 +329,14 @@ define([
         onMouseEnter: function () {
             // summary:
             //      description
-            console.log('app/ProductResult:onMouseEnter', arguments);
+            // console.log('app/ProductResult:onMouseEnter', arguments);
 
             this.gLayer.add(this.graphic);
         },
         onMouseLeave: function () {
             // summary:
             //      description
-            console.log('app/ProductResult:onMouseLeave', arguments);
+            // console.log('app/ProductResult:onMouseLeave', arguments);
 
             this.gLayer.clear();
         },
