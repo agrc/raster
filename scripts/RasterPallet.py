@@ -20,7 +20,7 @@ class RasterPallet(Pallet):
         self.raster = join(self.staging_rack, 'raster.gdb')
         self.sgid = join(self.garage, 'SGID10 as INDICES.sde')
 
-        self.static_data = [join(current_folder, '..', 'data', 'drg.gdb')]
+        self.static_data = [r'C:\Scheduled\static\drg.gdb']
         self.copy_data = [self.raster]
         self.arcgis_services = [('Raster', 'MapServer')]
 
