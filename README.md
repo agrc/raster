@@ -8,7 +8,7 @@ raster.utah.gov
 1. Add new feature class name to `scripts/RasterPallet.py` and run the pallet.
 1. Copy new features classes to local FGDB (reproject)
 1. Add new layer to `Raster.mxd`.
-1. Save and run `scripts/checkMxd.py`.
+1. Save MXD and run `scripts/checkMxd.py`.
 1. Run pallet on server so that data is there.
 1. Republish service.
 

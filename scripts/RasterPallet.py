@@ -8,9 +8,9 @@ It updates all data in the raster.gdb database.
 The DRG.gdb database is managed manually in staging.
 '''
 
-from forklift.models import Pallet
-from os.path import join, dirname, realpath
+from os.path import dirname, join, realpath
 
+from forklift.models import Pallet
 
 current_folder = dirname(realpath(__file__))
 
@@ -69,6 +69,8 @@ class RasterPallet(Pallet):
                          'LiDAR2013_2014_50cm_WasatchFront_DTM_Tiles',
                          'LiDAR2016_50cm_MonroeMtn_DEM_Tiles',
                          'LiDAR2016_50cm_MonroeMtn_DSM_Tiles',
+                         'LiDAR2017_50cm_WVW_DEM_Tiles',
+                         'LiDAR2017_50cm_WVW_DSM_Tiles',
                          'NAIP2003_County',
                          'NAIP2003_QQuads',
                          'NAIP2004_County',
