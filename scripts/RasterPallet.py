@@ -67,6 +67,8 @@ class RasterPallet(Pallet):
                          'LiDAR2013_1m_SanRafael_Tile',
                          'LiDAR2013_2014_50cm_WasatchFront_DSM_Tiles',
                          'LiDAR2013_2014_50cm_WasatchFront_DTM_Tiles',
+                         'LiDAR2015_50cm_Rivers_DEM_Tiles',
+                         'LiDAR2015_50cm_Rivers_DSM_Tiles',
                          'LiDAR2016_50cm_MonroeMtn_DEM_Tiles',
                          'LiDAR2016_50cm_MonroeMtn_DSM_Tiles',
                          'LiDAR2017_50cm_WVW_DEM_Tiles',

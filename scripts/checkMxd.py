@@ -3,8 +3,9 @@ used to check the raster.mxd to make sure that it has all of the indices layers
 that are referenced in the *_Extents feature classes.
 """
 
-import arcpy
 from os import path
+
+import arcpy
 
 mxd = arcpy.mapping.MapDocument(path.join(path.dirname(__file__), '..', 'maps', 'Raster.mxd'))
 lyrs = arcpy.mapping.ListLayers(mxd)
@@ -15,7 +16,8 @@ def FindLayer(name):
         if l.name == name:
             return True
 
-    print('could not find: %s' % name)
+    print('could not find layer: %s' % name)
+
 
 for i in range(4):
     cur = arcpy.SearchCursor(lyrs[i], "In_House = 'Yes'")
