@@ -66,7 +66,7 @@ define([
             this.iParams.height = this.map.height;
             this.iParams.width = this.map.width;
             this.iParams.mapExtent = this.map.extent;
-            this.iParams.maxAllowableOffset = (this.map.extent.getWidth() / this.map.width) * 0.75;
+            this.iParams.maxAllowableOffset = 100;
 
             this.iTask.execute(this.iParams);
 
