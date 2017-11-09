@@ -67,9 +67,6 @@ define([
         // title: String
         title: '',
 
-        // ftpPath: String
-        ftpPath: null,
-
         // tiles: Tile[]
         tiles: null,
 
@@ -189,7 +186,6 @@ define([
             });
 
             this.set('title', graphic.attributes[config.fields.common.Description]);
-            this.ftpPath = graphic.attributes[config.fields.common.FTP_Path];
 
             this.clearResults();
 
