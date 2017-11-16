@@ -6,6 +6,7 @@ dist/
 node_modules/
 scripts/agrc*
 scripts/Logs/
+scripts/raster_secrets.py
 scripts/requests*
 scripts/secrets.py
 secrets.json
