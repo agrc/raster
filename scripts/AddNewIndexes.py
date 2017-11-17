@@ -27,7 +27,7 @@ def add_layers_to_pallet(new_layers):
         existing_layers = json.loads(read_file.read())
 
     with open(json_path, 'w') as write_file:
-        write_file.write(json.dumps(existing_layers + new_layers, indent=4))
+        write_file.write(json.dumps(existing_layers + map(lambda l: l.split('.')[-1], new_layers), indent=4))
 
 
 def add_layers_to_gdbs(new_layers):
