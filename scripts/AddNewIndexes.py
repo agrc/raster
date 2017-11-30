@@ -31,7 +31,7 @@ def add_layers_to_pallet(new_layers):
 
 
 def add_layers_to_gdbs(new_layers):
-    folders = [local_folder] + PROD_SERVERS.map(lambda ip: r'\\{}\c$\MapData'.format(ip))
+    folders = [local_folder] + map(lambda ip: r'\\{}\c$\MapData'.format(ip), PROD_SERVERS)
     # folders = [local_folder]
     print('adding layers to raster.gdb in these folders: {}'.format(folders))
     for layer in new_layers:

@@ -4,12 +4,9 @@ raster.utah.gov
 ## Installation
 1. Publish `maps/Raster.mxd` as `/Raster` map service.
 
-## How to add a new layer
-1. Add new feature class name to `scripts/RasterPallet.py` and run the pallet.
-1. Add new layer to `Raster.mxd` (remember to import hollow symbology from an exiting layer).
-1. Save MXD and run `scripts/checkMxd.py`.
-1. Run pallet on server so that data is there.
-1. Republish service.
+## How to add a new layer (from test server)
+1. Run `scripts/AddNewIndexes.py` with the new layers.
+1. Publish `Raster.mxd`.
 
 ## Notes
 ### Preview URL's
