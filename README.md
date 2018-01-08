@@ -7,6 +7,7 @@ raster.utah.gov
 ## How to add a new layer (from test server)
 1. Run `scripts/AddNewIndexes.py` with the new layers.
 1. Publish `Raster.mxd`.
+1. Push changes to repo.
 
 ## Notes
 ### Preview URL's
