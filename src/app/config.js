@@ -14,6 +14,15 @@ define([
             geoService: '/ArcGIS/rest/services/Geometry/GeometryServer',
             discover: 'https://discover.agrc.utah.gov/login/path/<quadWord>/tiles/<serviceName>/${level}/${col}/${row}'
         },
+        categoryIds: {
+            // these need to match the values of the checkboxes in Toolbox.html
+            aerials: 0,
+            lidar: 1,
+            usgsDEMs: 2,
+            autoCorrelated: 3,
+            contours: 4,
+            topos: 5
+        },
         topics: {
             clearPreview: 'raster.clearPreview',
             showPreview: 'raster.showPreview',

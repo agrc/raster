@@ -153,9 +153,9 @@ define([
                 } else {
                     var params = new ImageServiceParameters();
                     params.format = 'jpg';
-                    if (this.extentLayerId === '0' || this.extentLayerId === '4') {
+                    if (this.extentLayerId === config.categoryIds.aerials || this.extentLayerId === config.categoryIds.topos) {
                         // aerials, drg's
-                        params.bandIds = [0,1,2];
+                        params.bandIds = [0, 1, 2];
                     } else {
                         // hillshades
                         params.bandIds = [0];
@@ -383,19 +383,22 @@ define([
             // I realize this could be written using a simple look up object, but then
             // the build system wouldn't know where to get the cache string, so lay off man!
             switch (this.graphic.attributes.layerId) {
-                case 0:
+                case config.categoryIds.aerials:
                     template = aerialsHTML;
                     break;
-                case 1:
-                    template = contoursHTML;
-                    break;
-                case 2:
-                    template = demsHTML;
-                    break;
-                case 3:
+                case config.categoryIds.lidar:
                     template = lidarHTML;
                     break;
-                case 4:
+                case config.categoryIds.usgsDEMs:
+                    template = demsHTML;
+                    break;
+                case config.categoryIds.autoCorrelated:
+                    template = demsHTML;
+                    break;
+                case config.categoryIds.contours:
+                    template = contoursHTML;
+                    break;
+                case config.categoryIds.topos:
                     template = toposHTML;
                     break;
             }

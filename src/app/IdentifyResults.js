@@ -13,11 +13,12 @@ define([
         // one array for each layer
         // arrays are initialized in the constructor
         // arrays hold groups which, in turn, hold arrays of products
-        0: null, // aerials
-        1: null, // contours
-        2: null, // dem's
-        3: null, // lidar
-        4: null, // topo
+        0: null,
+        1: null,
+        2: null,
+        3: null,
+        4: null,
+        5: null,
 
         // layer example:
         //
@@ -34,11 +35,9 @@ define([
         constructor: function () {
             console.log('app/IdentifyResults:constructor', arguments);
 
-            this['0'] = [];
-            this['1'] = [];
-            this['2'] = [];
-            this['3'] = [];
-            this['4'] = [];
+            Object.keys(config.categoryIds).forEach(function (categoryName) {
+                this[config.categoryIds[categoryName]] = [];
+            }.bind(this));
         },
         add: function (result) {
             // summary:
@@ -95,9 +94,9 @@ define([
                 }
             }
 
-            // only sort photography
-            this['0'].sort(sortGroups);
-            this['3'].sort(sortGroups);
+            // only sort photography and LiDAR
+            this[config.categoryIds.aerials].sort(sortGroups);
+            this[config.categoryIds.lidar].sort(sortGroups);
         }
     });
 });
