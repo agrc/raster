@@ -407,15 +407,16 @@ define([
                 throw new TypeError('No template found for: ' + this.graphic.layerId);
             }
 
-            // encode attribute values
-            for (var att in this.graphic.attributes) {
-                if (this.graphic.attributes.hasOwnProperty(att)) {
-                    var v = this.graphic.attributes[att];
-                    if (this.graphic.attributes.hasOwnProperty(att) && typeof v === 'string') {
-                        this.graphic.attributes[att] = entities.encode(v);
-                    }
+            // encode attribute values and strip ftp_path if contains path to google storage
+            Object.keys(this.graphic.attributes).forEach(function (att) {
+                var v = this.graphic.attributes[att];
+
+                if (att === config.fields.common.FTP_Path && v.indexOf(config.googleStorage) > -1) {
+                    this.graphic.attributes[att] = 'n/a';
+                } else if (this.graphic.attributes.hasOwnProperty(att) && typeof v === 'string') {
+                    this.graphic.attributes[att] = entities.encode(v);
                 }
-            }
+            }.bind(this));
 
             this.modalContent.innerHTML = dojoString.substitute(template, this.graphic.attributes);
 

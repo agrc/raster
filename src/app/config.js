@@ -14,6 +14,7 @@ define([
             geoService: '/ArcGIS/rest/services/Geometry/GeometryServer',
             discover: 'https://discover.agrc.utah.gov/login/path/<quadWord>/tiles/<serviceName>/${level}/${col}/${row}'
         },
+        googleStorage: 'https://storage.googleapis.com/',
         categoryIds: {
             // these need to match the values of the checkboxes in Toolbox.html
             aerials: 0,
