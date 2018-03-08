@@ -12,27 +12,33 @@
                     <div class='select-products'>
                         <div class="checkbox">
                             <label>
-                                <input value='0' type='checkbox'/> Aerial Photography
+                                <input value='0' type='checkbox'/>
+                                <abbr title="A longer description of what this is">Aerial Photography</abbr>
                             </label>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input value='1' type='checkbox'/> Contours
+                                <input value='1' type='checkbox'/> LiDAR DEMs
                             </label>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input value='2' type='checkbox'/> DEMs
+                                <input value='2' type='checkbox'/> USGS DEMs
                             </label>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input value='3' type='checkbox'/> LiDAR
+                                <input value='3' type='checkbox'/> Auto-Correlated DEMs
                             </label>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input value='4' type='checkbox'/> USGS Topo Maps
+                                <input value='4' type='checkbox'/> Contours
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input value='5' type='checkbox'/> USGS Topo Maps
                             </label>
                         </div>
                     </div>
@@ -103,16 +109,19 @@
                         <div data-dojo-attach-point='0Results' data-dojo-type='app/ResultGroup' data-dojo-props="'class': 'main-product-container', 'title': 'Aerial Photography', 'forceOpen': true"></div>
                     </div>
                     <div data-dojo-attach-point='1ResultsContainer' class='results-container hidden'>
-                        <div data-dojo-attach-point='1Results' data-dojo-props="'title': 'Contours', 'class': 'main-product-container', 'forceOpen': true" data-dojo-type='app/ResultGroup'></div>
+                        <div data-dojo-attach-point='1Results' data-dojo-props="'title': 'LiDAR DEMs', 'class': 'main-product-container', 'forceOpen': true" data-dojo-type='app/ResultGroup'></div>
                     </div>
                     <div data-dojo-attach-point='2ResultsContainer' class='results-container hidden'>
-                        <div data-dojo-attach-point='2Results' data-dojo-props="'title': 'DEMs', 'class': 'main-product-container', 'forceOpen': true" data-dojo-type='app/ResultGroup'></div>
+                        <div data-dojo-attach-point='2Results' data-dojo-props="'title': 'USGS DEMs', 'class': 'main-product-container', 'forceOpen': true" data-dojo-type='app/ResultGroup'></div>
                     </div>
                     <div data-dojo-attach-point='3ResultsContainer' class='results-container hidden'>
-                        <div data-dojo-attach-point='3Results' data-dojo-props="'title': 'LiDAR', 'class': 'main-product-container', 'forceOpen': true" data-dojo-type='app/ResultGroup'></div>
+                        <div data-dojo-attach-point='3Results' data-dojo-props="'title': 'Auto-Correlated DEMs', 'class': 'main-product-container', 'forceOpen': true" data-dojo-type='app/ResultGroup'></div>
                     </div>
                     <div data-dojo-attach-point='4ResultsContainer' class='results-container hidden'>
-                        <div data-dojo-attach-point='4Results' data-dojo-props="'title': 'USGS Topo Maps', 'class': 'main-product-container', 'forceOpen': true" data-dojo-type='app/ResultGroup'></div>
+                        <div data-dojo-attach-point='4Results' data-dojo-props="'title': 'Contours', 'class': 'main-product-container', 'forceOpen': true" data-dojo-type='app/ResultGroup'></div>
+                    </div>
+                    <div data-dojo-attach-point='5ResultsContainer' class='results-container hidden'>
+                        <div data-dojo-attach-point='5Results' data-dojo-props="'title': 'USGS Topo Maps', 'class': 'main-product-container', 'forceOpen': true" data-dojo-type='app/ResultGroup'></div>
                     </div>
                     <br>
                     <div data-dojo-type="app/MainAppLink"></div>

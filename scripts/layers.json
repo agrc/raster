@@ -1,5 +1,6 @@
 [
     "Aerial_Photography_Extents",
+    "AutoCorrelated_DEM_Extents",
     "AutoCorrelated_DEM_2m",
     "AutoCorrelated_DEM_5m",
     "BLM_1970s_QQuads",
