@@ -11,15 +11,19 @@ var profile = {
     layers: {
         'dojo/dojo': {
             include: [
-                'dojo/i18n',
-                'dojo/domReady',
-                'dojo/has',
-                'app/run',
                 'app/App',
                 'app/packages',
+                'app/run',
+                'dojo/domReady',
+                'dojo/has',
+                'dojo/i18n',
+                'dojox/gfx/filters',
                 'dojox/gfx/path',
+                'dojox/gfx/shape',
                 'dojox/gfx/svg',
-                'dojox/gfx/shape'
+                'dojox/gfx/svgext',
+                'esri/dijit/Attribution',
+                'esri/layers/VectorTileLayerImpl'
             ],
             includeLocales: ['en-us'],
             customBase: true,
