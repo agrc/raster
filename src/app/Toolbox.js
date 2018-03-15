@@ -211,7 +211,10 @@ define([
                 toolbox: this
             }, this.downloadDiv);
 
-            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="tooltip"]').tooltip({
+                delay: 200,
+                placement: 'right'
+            });
         },
         setCategory: function () {
             // summary:
