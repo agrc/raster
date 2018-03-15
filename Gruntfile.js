@@ -56,6 +56,19 @@ module.exports = function (grunt) {
                 push: false
             }
         },
+        cachebreaker: {
+            main: {
+                options: {
+                    match: [
+                        'dojo/dojo.js',
+                        'app/resources/App.css'
+                    ]
+                },
+                files: {
+                    src: ['dist/*.html']
+                }
+            }
+        },
         clean: {
             build: ['dist'],
             deploy: ['deploy']
@@ -78,7 +91,12 @@ module.exports = function (grunt) {
         },
         copy: {
             main: {
-                files: [{expand: true, cwd: 'src/', src: ['*.html'], dest: 'dist/'}]
+                files: [{
+                    expand: true,
+                    cwd: 'src/',
+                    src: ['*.html', 'web.config'],
+                    dest: 'dist/'
+                }]
             }
         },
         dojo: {
@@ -220,7 +238,8 @@ module.exports = function (grunt) {
         'stylus',
         'dojo:prod',
         'copy:main',
-        'processhtml:main'
+        'processhtml:main',
+        'cachebreaker'
     ]);
     grunt.registerTask('build-stage', [
         'clean:build',
@@ -228,7 +247,8 @@ module.exports = function (grunt) {
         'stylus',
         'dojo:stage',
         'copy:main',
-        'processhtml:main'
+        'processhtml:main',
+        'cachebreaker'
     ]);
     grunt.registerTask('deploy-prod', [
         'clean:deploy',
