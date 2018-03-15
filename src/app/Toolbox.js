@@ -210,6 +210,8 @@ define([
                 drawingGraphicsLayer: this.drawingGraphics,
                 toolbox: this
             }, this.downloadDiv);
+
+            $('[data-toggle="tooltip"]').tooltip();
         },
         setCategory: function () {
             // summary:
