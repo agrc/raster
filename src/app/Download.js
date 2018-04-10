@@ -167,7 +167,9 @@ define([
 
             this.graphic = graphic;
 
-            this.currentLayerId = this.getLayerId(graphic.attributes[config.fields.common.Tile_Index]);
+            var tileIndexName = graphic.attributes[config.fields.common.Tile_Index];
+
+            this.currentLayerId = this.getLayerId(tileIndexName);
 
             // query for tiles
             // get intersection between aoi and graphic
@@ -176,11 +178,16 @@ define([
             }
             var that = this;
             this.geoService.intersect([aoiGeometry], graphic.geometry, function (geometries) {
+                var where;
+                if (RegExp(config.historicIndexLayerName).test(tileIndexName)) {
+                    where = config.fields.historic.Project + ' = \'' +
+                        graphic.attributes[config.fields.historic.Project] + '\'';
+                }
                 that.setUpQueryTask(config.urls.mapService + '/' + that.currentLayerId, {
                     returnGeometry: true,
                     outFields: ['*']
                 });
-                that.executeQueryTask(geometries[0]);
+                that.executeQueryTask(geometries[0], where);
             }, function (er) {
                 console.error('There was an error with the geometry service', er);
             });

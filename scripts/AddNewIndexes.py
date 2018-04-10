@@ -18,6 +18,7 @@ from raster_secrets import PROD_SERVERS
 current_folder = dirname(realpath(__file__))
 local_folder = r'C:\MapData'
 sgid = join(current_folder, 'SGID10 as INDICES.sde')
+drgGDB = join(local_folder, 'drg.gdb')
 
 
 def add_layers_to_pallet(new_layers):
@@ -66,11 +67,17 @@ def add_layers_to_mxd(new_layers):
         print('ERROR! Could not find layer: %s' % name)
 
     print('validating that all indexes in the extents feature classes (SDE) are added as layers in mxd')
-    for i in range(4):
-        cur = arcpy.SearchCursor(join(sgid, lyrs[i].name), "In_House = 'Yes' AND SHOW = 'Y'")
+    for i in range(6):
+        workspace = sgid
+        if i == 5:
+            workspace = drgGDB
+        cur = arcpy.SearchCursor(join(workspace, lyrs[i].name), "In_House = 'Yes' AND SHOW = 'Y'")
         print('searching %s' % lyrs[i])
         for row in cur:
-            FindLayer(row.Tile_Index.split('.')[2])
+            layerName = row.Tile_Index
+            if i != 5:
+                layerName = layerName.split('.')[2]
+            FindLayer(layerName)
 
 
 try:

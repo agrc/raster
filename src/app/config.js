@@ -15,6 +15,7 @@ define([
             discover: 'https://discover.agrc.utah.gov/login/path/<quadWord>/tiles/<serviceName>/${level}/${col}/${row}'
         },
         googleStorage: 'https://storage.googleapis.com/',
+        historicIndexLayerName: 'Scanned_Aerial_Photography',
         categoryIds: {
             // these need to match the values of the checkboxes in Toolbox.html
             aerials: 0,
@@ -22,7 +23,8 @@ define([
             usgsDEMs: 2,
             autoCorrelated: 3,
             contours: 4,
-            topos: 5
+            topos: 5,
+            historic: 6
         },
         topics: {
             clearPreview: 'raster.clearPreview',
@@ -63,6 +65,9 @@ define([
                 WORLDFILE: 'WORLDFILE',
                 METADATA: 'METADATA',
                 SIZE_FORMATTED: 'SIZE_FORMATTED'
+            },
+            historic: {
+                Project: 'Project'
             }
         },
         urlParams: {

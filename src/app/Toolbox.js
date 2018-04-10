@@ -212,8 +212,7 @@ define([
             }, this.downloadDiv);
 
             $('[data-toggle="tooltip"]').tooltip({
-                delay: 200,
-                placement: 'right'
+                delay: 200
             });
         },
         setCategory: function () {

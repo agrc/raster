@@ -16,6 +16,7 @@ define([
     'dojo/text!app/html/MoreInfo_DEMs.html',
     'dojo/text!app/html/MoreInfo_LiDAR.html',
     'dojo/text!app/html/MoreInfo_Topos.html',
+    'dojo/text!app/html/MoreInfo_Historic.html',
     'dojo/text!app/templates/ProductResult.html',
     'dojo/topic',
     'dojo/_base/declare',
@@ -51,6 +52,7 @@ define([
     demsHTML,
     lidarHTML,
     toposHTML,
+    historicHTML,
     template,
     topic,
     declare,
@@ -401,6 +403,8 @@ define([
                 case config.categoryIds.topos:
                     template = toposHTML;
                     break;
+                case config.categoryIds.historic:
+                    template = historicHTML;
             }
 
             if (!template) {
