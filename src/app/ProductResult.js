@@ -144,7 +144,7 @@ define([
             var rest = this.graphic.attributes[config.fields.common.REST_Endpoint];
             var serviceName = this.graphic.attributes[config.fields.common.ServiceName];
             var isEmpty = function (value) {
-                return !value || value === 'n/a' || value === '' || value === 'Null';
+                return !value || value === 'n/a' || value === '' || value === 'Null' || value === '<Null>';
             }
 
             if (isEmpty(serviceName)) {
