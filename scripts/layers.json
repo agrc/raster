@@ -88,5 +88,7 @@
     "LiDAR2016_50cm_FORGE_DEM_Tiles",
     "LiDAR2016_50cm_FORGE_DSM_Tiles",
     "USGS_DEM_10m",
-    "USGS_DEM_30m"
+    "USGS_DEM_30m",
+    "LiDAR2017_50cm_MillsiteRes_DEM_Tiles",
+    "LiDAR2017_50cm_MillsiteRes_DSM_Tiles"
 ]
