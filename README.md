@@ -1,5 +1,6 @@
 raster.utah.gov
 ================
+[![Build Status](https://travis-ci.com/agrc/raster.svg?branch=master)](https://travis-ci.com/agrc/raster)
 
 ## Installation
 1. Publish `maps/Raster.mxd` as `/Raster` map service.
