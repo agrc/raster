@@ -195,7 +195,7 @@ define([
                 new SimpleLineSymbol(SimpleFillSymbol.STYLE_SOLID,
                     new Color([255, 204, 0]), 3), null);
 
-            this.search = new Search({map: this.map});
+            this.search = new Search({ map: this.map });
 
             if (this.cat || this.catGroup) {
                 this.setCategory();
@@ -268,10 +268,10 @@ define([
                             fSet.features.forEach(function (g) {
                                 g.setSymbol(this.catSymbol);
                                 gLayer.add(g);
-                                if (!extent) {
-                                    extent = g.geometry.getExtent();
-                                } else {
+                                if (extent) {
                                     extent = extent.union(g.geometry.getExtent());
+                                } else {
+                                    extent = g.geometry.getExtent();
                                 }
                             }, this);
                             this.map.addLayer(gLayer, 0);
@@ -334,18 +334,18 @@ define([
 
             var map = this.getCurrentMap();
 
-            if (extent.spatialReference.wkid !== map.spatialReference.wkid) {
+            if (extent.spatialReference.wkid === map.spatialReference.wkid) {
+                map.setExtent(extent, true);
+            } else {
                 if (!this.geometryService) {
                     this.geometryService = new GeometryService(config.urls.geoService);
                 }
                 var params = new ProjectParameters();
-                params.geometries = [extent]
+                params.geometries = [extent];
                 params.outSR = map.spatialReference;
                 this.geometryService.project(params, function (geometries) {
                     map.setExtent(geometries[0], true);
                 });
-            } else {
-                map.setExtent(extent, true);
             }
         },
         addDrawingToMap: function (geometry) {
@@ -368,6 +368,8 @@ define([
                 case 'polygon':
                     sym = this.drawToolbar.fillSymbol;
                     break;
+                default:
+                    break;
             }
 
             var g = new Graphic(geometry, sym);
@@ -387,6 +389,7 @@ define([
             // disable drawing toolbar when the use de-selects a tool
             if (!clickedButton.get('checked')) {
                 this.drawToolbar.deactivate();
+
                 return;
             }
 
@@ -437,10 +440,14 @@ define([
             var checked = this.getSelectedLayerIds();
 
             if (checked.length === 0) {
-                this.displaySearchWarning('Please select at least one data category check box in "Step 1 - Select Products"');
+                this.displaySearchWarning(
+                    'Please select at least one data category check box in "Step 1 - Select Products"'
+                );
+
                 return;
             } else if (this.drawingGraphics.graphics.length === 0) {
                 this.displaySearchWarning('Please define an area of interest on the map using the tools above.');
+
                 return;
             }
 
@@ -463,6 +470,7 @@ define([
             query('.raster-toolbox .select-products input:checked').forEach(function (chbx) {
                 ids.push(chbx.value);
             });
+
             return ids;
         },
         searchComplete: function (results) {
@@ -605,7 +613,9 @@ define([
                 esriConfig.defaults.map.panDuration = that.defaultPanDuration;
             };
 
-            if (newMap.spatialReference.wkid !== currentMap.spatialReference.wkid) {
+            if (newMap.spatialReference.wkid === currentMap.spatialReference.wkid) {
+                setExtent(currentMap.extent);
+            } else {
                 if (!this.geometryService) {
                     this.geometryService = new GeometryService(config.urls.geoService);
                 }
@@ -616,8 +626,6 @@ define([
                 this.geometryService.project(projParams, function (geometries) {
                     setExtent(geometries[0]);
                 });
-            } else {
-                setExtent(currentMap.extent);
             }
         },
         getCurrentMap: function () {
@@ -629,9 +637,9 @@ define([
                 return this.previewMapUtm;
             } else if (domStyle.get(this.previewMapWebMerc.container, 'display') === 'block') {
                 return this.previewMapWebMerc;
-            } else {
-                return this.map;
             }
+
+            return this.map;
         },
         showPreview: function (productResult) {
             // summary:

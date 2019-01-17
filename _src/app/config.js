@@ -1,3 +1,4 @@
+/* eslint-disable camelcase, max-len */
 define([
     'dojo/has',
     'dojo/request/xhr'
@@ -30,8 +31,6 @@ define([
             hidePreview: 'raster.hidePreview',
             downloadComplete: 'raster.downloadComplete',
             downloadClick: 'raster.downloadClick',
-            showPreview: 'raster.showPreview',
-            hidePreview: 'raster.hidePreview',
             zoomToExtent: 'raster.zoomToExtent'
         },
         fields: {
@@ -93,5 +92,6 @@ define([
             throw 'Error getting secrets!';
         });
     }
+
     return config;
 });

@@ -131,7 +131,7 @@ define([
 
                     topic.subscribe(config.topics.downloadComplete, lang.hitch(that.downloadLoading, 'stop'));
                 }
-            })
+            });
 
             this.inherited(arguments);
         },
@@ -145,74 +145,76 @@ define([
             var serviceName = this.graphic.attributes[config.fields.common.ServiceName];
             var isEmpty = function (value) {
                 return !value || value === 'n/a' || value === '' || value === 'Null' || value === '<Null>';
-            }
+            };
 
             if (isEmpty(serviceName)) {
                 if (isEmpty(rest)) {
                     return null;
+                }
+
+                var params = new ImageServiceParameters();
+                params.format = 'jpg';
+                if (this.extentLayerId === config.categoryIds.aerials ||
+                    this.extentLayerId === config.categoryIds.topos) {
+                    // aerials, drg's
+                    params.bandIds = [0, 1, 2];
                 } else {
-                    var params = new ImageServiceParameters();
-                    params.format = 'jpg';
-                    if (this.extentLayerId === config.categoryIds.aerials || this.extentLayerId === config.categoryIds.topos) {
-                        // aerials, drg's
-                        params.bandIds = [0, 1, 2];
-                    } else {
-                        // hillshades
-                        params.bandIds = [0];
-                    }
-                    params.interpolation = params.INTERPOLATION_BILINEAR;
-
-                    return {
-                        LayerClass: ArcGISImageServiceLayer,
-                        url: rest,
-                        props: {
-                            imageServiceParameters: params,
-                            id: 'preview' + (this.previewMapUtm.layerIds.length + 1)
-                        },
-                        map: this.previewMapUtm
-                    }
+                    // hillshades
+                    params.bandIds = [0];
                 }
-            } else {
-                var tilesize = 256;
-                var earthCircumference = 40075016.685568;
-                var inchesPerMeter =  39.37;
-                var initialResolution = earthCircumference / tilesize;
+                params.interpolation = params.INTERPOLATION_BILINEAR;
 
-                var lods = [];
-                for (var level = 0; level <= 20; level++) {
-                    var resolution = initialResolution / Math.pow(2, level);
-                    var scale = resolution * 96 * inchesPerMeter;
-                    lods.push({
-                        level: level,
-                        scale: scale,
-                        resolution: resolution
-                    });
-                }
-
-                var tileInfo = new TileInfo({
-                    dpi: 96,
-                    rows: 256,
-                    cols: 256,
-                    width: 256,
-                    origin: {
-                        x: -20037508.342787,
-                        y: 20037508.342787
-                    },
-                    spatialReference: {
-                        wkid: 3857
-                    },
-                    lods: lods
-                });
                 return {
-                    LayerClass: WebTiledLayer,
-                    url: config.urls.discover.replace('<quadWord>', config.quadWord).replace('<serviceName>', serviceName),
+                    LayerClass: ArcGISImageServiceLayer,
+                    url: rest,
                     props: {
-                        tileInfo: tileInfo,
-                        id: 'preview' + (this.previewMapWebMerc.layerIds.length + 1)
+                        imageServiceParameters: params,
+                        id: 'preview' + (this.previewMapUtm.layerIds.length + 1)
                     },
-                    map: this.previewMapWebMerc
-                }
+                    map: this.previewMapUtm
+                };
             }
+
+            var tilesize = 256;
+            var earthCircumference = 40075016.685568;
+            var inchesPerMeter = 39.37;
+            var initialResolution = earthCircumference / tilesize;
+
+            var lods = [];
+            for (var level = 0; level <= 20; level++) {
+                var resolution = initialResolution / Math.pow(2, level);
+                var scale = resolution * 96 * inchesPerMeter;
+                lods.push({
+                    level: level,
+                    scale: scale,
+                    resolution: resolution
+                });
+            }
+
+            var tileInfo = new TileInfo({
+                dpi: 96,
+                rows: 256,
+                cols: 256,
+                width: 256,
+                origin: {
+                    x: -20037508.342787,
+                    y: 20037508.342787
+                },
+                spatialReference: {
+                    wkid: 3857
+                },
+                lods: lods
+            });
+
+            return {
+                LayerClass: WebTiledLayer,
+                url: config.urls.discover.replace('<quadWord>', config.quadWord).replace('<serviceName>', serviceName),
+                props: {
+                    tileInfo: tileInfo,
+                    id: 'preview' + (this.previewMapWebMerc.layerIds.length + 1)
+                },
+                map: this.previewMapWebMerc
+            };
         },
         buildContent: function () {
             // summary:
@@ -273,22 +275,22 @@ define([
 
             domClass.toggle(this.previewBtnLabel, 'active', show);
 
-            if (!this.previewLyr) {
-                this.addLayer();
-            } else {
+            if (this.previewLyr) {
                 this.previewLyr.setVisibility(show);
+            } else {
+                this.addLayer();
             }
 
             if (show) {
-                if (!this.previewLyr.loaded) {
+                if (this.previewLyr.loaded) {
+                    topic.publish(config.topics.showPreview, this);
+                    this.previewLyr.resume();
+                } else {
                     var that = this;
                     this.previewLyr.on('load', function () {
                         topic.publish(config.topics.showPreview, that);
                         that.previewLyr.resume();
                     });
-                } else {
-                    topic.publish(config.topics.showPreview, this);
-                    this.previewLyr.resume();
                 }
             } else {
                 topic.publish(config.topics.hidePreview);
@@ -376,7 +378,7 @@ define([
             // evt: dojo normalized event
             console.log('app/ProductResult:onMoreInfoClick', arguments);
 
-            var template;
+            var infoTemplate;
 
             evt.preventDefault();
 
@@ -384,26 +386,28 @@ define([
             // the build system wouldn't know where to get the cache string, so lay off man!
             switch (this.graphic.attributes.layerId) {
                 case config.categoryIds.aerials:
-                    template = aerialsHTML;
+                    infoTemplate = aerialsHTML;
                     break;
                 case config.categoryIds.lidar:
-                    template = lidarHTML;
+                    infoTemplate = lidarHTML;
                     break;
                 case config.categoryIds.usgsDEMs:
-                    template = demsHTML;
+                    infoTemplate = demsHTML;
                     break;
                 case config.categoryIds.autoCorrelated:
-                    template = demsHTML;
+                    infoTemplate = demsHTML;
                     break;
                 case config.categoryIds.contours:
-                    template = contoursHTML;
+                    infoTemplate = contoursHTML;
                     break;
                 case config.categoryIds.topos:
-                    template = toposHTML;
+                    infoTemplate = toposHTML;
+                    break;
+                default:
                     break;
             }
 
-            if (!template) {
+            if (!infoTemplate) {
                 throw new TypeError('No template found for: ' + this.graphic.layerId);
             }
 
@@ -418,12 +422,12 @@ define([
                 }
             }.bind(this));
 
-            this.modalContent.innerHTML = dojoString.substitute(template, this.graphic.attributes);
+            this.modalContent.innerHTML = dojoString.substitute(infoTemplate, this.graphic.attributes);
 
-            if (!this.modalInitialized) {
-                $(this.modal).modal();
-            } else {
+            if (this.modalInitialized) {
                 $(this.modal).modal('show');
+            } else {
+                $(this.modal).modal();
             }
         }
     });

@@ -97,9 +97,9 @@ define([
             var results = regex.exec(window.location.href);
             if (results === null) {
                 return undefined;
-            } else {
-                return window.decodeURI(results[1]);
             }
+
+            return window.decodeURI(results[1]);
         },
         initMaps: function () {
             // summary:
@@ -151,9 +151,9 @@ define([
                 return '??';
             } else if (mbs < 1000) {
                 return mbs + 'Mb';
-            } else {
-                return (Math.round(mbs / 100) / 10) + 'Gb';
             }
+
+            return (Math.round(mbs / 100) / 10) + 'Gb';
         }
     });
 });

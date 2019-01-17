@@ -203,7 +203,7 @@ define([
                     node.href = that.graphic.attributes[config.fields.common.FTP_Path] + value;
                 }
                 domClass.toggle(node, 'hidden', !hasValue);
-            }
+            };
             checkProjectLevelLink(config.fields.common.METADATA, this.metadataLink);
             checkProjectLevelLink(config.fields.common.REPORT, this.reportLink);
         },
@@ -233,6 +233,7 @@ define([
             // send to alternate callback when the user clicked on the map
             if (this.mapClickedPoint) {
                 this.onQueryTaskCompleteMapClick(fSet);
+
                 return;
             }
 
@@ -286,17 +287,18 @@ define([
             array.some(this.layer.layerInfos, function (info) {
                 if (info.name === name) {
                     id = info.id;
+
                     return true;
-                } else {
-                    return false;
                 }
+
+                return false;
             });
 
             if (id) {
                 return id;
-            } else {
-                throw new TypeError('No matching layer found for: ' + name);
             }
+
+            throw new TypeError('No matching layer found for: ' + name);
         },
         toggleControls: function (show) {
             // summary:
@@ -307,7 +309,7 @@ define([
             var otherFunc;
 
             func = (show) ? domClass.remove : domClass.add;
-            otherFunc = (!show) ? domClass.remove : domClass.add;
+            otherFunc = (show) ? domClass.add : domClass.remove;
 
             func(this.titleSpan, 'hidden');
             func(this.tilesContainerContainer, 'hidden');
@@ -368,6 +370,7 @@ define([
             // make sure that we got a tile
             if (fSet.features.length === 0) {
                 this.map.infoWindow.hide();
+
                 return;
             } else if (fSet.features.length > 1) {
                 var content = domConstruct.create('div', {
@@ -381,7 +384,7 @@ define([
                         innerHTML: f.attributes[config.fields.indices.TILE],
                         className: 'btn btn-default btn-xs',
                         click: function () {
-                            that.onQueryTaskCompleteMapClick({features: [f]});
+                            that.onQueryTaskCompleteMapClick({ features: [f] });
                         }
                     }, content);
                 }, this);

@@ -64,7 +64,7 @@ define([
                 return;
             }
 
-            domConstruct.create('span', {innerHTML: ', '}, this.extraFilesSpan);
+            domConstruct.create('span', { innerHTML: ', ' }, this.extraFilesSpan);
             var url = this.PATH;
             if (useTileName) {
                 url = url + this.TILE;

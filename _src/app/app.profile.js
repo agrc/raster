@@ -1,4 +1,4 @@
-/*eslint-disable no-unused-vars, no-undef */
+/* eslint-disable no-undef, no-implicit-globals */
 profile = {
     resourceTags: {
         test: function (mid) {
@@ -18,4 +18,3 @@ profile = {
         }
     }
 };
-/*eslint-enable no-unused-vars, no-undef */

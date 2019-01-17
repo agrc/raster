@@ -49,7 +49,7 @@ define([
             var flds = config.fields.common;
             var groupname = atts[flds.Category];
             var date;
-            var est_date;
+            var estDate;
 
             // add layerId to graphic so that we can query it when building
             // the more info dialog
@@ -59,18 +59,19 @@ define([
             var found = array.some(this[result.layerId], function (group) {
                 if (group.name === groupname) {
                     group.products.push(result.feature);
+
                     return true;
-                } else {
-                    return false;
                 }
+
+                return false;
             }, this);
 
             // if no group found, then create new group
             if (!found) {
                 // if no date is provided then put it at the bottom of the list.
-                est_date = atts[flds.Estimated_Date];
-                if (est_date && est_date !== '') {
-                    date = new Date(est_date + ' UTC');
+                estDate = atts[flds.Estimated_Date];
+                if (estDate && estDate !== '') {
+                    date = new Date(estDate + ' UTC');
                 } else {
                     date = new Date(0);
                 }
@@ -89,9 +90,9 @@ define([
             function sortGroups(a, b) {
                 if (a.date < b.date) {
                     return 1;
-                } else {
-                    return -1;
                 }
+
+                return -1;
             }
 
             // only sort photography and LiDAR
