@@ -1,24 +1,26 @@
+/* eslint-disable camelcase */
 module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
-    var jsAppFiles = 'src/app/**/*.js';
-    var otherFiles = [
-        'src/app/**/*.html',
-        'src/index.html',
-        'src/ChangeLog.html'
+    const jsAppFiles = '_src/app/**/*.js';
+    const otherFiles = [
+        '_src/app/**/*.html',
+        '_src/index.html',
+        '_src/ChangeLog.html'
     ];
-    var gruntFile = 'Gruntfile.js';
-    var jsFiles = [
+    const gruntFile = 'Gruntfile.js';
+    const jsFiles = [
         jsAppFiles,
-        gruntFile
+        gruntFile,
+        'profiles/*.js'
     ];
-    var bumpFiles = [
+    const bumpFiles = [
         'package.json',
         'bower.json',
-        'src/app/package.json',
-        'src/app/config.js'
+        '_src/app/package.json',
+        '_src/app/config.js'
     ];
-    var deployFiles = [
+    const deployFiles = [
         '**',
         '!**/*.uncompressed.js',
         '!**/*consoleStripped.js',
@@ -33,8 +35,8 @@ module.exports = function (grunt) {
         '!stubmodule/**',
         '!util/**'
     ];
-    var deployDir = 'wwwroot/raster';
-    var secrets;
+    const deployDir = 'wwwroot/raster';
+    let secrets;
     try {
         secrets = grunt.file.readJSON('secrets.json');
     } catch (e) {
@@ -49,6 +51,24 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        babel: {
+            options: {
+                sourceMap: true,
+                presets: [['@babel/preset-env', {
+                    useBuiltIns: false,
+                    modules: false
+                }]],
+                plugins: ['transform-es2015-modules-simple-amd']
+            },
+            src: {
+                files: [{
+                    expand: true,
+                    cwd: '_src/app/',
+                    src: ['**/*.js'],
+                    dest: 'src/app/'
+                }]
+            }
+        },
         bump: {
             options: {
                 files: bumpFiles,
@@ -71,7 +91,8 @@ module.exports = function (grunt) {
         },
         clean: {
             build: ['dist'],
-            deploy: ['deploy']
+            deploy: ['deploy'],
+            src: ['src/app']
         },
         compress: {
             main: {
@@ -90,34 +111,37 @@ module.exports = function (grunt) {
             uses_defaults: {}
         },
         copy: {
-            main: {
+            dist: {
                 files: [{
                     expand: true,
                     cwd: 'src/',
                     src: ['*.html', 'web.config'],
                     dest: 'dist/'
                 }]
+            },
+            src: {
+                expand: true,
+                cwd: '_src',
+                src: ['**/*.html', '**/*.css', '**/*.png', '**/*.jpg', '**/*.gif', 'secrets.json', 'app/package.json'],
+                dest: 'src'
             }
         },
         dojo: {
             prod: {
                 options: {
-                    // You can also specify options to be used in all your tasks
-                    profiles: ['profiles/prod.build.profile.js', 'profiles/build.profile.js'] // Profile for build
+                    profiles: ['profiles/prod.build.profile.js', 'profiles/build.profile.js']
                 }
             },
             stage: {
                 options: {
-                    // You can also specify options to be used in all your tasks
-                    profiles: ['profiles/stage.build.profile.js', 'profiles/build.profile.js'] // Profile for build
+                    profiles: ['profiles/stage.build.profile.js', 'profiles/build.profile.js']
                 }
             },
             options: {
-                // You can also specify options to be used in all your tasks
-                dojo: 'src/dojo/dojo.js', // Path to dojo.js file in dojo source
-                load: 'build', // Optional: Utility to bootstrap (Default: 'build')
+                dojo: 'src/dojo/dojo.js',
+                load: 'build',
                 releaseDir: '../dist',
-                requires: ['src/app/packages.js', 'src/app/run.js'], // Optional: Module to require for the build (Default: nothing)
+                requires: ['src/app/packages.js', 'src/app/run.js'],
                 basePath: './src'
             }
         },
@@ -136,7 +160,7 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: 'src/',
+                    cwd: '_src/',
                     // exclude tests because some images in dojox throw errors
                     src: ['**/*.{png,jpg,gif}', '!**/tests/**/*.*'],
                     dest: 'src/'
@@ -149,6 +173,34 @@ module.exports = function (grunt) {
                 files: {
                     'dist/index.html': ['src/index.html']
                 }
+            }
+        },
+        uglify: {
+            options: {
+                preserveComments: false,
+                sourceMap: true,
+                compress: {
+                    drop_console: true,
+                    passes: 2,
+                    dead_code: true
+                }
+            },
+            stage: {
+                options: {
+                    compress: {
+                        drop_console: false
+                    }
+                },
+                src: ['dist/dojo/dojo.js'],
+                dest: 'dist/dojo/dojo.js'
+            },
+            prod: {
+                files: [{
+                    expand: true,
+                    cwd: 'dist',
+                    src: ['**/*.js', '!proj4/**/*.js'],
+                    dest: 'dist'
+                }]
             }
         },
         secrets: secrets,
@@ -202,7 +254,7 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: 'src/',
+                    cwd: '_src/',
                     src: ['app/**/*.styl'],
                     dest: 'src/',
                     ext: '.css'
@@ -216,7 +268,8 @@ module.exports = function (grunt) {
             },
             src: {
                 files: jsFiles.concat(otherFiles),
-                options: { livereload: true }
+                options: { livereload: true },
+                tasks: ['newer:babel', 'newer:copy:src']
             },
             stylus: {
                 files: 'src/app/**/*.styl',
@@ -228,25 +281,34 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', [
         'eslint',
+        'clean:src',
+        'babel',
         'stylus',
+        'copy:src',
         'connect',
         'watch'
     ]);
     grunt.registerTask('build-prod', [
-        'clean:build',
+        'clean',
+        'babel',
         'newer:imagemin:main',
         'stylus',
+        'copy:src',
         'dojo:prod',
-        'copy:main',
+        'uglify:prod',
+        'copy:dist',
         'processhtml:main',
         'cachebreaker'
     ]);
     grunt.registerTask('build-stage', [
-        'clean:build',
+        'clean',
+        'babel',
         'newer:imagemin:main',
         'stylus',
+        'copy:src',
         'dojo:stage',
-        'copy:main',
+        'uglify:stage',
+        'copy:dist',
         'processhtml:main',
         'cachebreaker'
     ]);
@@ -262,4 +324,7 @@ module.exports = function (grunt) {
         'sftp:stage',
         'sshexec:stage'
     ]);
-}
+    grunt.registerTask('travis', [
+        'eslint'
+    ]);
+};

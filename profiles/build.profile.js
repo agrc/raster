@@ -1,11 +1,11 @@
-/*eslint-disable no-unused-vars*/
+/* eslint-disable no-unused-vars */
 var profile = {
     basePath: '../src',
     action: 'release',
     cssOptimize: 'comments',
     mini: true,
-    optimize: 'uglify',
-    layerOptimize: 'uglify',
+    optimize: false,
+    layerOptimize: false,
     stripConsole: 'all',
     selectorEngine: 'acme',
     layers: {
