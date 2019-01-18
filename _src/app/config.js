@@ -12,7 +12,6 @@ define([
         wkid: 3857,
         urls: {
             mapService: '/ArcGIS/rest/services/Raster/MapServer',
-            geoService: '/ArcGIS/rest/services/Geometry/GeometryServer',
             discover: 'https://discover.agrc.utah.gov/login/path/<quadWord>/tiles/<serviceName>/${level}/${col}/${row}'
         },
         googleStorage: 'https://storage.googleapis.com/',

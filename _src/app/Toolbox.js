@@ -29,13 +29,12 @@ define([
 
     'esri/config',
     'esri/dijit/Scalebar',
+    'esri/geometry/projection',
     'esri/graphic',
     'esri/layers/GraphicsLayer',
     'esri/SpatialReference',
     'esri/symbols/SimpleFillSymbol',
     'esri/symbols/SimpleLineSymbol',
-    'esri/tasks/GeometryService',
-    'esri/tasks/ProjectParameters',
     'esri/tasks/query',
     'esri/tasks/QueryTask',
     'esri/toolbars/draw',
@@ -72,13 +71,12 @@ define([
 
     esriConfig,
     Scalebar,
+    projection,
     Graphic,
     GraphicsLayer,
     SpatialReference,
     SimpleFillSymbol,
     SimpleLineSymbol,
-    GeometryService,
-    ProjectParameters,
     Query,
     QueryTask,
     Draw
@@ -326,26 +324,23 @@ define([
             }));
             topic.subscribe(config.topics.zoomToExtent, lang.hitch(this, 'zoomToExtent'));
         },
-        zoomToExtent: function (extent) {
+        async zoomToExtent(extent) {
             // summary:
             //      zooms the currently visible map to the given extent
             // extent: Extent
             console.log('app/Toolbox:zoomToExtent', arguments);
 
-            var map = this.getCurrentMap();
+            const map = this.getCurrentMap();
 
             if (extent.spatialReference.wkid === map.spatialReference.wkid) {
                 map.setExtent(extent, true);
             } else {
-                if (!this.geometryService) {
-                    this.geometryService = new GeometryService(config.urls.geoService);
+                if (!projection.isLoaded()) {
+                    await projection.load();
                 }
-                var params = new ProjectParameters();
-                params.geometries = [extent];
-                params.outSR = map.spatialReference;
-                this.geometryService.project(params, function (geometries) {
-                    map.setExtent(geometries[0], true);
-                });
+
+                const projectedGeometry = projection.project(extent, map.spatialReference);
+                map.setExtent(projectedGeometry, true);
             }
         },
         addDrawingToMap: function (geometry) {
@@ -580,7 +575,7 @@ define([
                 this.previewMapUtm : this.previewMapWebMerc;
             this.toggleMaps(this.map, activePreviewMap);
         },
-        toggleMaps: function (newMap, currentMap) {
+        async toggleMaps(newMap, currentMap) {
             // summary:
             //      description
             // newMap: Map
@@ -596,8 +591,8 @@ define([
             currentMap.removeLayer(this.drawingGraphics);
             newMap.addLayer(this.drawingGraphics);
 
-            var that = this;
-            var setExtent = function (extent) {
+            const that = this;
+            const setExtent = function (extent) {
                 currentMap.setVisibility(false);
                 newMap.setVisibility(true);
                 window.setTimeout(function () {
@@ -616,16 +611,12 @@ define([
             if (newMap.spatialReference.wkid === currentMap.spatialReference.wkid) {
                 setExtent(currentMap.extent);
             } else {
-                if (!this.geometryService) {
-                    this.geometryService = new GeometryService(config.urls.geoService);
+                if (!projection.isLoaded()) {
+                    await projection.load();
                 }
 
-                var projParams = new ProjectParameters();
-                projParams.outSR = newMap.spatialReference;
-                projParams.geometries = [currentMap.extent];
-                this.geometryService.project(projParams, function (geometries) {
-                    setExtent(geometries[0]);
-                });
+                const projectedGeometry = projection.project(currentMap.extent, newMap.spatialReference);
+                setExtent(projectedGeometry);
             }
         },
         getCurrentMap: function () {

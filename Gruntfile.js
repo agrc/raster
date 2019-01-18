@@ -55,7 +55,7 @@ module.exports = function (grunt) {
             options: {
                 sourceMap: true,
                 presets: [['@babel/preset-env', {
-                    useBuiltIns: false,
+                    useBuiltIns: 'entry',
                     modules: false
                 }]],
                 plugins: ['transform-es2015-modules-simple-amd']

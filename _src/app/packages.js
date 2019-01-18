@@ -18,6 +18,10 @@ require({
             location: './bootstrap',
             main: 'dist/js/bootstrap'
         }, {
+            name: 'babel-polyfill',
+            location: '../node_modules/@babel/polyfill/dist',
+            main: 'polyfill'
+        }, {
             name: 'jquery',
             location: './jquery/dist',
             main: 'jquery'

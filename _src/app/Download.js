@@ -18,9 +18,9 @@ define([
     'dojo/_base/declare',
     'dojo/_base/lang',
 
+    'esri/geometry/geometryEngine',
     'esri/layers/ArcGISDynamicMapServiceLayer',
-    'esri/layers/GraphicsLayer',
-    'esri/tasks/GeometryService'
+    'esri/layers/GraphicsLayer'
 ], function (
     config,
     ProductResult,
@@ -41,9 +41,9 @@ define([
     declare,
     lang,
 
+    geometryEngine,
     ArcGISDynamicMapServiceLayer,
-    GraphicsLayer,
-    GeometryService
+    GraphicsLayer
 ) {
     return declare([_WidgetBase, _TemplatedMixin, _QueryTaskMixin, _WidgetsInTemplateMixin], {
         // description:
@@ -95,10 +95,6 @@ define([
         // mapConnects: dojo.connect handle[]
         //      handles for all of the map connects
         mapConnects: null,
-
-        // geoService: esri.tasks.GeometryService
-        //      used for intersect in setGraphic
-        geoService: null,
 
         // rightClickTxt: String
         rightClickTxt: config.rightClickTxt,
@@ -159,7 +155,7 @@ define([
             //      Also fires off the method that sets up the query task to point to the correct layer
             console.log('app/Download:setGraphic', arguments);
 
-            var aoiGeometry = this.drawingGraphicsLayer.graphics[0].geometry;
+            const aoiGeometry = this.drawingGraphicsLayer.graphics[0].geometry;
 
             this.map.infoWindow.hide();
 
@@ -171,19 +167,12 @@ define([
 
             // query for tiles
             // get intersection between aoi and graphic
-            if (!this.geoService) {
-                this.geoService = new GeometryService(config.urls.geoService);
-            }
-            var that = this;
-            this.geoService.intersect([aoiGeometry], graphic.geometry, function (geometries) {
-                that.setUpQueryTask(config.urls.mapService + '/' + that.currentLayerId, {
-                    returnGeometry: true,
-                    outFields: ['*']
-                });
-                that.executeQueryTask(geometries[0]);
-            }, function (er) {
-                console.error('There was an error with the geometry service', er);
+            const intersectedGeometry = geometryEngine.intersect(aoiGeometry, graphic.geometry);
+            this.setUpQueryTask(config.urls.mapService + '/' + this.currentLayerId, {
+                returnGeometry: true,
+                outFields: ['*']
             });
+            this.executeQueryTask(intersectedGeometry);
 
             this.set('title', graphic.attributes[config.fields.common.Description]);
 
@@ -196,14 +185,15 @@ define([
                 this.noteTxt.innerHTML = '';
             }
 
-            var checkProjectLevelLink = function (fld, node) {
-                var value = that.graphic.attributes[fld];
-                var hasValue = value && value.length > 0;
+            const checkProjectLevelLink = (fld, node) => {
+                const value = this.graphic.attributes[fld];
+                const hasValue = value && value.length > 0;
                 if (hasValue) {
-                    node.href = that.graphic.attributes[config.fields.common.FTP_Path] + value;
+                    node.href = this.graphic.attributes[config.fields.common.FTP_Path] + value;
                 }
                 domClass.toggle(node, 'hidden', !hasValue);
             };
+
             checkProjectLevelLink(config.fields.common.METADATA, this.metadataLink);
             checkProjectLevelLink(config.fields.common.REPORT, this.reportLink);
         },

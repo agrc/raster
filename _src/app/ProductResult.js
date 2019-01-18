@@ -27,7 +27,6 @@ define([
     'esri/layers/ImageServiceParameters',
     'esri/layers/TileInfo',
     'esri/layers/WebTiledLayer',
-    'esri/tasks/GeometryService',
     'esri/tasks/ProjectParameters',
 
     'ladda',
@@ -62,7 +61,6 @@ define([
     ImageServiceParameters,
     TileInfo,
     WebTiledLayer,
-    GeometryService,
     ProjectParameters,
 
     ladda
