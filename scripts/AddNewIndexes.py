@@ -20,16 +20,6 @@ local_folder = r'C:\MapData'
 sgid = join(current_folder, 'SGID10 as INDICES.sde')
 
 
-def add_layers_to_pallet(new_layers):
-    print('adding layers to layers.json file (used by RasterPallet.py)')
-    json_path = join(current_folder, 'layers.json')
-    with open(json_path, 'r') as read_file:
-        existing_layers = json.loads(read_file.read())
-
-    with open(json_path, 'w') as write_file:
-        write_file.write(json.dumps(existing_layers + map(lambda l: l.split('.')[-1], new_layers), indent=4))
-
-
 def add_layers_to_gdbs(new_layers):
     folders = [local_folder] + map(lambda ip: r'\\{}\c$\MapData'.format(ip), PROD_SERVERS)
     # folders = [local_folder]
@@ -78,7 +68,6 @@ try:
 except:
     new_layers = raw_input('New layer(s) separated by ";": ').split(';')
 
-add_layers_to_pallet(new_layers)
 add_layers_to_gdbs(new_layers)
 add_layers_to_mxd(new_layers)
 
