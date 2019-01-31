@@ -8,7 +8,7 @@ define([
 ) {
     var config = {
         appName: 'Raster',
-        version: '2.1.2-1',
+        version: '2.2.0',
         wkid: 3857,
         urls: {
             mapService: '/ArcGIS/rest/services/Raster/MapServer',
