@@ -35,7 +35,7 @@ def add_layers_to_gdbs(new_layers):
     for layer in new_layers:
         for folder in folders:
             print('projecting {} into {}'.format(layer, folder))
-            arcpy.management.Project(join(SHARE, layer), join(folder, layer), arcpy.SpatialReference(3857), 'NAD_1983_To_WGS_1984_5')
+            arcpy.management.Project(join(SHARE, layer), join(folder, layer), arcpy.SpatialReference(3857))
 
 
 def add_layers_to_mxd(new_layers):
