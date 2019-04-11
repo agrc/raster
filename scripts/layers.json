@@ -99,5 +99,9 @@
     "UGS_SCS", 
     "NAIP2018_CIR_County", 
     "NAIP2018_RGB_County", 
-    "Vintage_24K"
+    "Vintage_24K", 
+    "LiDAR2018_100cm_SouthernUtah_DSM_Tiles", 
+    "LiDAR2018_100cm_SouthernUtah_DEM_Tiles", 
+    "LiDAR2018_50cm_SouthernUtah_DSM_Tiles", 
+    "LiDAR2018_50cm_SouthernUtah_DEM_Tiles"
 ]
