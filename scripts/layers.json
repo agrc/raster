@@ -105,5 +105,13 @@
     "LiDAR2018_50cm_SouthernUtah_DSM_Tiles", 
     "LiDAR2018_50cm_SouthernUtah_DEM_Tiles", 
     "LiDAR2016_50cm_Kanab_DEM_Tiles", 
-    "LiDAR2016_50cm_Kanab_DSM_Tiles"
+    "LiDAR2016_50cm_Kanab_DSM_Tiles", 
+    "LiDAR2018_100cm_CentralUtah_DSM_Tiles", 
+    "LiDAR2018_100cm_CentralUtah_DEM_Tiles", 
+    "LiDAR2018_50cm_CentralUtah_DSM_Tiles", 
+    "LiDAR2018_50cm_CentralUtah_DEM_Tiles", 
+    "LiDAR2018_100cm_NorthernUtah_DSM_Tiles", 
+    "LiDAR2018_100cm_NorthernUtah_DEM_Tiles", 
+    "LiDAR2018_50cm_NorthernUtah_DSM_Tiles", 
+    "LiDAR2018_50cm_NorthernUtah_DEM_Tiles"
 ]
