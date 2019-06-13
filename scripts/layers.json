@@ -113,5 +113,7 @@
     "LiDAR2018_100cm_NorthernUtah_DSM_Tiles", 
     "LiDAR2018_100cm_NorthernUtah_DEM_Tiles", 
     "LiDAR2018_50cm_NorthernUtah_DSM_Tiles", 
-    "LiDAR2018_50cm_NorthernUtah_DEM_Tiles"
+    "LiDAR2018_50cm_NorthernUtah_DEM_Tiles", 
+    "NAIP2018_RGB_QQuads", 
+    "NAIP2018_Band4_QQuads"
 ]
