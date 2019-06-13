@@ -4,8 +4,6 @@
 RasterPallet.py
 
 A module that contains a forklift pallet definition for the Raster app.
-It updates all data in the raster.gdb database.
-The DRG.gdb database is managed manually in staging.
 '''
 
 from json import loads
