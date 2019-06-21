@@ -115,5 +115,9 @@
     "LiDAR2018_50cm_NorthernUtah_DSM_Tiles", 
     "LiDAR2018_50cm_NorthernUtah_DEM_Tiles", 
     "NAIP2018_RGB_QQuads", 
-    "NAIP2018_Band4_QQuads"
+    "NAIP2018_Band4_QQuads", 
+    "LiDAR2018_50cm_BoxElder_DSM_Tiles", 
+    "LiDAR2018_50cm_BoxElder_DEM_Tiles", 
+    "LiDAR2018_50cm_SanpeteValley_DSM_Tiles", 
+    "LiDAR2018_50cm_SanpeteValley_DEM_Tiles"
 ]
