@@ -29,7 +29,6 @@ def add_layers_to_pallet(new_layers):
 
 
 def add_layers_to_gdbs(new_layers):
-    # folders = [local_folder] + map(lambda ip: r'\\{}\c$\MapData'.format(ip), PROD_SERVERS)
     folders = [local_folder]
     print('adding layers to raster gdbs in these folders: {}'.format(folders))
     for layer in new_layers:
@@ -80,5 +79,3 @@ add_layers_to_gdbs(new_layers)
 add_layers_to_mxd(new_layers)
 
 print('SUCCESS!!!')
-print('Next step: Open Raster.mxd and publish to prod')
-print('Note: The extents feature class was not updated during this process.')
