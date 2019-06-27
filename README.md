@@ -13,7 +13,7 @@ raster.utah.gov
 1. Push changes to repo.
 
 ## Notes
-### Preview URL's
+### Preview Urls
 The preview button is wired up to the `ServiceName` field first, then `REST`. If there is no value in either field the button is hidden.
 
 ### Custom Category URL Examples
