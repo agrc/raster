@@ -260,21 +260,19 @@ define([
                         this.step2header.click();
                         found = true;
 
-                        if (this.cat) {
-                            // loop through all returned graphics
-                            var extent;
-                            fSet.features.forEach(function (g) {
-                                g.setSymbol(this.catSymbol);
-                                gLayer.add(g);
-                                if (extent) {
-                                    extent = extent.union(g.geometry.getExtent());
-                                } else {
-                                    extent = g.geometry.getExtent();
-                                }
-                            }, this);
-                            this.map.addLayer(gLayer, 0);
-                            this.map.setExtent(extent, true);
-                        }
+                        // loop through all returned graphics
+                        var extent;
+                        fSet.features.forEach(function (g) {
+                            g.setSymbol(this.catSymbol);
+                            gLayer.add(g);
+                            if (extent) {
+                                extent = extent.union(g.geometry.getExtent());
+                            } else {
+                                extent = g.geometry.getExtent();
+                            }
+                        }, this);
+                        this.map.addLayer(gLayer, 0);
+                        this.map.setExtent(extent, true);
                     }
 
                     if (i === 1) {

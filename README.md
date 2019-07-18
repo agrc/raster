@@ -18,4 +18,5 @@ The preview button is wired up to the `ServiceName` field first, then `REST`. If
 
 ### Custom Category URL Examples
 raster.utah.gov/?catGroup=24K%20GeoPDF,24K%20DRG&title=USGS%2024K%20Topo%20Maps
+
 raster.utah.gov/?cat=HRO%202009%20(25cm)
