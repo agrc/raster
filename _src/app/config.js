@@ -1,10 +1,14 @@
 /* eslint-disable camelcase, max-len */
 define([
     'dojo/has',
-    'dojo/request/xhr'
+    'dojo/request/xhr',
+
+    'esri/config'
 ], function (
     has,
-    xhr
+    xhr,
+
+    esriConfig
 ) {
     var config = {
         appName: 'Raster',
@@ -91,6 +95,9 @@ define([
             throw 'Error getting secrets!';
         });
     }
+
+    esriConfig.defaults.io.corsEnabledServers.push('mapserv.utah.gov');
+    esriConfig.defaults.io.corsEnabledServers.push('api.mapserv.utah.gov');
 
     return config;
 });
