@@ -121,5 +121,9 @@
     "LiDAR2018_50cm_SanpeteValley_DSM_Tiles", 
     "LiDAR2018_50cm_SanpeteValley_DEM_Tiles", 
     "LiDAR2015_50cm_ZionNP_DEM_Tiles", 
-    "LiDAR2015_100cm_ZionNP_DEM_Tiles"
+    "LiDAR2015_100cm_ZionNP_DEM_Tiles", 
+    "LiDAR2018_100cm_Uintah_Heber_DSM_Tiles", 
+    "LiDAR2018_50cm_Uintah_Heber_DSM_Tiles", 
+    "LiDAR2018_100cm_Uintah_Heber_DEM_Tiles", 
+    "LiDAR2018_50cm_Uintah_Heber_DEM_Tiles"
 ]
