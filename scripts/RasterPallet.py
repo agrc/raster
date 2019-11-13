@@ -24,7 +24,7 @@ class RasterPallet(Pallet):
         #: this is so that crates with sources that are not in 26912 will not choke on reprojecting
         self.geographic_transformation = None
         self.indices = join(self.staging_rack, 'indicies.gdb')
-        self.sgid = join(self.garage, 'SGID10 as INDICES.sde')
+        self.sgid = join(self.garage, 'SGID as INDICES.sde')
 
         self.copy_data = [self.indices]
         self.arcgis_services = [('Raster', 'MapServer')]
