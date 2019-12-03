@@ -109,5 +109,6 @@
     "LiDAR2018_100cm_Uintah_Heber_DEM_Tiles", 
     "LiDAR2018_50cm_Uintah_Heber_DEM_Tiles", 
     "LiDAR2011_1m_UGS_DEM_Tiles", 
-    "LiDAR2006_Tiles"
+    "LiDAR2006_Tiles", 
+    "LiDAR2017_100cm_FranklinBear_DEM_Tiles"
 ]
