@@ -23,7 +23,7 @@ class RasterPallet(Pallet):
     def build(self, configuration):
         #: this is so that crates with sources that are not in 26912 will not choke on reprojecting
         self.geographic_transformation = None
-        self.indices = join(self.staging_rack, 'indicies.gdb')
+        self.indices = join(self.staging_rack, 'indices.gdb')
         self.sgid = join(self.garage, 'SGID as INDICES.sde')
 
         self.copy_data = [self.indices]
