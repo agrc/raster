@@ -110,5 +110,11 @@
     "LiDAR2018_50cm_Uintah_Heber_DEM_Tiles", 
     "LiDAR2011_1m_UGS_DEM_Tiles", 
     "LiDAR2006_Tiles", 
-    "LiDAR2017_100cm_FranklinBear_DEM_Tiles"
+    "LiDAR2017_100cm_FranklinBear_DEM_Tiles", 
+    "Contours_200ft_UT", 
+    "Contours_500ft_UT", 
+    "StrawberryRiver_2019_4Band_Phase1", 
+    "StrawberryRiver_2019_4Band_UCE", 
+    "LiDAR2019_50cm_Strawberry_River_DEM_Tiles", 
+    "LiDAR2019_50cm_Strawberry_River_DSM_Tiles"
 ]
