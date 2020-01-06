@@ -24,6 +24,8 @@ define([
         //    The css class that is applied to the base div of the widget markup
         baseClass: 'tile-widget',
 
+        tileLinkText: '',
+
 
         // Parameters to constructor
 
@@ -41,6 +43,12 @@ define([
             // div: String|DomNode
             //    A reference to the div that you want the widget to be created in.
             console.log('app/Tile:constructor', arguments);
+
+            /* Some values in the EXT field have more than just the file name. For example:
+            _0.zip?session=undefined
+            This regex is built to make the link text more readable.
+            */
+            this.tileLinkText = this.EXT.match(/\.\w*/);
         },
         postCreate: function () {
             // summary:
