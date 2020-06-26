@@ -131,6 +131,18 @@ define([
                 }
             });
 
+            // this is for the more info dialog content...
+            // encode attribute values and strip ftp_path if contains path to google storage
+            Object.keys(this.graphic.attributes).forEach(function (att) {
+                var v = this.graphic.attributes[att];
+
+                if (att === config.fields.common.FTP_Path && v.indexOf(config.googleStorage) > -1) {
+                    this.graphic.attributes[att] = 'n/a';
+                } else if (this.graphic.attributes.hasOwnProperty(att) && typeof v === 'string') {
+                    this.graphic.attributes[att] = entities.encode(v);
+                }
+            }.bind(this));
+
             this.inherited(arguments);
         },
         getPreviewLayer: function () {
@@ -381,7 +393,7 @@ define([
             evt.preventDefault();
 
             // I realize this could be written using a simple look up object, but then
-            // the build system wouldn't know where to get the cache string, so lay off man!
+            // the build system wouldn't know where to get the cache string, so lay off! ;)
             switch (this.graphic.attributes.layerId) {
                 case config.categoryIds.aerials:
                     infoTemplate = aerialsHTML;
@@ -408,17 +420,6 @@ define([
             if (!infoTemplate) {
                 throw new TypeError('No template found for: ' + this.graphic.layerId);
             }
-
-            // encode attribute values and strip ftp_path if contains path to google storage
-            Object.keys(this.graphic.attributes).forEach(function (att) {
-                var v = this.graphic.attributes[att];
-
-                if (att === config.fields.common.FTP_Path && v.indexOf(config.googleStorage) > -1) {
-                    this.graphic.attributes[att] = 'n/a';
-                } else if (this.graphic.attributes.hasOwnProperty(att) && typeof v === 'string') {
-                    this.graphic.attributes[att] = entities.encode(v);
-                }
-            }.bind(this));
 
             this.modalContent.innerHTML = dojoString.substitute(infoTemplate, this.graphic.attributes);
 
