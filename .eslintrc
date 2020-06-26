@@ -1,3 +1,6 @@
 {
-    "extends": "agrc"
+    "extends": "agrc",
+    "rules": {
+        "no-magic-numbers": "off"
+    }
 }
