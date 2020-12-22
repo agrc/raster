@@ -116,5 +116,7 @@
     "StrawberryRiver_2019_4Band_Phase1", 
     "StrawberryRiver_2019_4Band_UCE", 
     "LiDAR2019_50cm_Strawberry_River_DEM_Tiles", 
-    "LiDAR2019_50cm_Strawberry_River_DSM_Tiles"
+    "LiDAR2019_50cm_Strawberry_River_DSM_Tiles", 
+    "LiDAR2019_100cm_Kane_County_DEM_Tiles", 
+    "LiDAR2019_100cm_Kane_County_DSM_Tiles"
 ]
