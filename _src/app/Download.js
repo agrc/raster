@@ -187,7 +187,8 @@ define([
 
             const checkProjectLevelLink = (fld, node) => {
                 const value = this.graphic.attributes[fld];
-                const hasValue = value && value.length > 0;
+                const ftpPath = this.graphic.attributes[config.fields.common.FTP_Path];
+                const hasValue = value && value.length > 0 && ftpPath && ftpPath !== 'n/a';
                 if (hasValue) {
                     node.href = this.graphic.attributes[config.fields.common.FTP_Path] + value;
                 }
