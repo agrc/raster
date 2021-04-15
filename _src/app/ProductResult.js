@@ -131,18 +131,6 @@ define([
                 }
             });
 
-            // this is for the more info dialog content...
-            // encode attribute values and strip ftp_path if contains path to google storage
-            Object.keys(this.graphic.attributes).forEach(function (att) {
-                var v = this.graphic.attributes[att];
-
-                if (att === config.fields.common.FTP_Path && v.indexOf(config.googleStorage) > -1) {
-                    this.graphic.attributes[att] = 'n/a';
-                } else if (this.graphic.attributes.hasOwnProperty(att) && typeof v === 'string') {
-                    this.graphic.attributes[att] = entities.encode(v);
-                }
-            }.bind(this));
-
             this.inherited(arguments);
         },
         getPreviewLayer: function () {
