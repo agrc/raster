@@ -1,6 +1,6 @@
-raster.utah.gov
-================
-[![Build Status](https://travis-ci.com/agrc/raster.svg?branch=master)](https://travis-ci.com/agrc/raster)
+# raster.utah.gov
+
+[![firebase deploy](https://github.com/agrc/raster/actions/workflows/nodejs.yml/badge.svg)](https://github.com/agrc/raster/actions/workflows/nodejs.yml)
 
 ## Installation
 1. Publish `maps/Raster.mxd` as `/Raster` map service.
