@@ -15,7 +15,7 @@ define([
         version: '2.2.6',
         wkid: 3857,
         urls: {
-            mapService: '/ArcGIS/rest/services/Raster/MapServer',
+            mapService: 'https://mapserv.utah.gov/arcgis/rest/services/Raster/MapServer',
             discover: 'https://discover.agrc.utah.gov/login/path/<quadWord>/tiles/<serviceName>/${level}/${col}/${row}'
         },
         googleStorage: 'https://storage.googleapis.com/',
@@ -79,11 +79,13 @@ define([
     };
 
     if (has('agrc-build') === 'prod') {
+        // raster.utah.gov
         config.apiKey = 'AGRC-30967AD0866524';
         config.quadWord = 'alfred-plaster-crystal-dexter';
     } else if (has('agrc-build') === 'stage') {
-        config.quadWord = 'opera-event-little-pinball';
-        config.apiKey = 'AGRC-AC122FA9671436';
+        // *.dev.utah.gov
+        window.AGRC.apiKey = 'AGRC-FE1B257E901672';
+        window.AGRC.quadWord = 'wedding-tactic-enrico-yes';
     } else {
         xhr(require.baseUrl + 'secrets.json', {
             handleAs: 'json',
@@ -98,6 +100,7 @@ define([
 
     esriConfig.defaults.io.corsEnabledServers.push('mapserv.utah.gov');
     esriConfig.defaults.io.corsEnabledServers.push('api.mapserv.utah.gov');
+    esriConfig.defaults.io.corsEnabledServers.push('discover.agrc.utah.gov');
 
     return config;
 });
