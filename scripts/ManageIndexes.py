@@ -17,7 +17,7 @@ from os.path import dirname, join, realpath, basename
 from sys import argv
 
 import arcpy
-from raster_secrets import PROD_SERVERS, SHARE
+from raster_secrets import SHARE
 
 current_folder = dirname(realpath(__file__))
 local_folder = r'C:\forklift\data\production'
@@ -95,7 +95,7 @@ def manage_mxd_layers(layers, action):
 
     print('validating that all indexes in the extents feature classes (SDE) are added as layers in mxd')
     for extent_layer in [l for l in lyrs if l.name.endswith('_Extents')]:
-        cur = arcpy.SearchCursor(join(sgid, extent_layer.name), "In_House = 'Yes' AND SHOW = 'Y'")
+        cur = arcpy.SearchCursor(join(sgid, 'SGID.INDICES.' + extent_layer.name), "In_House = 'Yes' AND SHOW = 'Y'")
         print('searching %s' % extent_layer)
         for row in cur:
             FindLayer(row.Tile_Index)
