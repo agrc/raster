@@ -11,3 +11,7 @@ scripts/requests*
 scripts/secrets.py
 secrets.json
 src/
+maps/Default.gdb/
+maps/.backups/
+maps/ImportLog/
+maps/**/*.ags
