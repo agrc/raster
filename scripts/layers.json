@@ -118,5 +118,9 @@
     "LiDAR2019_50cm_Strawberry_River_DEM_Tiles", 
     "LiDAR2019_50cm_Strawberry_River_DSM_Tiles", 
     "LiDAR2019_100cm_Kane_County_DEM_Tiles", 
-    "LiDAR2019_100cm_Kane_County_DSM_Tiles"
+    "LiDAR2019_100cm_Kane_County_DSM_Tiles", 
+    "LiDAR2020_100cm_SouthernUtah_DEM_Tiles", 
+    "LiDAR2020_100cm_SouthernUtah_DSM_Tiles", 
+    "LiDAR2020_100cm_Z11_SouthernUtah_DEM_Tiles", 
+    "LiDAR2020_100cm_Z11_SouthernUtah_DSM_Tiles"
 ]
