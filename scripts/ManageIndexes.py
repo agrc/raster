@@ -21,7 +21,7 @@ from raster_secrets import PROD_SERVERS, SHARE
 
 current_folder = dirname(realpath(__file__))
 local_folder = r'C:\forklift\data\production'
-sgid = join(current_folder, 'SGID10 as INDICES.sde')
+sgid = join(current_folder, 'SGID.sde')
 
 
 def manage_pallet_layers(layers, action):
