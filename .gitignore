@@ -15,3 +15,4 @@ maps/Default.gdb/
 maps/.backups/
 maps/ImportLog/
 maps/**/*.ags
+maps/.pyHistory
