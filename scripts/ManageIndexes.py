@@ -3,7 +3,7 @@ ManageIndexes.py
 
 Used to add or remove index layers to this app.
 
-Intended to be run on local server via ArcGIS Desktop python instance.
+Intended to be run on local server via pro python environment
 
 Arguments:
 1 - Action ( add | remove )
@@ -56,45 +56,43 @@ def manage_gdb_layers(layers, action):
                 arcpy.management.Delete(join(folder, layer))
 
 
-def manage_mxd_layers(layers, action):
-    print('{}ing layers to Raster.mxd'.format(action))
-    mxd_path = join(current_folder, '..', 'maps', 'Raster.mxd')
-    mxd = arcpy.mapping.MapDocument(mxd_path)
-    template_path = join(current_folder, 'template.lyr')
+def manage_map_layers(layers, action):
+    print('{}ing layers to/from maps.aprx'.format(action))
+    project_path = join(current_folder, '..', 'maps', 'maps.aprx')
+    project = arcpy.mp.ArcGISProject(project_path)
+    map = project.listMaps('Raster')[0];
+    template_path = join(current_folder, 'template.lyrx')
 
     for layer_name in layers:
         print(layer_name)
 
         if action == 'add':
-            layer = arcpy.mapping.Layer(template_path)
+            layer_file = arcpy.mp.LayerFile(template_path)
+            layer = layer_file.listLayers()[0]
             layer.name = basename(layer_name)
-            layer.replaceDataSource(join(local_folder, dirname(layer_name)), 'FILEGDB_WORKSPACE', layer.name)
-            arcpy.mapping.AddLayer(mxd.activeDataFrame, layer, 'BOTTOM')
+            layer.updateConnectionProperties(layer.dataSource, join(local_folder, layer_name))
+            map.addLayer(layer, 'BOTTOM')
         else:
-            existing_layers = arcpy.mapping.ListLayers(mxd)
-            found = False
-            for existing_layer in existing_layers:
-                if existing_layer.name == basename(layer_name):
-                    arcpy.mapping.RemoveLayer(mxd.activeDataFrame, existing_layer)
-                    found = True
-                    break
+            existing_layers = map.listLayers(basename(layer_name))[0]
 
-            if not found:
+            if len(existing_layers) == 0:
                 raise Exception('Layer not found in mxd! {}'.format(basename(layer_name)))
 
-    mxd.save()
+            map.removeLayer(existing_layers[0])
 
-    lyrs = arcpy.mapping.ListLayers(mxd)
+    project.save()
+
+    layers = map.listLayers()
 
     def FindLayer(name):
-        for l in lyrs:
+        for l in layers:
             if l.name == name:
                 return True
 
         print('ERROR! Could not find layer: %s' % name)
 
     print('validating that all indexes in the extents feature classes (SDE) are added as layers in mxd')
-    for extent_layer in [l for l in lyrs if l.name.endswith('_Extents')]:
+    for extent_layer in [l for l in layers if l.name.endswith('_Extents')]:
         cur = arcpy.SearchCursor(join(sgid, 'SGID.INDICES.' + extent_layer.name), "In_House = 'Yes' AND SHOW = 'Y'")
         print('searching %s' % extent_layer)
         for row in cur:
@@ -112,6 +110,6 @@ except Exception:
 
 manage_pallet_layers(layers, action)
 manage_gdb_layers(layers, action)
-manage_mxd_layers(layers, action)
+manage_map_layers(layers, action)
 
 print('layers were successfully {}ed:\n{}'.format(action, '\n'.join(layers)))
