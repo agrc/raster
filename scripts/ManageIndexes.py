@@ -70,7 +70,10 @@ def manage_map_layers(layers, action):
             layer_file = arcpy.mp.LayerFile(template_path)
             layer = layer_file.listLayers()[0]
             layer.name = basename(layer_name)
-            layer.updateConnectionProperties(layer.dataSource, join(local_folder, layer_name))
+            props_copy = layer.connectionProperties
+            props_copy['connection_info']['database'] = dirname(join(local_folder, layer_name))
+            props_copy['dataset'] = basename(layer_name)
+            layer.updateConnectionProperties(layer.connectionPropries, props_copy)
             map.addLayer(layer, 'BOTTOM')
         else:
             existing_layers = map.listLayers(basename(layer_name))[0]
