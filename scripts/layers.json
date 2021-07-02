@@ -124,5 +124,17 @@
     "LiDAR2020_100cm_Z11_SouthernUtah_DEM_Tiles",
     "LiDAR2020_100cm_Z11_SouthernUtah_DSM_Tiles",
     "LiDAR2020_50cm_SouthernUtah_DEM_Tiles",
-    "LiDAR2020_50cm_SouthernUtah_DSM_Tiles"
+    "LiDAR2020_50cm_SouthernUtah_DSM_Tiles",
+    "LiDAR2020_100cm_CentralSouthernUtah_DEM_Tiles",
+    "LiDAR2020_100cm_CentralSouthernUtah_DSM_Tiles",
+    "LiDAR2020_100cm_Z11_CentralSouthernUtah_DEM_Tiles",
+    "LiDAR2020_100cm_Z11_CentralSouthernUtah_DSM_Tiles",
+    "LiDAR2020_100cm_NorthernCentralUtah_DEM_Tiles",
+    "LiDAR2020_100cm_NorthernCentralUtah_DSM_Tiles",
+    "LiDAR2020_100cm_Z11_NorthernCentralUtah_DEM_Tiles",
+    "LiDAR2020_100cm_Z11_NorthernCentralUtah_DSM_Tiles",
+    "LiDAR2020_50cm_NorthernCentralUtah_DEM_Tiles",
+    "LiDAR2020_50cm_NorthernCentralUtah_DSM_Tiles",
+    "LiDAR2020_50cm_Z11_NorthernCentralUtah_DEM_Tiles",
+    "LiDAR2020_50cm_Z11_NorthernCentralUtah_DSM_Tiles"
 ]
