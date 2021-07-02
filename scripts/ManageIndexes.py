@@ -49,8 +49,9 @@ def manage_gdb_layers(layers, action):
     for layer in layers:
         for folder in folders:
             if action == 'add':
-                print('projecting {} into {}'.format(layer, folder))
-                arcpy.management.Project(join(SHARE, layer), join(folder, layer), arcpy.SpatialReference(3857))
+                if (not arcpy.Exists(join(folder, layer))):
+                    print('projecting {} into {}'.format(layer, folder))
+                    arcpy.management.Project(join(SHARE, layer), join(folder, layer), arcpy.SpatialReference(3857))
             else:
                 print('deleting {} from {}'.format(layer, folder))
                 arcpy.management.Delete(join(folder, layer))
@@ -73,7 +74,7 @@ def manage_map_layers(layers, action):
             props_copy = layer.connectionProperties
             props_copy['connection_info']['database'] = dirname(join(local_folder, layer_name))
             props_copy['dataset'] = basename(layer_name)
-            layer.updateConnectionProperties(layer.connectionPropries, props_copy)
+            layer.updateConnectionProperties(layer.connectionProperties, props_copy)
             map.addLayer(layer, 'BOTTOM')
         else:
             existing_layers = map.listLayers(basename(layer_name))[0]
