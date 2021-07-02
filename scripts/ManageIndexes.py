@@ -59,7 +59,7 @@ def manage_gdb_layers(layers, action):
 
 def manage_map_layers(layers, action):
     print('{}ing layers to/from maps.aprx'.format(action))
-    project_path = join(current_folder, '..', 'maps', 'maps.aprx')
+    project_path = join(current_folder, '..', 'maps', 'Raster.aprx')
     project = arcpy.mp.ArcGISProject(project_path)
     map = project.listMaps('Raster')[0];
     template_path = join(current_folder, 'template.lyrx')
