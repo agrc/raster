@@ -136,5 +136,7 @@
     "LiDAR2020_50cm_NorthernCentralUtah_DEM_Tiles",
     "LiDAR2020_50cm_NorthernCentralUtah_DSM_Tiles",
     "LiDAR2020_50cm_Z11_NorthernCentralUtah_DEM_Tiles",
-    "LiDAR2020_50cm_Z11_NorthernCentralUtah_DSM_Tiles"
+    "LiDAR2020_50cm_Z11_NorthernCentralUtah_DSM_Tiles",
+    "NAIP2021_RGB_County",
+    "NAIP2021_CIR_County"
 ]
