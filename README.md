@@ -8,8 +8,8 @@
 
 ## How to add a new layer
 
-1. From dev machine (proenv): `scripts/ManageIndexes.py add <newLayers>`
-    - e.g. `python ManageIndexes.py add Lidar.gdb\LiDAR2019_100cm_Kane_County_DEM_Tiles;Lidar.gdb\LiDAR2019_100cm_Kane_County_DSM_Tiles`
+1. From dev machine (proenv): `propy scripts/ManageIndexes.py add <newLayers>`
+    - e.g. `propy ManageIndexes.py add Lidar.gdb\LiDAR2019_100cm_Kane_County_DEM_Tiles;Lidar.gdb\LiDAR2019_100cm_Kane_County_DSM_Tiles`
 1. Commit changes and push.
 1. From production forklift machine: `forklift special-delivery c:/forklift/warehouse/raster/scripts/RasterPallet.py`
 1. Publish `Raster` map in `maps/Raster.aprx` to production ArcGIS Server machines.
