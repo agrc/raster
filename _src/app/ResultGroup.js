@@ -37,14 +37,14 @@ define([
             //    A reference to the div that you want the widget to be created in.
             console.log('app/ResultGroup:constructor', arguments);
         },
-        postCreate: function () {
+        postCreate: function postCreate() {
             // summary:
             //    Overrides method of same name in dijit._Widget.
             // tags:
             //    private
             console.log('app/ResultGroup:postCreate', arguments);
 
-            this.inherited(arguments);
+            this.inherited(postCreate, arguments);
 
             // for to be closed
             if (this.forceOpen) {

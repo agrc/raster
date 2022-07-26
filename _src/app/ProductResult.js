@@ -108,7 +108,7 @@ define([
         //      Used to separate image service parameters in addLayer
         extentLayerId: null,
 
-        postCreate: function () {
+        postCreate: function postCreate() {
             // summary:
             //    Overrides method of same name in dijit._Widget.
             // tags:
@@ -131,7 +131,7 @@ define([
                 }
             });
 
-            this.inherited(arguments);
+            this.inherited(postCreate, arguments);
         },
         getPreviewLayer: function () {
             // summary:
@@ -340,7 +340,7 @@ define([
 
             this.gLayer.clear();
         },
-        destroy: function () {
+        destroy: function destroy() {
             // summary:
             //      description
             console.log('app/ProductResult:destroy', arguments);
@@ -349,7 +349,7 @@ define([
                 this.previewLyr.getMap().removeLayer(this.previewLyr);
             }
 
-            this.inherited(arguments);
+            this.inherited(destroy, arguments);
         },
         onDownloadClick: function () {
             // summary:
