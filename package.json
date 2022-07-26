@@ -44,6 +44,7 @@
     "uglify-js": "^3.16.2"
   },
   "scripts": {
+    "start": "grunt",
     "test": "grunt travis"
   }
 }
