@@ -1,5 +1,5 @@
-/* eslint-disable no-undef, no-implicit-globals */
-profile = {
+// eslint-disable-next-line no-unused-vars
+var profile = {
     resourceTags: {
         test: function (mid) {
             return /\/Spec/.test(mid);
