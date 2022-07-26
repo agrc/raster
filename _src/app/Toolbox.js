@@ -663,14 +663,14 @@ define([
 
             this.download.clearResults();
         },
-        destroyRecursive: function () {
+        destroyRecursive: function destroyRecursive() {
             // summary:
             //        overriden to try to clean up more stuff for tests
             console.log('app/Toolbar:destroyRecursive', arguments);
 
             this.findAddress.destroyRecursive();
 
-            this.inherited(arguments);
+            this.inherited(destroyRecursive, arguments);
         },
         onClearAOIButtonClick: function () {
             // summary:

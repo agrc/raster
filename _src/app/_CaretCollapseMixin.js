@@ -13,7 +13,7 @@ define([
             down: 'glyphicon-triangle-bottom'
         },
 
-        postCreate: function () {
+        postCreate: function postCreate() {
             // summary:
             //      set up events
             // param or return
@@ -26,7 +26,7 @@ define([
                 this.onToggleCollapse(evt, false);
             }));
 
-            this.inherited(arguments);
+            this.inherited(postCreate, arguments);
         },
         onToggleCollapse: function (evt, shown) {
             // summary:
