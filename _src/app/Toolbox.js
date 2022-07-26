@@ -32,7 +32,6 @@ define([
     'esri/geometry/projection',
     'esri/graphic',
     'esri/layers/GraphicsLayer',
-    'esri/SpatialReference',
     'esri/symbols/SimpleFillSymbol',
     'esri/symbols/SimpleLineSymbol',
     'esri/tasks/query',
@@ -74,7 +73,6 @@ define([
     projection,
     Graphic,
     GraphicsLayer,
-    SpatialReference,
     SimpleFillSymbol,
     SimpleLineSymbol,
     Query,
@@ -322,7 +320,7 @@ define([
             }));
             topic.subscribe(config.topics.zoomToExtent, lang.hitch(this, 'zoomToExtent'));
         },
-        async zoomToExtent(extent) {
+        zoomToExtent(extent) {
             // summary:
             //      zooms the currently visible map to the given extent
             // extent: Extent
@@ -330,15 +328,19 @@ define([
 
             const map = this.getCurrentMap();
 
+            function finishUp() {
+                const projectedGeometry = projection.project(extent, map.spatialReference);
+                map.setExtent(projectedGeometry, true);
+            }
+
             if (extent.spatialReference.wkid === map.spatialReference.wkid) {
                 map.setExtent(extent, true);
             } else {
                 if (!projection.isLoaded()) {
-                    await projection.load();
+                    projection.load().then(finishUp);
                 }
 
-                const projectedGeometry = projection.project(extent, map.spatialReference);
-                map.setExtent(projectedGeometry, true);
+                finishUp();
             }
         },
         addDrawingToMap: function (geometry) {
@@ -573,7 +575,7 @@ define([
                 this.previewMapUtm : this.previewMapWebMerc;
             this.toggleMaps(this.map, activePreviewMap);
         },
-        async toggleMaps(newMap, currentMap) {
+        toggleMaps(newMap, currentMap) {
             // summary:
             //      description
             // newMap: Map
@@ -606,15 +608,19 @@ define([
                 esriConfig.defaults.map.panDuration = that.defaultPanDuration;
             };
 
+            function finishUp() {
+                const projectedGeometry = projection.project(currentMap.extent, newMap.spatialReference);
+                setExtent(projectedGeometry);
+            }
+
             if (newMap.spatialReference.wkid === currentMap.spatialReference.wkid) {
                 setExtent(currentMap.extent);
             } else {
                 if (!projection.isLoaded()) {
-                    await projection.load();
+                    projection.load().then(finishUp);
                 }
 
-                const projectedGeometry = projection.project(currentMap.extent, newMap.spatialReference);
-                setExtent(projectedGeometry);
+                finishUp();
             }
         },
         getCurrentMap: function () {
