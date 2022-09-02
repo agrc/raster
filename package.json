@@ -43,6 +43,6 @@
   },
   "scripts": {
     "start": "grunt",
-    "test": "grunt travis"
+    "test": "grunt test"
   }
 }
