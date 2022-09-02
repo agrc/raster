@@ -11,23 +11,53 @@ on:
       - "bower.json"
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: 📥 Download dependencies
+        run: npm ci
+
+      - name: 🧪 Run tests
+        run: npm test
+
   deploy-dev:
     runs-on: ubuntu-latest
+    needs: test
     environment:
       name: dev
       url: https://raster.dev.utah.gov
     if: github.ref != 'refs/heads/main'
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - id: auth
+        name: 🗝️ Authenticate to Google Cloud
+        uses: google-github-actions/auth@v0
         with:
-          node-version: '14'
+          access_token_scopes: 'email, openid, https://www.googleapis.com/auth/cloud-platform, https://www.googleapis.com/auth/firebase'
+          workload_identity_provider: ${{ secrets.IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+          create_credentials_file: true
 
-      - run: npm ci
+      - name: ⎔ Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: 📥 Download dependencies
+        run: npm ci
 
       - run: npm i -g grunt-cli bower
 
@@ -35,33 +65,52 @@ jobs:
 
       - run: grunt build-stage
 
-      - name: Firebase Deploy
-        uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: 🪣 Cache firebase
+        uses: actions/cache@v3
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.SERVICE_ACCOUNT }}'
-          channelId: live
-          projectId: '${{ secrets.PROJECT_ID }}'
+          path: ./.firebase
+          key: ${{ runner.OS }}-firebase-${{ hashFiles('**/*.cache') }}
+          restore-keys: |
+            ${{ runner.OS }}-firebase-
+            ${{ runner.OS }}-
+
+      - name: 🚀 Firebase deploy
+        run: >
+          npx firebase-tools deploy
+          --only hosting
+          --project ${{ secrets.PROJECT_ID }}
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
 
   deploy-prod:
     runs-on: ubuntu-latest
+    needs: test
     environment:
       name: prod
       url: https://raster.utah.gov
     if: github.ref == 'refs/heads/main'
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - id: auth
+        name: 🗝️ Authenticate to Google Cloud
+        uses: google-github-actions/auth@v0
         with:
-          node-version: '14'
+          access_token_scopes: 'email, openid, https://www.googleapis.com/auth/cloud-platform, https://www.googleapis.com/auth/firebase'
+          workload_identity_provider: ${{ secrets.IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+          create_credentials_file: true
 
-      - run: npm ci
+      - name: ⎔ Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: 📥 Download dependencies
+        run: npm ci
 
       - run: npm i -g grunt-cli bower
 
@@ -69,20 +118,19 @@ jobs:
 
       - run: grunt build-prod
 
-      - name: Cache firebase
-        uses: actions/cache@v2
+      - name: 🪣 Cache firebase
+        uses: actions/cache@v3
         with:
           path: ./.firebase
           key: ${{ runner.OS }}-firebase-${{ hashFiles('**/*.cache') }}
           restore-keys: |
             ${{ runner.OS }}-firebase-
             ${{ runner.OS }}-
-      - name: Firebase Deploy
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.SERVICE_ACCOUNT }}'
-          channelId: live
-          projectId: '${{ secrets.PROJECT_ID }}'
+
+      - name: 🚀 Firebase deploy
+        run: >
+          npx firebase-tools deploy
+          --only hosting
+          --project ${{ secrets.PROJECT_ID }}
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels

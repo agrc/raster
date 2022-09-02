@@ -223,7 +223,7 @@ module.exports = function (grunt) {
         'processhtml:main',
         'cachebreaker'
     ]);
-    grunt.registerTask('travis', [
+    grunt.registerTask('test', [
         'eslint'
     ]);
 };
