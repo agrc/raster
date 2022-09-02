@@ -20,34 +20,6 @@ module.exports = function (grunt) {
         '_src/app/package.json',
         '_src/app/config.js'
     ];
-    const deployFiles = [
-        '**',
-        '!**/*.uncompressed.js',
-        '!**/*consoleStripped.js',
-        '!**/bootstrap/less/**',
-        '!**/bootstrap/test-infra/**',
-        '!**/tests/**',
-        '!build-report.txt',
-        '!components-jasmine/**',
-        '!favico.js/**',
-        '!jasmine-favicon-reporter/**',
-        '!jasmine-jsreporter/**',
-        '!stubmodule/**',
-        '!util/**'
-    ];
-    const deployDir = 'wwwroot/raster';
-    let secrets;
-    try {
-        secrets = grunt.file.readJSON('secrets.json');
-    } catch (e) {
-        // swallow for build server
-        secrets = {
-            stageHost: '',
-            prodHost: '',
-            username: '',
-            password: ''
-        };
-    }
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -88,21 +60,7 @@ module.exports = function (grunt) {
         },
         clean: {
             build: ['dist'],
-            deploy: ['deploy'],
             src: ['src/app']
-        },
-        compress: {
-            main: {
-                options: {
-                    archive: 'deploy/deploy.zip'
-                },
-                files: [{
-                    src: deployFiles,
-                    dest: './',
-                    cwd: 'dist/',
-                    expand: true
-                }]
-            }
         },
         connect: {
             uses_defaults: {}
@@ -119,7 +77,7 @@ module.exports = function (grunt) {
             src: {
                 expand: true,
                 cwd: '_src',
-                src: ['**/*.html', '**/*.css', '**/*.png', '**/*.jpg', '**/*.gif', 'secrets.json', 'app/package.json'],
+                src: ['**/*.html', '**/*.css', '**/*.png', '**/*.jpg', '**/*.gif', 'app/package.json'],
                 dest: 'src'
             }
         },
@@ -200,50 +158,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        secrets: secrets,
-        sftp: {
-            stage: {
-                files: {
-                    './': 'deploy/deploy.zip'
-                },
-                options: {
-                    host: '<%= secrets.stageHost %>'
-                }
-            },
-            prod: {
-                files: {
-                    './': 'deploy/deploy.zip'
-                },
-                options: {
-                    host: '<%= secrets.prodHost %>'
-                }
-            },
-            options: {
-                path: './' + deployDir + '/',
-                srcBasePath: 'deploy/',
-                username: '<%= secrets.username %>',
-                password: '<%= secrets.password %>',
-                showProgress: true
-            }
-        },
-        sshexec: {
-            options: {
-                username: '<%= secrets.username %>',
-                password: '<%= secrets.password %>'
-            },
-            stage: {
-                command: ['cd ' + deployDir, 'unzip -oq deploy.zip', 'rm deploy.zip'].join(';'),
-                options: {
-                    host: '<%= secrets.stageHost %>'
-                }
-            },
-            prod: {
-                command: ['cd ' + deployDir, 'unzip -oq deploy.zip', 'rm deploy.zip'].join(';'),
-                options: {
-                    host: '<%= secrets.prodHost %>'
-                }
-            }
-        },
         stylus: {
             main: {
                 options: {
@@ -308,18 +222,6 @@ module.exports = function (grunt) {
         'copy:dist',
         'processhtml:main',
         'cachebreaker'
-    ]);
-    grunt.registerTask('deploy-prod', [
-        'clean:deploy',
-        'compress:main',
-        'sftp:prod',
-        'sshexec:prod'
-    ]);
-    grunt.registerTask('deploy-stage', [
-        'clean:deploy',
-        'compress:main',
-        'sftp:stage',
-        'sshexec:stage'
     ]);
     grunt.registerTask('travis', [
         'eslint'
