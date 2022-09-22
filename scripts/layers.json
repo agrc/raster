@@ -156,5 +156,7 @@
     "LiDAR2006_2m_BareEarth_Tiles",
     "LiDAR2006_1_25m_Raw_Tiles",
     "LiDAR2006_1m_Raw_Tiles",
-    "LiDAR2006_2m_Raw_Tiles"
+    "LiDAR2006_2m_Raw_Tiles",
+    "NAIP2021_Band4_QQuads",
+    "NAIP2021_RGB_QQuads"
 ]
