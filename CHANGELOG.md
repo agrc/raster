@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0-1](https://github.com/agrc/raster/compare/v2.3.0-0...v2.3.0-1) (2022-09-29)
+
+
+### 🐛 Bug Fixes
+
+* use new build command syntax ([7b1346d](https://github.com/agrc/raster/commit/7b1346d9d506db27a9cbe2017ef442d26cf4c170))
+
 ## [2.3.0-0](https://github.com/agrc/raster/compare/v2.2.7...v2.3.0-0) (2022-09-29)
 
 
