@@ -15,7 +15,6 @@ module.exports = function (grunt) {
         'profiles/*.js'
     ];
     const bumpFiles = [
-        'package.json',
         'bower.json',
         '_src/app/package.json',
         '_src/app/config.js'
