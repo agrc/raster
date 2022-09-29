@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0-3](https://github.com/agrc/raster/compare/v2.3.0-2...v2.3.0-3) (2022-09-29)
+
+
+### 🐛 Bug Fixes
+
+* switch to prebuild-command ([22ea0f6](https://github.com/agrc/raster/commit/22ea0f67072327ef1c3b851be9a70fd94933164f))
+
 ## [2.3.0-2](https://github.com/agrc/raster/compare/v2.3.0-1...v2.3.0-2) (2022-09-29)
 
 
