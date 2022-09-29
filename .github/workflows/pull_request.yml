@@ -46,4 +46,4 @@ jobs:
           service-account-email: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
           project-id: ${{ secrets.PROJECT_ID }}
           preview: yes
-          build-command: build:stage
+          build-command: npm run build:stage
