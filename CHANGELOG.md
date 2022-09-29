@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0-2](https://github.com/agrc/raster/compare/v2.3.0-1...v2.3.0-2) (2022-09-29)
+
+
+### 🐛 Bug Fixes
+
+* add bump step ([79fa81e](https://github.com/agrc/raster/commit/79fa81ed653de61950a3cce2850e7231b0df7979))
+
 ## [2.3.0-1](https://github.com/agrc/raster/compare/v2.3.0-0...v2.3.0-1) (2022-09-29)
 
 
