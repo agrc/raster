@@ -42,7 +42,10 @@
     "uglify-js": "^3.17.0"
   },
   "scripts": {
-    "start": "grunt",
-    "test": "grunt test"
+    "start": "npx grunt",
+    "test": "npx grunt test",
+    "build:stage": "npx grunt build-stage",
+    "build:prod": "npx grunt build-prod",
+    "postinstall": "npx bower install"
   }
 }

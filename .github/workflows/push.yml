@@ -1,0 +1,72 @@
+name: Push Events
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+permissions:
+  contents: write
+  id-token: write
+  deployments: write
+  pull-requests: write
+
+concurrency:
+  group: "${{ github.ref_name }}"
+  cancel-in-progress: true
+
+jobs:
+  release-please:
+    name: Create release
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release-please.outputs.release_created }}
+
+    steps:
+      - name: 🚀 Create Release
+        id: release-please
+        uses: agrc/release-composite-action@v1
+        with:
+          prerelease: ${{ github.ref_name == 'dev' }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          github-app-id: ${{ secrets.UGRC_RELEASE_BOT_APP_ID }}
+          github-app-key: ${{ secrets.UGRC_RELEASE_BOT_APP_KEY }}
+          github-app-name: ${{ secrets.UGRC_RELEASE_BOT_NAME }}
+          github-app-email: ${{ secrets.UGRC_RELEASE_BOT_EMAIL }}
+
+  deploy-dev:
+    name: Deploy to staging
+    runs-on: ubuntu-latest
+    needs: release-please
+    environment:
+      name: dev
+      url: https://raster.dev.utah.gov
+    if: github.ref_name == 'dev' && needs.release-please.outputs.release_created
+
+    steps:
+      - name: 🚀 Deploy
+        uses: agrc/firebase-website-deploy-composite-action@dev
+        with:
+          identity-provider: ${{ secrets.IDENTITY_PROVIDER }}
+          service-account-email: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+          project-id: ${{ secrets.PROJECT_ID }}
+          build-command: build:stage
+
+  deploy-prod:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    needs: release-please
+    environment:
+      name: prod
+      url: https://raster.utah.gov
+    if: github.ref_name == 'main' && needs.release-please.outputs.release_created
+
+    steps:
+      - name: 🚀 Deploy
+        uses: agrc/firebase-website-deploy-composite-action@dev
+        with:
+          identity-provider: ${{ secrets.IDENTITY_PROVIDER }}
+          service-account-email: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+          project-id: ${{ secrets.PROJECT_ID }}
+          build-command: build:prod
