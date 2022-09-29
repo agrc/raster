@@ -17,11 +17,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  release-please:
+  release:
     name: Create release
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release-please.outputs.release_created }}
+      released_version: ${{ steps.release-please.outputs.released_version }}
 
     steps:
       - name: 🚀 Create Release
@@ -38,11 +39,11 @@ jobs:
   deploy-dev:
     name: Deploy to staging
     runs-on: ubuntu-latest
-    needs: release-please
+    needs: release
     environment:
       name: dev
       url: https://raster.dev.utah.gov
-    if: github.ref_name == 'dev' && needs.release-please.outputs.release_created
+    if: github.ref_name == 'dev' && needs.release.outputs.release_created
 
     steps:
       - name: 🚀 Deploy
@@ -51,17 +52,17 @@ jobs:
           identity-provider: ${{ secrets.IDENTITY_PROVIDER }}
           service-account-email: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
           project-id: ${{ secrets.PROJECT_ID }}
-          prebuild-command: npx grunt bump --setversion=${{ needs.release-please.outputs.released_version }}
+          prebuild-command: npx grunt bump --setversion=${{ needs.release.outputs.released_version }}
           build-command: npm run build:stage
 
   deploy-prod:
     name: Deploy to production
     runs-on: ubuntu-latest
-    needs: release-please
+    needs: release
     environment:
       name: prod
       url: https://raster.utah.gov
-    if: github.ref_name == 'main' && needs.release-please.outputs.release_created
+    if: github.ref_name == 'main' && needs.release.outputs.release_created
 
     steps:
       - name: 🚀 Deploy
@@ -69,6 +70,6 @@ jobs:
         with:
           identity-provider: ${{ secrets.IDENTITY_PROVIDER }}
           service-account-email: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
-          prebuild-command: npx grunt bump --setversion=${{ needs.release-please.outputs.released_version }}
+          prebuild-command: npx grunt bump --setversion=${{ needs.release.outputs.released_version }}
           project-id: ${{ secrets.PROJECT_ID }}
           build-command: npm run build:prod
