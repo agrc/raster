@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0-4](https://github.com/agrc/raster/compare/v2.3.0-3...v2.3.0-4) (2022-09-29)
+
+
+### 🐛 Bug Fixes
+
+* defined output for release job and use better name ([ed4357f](https://github.com/agrc/raster/commit/ed4357fd264e00af978a01afb0e9b589ce2048f4))
+
 ## [2.3.0-3](https://github.com/agrc/raster/compare/v2.3.0-2...v2.3.0-3) (2022-09-29)
 
 
