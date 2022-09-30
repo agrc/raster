@@ -6,6 +6,7 @@ on:
 permissions:
   contents: write
   id-token: write
+  pull-requests: write
 
 concurrency:
   group: "${{ github.head_ref || github.ref }}"
@@ -40,7 +41,7 @@ jobs:
 
     steps:
       - name: 🚀 Deploy
-        uses: agrc/firebase-website-deploy-composite-action@dev
+        uses: agrc/firebase-website-deploy-composite-action@v1
         with:
           identity-provider: ${{ secrets.IDENTITY_PROVIDER }}
           service-account-email: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
