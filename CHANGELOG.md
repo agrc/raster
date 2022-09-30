@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.0-5](https://github.com/agrc/raster/compare/v2.3.0-4...v2.3.0-5) (2022-09-30)
+
+
+### 🐛 Bug Fixes
+
+* point at v1 of deploy action ([7a86d27](https://github.com/agrc/raster/commit/7a86d2718c9900f328694be49baa28fdf62f2d6f))
+* set bump files to 0.0.0 ([74d3a67](https://github.com/agrc/raster/commit/74d3a677e1a05f8639ef676bddaebbbb2fbe95e4))
+
 ## [2.3.0-4](https://github.com/agrc/raster/compare/v2.3.0-3...v2.3.0-4) (2022-09-29)
 
 
