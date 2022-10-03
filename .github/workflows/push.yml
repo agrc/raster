@@ -35,11 +35,6 @@ jobs:
           github-app-key: ${{ secrets.UGRC_RELEASE_BOT_APP_KEY }}
           github-app-name: ${{ secrets.UGRC_RELEASE_BOT_NAME }}
           github-app-email: ${{ secrets.UGRC_RELEASE_BOT_EMAIL }}
-          service-now-instance: ${{ secrets.SN_INSTANCE }}
-          service-now-table: ${{ secrets.SN_TABLE }}
-          service-now-system-id: ${{ secrets.SN_SYS_ID }}
-          service-now-username: ${{ secrets.SN_USERNAME }}
-          service-now-password: ${{ secrets.SN_PASSWORD }}
 
   deploy-dev:
     name: Deploy to staging
@@ -78,3 +73,8 @@ jobs:
           prebuild-command: npx grunt bump --setversion=${{ needs.release.outputs.released_version }}
           project-id: ${{ secrets.PROJECT_ID }}
           build-command: npm run build:prod
+          service-now-instance: ${{ secrets.SN_INSTANCE }}
+          service-now-table: ${{ secrets.SN_TABLE }}
+          service-now-system-id: ${{ secrets.SN_SYS_ID }}
+          service-now-username: ${{ secrets.SN_USERNAME }}
+          service-now-password: ${{ secrets.SN_PASSWORD }}
