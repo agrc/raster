@@ -48,3 +48,4 @@ jobs:
           project-id: ${{ secrets.PROJECT_ID }}
           preview: yes
           build-command: npm run build:stage
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
