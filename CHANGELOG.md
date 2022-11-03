@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.2](https://github.com/agrc/raster/compare/v2.3.1...v2.3.2) (2022-11-03)
+
+
+### 🐛 Bug Fixes
+
+* add missing param to prod deploy action ([ece29b1](https://github.com/agrc/raster/commit/ece29b11ba63b4224d38e429b2ab5744bc9661d4))
+
 ## [2.3.1](https://github.com/agrc/raster/compare/v2.3.0...v2.3.1) (2022-11-03)
 
 
