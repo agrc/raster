@@ -78,3 +78,4 @@ jobs:
           service-now-system-id: ${{ secrets.SN_SYS_ID }}
           service-now-username: ${{ secrets.SN_USERNAME }}
           service-now-password: ${{ secrets.SN_PASSWORD }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
