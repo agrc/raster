@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.3](https://github.com/agrc/raster/compare/v2.3.2...v2.3.3) (2022-12-07)
+
+
+### 🐛 Bug Fixes
+
+* :evergreen_tree: november package updates ([254ebfb](https://github.com/agrc/raster/commit/254ebfbaf824ecdda07d5cd95e6de57df253d985))
+* :evergreen_tree: update dependencies for november ([8c3ccd5](https://github.com/agrc/raster/commit/8c3ccd55b275bcf3c6a600017ca7727736b77404))
+
 ## [2.3.2](https://github.com/agrc/raster/compare/v2.3.1...v2.3.2) (2022-11-03)
 
 
