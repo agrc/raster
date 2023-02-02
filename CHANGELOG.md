@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.4](https://github.com/agrc/raster/compare/v2.3.3...v2.3.4) (2023-02-02)
+
+
+### 🌲 Dependencies
+
+* february dependencies ([0f4e2cc](https://github.com/agrc/raster/commit/0f4e2cc10e61543bfcdb9c63bdf2da7239e5aeef))
+
 ## [2.3.3](https://github.com/agrc/raster/compare/v2.3.2...v2.3.3) (2022-12-07)
 
 
