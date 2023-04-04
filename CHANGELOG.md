@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.5](https://github.com/agrc/raster/compare/v2.3.4...v2.3.5) (2023-04-04)
+
+
+### 🌲 Dependencies
+
+* q2 package updates ([5da5d64](https://github.com/agrc/raster/commit/5da5d64a9c0b6fa99c3189e008530d673bd794ba))
+
 ## [2.3.4](https://github.com/agrc/raster/compare/v2.3.3...v2.3.4) (2023-02-02)
 
 
