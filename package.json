@@ -17,7 +17,7 @@
     "last 1 version"
   ],
   "devDependencies": {
-    "@babel/core": "^7.21.4",
+    "@babel/core": "^7.21.5",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.21.4",
     "babel-plugin-transform-es2015-modules-simple-amd": "0.3.0",
