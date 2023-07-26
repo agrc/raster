@@ -158,5 +158,7 @@
     "LiDAR2006_1m_Raw_Tiles",
     "LiDAR2006_2m_Raw_Tiles",
     "NAIP2021_Band4_QQuads",
-    "NAIP2021_RGB_QQuads"
+    "NAIP2021_RGB_QQuads",
+    "LiDAR2020_50cm_LoganRiverWatershed_DEM_Tiles",
+    "LiDAR2020_50cm_LoganRiverWatershed_DSM_Tiles"
 ]
