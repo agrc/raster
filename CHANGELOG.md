@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.7](https://github.com/agrc/raster/compare/v2.3.6...v2.3.7) (2023-10-06)
+
+
+### 🐛 Bug Fixes
+
+* add new gtag snippet and ga4 id ([f876e0e](https://github.com/agrc/raster/commit/f876e0ef546a7600ab773127487a0ed590513c71))
+
 ## [2.3.6](https://github.com/agrc/raster/compare/v2.3.5...v2.3.6) (2023-07-04)
 
 
