@@ -4,15 +4,15 @@ updates:
     directory: /
     schedule:
       interval: monthly
-      groups:
-        safe-dependencies:
-          update-types: ['minor', 'patch']
-        major-dependencies:
-          update-types: ['major']
+    groups:
+      safe-dependencies:
+        update-types: [minor, patch]
+      major-dependencies:
+        update-types: [major]
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: monthly
     groups:
       ci-dependencies:
-        dependency-type: 'production'
+        dependency-type: production
