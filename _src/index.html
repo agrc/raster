@@ -1,44 +1,52 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>UGRC Raster Data Discovery</title>
+  <head>
+    <title>UGRC Raster Data Discovery</title>
 
-        <!-- META TAGS -->
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-        <meta name="description" content="Search Utah SGID raster data" />
-        <meta name="keywords" content="SGID, raster, utah, aerial photography, lidar, elevation, dem"/>
-        <link rel="shortcut icon" href="resources/images/favicon.png" type="image/png" />
+    <!-- META TAGS -->
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="description" content="Search Utah SGID raster data" />
+    <meta
+      name="keywords"
+      content="SGID, raster, utah, aerial photography, lidar, elevation, dem"
+    />
+    <link
+      rel="shortcut icon"
+      href="resources/images/favicon.png"
+      type="image/png"
+    />
 
-        <!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="app/resources/App.css" />
-    </head>
-    <body>
-        <div data-dojo-type='app/App'></div>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="app/resources/App.css" />
+  </head>
+  <body>
+    <div data-dojo-type="app/App"></div>
 
-        <!-- build:template
+    <!-- build:template
         <script data-dojo-config="deps:['app/packages', 'app/run']" src='dojo/dojo.js'></script>
         /build -->
 
-        <!-- build:remove -->
-        <script data-dojo-config="isDebug: 1" src='dojo/dojo.js'></script>
-        <script src='app/packages.js'></script>
-        <script src='app/run.js'></script>
-        <!-- /build -->
+    <!-- build:remove -->
+    <script data-dojo-config="isDebug: 1" src="dojo/dojo.js"></script>
+    <script src="app/packages.js"></script>
+    <script src="app/run.js"></script>
+    <!-- /build -->
 
-        <!-- GOOGLE ANALYTICS -->
-        <script type="text/javascript">
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-11849964-44']);
-            _gaq.push(['_trackPageview']);
+    <!-- GOOGLE ANALYTICS -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-F8J804EH1R"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+          // eslint-disable-next-line no-undef
+          dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
 
-            (function() {
-                var ga = document.createElement('script');
-                ga.type = 'text/javascript';
-                ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(ga, s);
-            })();
-        </script>
-    </body>
+      // eslint-disable-next-line camelcase
+      gtag('config', 'G-F8J804EH1R', { debug_mode: window.location.hostname === 'localhost' });
+    </script>
+  </body>
 </html>
