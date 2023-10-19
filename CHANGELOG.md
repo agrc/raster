@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.8](https://github.com/agrc/raster/compare/v2.3.7...v2.3.8) (2023-10-19)
+
+
+### 🌲 Dependencies
+
+* **dev:** bump @babel/traverse from 7.23.0 to 7.23.2 ([3496ce8](https://github.com/agrc/raster/commit/3496ce8c13d76777cf3aaaae1988f8509bd6d66c))
+
 ## [2.3.7](https://github.com/agrc/raster/compare/v2.3.6...v2.3.7) (2023-10-06)
 
 
