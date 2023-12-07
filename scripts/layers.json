@@ -164,5 +164,7 @@
     "LiDAR2020_100cm_FEMAHQ_DEM_Tiles",
     "LiDAR2020_50cm_FEMAHQ_DEM_Tiles",
     "LiDAR2020_100cm_FEMAHQ_DEM_Tiles",
-    "LiDAR2020_50cm_FEMAHQ_DEM_Tiles"
+    "LiDAR2020_50cm_FEMAHQ_DEM_Tiles",
+    "LiDAR2022_50cm_FishSprings_DEM_Tiles",
+    "LiDAR2022_50cm_FishSprings_DEM_Tiles"
 ]
