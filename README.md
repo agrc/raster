@@ -1,7 +1,5 @@
 # raster.utah.gov
 
-[![firebase deploy](https://github.com/agrc/raster/actions/workflows/nodejs.yml/badge.svg)](https://github.com/agrc/raster/actions/workflows/nodejs.yml)
-
 ## Installation
 
 1. Publish `Raster` map in `maps/Raster.aprx` as `/Raster` map service.
