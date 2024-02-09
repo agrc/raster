@@ -70,7 +70,8 @@ define([
         urlParams: {
             cat: 'cat',
             catGroup: 'catGroup',
-            title: 'title'
+            title: 'title',
+            products: 'products'
         },
         feedbackTxt: 'We would also like to hear of any other data that you may know of that should be added to this map.',
         rightClickTxt: 'You may have to right-click and select "save as" to download the files.',

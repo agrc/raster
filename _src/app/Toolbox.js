@@ -152,6 +152,10 @@ define([
         //      The groups of categories as passed in via the groupCat parameter, if any
         catGroup: null,
 
+        // products: [optional] String[]
+        //      The products as passed in via the products parameter, if any
+        products: null,
+
         constructor: function () {
             // summary:
             //    Constructor method
@@ -193,6 +197,10 @@ define([
 
             this.search = new Search({ map: this.map });
 
+            if (this.products) {
+                this.setProducts();
+            }
+
             if (this.cat || this.catGroup) {
                 this.setCategory();
             }
@@ -211,6 +219,27 @@ define([
                 delay: 200,
                 placement: 'right'
             });
+        },
+        setProducts: function () {
+            // summary:
+            //      pre-checks the products that are passed in via the url
+            console.log('app/Toolbox:setProducts', arguments);
+
+            this.products.forEach(function (id) {
+                const found = query('.select-products input').some(function (input) {
+                    if (input.value === id) {
+                        input.checked = true;
+
+                        return true;
+                    }
+                });
+
+                if (!found) {
+                    throw 'Product id not found: ' + id;
+                }
+            });
+
+            this.step2header.click();
         },
         setCategory: function () {
             // summary:
@@ -291,7 +320,7 @@ define([
                 }), function (e) {
                     throw 'Error with category query.' + e;
                 });
-                // }, 5000);
+                // }, 50000);
             }, this);
         },
         initDrawingToolbar: function () {
