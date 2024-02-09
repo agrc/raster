@@ -8,6 +8,11 @@
             </a>
             <div id="step1" class="panel-collapse collapse in" role='tabpanel'>
                 <div class="panel-body">
+                    <div data-dojo-attach-point="preLoader" class="hidden">
+                        Pre-loading products, please wait...
+                        <img src="app/resources/images/ajax-loader.gif" alt="loading image">
+                    </div>
+                    <div data-dojo-attach-point="stepOneControls">
                     Please select the type of product(s) that you are looking for...
                     <div class='select-products'>
                         <div class="checkbox">
@@ -62,6 +67,7 @@
                     ...then proceed to Step 2 below.
                     <br><br>
                     <div data-dojo-type="app/MainAppLink"></div>
+                    </div>
                 </div>
             </div>
         </div>

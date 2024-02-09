@@ -217,6 +217,9 @@ define([
             //      sets the category for the app
             console.log('app/Toolbox:setCategory', arguments);
 
+            domClass.add(this.stepOneControls, 'hidden');
+            domClass.remove(this.preLoader, 'hidden');
+
             var querytxt;
 
             // find out which product checkbox to check
@@ -251,6 +254,9 @@ define([
             var i = tasks.length;
             var found = false;
             tasks.forEach(function (task) {
+                // use for testing loader
+                // console.log('waiting...');
+                // setTimeout(() => {
                 task.qTask.execute(queryTaskQuery, lang.hitch(this, function (fSet) {
                     if (fSet.features.length > 0) {
                         var gLayer = new GraphicsLayer();
@@ -271,6 +277,9 @@ define([
                         }, this);
                         this.map.addLayer(gLayer, 0);
                         this.map.setExtent(extent, true);
+
+                        domClass.remove(this.stepOneControls, 'hidden');
+                        domClass.add(this.preLoader, 'hidden');
                     }
 
                     if (i === 1) {
@@ -282,6 +291,7 @@ define([
                 }), function (e) {
                     throw 'Error with category query.' + e;
                 });
+                // }, 5000);
             }, this);
         },
         initDrawingToolbar: function () {
