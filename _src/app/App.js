@@ -69,11 +69,16 @@ define([
 
             var cat = this.getURLParamValue(config.urlParams.cat);
             var catGroup = this.getURLParamValue(config.urlParams.catGroup);
+            var products = this.getURLParamValue(config.urlParams.products);
+            if (products) {
+                products = products.split(',');
+            }
+            var title = this.getURLParamValue(config.urlParams.title);
 
             if (cat) {
                 dom.byId('title').innerHTML = cat.replace(new RegExp('{|}', 'g'), '') + ' Data Download';
-            } else if (catGroup) {
-                dom.byId('title').innerHTML = this.getURLParamValue(config.urlParams.title);
+            } else if (catGroup || title) {
+                dom.byId('title').innerHTML = title;
             } else {
                 this.isProductSpecific = false;
             }
@@ -83,7 +88,8 @@ define([
                 previewMapUtm: this.previewMapUtm,
                 previewMapWebMerc: this.previewMapWebMerc,
                 cat: cat,
-                catGroup: (catGroup) ? catGroup.split(',') : null
+                catGroup: (catGroup) ? catGroup.split(',') : null,
+                products: products
             }, 'raster-toolbox');
             toolbox.startup();
         },
