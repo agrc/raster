@@ -12,5 +12,6 @@
     "rdiv",
     "Scalebar",
     "whos"
-  ]
+  ],
+  "editor.formatOnSave": false
 }
