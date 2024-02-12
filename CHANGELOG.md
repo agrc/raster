@@ -1,5 +1,27 @@
 # Changelog
 
+## [2.4.0](https://github.com/agrc/raster/compare/v2.3.8...v2.4.0) (2024-02-12)
+
+
+### 🚀 Features
+
+* add products url param ([f2ea280](https://github.com/agrc/raster/commit/f2ea280ba548c91554e7033b9ab67e4725ad2598)), closes [#158](https://github.com/agrc/raster/issues/158)
+
+
+### 🐛 Bug Fixes
+
+* add loader when using cat/catGroup url params ([67b45d4](https://github.com/agrc/raster/commit/67b45d4ab401dd6f06ce3b021299bf95c30dda70)), closes [#131](https://github.com/agrc/raster/issues/131)
+
+
+### 🌲 Dependencies
+
+* **dev:** bump the safe-dependencies group with 2 updates ([2e909af](https://github.com/agrc/raster/commit/2e909afcf50fb7bc9ca6c2381447abf529ab245f))
+
+
+### 📖 Documentation Improvements
+
+* remove broken badge ([81d256b](https://github.com/agrc/raster/commit/81d256b0000833ebaaa7a77bb2b12ee18e21f859))
+
 ## [2.4.0-0](https://github.com/agrc/raster/compare/v2.3.8...v2.4.0-0) (2024-02-09)
 
 
