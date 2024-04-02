@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.4.1](https://github.com/agrc/raster/compare/v2.4.0...v2.4.1) (2024-04-02)
+
+
+### 🌲 Dependencies
+
+* **dev:** bump the major-dependencies group with 1 update ([bddca3c](https://github.com/agrc/raster/commit/bddca3c03b118fb8b2203bca1252f04c74d9a0e7))
+* **dev:** bump the safe-dependencies group with 2 updates ([f1a7679](https://github.com/agrc/raster/commit/f1a7679566987a441d35f4101c2deae4d84120c5))
+
 ## [2.4.0](https://github.com/agrc/raster/compare/v2.3.8...v2.4.0) (2024-02-12)
 
 
