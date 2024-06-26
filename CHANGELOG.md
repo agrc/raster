@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.5.0](https://github.com/agrc/raster/compare/v2.4.1...v2.5.0) (2024-06-26)
+
+
+### 🚀 Features
+
+* add qualtrics survey snippet ([957211a](https://github.com/agrc/raster/commit/957211ae9333364aae3a8b243082629f8f92ea2a))
+
+
+### 🌲 Dependencies
+
+* bump ws and websocket-stream ([1d54e58](https://github.com/agrc/raster/commit/1d54e583e6708fd0fac14de90e00f52df0bb98a5))
+* **dev:** bump the safe-dependencies group across 1 directory with 3 updates ([ae954b7](https://github.com/agrc/raster/commit/ae954b79a77ea999b14e023245f466c142ae6981))
+
 ## [2.5.0-0](https://github.com/agrc/raster/compare/v2.4.1...v2.5.0-0) (2024-06-26)
 
 
