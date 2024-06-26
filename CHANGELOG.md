@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.0-0](https://github.com/agrc/raster/compare/v2.4.1...v2.5.0-0) (2024-06-26)
+
+
+### 🚀 Features
+
+* add qualtrics survey snippet ([3944e5c](https://github.com/agrc/raster/commit/3944e5c67ecd458857fd5d182b9c7220ec8cde5c))
+
 ## [2.4.1](https://github.com/agrc/raster/compare/v2.4.0...v2.4.1) (2024-04-02)
 
 
