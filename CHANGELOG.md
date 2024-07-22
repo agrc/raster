@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.1](https://github.com/agrc/raster/compare/v2.5.0...v2.5.1) (2024-07-22)
+
+
+### Bug Fixes
+
+* Add new ga property information ([2fbc4ba](https://github.com/agrc/raster/commit/2fbc4bafa359fda51f937a77151d202c7fde26c7))
+
 ## [2.5.0](https://github.com/agrc/raster/compare/v2.4.1...v2.5.0) (2024-06-26)
 
 
