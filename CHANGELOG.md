@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.2-0](https://github.com/agrc/raster/compare/v2.5.1...v2.5.2-0) (2024-10-02)
+
+
+### Dependencies
+
+* FY25Q2 dependency updates 🌲 ([3478453](https://github.com/agrc/raster/commit/347845395ce2044cc07fb625a49e2e05ef52bd84))
+
 ## [2.5.1](https://github.com/agrc/raster/compare/v2.5.0...v2.5.1) (2024-07-22)
 
 
