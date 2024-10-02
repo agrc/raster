@@ -1,6 +1,0 @@
-{
-    "extends": "agrc",
-    "rules": {
-        "no-magic-numbers": "off"
-    }
-}
