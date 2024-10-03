@@ -41,7 +41,7 @@
     "grunt-newer": "1.3.0",
     "grunt-processhtml": "^0.4.4",
     "load-grunt-tasks": "5.1.0",
-    "uglify-js": "^3.19.3"
+    "uglify-js": "^3.17.4"
   },
   "scripts": {
     "start": "npx grunt",

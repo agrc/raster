@@ -12,6 +12,11 @@ updates:
     commit-message:
       prefix: deps
       prefix-development: deps(dev)
+    ignore:
+      - dependency-name: uglify-js
+        update-types:
+          - version-update:semver-major
+          - version-update:semver-minor
   - package-ecosystem: github-actions
     directory: /
     schedule:
