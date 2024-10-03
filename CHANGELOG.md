@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.5](https://github.com/agrc/raster/compare/v2.5.4...v2.5.5) (2024-10-03)
+
+
+### Bug Fixes
+
+* remove extra bump step ([320091d](https://github.com/agrc/raster/commit/320091d5707c96afd0cfd28802b11536a6b6d2cd))
+
 ## [2.5.4](https://github.com/agrc/raster/compare/v2.5.3...v2.5.4) (2024-10-03)
 
 
