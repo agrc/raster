@@ -14,11 +14,6 @@ module.exports = function (grunt) {
         gruntFile,
         'profiles/*.js'
     ];
-    const bumpFiles = [
-        'bower.json',
-        '_src/app/package.json',
-        '_src/app/config.js'
-    ];
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -35,14 +30,6 @@ module.exports = function (grunt) {
                     src: ['**/*.js'],
                     dest: 'src/app/'
                 }]
-            }
-        },
-        bump: {
-            options: {
-                files: bumpFiles,
-                push: false,
-                commit: false,
-                createTag: false
             }
         },
         cachebreaker: {
