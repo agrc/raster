@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.4](https://github.com/agrc/raster/compare/v2.5.3...v2.5.4) (2024-10-03)
+
+
+### Bug Fixes
+
+* correct version number ([2ae6975](https://github.com/agrc/raster/commit/2ae6975d790ed51ddae2d06cb718d153eae5a1cd))
+
 ## [2.5.3](https://github.com/agrc/raster/compare/v2.5.2...v2.5.3) (2024-10-03)
 
 
