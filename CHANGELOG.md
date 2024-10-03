@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.3](https://github.com/agrc/raster/compare/v2.5.2...v2.5.3) (2024-10-03)
+
+
+### Bug Fixes
+
+* pin uglify to workaround breaking change ([35c067d](https://github.com/agrc/raster/commit/35c067d93f179c20d1c489bef04a97a2e00d0185))
+
 ## [2.5.2](https://github.com/agrc/raster/compare/v2.5.1...v2.5.2) (2024-10-02)
 
 
