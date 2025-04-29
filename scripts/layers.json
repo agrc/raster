@@ -171,5 +171,7 @@
     "LiDAR2022_100cm_WestEastUtah_DSM_Tiles",
     "LiDAR2022_50cm_WestEastUtah_DEM_Tiles",
     "LiDAR2022_50cm_WestEastUtah_DSM_Tiles",
-    "NAIP2024_County"
+    "NAIP2024_County",
+    "LiDAR2023_50cm_USFSR4_DSM_Tiles",
+    "LiDAR2023_50cm_USFSR4_DEM_Tiles"
 ]

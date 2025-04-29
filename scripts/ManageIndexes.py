@@ -61,7 +61,7 @@ def manage_map_layers(layers, action):
     print('{}ing layers to/from maps.aprx'.format(action))
     project_path = join(current_folder, '..', 'maps', 'Raster.aprx')
     project = arcpy.mp.ArcGISProject(project_path)
-    map = project.listMaps('Raster')[0];
+    map = project.listMaps('Raster')[0]
     template_path = join(current_folder, 'template.lyrx')
 
     for layer_name in layers:
@@ -110,7 +110,7 @@ if action not in ['add', 'remove']:
 try:
     layers = argv[2].split(';')
 except Exception:
-    layers = raw_input('New layer(s) including gdb separated by ";" (e.g. DRGs.gdb\Vintage_24K): ').split(';')
+    layers = input('New layer(s) including gdb separated by ";" (e.g. DRGs.gdb\Vintage_24K): ').split(';')
 
 manage_pallet_layers(layers, action)
 manage_gdb_layers(layers, action)
