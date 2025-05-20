@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.5.7](https://github.com/agrc/raster/compare/v2.5.6...v2.5.7) (2025-05-20)
+
+
+### Dependencies
+
+* fy25q4 package updates ([75ca715](https://github.com/agrc/raster/commit/75ca715a14c247f68f0efa2ef1f3d75ea2472479))
+
+
+### Documentation
+
+* document uglify issue ([a243da9](https://github.com/agrc/raster/commit/a243da96e8b4e53acbce451d45086495118ceadd))
+
 ## [2.5.6](https://github.com/agrc/raster/compare/v2.5.5...v2.5.6) (2025-01-07)
 
 
