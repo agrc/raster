@@ -87,11 +87,6 @@ module.exports = function (grunt) {
                 basePath: './src'
             }
         },
-        eslint: {
-            main: {
-                src: jsFiles
-            }
-        },
         imagemin: {
             main: {
                 options: {
@@ -157,10 +152,6 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            eslint: {
-                files: jsFiles,
-                tasks: ['eslint']
-            },
             src: {
                 files: jsFiles.concat(otherFiles),
                 options: { livereload: true },
@@ -175,7 +166,6 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('default', [
-        'eslint',
         'clean:src',
         'babel',
         'stylus',
@@ -206,8 +196,5 @@ module.exports = function (grunt) {
         'copy:dist',
         'processhtml:main',
         'cachebreaker'
-    ]);
-    grunt.registerTask('test', [
-        'eslint'
     ]);
 };
