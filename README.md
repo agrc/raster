@@ -35,3 +35,7 @@ raster.utah.gov/?catGroup=24K%20GeoPDF,24K%20DRG&title=USGS%2024K%20Topo%20Maps
 raster.utah.gov/?cat=HRO%202009%20(25cm)
 
 raster.utah.gov/?products=1,3&title=My Custom Title
+
+## :robot: Dependabot
+
+- `uglify-js` greater than `3.17.4` breaks `npm run build:prod`. Last checked with `3.19.3`
