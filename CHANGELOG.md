@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.8-1](https://github.com/agrc/raster/compare/v2.5.8-0...v2.5.8-1) (2025-06-04)
+
+
+### Bug Fixes
+
+* replace redirected link with permanent location ([03eb1dd](https://github.com/agrc/raster/commit/03eb1dd37e739a29790aeca8b8ae66d5d2f79a16))
+
 ## [2.5.8-0](https://github.com/agrc/raster/compare/v2.5.7...v2.5.8-0) (2025-06-04)
 
 

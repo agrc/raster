@@ -12,7 +12,7 @@ define([
 ) {
     var config = {
         appName: 'Raster',
-        version: '2.5.8-0', // x-release-please-version
+        version: '2.5.8-1', // x-release-please-version
         wkid: 3857,
         urls: {
             mapService: 'https://mapserv.utah.gov/arcgis/rest/services/Raster/MapServer',
