@@ -87,6 +87,8 @@ define([
         // *.dev.utah.gov
         config.apiKey = 'AGRC-FE1B257E901672';
         config.quadWord = 'wedding-tactic-enrico-yes';
+        config.urls.mapService = 'https://mapserv.dev.utah.gov/arcgis/rest/services/Raster/MapServer';
+        esriConfig.defaults.io.corsEnabledServers.push('mapserv.dev.utah.gov');
     } else {
         xhr(require.baseUrl + 'secrets.json', {
             handleAs: 'json',
