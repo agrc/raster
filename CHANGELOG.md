@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.8-0](https://github.com/agrc/raster/compare/v2.5.7...v2.5.8-0) (2025-06-04)
+
+
+### Bug Fixes
+
+* test cloud mapserv replacement ([4313a31](https://github.com/agrc/raster/commit/4313a3174e6e0f5031b98703b0ea4d8d0e9228e0))
+
 ## [2.5.7](https://github.com/agrc/raster/compare/v2.5.6...v2.5.7) (2025-05-20)
 
 
