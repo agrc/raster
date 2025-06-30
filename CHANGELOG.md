@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.5.8](https://github.com/agrc/raster/compare/v2.5.7...v2.5.8) (2025-06-30)
+
+
+### Bug Fixes
+
+* replace redirected link with permanent location ([180dd72](https://github.com/agrc/raster/commit/180dd7278a360757ebbcc7af3c5b14e4b47b4ebb))
+
+
+### Dependencies
+
+* **dev:** bump @babel/core in the safe-dependencies group ([c95286c](https://github.com/agrc/raster/commit/c95286c90bacca756d294169e6a52ada23d6ab8c))
+
 ## [2.5.7](https://github.com/agrc/raster/compare/v2.5.6...v2.5.7) (2025-05-20)
 
 
