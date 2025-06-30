@@ -11,6 +11,7 @@ from os.path import dirname, join, realpath, basename
 
 import arcpy
 from forklift.models import Pallet
+from forklift.seat import map_network_drive
 
 import raster_secrets as secrets
 
@@ -21,6 +22,7 @@ layers_json_file = join(current_folder, 'layers.json')
 
 class RasterPallet(Pallet):
     def build(self, configuration):
+        map_network_drive('agrc', 'L')
         #: this is so that crates with sources that are not in 26912 will not choke on reprojecting
         self.geographic_transformation = None
         self.indices = join(self.staging_rack, 'indices.gdb')
