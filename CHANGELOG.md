@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.5.9](https://github.com/agrc/raster/compare/v2.5.8...v2.5.9) (2025-07-30)
+
+
+### Dependencies
+
+* audit fix ([5cbbe3e](https://github.com/agrc/raster/commit/5cbbe3eb5f22f4c71b3b908fc23f8eeb52c9cfa0))
+* bump the npm_and_yarn group with 2 updates ([5a9d10d](https://github.com/agrc/raster/commit/5a9d10d38fb51236d776c929b0543e326eb9152d))
+* **dev:** bump the safe-dependencies group across 1 directory with 2 updates ([930fabd](https://github.com/agrc/raster/commit/930fabdaaec9f0b15d5da04050bbb58ab7f18614))
+
 ## [2.5.8](https://github.com/agrc/raster/compare/v2.5.7...v2.5.8) (2025-06-30)
 
 
