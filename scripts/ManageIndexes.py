@@ -20,7 +20,7 @@ import arcpy
 from raster_secrets import SHARE
 
 current_folder = dirname(realpath(__file__))
-local_folder = r'C:\forklift\data\production'
+local_folder = r'F:\MapData'
 sgid = join(current_folder, 'SGID.sde')
 
 
