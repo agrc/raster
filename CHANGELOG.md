@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.10](https://github.com/agrc/raster/compare/v2.5.9...v2.5.10) (2025-09-03)
+
+
+### Bug Fixes
+
+* **scripts:** fix path for new forklift machine ([4f9d46d](https://github.com/agrc/raster/commit/4f9d46da2d6b341f1ec0158fd772b9c9126617f7))
+
 ## [2.5.9](https://github.com/agrc/raster/compare/v2.5.8...v2.5.9) (2025-07-30)
 
 
