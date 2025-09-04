@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.10-rc.3](https://github.com/agrc/raster/compare/v2.5.10-rc.2...v2.5.10-rc.3) (2025-09-04)
+
+
+### Bug Fixes
+
+* add missing dep ([25e0a61](https://github.com/agrc/raster/commit/25e0a6198b04429ae01ba5d8c2fc22cdada7c118))
+
 ## [2.5.10-rc.2](https://github.com/agrc/raster/compare/v2.5.10-rc.1...v2.5.10-rc.2) (2025-09-04)
 
 
