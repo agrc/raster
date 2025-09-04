@@ -25,9 +25,6 @@ var profile = {
                 'esri/dijit/Attribution',
                 'esri/layers/VectorTileLayerImpl'
             ],
-            exclude: [
-                'esri/arcade/lib/esprima'
-            ],
             includeLocales: ['en-us'],
             customBase: true,
             boot: true
