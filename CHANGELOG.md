@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.10-rc.2](https://github.com/agrc/raster/compare/v2.5.10-rc.1...v2.5.10-rc.2) (2025-09-04)
+
+
+### Bug Fixes
+
+* remove missing exclude layer from dojo build ([ab69903](https://github.com/agrc/raster/commit/ab6990365c0c63f9977e15e722716a8c0a5c074f))
+
 ## [2.5.10-rc.1](https://github.com/agrc/raster/compare/v2.5.9...v2.5.10-rc.1) (2025-09-04)
 
 
