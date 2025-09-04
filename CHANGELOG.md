@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.5.10-rc.1](https://github.com/agrc/raster/compare/v2.5.9...v2.5.10-rc.1) (2025-09-04)
+
+
+### Bug Fixes
+
+* **scripts:** fix path for new forklift machine ([4f9d46d](https://github.com/agrc/raster/commit/4f9d46da2d6b341f1ec0158fd772b9c9126617f7))
+
+
+### Dependencies
+
+* bump esri js api ([803a446](https://github.com/agrc/raster/commit/803a4465a518ac0da8068880feeea051936c8d0a))
+
 ## [2.5.9](https://github.com/agrc/raster/compare/v2.5.8...v2.5.9) (2025-07-30)
 
 
