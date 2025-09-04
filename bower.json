@@ -11,21 +11,21 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "esri": "arcgis-js-api#~3.35.0",
+    "esri": "arcgis-js-api#3.43.0",
     "agrc": "agrc-widgets#~4.2.0",
     "ijit": "agrc-ijit#~3.1.3",
     "layer-selector": "agrc-layer-selector#~0.4.0",
-    "jquery": "jquery#~2.2.0",
-    "dijit-themes": "https://github.com/dojo/dijit-themes.git#1.14.0"
+    "jquery": "jquery#~2.2.0"
   },
   "resolutions": {
-    "dojox": "v1.14.2/esri-3.28.0",
-    "dijit": "v1.14.2/esri-3.28.0",
-    "dojo": "v1.14.2/esri-3.28.0",
-    "esri": "~3.35.0",
+    "dojox": "v1.17.3/esri-3.42.0",
+    "dijit": "v1.17.3/esri-3.42.0",
+    "dojo": "v1.17.3/esri-3.42.0",
+    "esri": "3.43.0",
     "xstyle": "0.3.2",
     "dgrid": "0.3.17/esri-3.20.0",
     "dstore": "1.1.2",
-    "util": "v1.14.2/esri-3.28.0"
+    "util": "v1.17.3/esri-3.42.0",
+    "dgrid1": "v1.3.3/esri-3.42.0"
   }
 }
