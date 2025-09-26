@@ -8,13 +8,15 @@
     "autoplay",
     "basemaps",
     "cooldown",
+    "dedupe",
     "geolocation",
     "Geospatial",
     "nosniff",
     "SAMEORIGIN",
     "Topo",
     "UGRC",
-    "VITE"
+    "VITE",
+    "Vitest"
   ],
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
