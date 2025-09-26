@@ -49,7 +49,10 @@ export default function App() {
 
       return getPerformance(app);
     }
-    initPerformance();
+
+    if (!import.meta.env.DEV) {
+      initPerformance();
+    }
   }, [app]);
 
   return (
