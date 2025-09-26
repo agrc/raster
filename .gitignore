@@ -1,19 +1,27 @@
-.DS_Store
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+/deploy
+/dist
+
+# secrets
+.env.local
+*.odc
 *.pyc
 *.sde
-deploy/
-dist/
-node_modules/
-scripts/agrc*
-scripts/Logs/
-scripts/raster_secrets.py
-scripts/requests*
-scripts/secrets.py
-secrets.json
-src/
-maps/Default.gdb/
-maps/.backups/
-maps/ImportLog/
-maps/**/*.ags
-maps/.pyHistory
-maps/Index/
+
+# misc
+.eslintcache
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# deploy
+/.firebase
+/public/assets

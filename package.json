@@ -1,49 +1,83 @@
 {
-  "name": "raster",
+  "name": "@ugrc/raster",
   "version": "2.5.10",
-  "description": "Raster Discovery App",
-  "main": "src/index.html",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/agrc/raster.git"
-  },
-  "author": "Scott Davis <stdavis@utah.gov>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/agrc/raster/issues"
-  },
-  "homepage": "https://github.com/agrc/raster#readme",
-  "browserslist": [
-    "last 1 version"
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.28.0",
-    "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.28.0",
-    "babel-plugin-transform-es2015-modules-simple-amd": "0.3.0",
-    "eslint-plugin-html": "^8.1.3",
-    "grunt": "^1.6.1",
-    "grunt-babel": "8.0.0",
-    "grunt-cache-breaker": "2.0.1",
-    "grunt-contrib-clean": "^2.0.1",
-    "grunt-contrib-connect": "5.0.1",
-    "grunt-contrib-copy": "1.0.0",
-    "grunt-contrib-imagemin": "4.0.0",
-    "grunt-contrib-stylus": "1.2.0",
-    "grunt-contrib-uglify": "^5.2.2",
-    "grunt-contrib-watch": "1.1.0",
-    "grunt-dojo": "1.1.2",
-    "grunt-eslint": "^25.0.0",
-    "grunt-newer": "1.3.0",
-    "grunt-processhtml": "^0.4.4",
-    "load-grunt-tasks": "5.1.0",
-    "uglify-js": "3.17.4"
-  },
+  "private": true,
+  "type": "module",
   "scripts": {
-    "start": "npx grunt",
-    "test": "echo \"Error: no test specified\" && exit 0",
-    "build:stage": "npx grunt build-stage",
-    "build:prod": "npx grunt build-prod",
-    "postinstall": "npx bower install"
+    "build": "tsc -b && vite build",
+    "check": "tsc -b",
+    "copy:arcgis": "cpy \"./node_modules/@arcgis/core/assets/**\" ./public/assets",
+    "dev": "npm start",
+    "format": "prettier . --write",
+    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "start": "vite",
+    "start:ci": "vite --host",
+    "test": "vitest"
+  },
+  "browserslist": {
+    "production": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@arcgis/core": "^4.33.12",
+    "@arcgis/map-components": "^4.33.14",
+    "@heroicons/react": "^2.2.0",
+    "@ugrc/eslint-config": "^1.2.3",
+    "@ugrc/esri-theme-toggle": "^1.1.2",
+    "@ugrc/utah-design-system": "^1.28.1",
+    "@ugrc/utilities": "^3.1.0",
+    "es-toolkit": "^1.39.8",
+    "firebase": "^11.10.0",
+    "ky": "^1.8.2",
+    "lodash.startcase": "^4.4.0",
+    "prop-types": "^15.8.1",
+    "react": "^19.1.0",
+    "react-aria": "^3.41.1",
+    "react-aria-components": "^1.10.1",
+    "react-dom": "^19.1.0",
+    "react-error-boundary": "^6.0.0",
+    "react-fast-compare": "^3.2.2",
+    "react-stately": "^3.39.0"
+  },
+  "devDependencies": {
+    "@types/lodash.startcase": "^4.4.9",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@ugrc/tailwind-preset": "^1.2.0",
+    "@ugrc/tsconfigs": "^1.0.3",
+    "@vitejs/plugin-react": "^4.6.0",
+    "autoprefixer": "^10.4.21",
+    "cpy-cli": "^5.0.0",
+    "eslint": "^9.31.0",
+    "happy-dom": "^18.0.1",
+    "postcss": "^8.5.6",
+    "prettier": "^3.6.2",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "prettier-plugin-packagejson": "^2.5.19",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-react-aria-components": "^1.2.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-package-version": "^1.1.0",
+    "vitest": "^3.2.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@firebase/util",
+      "@vaadin/vaadin-usage-statistics",
+      "esbuild",
+      "protobufjs"
+    ],
+    "overrides": {}
   }
 }

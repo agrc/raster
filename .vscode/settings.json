@@ -1,19 +1,22 @@
 {
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "cSpell.words": [
-    "cachebreaker",
-    "chbx",
-    "dijit",
-    "firebaserc",
-    "hostingchannels",
-    "Merc",
-    "overriden",
-    "proenv",
-    "querytxt",
-    "rasterapp",
-    "rdiv",
-    "Scalebar",
-    "USGS",
-    "whos"
+    "agrc",
+    "arcgis",
+    "autoplay",
+    "cooldown",
+    "geolocation",
+    "Geospatial",
+    "nosniff",
+    "SAMEORIGIN",
+    "UGRC",
+    "VITE"
   ],
-  "editor.formatOnSave": false
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }
