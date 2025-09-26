@@ -14,9 +14,6 @@ importers:
       '@arcgis/map-components':
         specifier: ^4.33.14
         version: 4.33.14(@arcgis/core@4.33.12)(@esri/calcite-components@3.2.1)
-      '@heroicons/react':
-        specifier: ^2.2.0
-        version: 2.2.0(react@19.1.1)
       '@ugrc/eslint-config':
         specifier: ^1.2.3
         version: 1.2.3(@typescript-eslint/parser@8.39.1(eslint@9.33.0(jiti@1.21.7))(typescript@5.9.2))(eslint@9.33.0(jiti@1.21.7))(storybook@9.1.2(@testing-library/dom@10.4.1)(prettier@3.6.2)(vite@6.3.5(@types/node@24.2.1)(jiti@1.21.7)(yaml@2.8.1)))(typescript@5.9.2)
@@ -29,21 +26,9 @@ importers:
       '@ugrc/utilities':
         specifier: ^3.1.0
         version: 3.1.0(react@19.1.1)
-      es-toolkit:
-        specifier: ^1.39.8
-        version: 1.39.9
       firebase:
         specifier: ^11.10.0
         version: 11.10.0
-      ky:
-        specifier: ^1.8.2
-        version: 1.8.2
-      lodash.startcase:
-        specifier: ^4.4.0
-        version: 4.4.0
-      prop-types:
-        specifier: ^15.8.1
-        version: 15.8.1
       react:
         specifier: ^19.1.0
         version: 19.1.1
@@ -59,16 +44,10 @@ importers:
       react-error-boundary:
         specifier: ^6.0.0
         version: 6.0.0(react@19.1.1)
-      react-fast-compare:
-        specifier: ^3.2.2
-        version: 3.2.2
       react-stately:
         specifier: ^3.39.0
         version: 3.40.0(react@19.1.1)
     devDependencies:
-      '@types/lodash.startcase':
-        specifier: ^4.4.9
-        version: 4.4.9
       '@types/react':
         specifier: ^19.1.8
         version: 19.1.10
@@ -114,9 +93,6 @@ importers:
       tailwindcss:
         specifier: ^3.4.17
         version: 3.4.17
-      tailwindcss-react-aria-components:
-        specifier: ^1.2.0
-        version: 1.2.0(tailwindcss@3.4.17)
       typescript:
         specifier: ^5.8.3
         version: 5.9.2
@@ -708,11 +684,6 @@ packages:
     resolution: {integrity: sha512-tMXdRCfYVixjuFK+Hk0Q1s38gV9zDiDJfWL3h1rv4Qc39oILCu1TRTDt7+fGUI8K4G1Fj125Hx/ru3azECWTyQ==}
     engines: {node: '>=6'}
     hasBin: true
-
-  '@heroicons/react@2.2.0':
-    resolution: {integrity: sha512-LMcepvRaS9LYHJGsF0zzmgKCUim/X3N/DQKc4jepAXJ7l8QxJ1PmxJzqplF2Z3FE4PqBAIGyJAQ/w4B5dsqbtQ==}
-    peerDependencies:
-      react: '>= 16 || ^19.0.0-rc'
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -1606,9 +1577,6 @@ packages:
   '@types/lodash-es@4.17.12':
     resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
 
-  '@types/lodash.startcase@4.4.9':
-    resolution: {integrity: sha512-C0M4DlN1pnn2vEEhLHkTHxiRZ+3GlTegpoAEHHGXnuJkSOXyJMHGiSc+SLRzBlFZWHsBkixe6FqvEAEU04g14g==}
-
   '@types/lodash@4.17.20':
     resolution: {integrity: sha512-H3MHACvFUEiujabxhaI/ImO6gUrd8oOurg7LQtS7mbwIXA/cUqWrvBsaeJ23aZEPk1TAYkurjfMbSELfoCXlGA==}
 
@@ -2244,9 +2212,6 @@ packages:
     resolution: {integrity: sha512-w+5mJ3GuFL+NjVtJlvydShqE1eN3h3PbI7/5LAsYJP/2qtuMXjfL2LpHSRqo4b4eSF5K/DH1JXKUAHSB2UW50g==}
     engines: {node: '>= 0.4'}
 
-  es-toolkit@1.39.9:
-    resolution: {integrity: sha512-9OtbkZmTA2Qc9groyA1PUNeb6knVTkvB2RSdr/LcJXDL8IdEakaxwXLHXa7VX/Wj0GmdMJPR3WhnPGhiP3E+qg==}
-
   esbuild-register@3.6.0:
     resolution: {integrity: sha512-H2/S7Pm8a9CL1uhp9OvjwrBh5Pvx0H8qVOxNu8Wed9Y7qv56MPtq+GGM8RJpq6glYJn9Wspr8uw7l55uyinNeg==}
     peerDependencies:
@@ -2837,9 +2802,6 @@ packages:
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
-  lodash.startcase@4.4.0:
-    resolution: {integrity: sha512-+WKqsK294HMSc2jEbNgpHpd0JfIBhp7rEV4aqXWqFr6AlXov+SlcgB1Fv01y2kGe3Gc8nMW7VA0SrGuSkRfIEg==}
-
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
@@ -3257,9 +3219,6 @@ packages:
     resolution: {integrity: sha512-gdlJjD7NWr0IfkPlaREN2d9uUZUlksrfOx7SX62VRerwXbMY6ftGCIZua1VG1aXFNOimhISsTq+Owp725b9SiA==}
     peerDependencies:
       react: '>=16.13.1'
-
-  react-fast-compare@3.2.2:
-    resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -4541,10 +4500,6 @@ snapshots:
       long: 5.3.2
       protobufjs: 7.5.3
       yargs: 17.7.2
-
-  '@heroicons/react@2.2.0(react@19.1.1)':
-    dependencies:
-      react: 19.1.1
 
   '@humanfs/core@0.19.1': {}
 
@@ -5877,10 +5832,6 @@ snapshots:
     dependencies:
       '@types/lodash': 4.17.20
 
-  '@types/lodash.startcase@4.4.9':
-    dependencies:
-      '@types/lodash': 4.17.20
-
   '@types/lodash@4.17.20': {}
 
   '@types/node@16.18.126': {}
@@ -6740,8 +6691,6 @@ snapshots:
       is-date-object: 1.1.0
       is-symbol: 1.1.1
 
-  es-toolkit@1.39.9: {}
-
   esbuild-register@3.6.0(esbuild@0.25.8):
     dependencies:
       debug: 4.4.1
@@ -7444,8 +7393,6 @@ snapshots:
 
   lodash.merge@4.6.2: {}
 
-  lodash.startcase@4.4.0: {}
-
   lodash@4.17.21: {}
 
   long@5.3.2: {}
@@ -7838,8 +7785,6 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.28.2
       react: 19.1.1
-
-  react-fast-compare@3.2.2: {}
 
   react-is@16.13.1: {}
 

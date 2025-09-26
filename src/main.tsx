@@ -5,7 +5,7 @@ import { FirebaseAnalyticsProvider, FirebaseAppProvider } from '@ugrc/utah-desig
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
-import { MapProvider } from './components/contexts';
+import { MapProvider } from './components/contexts/MapProvider';
 import './index.css';
 
 esriConfig.assetsPath = './assets';

@@ -6,11 +6,13 @@
     "agrc",
     "arcgis",
     "autoplay",
+    "basemaps",
     "cooldown",
     "geolocation",
     "Geospatial",
     "nosniff",
     "SAMEORIGIN",
+    "Topo",
     "UGRC",
     "VITE"
   ],
