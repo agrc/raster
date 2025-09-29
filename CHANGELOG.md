@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.0-rc.1](https://github.com/agrc/raster/compare/v2.5.10...v3.0.0-rc.1) (2025-09-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* This is a total rewrite of the application
+
+### Bug Fixes
+
+* don't run firebase performance in dev ([0ee5374](https://github.com/agrc/raster/commit/0ee537483ed2b9343279c01d81c1c1fd47d6247c))
+* start fresh with atlas template ([581ecbd](https://github.com/agrc/raster/commit/581ecbdb86c9fe65b1d00f5a3764c21583215da3))
+
 ## [2.5.11](https://github.com/agrc/raster/compare/v2.5.10...v2.5.11) (2025-11-10)
 
 
