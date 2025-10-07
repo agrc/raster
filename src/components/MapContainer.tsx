@@ -1,4 +1,5 @@
 import type { EventHandler } from '@arcgis/lumina';
+import '@arcgis/map-components/components/arcgis-home';
 import '@arcgis/map-components/components/arcgis-locate';
 import '@arcgis/map-components/components/arcgis-map';
 import '@arcgis/map-components/components/arcgis-zoom';
@@ -35,6 +36,7 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
   return (
     <arcgis-map ref={mapRef} className="size-full" onarcgisViewClick={onClick} extent={utahMercatorExtent}>
       <arcgis-zoom position="top-left"></arcgis-zoom>
+      <arcgis-home position="top-left"></arcgis-home>
       {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
     </arcgis-map>
   );
