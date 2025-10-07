@@ -3,7 +3,10 @@ import { useEffect } from 'react';
 import { useOverlayTrigger } from 'react-aria';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useOverlayTriggerState } from 'react-stately';
+import { MapProvider } from './components/contexts/MapProvider';
+import WizardMachineProvider from './components/contexts/WizardMachineProvider';
 import { MapContainer } from './components/MapContainer';
+import Wizard from './components/Wizard';
 import config from './config';
 
 const version = import.meta.env.PACKAGE_VERSION;
@@ -67,17 +70,21 @@ export default function App() {
           </div>
         </Header>
         <section className="relative flex min-h-0 flex-1 overflow-x-hidden md:mr-2">
-          <Drawer main state={sideBarState} {...sideBarTriggerProps}>
-            Wizard
-          </Drawer>
-          <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
-            <div className="relative flex-1 overflow-hidden dark:rounded">
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <MapContainer />
-              </ErrorBoundary>
+          <MapProvider>
+            <Drawer main state={sideBarState} {...sideBarTriggerProps}>
+              <WizardMachineProvider>
+                <Wizard />
+              </WizardMachineProvider>
+            </Drawer>
+            <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
+              <div className="relative flex-1 overflow-hidden dark:rounded">
+                <ErrorBoundary FallbackComponent={ErrorFallback}>
+                  <MapContainer />
+                </ErrorBoundary>
+              </div>
+              <SocialMedia />
             </div>
-            <SocialMedia />
-          </div>
+          </MapProvider>
         </section>
       </main>
       <Footer />
