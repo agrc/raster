@@ -6,7 +6,7 @@ import '@arcgis/map-components/components/arcgis-zoom';
 import { LayerSelector, type LayerSelectorProps } from '@ugrc/utah-design-system';
 import { utahMercatorExtent } from '@ugrc/utilities/hooks';
 import { useEffect, useRef, useState } from 'react';
-import { useMap } from './hooks/useMap';
+import useMap from './hooks/useMap';
 
 export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMapElement['arcgisViewClick']> }) => {
   const [selectorOptions, setSelectorOptions] = useState<LayerSelectorProps | null>(null);

@@ -35,13 +35,15 @@
     "@ugrc/esri-theme-toggle": "^1.1.2",
     "@ugrc/utah-design-system": "^1.28.1",
     "@ugrc/utilities": "^3.1.0",
+    "@xstate/react": "^6.0.0",
     "firebase": "^11.10.0",
     "react": "^19.1.0",
     "react-aria": "^3.41.1",
     "react-aria-components": "^1.10.1",
     "react-dom": "^19.1.0",
     "react-error-boundary": "^6.0.0",
-    "react-stately": "^3.39.0"
+    "react-stately": "^3.39.0",
+    "xstate": "^5.22.1"
   },
   "devDependencies": {
     "@types/react": "^19.1.8",
