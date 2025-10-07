@@ -1,5 +1,4 @@
 import esriConfig from '@arcgis/core/config';
-import '@arcgis/map-components/main.css';
 import initializeTheme from '@ugrc/esri-theme-toggle';
 import { FirebaseAnalyticsProvider, FirebaseAppProvider } from '@ugrc/utah-design-system';
 import React from 'react';
