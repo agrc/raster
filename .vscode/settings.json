@@ -12,6 +12,7 @@
     "geolocation",
     "Geospatial",
     "nosniff",
+    "onarcgis",
     "prebuild",
     "SAMEORIGIN",
     "Topo",

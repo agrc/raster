@@ -10,22 +10,28 @@ importers:
     dependencies:
       '@arcgis/core':
         specifier: ^4.33.12
-        version: 4.33.12
+        version: 4.33.12(@lit/context@1.1.6)
+      '@arcgis/lumina':
+        specifier: ^4.33.24
+        version: 4.33.24
       '@arcgis/map-components':
         specifier: ^4.33.14
-        version: 4.33.14(@arcgis/core@4.33.12)(@esri/calcite-components@3.2.1)
+        version: 4.33.14(@arcgis/core@4.33.12(@lit/context@1.1.6))(@esri/calcite-components@3.3.2(@lit/context@1.1.6))
+      '@esri/calcite-components':
+        specifier: ^3.3.2
+        version: 3.3.2(@lit/context@1.1.6)
       '@ugrc/eslint-config':
         specifier: ^1.2.3
         version: 1.2.3(@typescript-eslint/parser@8.39.1(eslint@9.33.0(jiti@1.21.7))(typescript@5.9.2))(eslint@9.33.0(jiti@1.21.7))(storybook@9.1.2(@testing-library/dom@10.4.1)(prettier@3.6.2)(vite@6.3.5(@types/node@24.2.1)(jiti@1.21.7)(yaml@2.8.1)))(typescript@5.9.2)
       '@ugrc/esri-theme-toggle':
         specifier: ^1.1.2
-        version: 1.1.2
+        version: 1.1.2(@lit/context@1.1.6)
       '@ugrc/utah-design-system':
         specifier: ^1.28.1
-        version: 1.28.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@3.4.17)
+        version: 1.28.1(@lit/context@1.1.6)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@3.4.17)
       '@ugrc/utilities':
         specifier: ^3.1.0
-        version: 3.1.0(react@19.1.1)
+        version: 3.1.0(@lit/context@1.1.6)(react@19.1.1)
       firebase:
         specifier: ^11.10.0
         version: 11.10.0
@@ -122,17 +128,36 @@ packages:
   '@arcgis/components-utils@4.33.14':
     resolution: {integrity: sha512-H45+zcLWuxygtNPSeNilOf0pw1eVUc2kZOpoBqpw5yW2J2mMU+mN0SQn7IMpSX8XhQ1oMQbQYhpnbVdV716pnw==}
 
+  '@arcgis/components-utils@4.33.24':
+    resolution: {integrity: sha512-+7mt88zsibAJyCmCIdV4XYSfsBgBxo48MkfZ0E7aWfXz9Ns3jZ6n7hmRu/kJP5qnBg2X9EXcrDH/RLtAJpQ6Ww==}
+
   '@arcgis/core@4.33.12':
     resolution: {integrity: sha512-ZHwS714nldC9r+RKIWDRk2PDJ9f6O3hAaulujOY3reZjbo9DZALRv4rjgdedas6U2Q6iGelPV8iHSPTHVgWjNw==}
 
   '@arcgis/lumina@4.33.14':
     resolution: {integrity: sha512-a0BhAue4E6UzMhXwfGElVhfUHwYQDcC6lp3ANruJcUpZfbml9IQ2j2973IRIePj6UX9alLw6sQm9tuzn6kQDQg==}
+    deprecated: This version is no longer supported. Upgrade to @latest
+
+  '@arcgis/lumina@4.33.24':
+    resolution: {integrity: sha512-aPmPi+j3bFUI2ZQBy2bQ0vyBMl6CmXVUPRpcOl8+XawVPd21LSNKNmvzz7lkBiFc7H2sYd53rdL8o+eiozeYNw==}
+
+  '@arcgis/lumina@4.34.0-next.158':
+    resolution: {integrity: sha512-xui7M2aqhutM8F0pjQgnQJEIcmT16AXeWgXzI6W6sBm5+5CSnL4Z+IF05Scq96dzeWj9/PgZ1jYr/KjDwb8H3Q==}
+    peerDependencies:
+      '@lit/context': ^1.1.5
+      lit: ^3.3.0
+    peerDependenciesMeta:
+      '@lit/context':
+        optional: true
 
   '@arcgis/map-components@4.33.14':
     resolution: {integrity: sha512-vfwgX2dijySlq8hPdoKNE2BMgPf33LgPqWTexUT6370pfqdAlDS4A52d7tbqIeoj5/miuI/hDmAivK/EVXFWAw==}
     peerDependencies:
       '@arcgis/core': ~4.33.0
       '@esri/calcite-components': ^3.2.1
+
+  '@arcgis/toolkit@4.34.0-next.158':
+    resolution: {integrity: sha512-sbm215r2rYyi22U0Z4Y9b1brUQH7Qm3vxEtj4+Gnpsi9QyVHI8Q0av3bLnqwLOxBxUqFKi5Zc8cLKON3rP4YXQ==}
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -435,11 +460,11 @@ packages:
     resolution: {integrity: sha512-9e5qdoxGa6aQl5G1cyVr7AMYXWdUh6KcyuqcL4svRgkLU/H1usYtu0VJQfi5Kw11bVesd7syXl4uNI61mgen9g==}
     engines: {node: '>=12.20.0'}
 
-  '@esri/calcite-components@3.2.1':
-    resolution: {integrity: sha512-NRBW/bhT4sQM5RAZF7W8/VymaOLgIzaR6yTZFI270Ig4NiQ4DRexjdeo/SwDMBlswFtBw5iya+/h+fAur2+Hlg==}
+  '@esri/calcite-components@3.3.2':
+    resolution: {integrity: sha512-NSV7lM5nuPOhtCTs0MPfZzI6Bdhb+/psAzpdoWwQSsFaB/KAAAQl8zpx2S5LRG9mjwVuveSGwoRR5ZP53UQmjA==}
 
-  '@esri/calcite-ui-icons@4.2.0':
-    resolution: {integrity: sha512-GS41gUt1tgnqG+U1a6yDRiKOHmuLST2uyOI7+cJ83JtLJ7CGduH9K6RERabTE2vRYbudaebI8jZgKNSNOHdGzw==}
+  '@esri/calcite-ui-icons@4.3.0':
+    resolution: {integrity: sha512-iOOuRurpjFxFVw6+aXW2JpSkRBrdOpBcbdibfPOmSPqMd1aoHBtYmYXetKoH9vfrXoBiPyO2PkDnczhsu/N9IA==}
     hasBin: true
 
   '@firebase/ai@1.4.1':
@@ -2079,9 +2104,6 @@ packages:
     resolution: {integrity: sha512-BS8PfmtDGnrgYdOonGZQdLZslWIeCGFP9tpan0hi1Co2Zr2NKADsvGYA8XxuG/4UWgJ6Cjtv+YJnB6MM69QGlQ==}
     engines: {node: '>= 0.4'}
 
-  dayjs@1.11.13:
-    resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
-
   debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
     peerDependencies:
@@ -2211,6 +2233,9 @@ packages:
   es-to-primitive@1.3.0:
     resolution: {integrity: sha512-w+5mJ3GuFL+NjVtJlvydShqE1eN3h3PbI7/5LAsYJP/2qtuMXjfL2LpHSRqo4b4eSF5K/DH1JXKUAHSB2UW50g==}
     engines: {node: '>= 0.4'}
+
+  es-toolkit@1.39.10:
+    resolution: {integrity: sha512-E0iGnTtbDhkeczB0T+mxmoVlT4YNweEKBLq7oaU4p11mecdsZpNWOglI4895Vh4usbQ+LsJiuLuI2L0Vdmfm2w==}
 
   esbuild-register@3.6.0:
     resolution: {integrity: sha512-H2/S7Pm8a9CL1uhp9OvjwrBh5Pvx0H8qVOxNu8Wed9Y7qv56MPtq+GGM8RJpq6glYJn9Wspr8uw7l55uyinNeg==}
@@ -3825,14 +3850,20 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@arcgis/core@4.33.12':
+  '@arcgis/components-utils@4.33.24':
+    dependencies:
+      tslib: 2.8.1
+
+  '@arcgis/core@4.33.12(@lit/context@1.1.6)':
     dependencies:
       '@esri/arcgis-html-sanitizer': 4.1.0
-      '@esri/calcite-components': 3.2.1
+      '@esri/calcite-components': 3.3.2(@lit/context@1.1.6)
       '@vaadin/grid': 24.7.11
       '@zip.js/zip.js': 2.7.72
       luxon: 3.6.1
       marked: 15.0.12
+    transitivePeerDependencies:
+      - '@lit/context'
 
   '@arcgis/lumina@4.33.14':
     dependencies:
@@ -3844,12 +3875,35 @@ snapshots:
       lit: 3.3.1
       tslib: 2.8.1
 
-  '@arcgis/map-components@4.33.14(@arcgis/core@4.33.12)(@esri/calcite-components@3.2.1)':
+  '@arcgis/lumina@4.33.24':
+    dependencies:
+      '@arcgis/components-utils': 4.33.24
+      '@lit-labs/ssr': 3.3.1
+      '@lit-labs/ssr-client': 1.1.7
+      '@lit/context': 1.1.6
+      csstype: 3.1.3
+      lit: 3.3.1
+      tslib: 2.8.1
+
+  '@arcgis/lumina@4.34.0-next.158(@lit/context@1.1.6)(lit@3.3.1)':
+    dependencies:
+      '@arcgis/toolkit': 4.34.0-next.158
+      csstype: 3.1.3
+      lit: 3.3.1
+      tslib: 2.8.1
+    optionalDependencies:
+      '@lit/context': 1.1.6
+
+  '@arcgis/map-components@4.33.14(@arcgis/core@4.33.12(@lit/context@1.1.6))(@esri/calcite-components@3.3.2(@lit/context@1.1.6))':
     dependencies:
       '@arcgis/components-utils': 4.33.14
-      '@arcgis/core': 4.33.12
+      '@arcgis/core': 4.33.12(@lit/context@1.1.6)
       '@arcgis/lumina': 4.33.14
-      '@esri/calcite-components': 3.2.1
+      '@esri/calcite-components': 3.3.2(@lit/context@1.1.6)
+      tslib: 2.8.1
+
+  '@arcgis/toolkit@4.34.0-next.158':
+    dependencies:
       tslib: 2.8.1
 
   '@babel/code-frame@7.27.1':
@@ -4114,25 +4168,27 @@ snapshots:
       mitt: 3.0.1
       tslib: 2.8.1
 
-  '@esri/calcite-components@3.2.1':
+  '@esri/calcite-components@3.3.2(@lit/context@1.1.6)':
     dependencies:
-      '@arcgis/components-utils': 4.33.14
-      '@arcgis/lumina': 4.33.14
-      '@esri/calcite-ui-icons': 4.2.0
+      '@arcgis/lumina': 4.34.0-next.158(@lit/context@1.1.6)(lit@3.3.1)
+      '@arcgis/toolkit': 4.34.0-next.158
+      '@esri/calcite-ui-icons': 4.3.0
       '@floating-ui/dom': 1.7.3
       '@floating-ui/utils': 0.2.10
       '@types/sortablejs': 1.15.8
       color: 5.0.0
       composed-offset-position: 0.0.6(@floating-ui/utils@0.2.10)
-      dayjs: 1.11.13
+      es-toolkit: 1.39.10
       focus-trap: 7.6.5
       interactjs: 1.10.27
-      lodash-es: 4.17.21
+      lit: 3.3.1
       sortablejs: 1.15.6
       timezone-groups: 0.10.4
       type-fest: 4.41.0
+    transitivePeerDependencies:
+      - '@lit/context'
 
-  '@esri/calcite-ui-icons@4.2.0': {}
+  '@esri/calcite-ui-icons@4.3.0': {}
 
   '@firebase/ai@1.4.1(@firebase/app-types@0.9.3)(@firebase/app@0.13.2)':
     dependencies:
@@ -5977,9 +6033,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@ugrc/esri-theme-toggle@1.1.2':
+  '@ugrc/esri-theme-toggle@1.1.2(@lit/context@1.1.6)':
     dependencies:
-      '@arcgis/core': 4.33.12
+      '@arcgis/core': 4.33.12(@lit/context@1.1.6)
+    transitivePeerDependencies:
+      - '@lit/context'
 
   '@ugrc/tailwind-preset@1.2.0(tailwindcss@3.4.17)':
     dependencies:
@@ -5991,13 +6049,13 @@ snapshots:
     dependencies:
       '@total-typescript/tsconfig': 1.0.4
 
-  '@ugrc/utah-design-system@1.28.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@3.4.17)':
+  '@ugrc/utah-design-system@1.28.1(@lit/context@1.1.6)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@3.4.17)':
     dependencies:
-      '@arcgis/core': 4.33.12
+      '@arcgis/core': 4.33.12(@lit/context@1.1.6)
       '@esri/arcgis-rest-geocoding': 4.0.3(@esri/arcgis-rest-request@4.7.2)
       '@esri/arcgis-rest-request': 4.7.2
       '@types/lodash-es': 4.17.12
-      '@ugrc/utilities': 3.1.0(react@19.1.1)
+      '@ugrc/utilities': 3.1.0(@lit/context@1.1.6)(react@19.1.1)
       firebase: 11.10.0
       ky: 1.8.2
       lodash-es: 4.17.21
@@ -6010,15 +6068,18 @@ snapshots:
       tailwind-variants: 0.3.1(tailwindcss@3.4.17)
       ts-md5: 1.3.1
     transitivePeerDependencies:
+      - '@lit/context'
       - '@react-native-async-storage/async-storage'
       - react-dom
       - tailwindcss
 
-  '@ugrc/utilities@3.1.0(react@19.1.1)':
+  '@ugrc/utilities@3.1.0(@lit/context@1.1.6)(react@19.1.1)':
     dependencies:
-      '@arcgis/core': 4.33.12
+      '@arcgis/core': 4.33.12(@lit/context@1.1.6)
       ky: 1.8.2
       react: 19.1.1
+    transitivePeerDependencies:
+      - '@lit/context'
 
   '@vaadin/a11y-base@24.7.11':
     dependencies:
@@ -6515,8 +6576,6 @@ snapshots:
       es-errors: 1.3.0
       is-data-view: 1.0.2
 
-  dayjs@1.11.13: {}
-
   debug@3.2.7:
     dependencies:
       ms: 2.1.3
@@ -6690,6 +6749,8 @@ snapshots:
       is-callable: 1.2.7
       is-date-object: 1.1.0
       is-symbol: 1.1.1
+
+  es-toolkit@1.39.10: {}
 
   esbuild-register@3.6.0(esbuild@0.25.8):
     dependencies:

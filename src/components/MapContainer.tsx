@@ -1,70 +1,41 @@
-import EsriMap from '@arcgis/core/Map';
-import MapView from '@arcgis/core/views/MapView';
+import type { EventHandler } from '@arcgis/lumina';
 import '@arcgis/map-components/components/arcgis-locate';
+import '@arcgis/map-components/components/arcgis-map';
+import '@arcgis/map-components/components/arcgis-zoom';
 import { LayerSelector, type LayerSelectorProps } from '@ugrc/utah-design-system';
 import { utahMercatorExtent } from '@ugrc/utilities/hooks';
 import { useEffect, useRef, useState } from 'react';
 import { useMap } from './hooks/useMap';
 
-export const MapContainer = ({ onClick }: { onClick?: __esri.ViewClickEventHandler }) => {
-  const mapNode = useRef<HTMLDivElement | null>(null);
-  const mapComponent = useRef<EsriMap | null>(null);
-  const mapView = useRef<MapView>(null);
+export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMapElement['arcgisViewClick']> }) => {
   const [selectorOptions, setSelectorOptions] = useState<LayerSelectorProps | null>(null);
   const { setMapView } = useMap();
+  const mapRef = useRef<HTMLArcgisMapElement>(null);
 
   // setup the Map
   useEffect(() => {
-    if (!mapNode.current || !setMapView) {
-      return;
-    }
+    if (!mapRef.current) return;
 
-    mapComponent.current = new EsriMap();
+    const map = mapRef.current;
+    map.constraints.snapToZoom = false;
 
-    mapView.current = new MapView({
-      container: mapNode.current,
-      extent: utahMercatorExtent,
-      map: mapComponent.current,
-      ui: {
-        components: ['zoom'],
-      },
-    });
-
-    mapView.current.constraints.snapToZoom = false;
-
-    setMapView(mapView.current);
+    setMapView(map.view);
 
     const selectorOptions: LayerSelectorProps = {
       options: {
-        view: mapView.current,
+        view: map.view,
         quadWord: import.meta.env.VITE_DISCOVER,
         basemaps: ['Lite', 'Hybrid', 'Terrain', 'Topo', 'Color IR'],
       },
     };
 
     setSelectorOptions(selectorOptions);
-
-    return () => {
-      mapView.current?.destroy();
-      mapComponent.current?.destroy();
-    };
   }, [setMapView]);
 
-  // add click event handlers
-  useEffect(() => {
-    let handler: IHandle | null = null;
-    if (onClick && mapView.current) {
-      handler = mapView.current.on('click', onClick);
-    }
-
-    return () => {
-      handler?.remove();
-    };
-  }, [onClick, mapView]);
-
   return (
-    <div ref={mapNode} className="size-full">
+    <arcgis-map ref={mapRef} className="size-full" onarcgisViewClick={onClick} extent={utahMercatorExtent}>
+      <arcgis-zoom position="top-left"></arcgis-zoom>
       {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
-    </div>
+    </arcgis-map>
   );
 };
