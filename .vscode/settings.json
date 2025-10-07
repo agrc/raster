@@ -12,6 +12,7 @@
     "geolocation",
     "Geospatial",
     "nosniff",
+    "prebuild",
     "SAMEORIGIN",
     "Topo",
     "UGRC",
