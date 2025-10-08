@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.0.0-rc.2](https://github.com/agrc/raster/compare/v3.0.0-rc.1...v3.0.0-rc.2) (2025-10-08)
+
+
+### Features
+
+* add home button ([74f7074](https://github.com/agrc/raster/commit/74f7074cf9e6463e0f4d5738cc56af62faf773bc)), closes [#217](https://github.com/agrc/raster/issues/217)
+* add uds tooltips ([6fb3377](https://github.com/agrc/raster/commit/6fb3377b1ef41dbfeb55511d341956a1375f6347)), closes [#220](https://github.com/agrc/raster/issues/220)
+* create state machine and model product type selection ([d5bbf9c](https://github.com/agrc/raster/commit/d5bbf9ce84fa23ce6c70e57e7504303a9fd6230a)), closes [#220](https://github.com/agrc/raster/issues/220)
+
+
+### Bug Fixes
+
+* set appropriate base map options ([8fb26e3](https://github.com/agrc/raster/commit/8fb26e3be164f7222ef68a1d8968090cdf79266d)), closes [#214](https://github.com/agrc/raster/issues/214)
+
+
+### Styles
+
+* better title sizes and sidebar layout on smaller screens ([6d1e814](https://github.com/agrc/raster/commit/6d1e8147904b7ebfd21219868b69b42706e5c307))
+
 ## [3.0.0-rc.1](https://github.com/agrc/raster/compare/v2.5.10...v3.0.0-rc.1) (2025-09-29)
 
 
