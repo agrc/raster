@@ -64,7 +64,7 @@ export default function App() {
         <Header links={links}>
           <div className="flex h-full grow items-center gap-3">
             <UgrcLogo />
-            <h2 className="font-heading text-3xl font-black text-zinc-600 sm:text-5xl dark:text-zinc-100">
+            <h2 className="font-heading text-2xl font-black text-zinc-600 md:text-4xl lg:text-5xl dark:text-zinc-100">
               UGRC Raster Data Discovery
             </h2>
           </div>
