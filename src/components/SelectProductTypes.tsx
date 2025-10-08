@@ -1,4 +1,6 @@
-import { Checkbox } from '@ugrc/utah-design-system';
+import { Button, Checkbox, Tooltip } from '@ugrc/utah-design-system';
+import { HelpCircle } from 'lucide-react';
+import { TooltipTrigger } from 'react-aria-components';
 import config from '../config';
 import type { ProductTypeKey } from '../types';
 import useWizardMachine from './hooks/useWizardMachine';
@@ -15,8 +17,15 @@ export default function SelectProductTypes() {
             isSelected={snapshot.context.productTypes.includes(key as ProductTypeKey)}
             onChange={() => send({ type: 'TOGGLE_PRODUCT_TYPE', productType: key as ProductTypeKey })}
           >
-            {/* TODO: replace with Tooltip (https://github.com/agrc/kitchen-sink/issues/539) */}
-            <span title={config.PRODUCT_TYPE_DESCRIPTIONS[key as ProductTypeKey]}>{label}</span>
+            <div className="inline-flex items-center gap-0.5">
+              {label}
+              <TooltipTrigger delay={250}>
+                <Button className="hover:bg-transparent" variant="icon" aria-label="More information">
+                  <HelpCircle className="h-4 w-4" />
+                </Button>
+                <Tooltip>{config.PRODUCT_TYPE_DESCRIPTIONS[key as ProductTypeKey]}</Tooltip>
+              </TooltipTrigger>
+            </div>
           </Checkbox>
         </div>
       ))}

@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react(), loadVersion()],
   resolve: {
     // this is only applicable when pnpm-linking the utah-design-package
-    dedupe: ['firebase', '@arcgis/core'],
+    // dedupe: ['firebase', '@arcgis/core'],
   },
   test: {
     environment: 'happy-dom',
