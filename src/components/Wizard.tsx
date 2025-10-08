@@ -6,7 +6,7 @@ export default function Wizard() {
   const { snapshot, send } = useWizardMachine();
 
   return (
-    <div className="px-1">
+    <div className="px-1 py-1 md:py-0">
       <DisclosureGroup defaultExpandedKeys={[1]}>
         <Disclosure id={1}>
           <DisclosureHeader>Step 1 - Select Products</DisclosureHeader>
