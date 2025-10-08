@@ -27,8 +27,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(@lit/context@1.1.6)
       '@ugrc/utah-design-system':
-        specifier: ^1.28.1
-        version: 1.28.1(@lit/context@1.1.6)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@3.4.17)
+        specifier: ^1.30.0
+        version: 1.30.0(@lit/context@1.1.6)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@3.4.17)
       '@ugrc/utilities':
         specifier: ^3.1.0
         version: 3.1.0(@lit/context@1.1.6)(react@19.1.1)
@@ -38,6 +38,9 @@ importers:
       firebase:
         specifier: ^11.10.0
         version: 11.10.0
+      lucide-react:
+        specifier: ^0.545.0
+        version: 0.545.0(react@19.1.1)
       react:
         specifier: ^19.1.0
         version: 19.1.1
@@ -462,8 +465,8 @@ packages:
     peerDependencies:
       '@esri/arcgis-rest-request': ^4.0.0
 
-  '@esri/arcgis-rest-request@4.7.2':
-    resolution: {integrity: sha512-9e5qdoxGa6aQl5G1cyVr7AMYXWdUh6KcyuqcL4svRgkLU/H1usYtu0VJQfi5Kw11bVesd7syXl4uNI61mgen9g==}
+  '@esri/arcgis-rest-request@4.7.3':
+    resolution: {integrity: sha512-0logbVDob7/5M7MNYAsB8c4/2S8xsXBrVQBvK1z+8QFCDz/mkJnzSeXQho/OCGhxTTLfEB7eKDXUG7ma7QDuvQ==}
     engines: {node: '>=12.20.0'}
 
   '@esri/calcite-components@3.3.2':
@@ -1713,8 +1716,8 @@ packages:
   '@ugrc/tsconfigs@1.0.3':
     resolution: {integrity: sha512-9Z84bZpLJ6wRi4sm6RWvckPHs/Q6XZCHW5yjeHZzboZi/1bsJUOoh3F5wT/qQ5EKewDcHk65WcvUTWPc+JYjtQ==}
 
-  '@ugrc/utah-design-system@1.28.1':
-    resolution: {integrity: sha512-NpuxU0gnRzOZUrx/gcwzjduWgldI+kcfOWx3rMOhoz75+8l0a1xiH6fUQ20H2WovxNRWfF9S2UGYeeRApH6Sxg==}
+  '@ugrc/utah-design-system@1.30.0':
+    resolution: {integrity: sha512-hR0MdHwtltHRe1G+faliSNX0N6SSxA0ZMnBEAo7RvcV+Mz+K8EkX/xSWw100fqHWD5FEcc+NHb2ZqNaSB3H8pg==}
     peerDependencies:
       react: '>=16.8'
 
@@ -2861,8 +2864,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@0.539.0:
-    resolution: {integrity: sha512-VVISr+VF2krO91FeuCrm1rSOLACQUYVy7NQkzrOty52Y8TlTPcXcMdQFj9bYzBgXbWCiywlwSZ3Z8u6a+6bMlg==}
+  lucide-react@0.545.0:
+    resolution: {integrity: sha512-7r1/yUuflQDSt4f1bpn5ZAocyIxcTyVyBBChSVtBKn5M+392cPmI5YJMWOJKk/HUWGm5wg83chlAZtCcGbEZtw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -4181,14 +4184,14 @@ snapshots:
     dependencies:
       formdata-node: 4.4.1
 
-  '@esri/arcgis-rest-geocoding@4.0.3(@esri/arcgis-rest-request@4.7.2)':
+  '@esri/arcgis-rest-geocoding@4.0.3(@esri/arcgis-rest-request@4.7.3)':
     dependencies:
-      '@esri/arcgis-rest-request': 4.7.2
+      '@esri/arcgis-rest-request': 4.7.3
       '@terraformer/arcgis': 2.1.2
       '@types/terraformer__arcgis': 2.0.5
       tslib: 2.8.1
 
-  '@esri/arcgis-rest-request@4.7.2':
+  '@esri/arcgis-rest-request@4.7.3':
     dependencies:
       '@esri/arcgis-rest-fetch': 4.0.0
       '@esri/arcgis-rest-form-data': 4.0.0
@@ -6076,17 +6079,17 @@ snapshots:
     dependencies:
       '@total-typescript/tsconfig': 1.0.4
 
-  '@ugrc/utah-design-system@1.28.1(@lit/context@1.1.6)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@3.4.17)':
+  '@ugrc/utah-design-system@1.30.0(@lit/context@1.1.6)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@3.4.17)':
     dependencies:
       '@arcgis/core': 4.33.12(@lit/context@1.1.6)
-      '@esri/arcgis-rest-geocoding': 4.0.3(@esri/arcgis-rest-request@4.7.2)
-      '@esri/arcgis-rest-request': 4.7.2
+      '@esri/arcgis-rest-geocoding': 4.0.3(@esri/arcgis-rest-request@4.7.3)
+      '@esri/arcgis-rest-request': 4.7.3
       '@types/lodash-es': 4.17.12
       '@ugrc/utilities': 3.1.0(@lit/context@1.1.6)(react@19.1.1)
       firebase: 11.10.0
       ky: 1.8.2
       lodash-es: 4.17.21
-      lucide-react: 0.539.0(react@19.1.1)
+      lucide-react: 0.545.0(react@19.1.1)
       react: 19.1.1
       react-aria: 3.42.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       react-aria-components: 1.11.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -7507,7 +7510,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@0.539.0(react@19.1.1):
+  lucide-react@0.545.0(react@19.1.1):
     dependencies:
       react: 19.1.1
 
