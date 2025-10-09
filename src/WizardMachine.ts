@@ -4,6 +4,7 @@ import type { ProductTypeKey } from './types';
 export type ContextType = {
   productTypes: ProductTypeKey[];
 };
+export type StepActionTypes = 'STEP1' | 'STEP2' | 'STEP3';
 
 const initialContext: ContextType = {
   productTypes: [],
