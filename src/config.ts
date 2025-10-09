@@ -7,12 +7,13 @@ type Config = {
   PRODUCT_TYPES: Record<ProductTypeKey, string>;
   PRODUCT_TYPE_DESCRIPTIONS: Record<ProductTypeKey, string>;
   SYMBOLS: {
-    POINT: __esri.PictureMarkerSymbol;
-    LINE: __esri.SimpleLineSymbol;
+    POINT: PictureMarkerSymbol;
+    LINE: SimpleLineSymbol;
   };
 };
 
 const config: Config = {
+  DEFAULT_EXTENT_EXPAND: 1.1,
   MIN_DESKTOP_WIDTH: 768,
   PRODUCT_TYPES: {
     aerialPhotography: 'Aerial Photography',
