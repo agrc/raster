@@ -1,9 +1,15 @@
+import PictureMarkerSymbol from '@arcgis/core/symbols/PictureMarkerSymbol';
+import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol';
 import type { ProductTypeKey } from './types';
 
 type Config = {
   MIN_DESKTOP_WIDTH: number;
   PRODUCT_TYPES: Record<ProductTypeKey, string>;
   PRODUCT_TYPE_DESCRIPTIONS: Record<ProductTypeKey, string>;
+  SYMBOLS: {
+    POINT: __esri.PictureMarkerSymbol;
+    LINE: __esri.SimpleLineSymbol;
+  };
 };
 
 const config: Config = {
@@ -23,6 +29,17 @@ const config: Config = {
     autoDem: 'Digital elevation models derived through an auto-correlation process from aerial photography',
     contours: 'Contour lines created at various intervals from Lidar and other sources',
     drg: 'U.S. Geological Survey topographic maps',
+  },
+  SYMBOLS: {
+    POINT: new PictureMarkerSymbol({
+      url: '/assets/esri/images/search/search-symbol-32.png',
+      height: 24,
+      width: 24,
+    }),
+    LINE: new SimpleLineSymbol({
+      color: 'black',
+      width: 2,
+    }),
   },
 };
 
