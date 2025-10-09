@@ -77,7 +77,7 @@ export default function AreaOfInterest() {
           ref={searchRef}
           resultGraphicDisabled
           sources={sources}
-          // @ts-expect-error - sources prop exists but not in type definitions
+          // @ts-expect-error - view prop exists but not in type definitions
           view={mapView}
         />
       </Label>

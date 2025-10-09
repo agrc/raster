@@ -34,7 +34,7 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
   }, [setMapView]);
 
   return (
-    <arcgis-map ref={mapRef} className="size-full" onarcgisViewClick={onClick} extent={utahMercatorExtent}>
+    <arcgis-map ref={mapRef} className="size-full" onarcgisViewClick={onClick} extent={utahMercatorExtent.expand(1.05)}>
       <arcgis-zoom position="top-left"></arcgis-zoom>
       <arcgis-home position="top-left"></arcgis-home>
       {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
