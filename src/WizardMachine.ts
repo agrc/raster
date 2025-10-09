@@ -1,13 +1,15 @@
-import { assign, setup } from 'xstate';
+import { and, assign, setup } from 'xstate';
 import type { ProductTypeKey } from './types';
 
 export type ContextType = {
   productTypes: ProductTypeKey[];
+  aoi: __esri.Graphic | null;
 };
 export type StepActionTypes = 'STEP1' | 'STEP2' | 'STEP3';
 
 const initialContext: ContextType = {
   productTypes: [],
+  aoi: null,
 };
 
 export function toggleProductType(
@@ -28,10 +30,13 @@ export const machine = setup({
       | { type: 'STEP1' }
       | { type: 'STEP2' }
       | { type: 'STEP3' }
-      | { type: 'TOGGLE_PRODUCT_TYPE'; productType: ProductTypeKey },
+      | { type: 'TOGGLE_PRODUCT_TYPE'; productType: ProductTypeKey }
+      | { type: 'SET_AOI'; aoi: __esri.Graphic | null },
   },
   guards: {
     hasProductTypes: ({ context }) => context.productTypes.length > 0,
+    hasAoi: ({ context }) => context.aoi !== null,
+    hasProductTypesAndAoi: and(['hasProductTypes', 'hasAoi']),
   },
 }).createMachine({
   id: 'wizard',
@@ -45,7 +50,7 @@ export const machine = setup({
           target: 'step2',
         },
         STEP3: {
-          guard: 'hasProductTypes',
+          guard: 'hasProductTypesAndAoi',
           target: 'step3',
         },
         TOGGLE_PRODUCT_TYPE: {
@@ -57,7 +62,14 @@ export const machine = setup({
     },
     step2: {
       on: {
+        SET_AOI: {
+          actions: assign({
+            aoi: ({ event }) => event.aoi,
+          }),
+          target: 'step3',
+        },
         STEP3: {
+          guard: 'hasAoi',
           target: 'step3',
         },
         STEP1: {
