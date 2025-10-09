@@ -26,7 +26,7 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
       options: {
         view: map.view,
         quadWord: import.meta.env.VITE_DISCOVER,
-        basemaps: ['Terrain', 'Hybrid', 'Lite', 'Topo'],
+        basemaps: ['Terrain', 'Hybrid', 'Imagery', 'Lite', 'Topo'],
       },
     };
 
