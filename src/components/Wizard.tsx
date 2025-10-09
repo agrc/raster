@@ -1,4 +1,5 @@
 import { Disclosure, DisclosureGroup, DisclosureHeader, DisclosurePanel } from '@ugrc/utah-design-system';
+import type { StepActionTypes } from '../WizardMachine';
 import useWizardMachine from './hooks/useWizardMachine';
 import SelectProductTypes from './SelectProductTypes';
 
@@ -7,20 +8,28 @@ export default function Wizard() {
 
   return (
     <div className="px-1 py-1 md:py-0">
-      <DisclosureGroup defaultExpandedKeys={[1]}>
-        <Disclosure id={1}>
+      <DisclosureGroup
+        expandedKeys={[snapshot.value as string]}
+        onExpandedChange={(newKeys) => {
+          if (newKeys.size) {
+            const firstKey = newKeys.values().next().value;
+            send({ type: String(firstKey).toUpperCase() as StepActionTypes });
+          }
+        }}
+      >
+        <Disclosure id="step1">
           <DisclosureHeader>Step 1 - Select Products</DisclosureHeader>
           <DisclosurePanel>
             <SelectProductTypes />
           </DisclosurePanel>
         </Disclosure>
-        <Disclosure id={2} isDisabled={!snapshot.context.productTypes.length} onClick={() => send({ type: 'STEP2' })}>
+        <Disclosure id="step2" isDisabled={!snapshot.context.productTypes.length}>
           <DisclosureHeader>Step 2</DisclosureHeader>
           <DisclosurePanel>
             <p>This is step 2 of the wizard.</p>
           </DisclosurePanel>
         </Disclosure>
-        <Disclosure id={3} isDisabled={!snapshot.context.productTypes.length} onClick={() => send({ type: 'STEP3' })}>
+        <Disclosure id="step3" isDisabled={!snapshot.context.productTypes.length}>
           <DisclosureHeader>Step 3</DisclosureHeader>
           <DisclosurePanel>
             <p>This is step 3 of the wizard.</p>
