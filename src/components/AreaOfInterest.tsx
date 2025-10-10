@@ -1,5 +1,6 @@
 import Collection from '@arcgis/core/core/Collection';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
+import SketchTooltipOptions from '@arcgis/core/views/interactive/sketch/SketchTooltipOptions';
 import type { EventHandler } from '@arcgis/lumina';
 import '@arcgis/map-components/components/arcgis-search';
 import '@arcgis/map-components/components/arcgis-sketch';
@@ -99,7 +100,7 @@ export default function AreaOfInterest() {
             position="manual"
             ref={sketchRef}
             scale="s"
-            tooltipOptions={{ enabled: true } as __esri.SketchTooltipOptions}
+            tooltipOptions={new SketchTooltipOptions({ enabled: true })}
             // @ts-expect-error - view prop exists but not in type definitions
             view={mapView}
           />
