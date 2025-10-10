@@ -6,6 +6,7 @@ import '@arcgis/map-components/components/arcgis-zoom';
 import { LayerSelector, type LayerSelectorProps } from '@ugrc/utah-design-system';
 import { utahMercatorExtent } from '@ugrc/utilities/hooks';
 import { useEffect, useRef, useState } from 'react';
+import config from '../config';
 import useMap from './hooks/useMap';
 
 export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMapElement['arcgisViewClick']> }) => {
@@ -34,7 +35,12 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
   }, [setMapView]);
 
   return (
-    <arcgis-map ref={mapRef} className="size-full" onarcgisViewClick={onClick} extent={utahMercatorExtent.expand(1.05)}>
+    <arcgis-map
+      ref={mapRef}
+      className="size-full"
+      onarcgisViewClick={onClick}
+      extent={utahMercatorExtent.expand(config.DEFAULT_EXTENT_EXPAND)}
+    >
       <arcgis-zoom position="top-left"></arcgis-zoom>
       <arcgis-home position="top-left"></arcgis-home>
       {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
