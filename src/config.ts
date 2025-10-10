@@ -3,6 +3,7 @@ import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol';
 import type { ProductTypeKey } from './types';
 
 type Config = {
+  DEFAULT_EXTENT_EXPAND: number;
   MIN_DESKTOP_WIDTH: number;
   PRODUCT_TYPES: Record<ProductTypeKey, string>;
   PRODUCT_TYPE_DESCRIPTIONS: Record<ProductTypeKey, string>;
