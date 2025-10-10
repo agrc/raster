@@ -11,11 +11,13 @@ type Config = {
     POINT: PictureMarkerSymbol;
     LINE: SimpleLineSymbol;
   };
+  MAP_ELEMENT_ID: string;
 };
 
 const config: Config = {
   DEFAULT_EXTENT_EXPAND: 1.1,
   MIN_DESKTOP_WIDTH: 768,
+  MAP_ELEMENT_ID: 'map',
   PRODUCT_TYPES: {
     aerialPhotography: 'Aerial Photography',
     lidar: 'LiDAR DEMs',

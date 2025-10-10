@@ -76,10 +76,9 @@ export default function AreaOfInterest() {
           onarcgisSelectResult={onSearchSelect}
           popupDisabled
           ref={searchRef}
+          referenceElement={config.MAP_ELEMENT_ID}
           resultGraphicDisabled
           sources={sources}
-          // @ts-expect-error - view prop exists but not in type definitions
-          view={mapView}
         />
       </Label>
       <Label className="mt-4 block">
@@ -99,10 +98,9 @@ export default function AreaOfInterest() {
             pointSymbol={config.SYMBOLS.POINT}
             position="manual"
             ref={sketchRef}
+            referenceElement={config.MAP_ELEMENT_ID}
             scale="s"
             tooltipOptions={new SketchTooltipOptions({ enabled: true })}
-            // @ts-expect-error - view prop exists but not in type definitions
-            view={mapView}
           />
         </div>
       </Label>
