@@ -36,6 +36,7 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
 
   return (
     <arcgis-map
+      id={config.MAP_ELEMENT_ID}
       ref={mapRef}
       className="size-full"
       onarcgisViewClick={onClick}
