@@ -18,6 +18,7 @@ const sources = new Collection<__esri.LocatorSearchSource>([
     url: 'https://masquerade.ugrc.utah.gov/arcgis/rest/services/UtahLocator/GeocodeServer',
   },
 ]);
+const tooltipOptions = new SketchTooltipOptions({ enabled: true });
 
 export default function AreaOfInterest() {
   const { mapView } = useMap();
@@ -100,7 +101,7 @@ export default function AreaOfInterest() {
             ref={sketchRef}
             referenceElement={config.MAP_ELEMENT_ID}
             scale="s"
-            tooltipOptions={new SketchTooltipOptions({ enabled: true })}
+            tooltipOptions={tooltipOptions}
           />
         </div>
       </Label>
