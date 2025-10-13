@@ -3,14 +3,37 @@ import type { ProductTypeKey } from './types';
 
 export type ContextType = {
   productTypes: ProductTypeKey[];
-  aoi: __esri.Graphic | null;
+  aoi: __esri.GeometryUnion | nullish;
 };
 export type StepActionTypes = 'STEP1' | 'STEP2' | 'STEP3';
 
+// production defaults to step 1
 const initialContext: ContextType = {
   productTypes: [],
   aoi: null,
 };
+const initialStep = 'step1';
+
+// uncomment to default to step 2
+// const initialContext: ContextType = {
+//   productTypes: ['aerialPhotography', 'lidar'],
+//   aoi: null,
+// };
+// const initialStep = 'step2';
+
+// uncomment to default to step 3
+// const initialContext: ContextType = {
+//   productTypes: ['aerialPhotography', 'lidar'],
+//   aoi: fromJSON({
+//     type: 'point',
+//     spatialReference: {
+//       wkid: 102100,
+//     },
+//     x: -12456493.518214382,
+//     y: 4943442.769128876,
+//   }),
+// };
+// const initialStep = 'step3';
 
 export function toggleProductType(
   currentProductTypes: ProductTypeKey[],
@@ -31,7 +54,7 @@ export const machine = setup({
       | { type: 'STEP2' }
       | { type: 'STEP3' }
       | { type: 'TOGGLE_PRODUCT_TYPE'; productType: ProductTypeKey }
-      | { type: 'SET_AOI'; aoi: __esri.Graphic | null },
+      | { type: 'SET_AOI'; aoi: __esri.GeometryUnion | nullish },
   },
   guards: {
     hasProductTypes: ({ context }) => context.productTypes.length > 0,
@@ -41,7 +64,7 @@ export const machine = setup({
 }).createMachine({
   id: 'wizard',
   context: initialContext,
-  initial: 'step1',
+  initial: initialStep,
   states: {
     step1: {
       on: {

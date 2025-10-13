@@ -47,7 +47,7 @@ export default function AreaOfInterest() {
       drawingLayerRef.current.removeAll();
       drawingLayerRef.current.add(graphic);
 
-      send({ type: 'SET_AOI', aoi: graphic });
+      send({ type: 'SET_AOI', aoi: graphic.geometry });
     }
   };
 
@@ -63,7 +63,7 @@ export default function AreaOfInterest() {
       drawingLayerRef.current.removeAll();
       drawingLayerRef.current.add(result.feature);
 
-      send({ type: 'SET_AOI', aoi: result.feature });
+      send({ type: 'SET_AOI', aoi: result.feature.geometry });
     }
   };
 

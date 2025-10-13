@@ -12,6 +12,8 @@ type Config = {
     LINE: SimpleLineSymbol;
   };
   MAP_ELEMENT_ID: string;
+  EXTENT_SERVICE_URLS: Record<ProductTypeKey, `https://${string}`>;
+  EXTENTS_FIELDS: Record<string, string>;
 };
 
 const config: Config = {
@@ -44,6 +46,31 @@ const config: Config = {
       color: 'black',
       width: 2,
     }),
+  },
+  EXTENT_SERVICE_URLS: {
+    aerialPhotography:
+      'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/Aerial_Photography_Extents/FeatureServer/0',
+    lidar: 'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/LiDAR_Extents/FeatureServer/0',
+    usgsDem: 'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/USGS_DEM_Extents/FeatureServer/0',
+    autoDem:
+      'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/AutoCorrelated_DEM_Extents/FeatureServer/0',
+    contours: 'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/Contour_Line_Extents/FeatureServer/0',
+    drg: 'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/DRG_Extents/FeatureServer/0',
+  },
+  EXTENTS_FIELDS: {
+    Product: 'Product',
+    Category: 'Category',
+    Estimated_Date: 'Estimated_Date',
+    REST_Endpoint: 'REST_Endpoint',
+    ServiceName: 'ServiceName',
+    HTML_Page: 'HTML_Page',
+    In_House: 'In_House',
+    SHOW: 'SHOW',
+    Description: 'Description',
+
+    // these fields only show up in: autoDem, lidar, usgsDem
+    METADATA: 'METADATA',
+    REPORT: 'REPORT',
   },
 };
 
