@@ -98,6 +98,10 @@ A full analysis of the schema for the tile index services can be found in the [s
 - `TILE`
 - `TILE_INDEX`
 
+##### Staging data prior to making it visible in the app
+
+The app will only show results from the extents datasets where `upper(SHOW) = 'Y'`. This allows data to be staged in the datasets but not visible to end users until ready.
+
 ## Attribution
 
 This project was developed with the assistance of [GitHub Copilot](https://github.com/features/copilot).

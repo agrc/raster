@@ -17,9 +17,15 @@ importers:
       '@arcgis/map-components':
         specifier: ^4.33.24
         version: 4.33.24(@arcgis/core@4.33.14(@lit/context@1.1.6))(@esri/calcite-components@3.3.3(@lit/context@1.1.6))
+      '@esri/arcgis-rest-feature-service':
+        specifier: ^4.4.1
+        version: 4.4.1(@esri/arcgis-rest-portal@4.7.0(@esri/arcgis-rest-request@4.7.3))(@esri/arcgis-rest-request@4.7.3)
       '@esri/calcite-components':
         specifier: ^3.3.2
         version: 3.3.3(@lit/context@1.1.6)
+      '@tanstack/react-query':
+        specifier: ^5.90.2
+        version: 5.90.2(react@19.2.0)
       '@ugrc/eslint-config':
         specifier: ^1.2.3
         version: 1.2.3(@typescript-eslint/parser@8.46.0(eslint@9.37.0(jiti@1.21.7))(typescript@5.9.3))(eslint@9.37.0(jiti@1.21.7))(storybook@9.1.10(@testing-library/dom@10.4.1)(prettier@3.6.2)(vite@7.1.9(@types/node@24.7.1)(jiti@1.21.7)))(typescript@5.9.3)
@@ -442,6 +448,13 @@ packages:
     resolution: {integrity: sha512-einEveDJ/k1180NOp78PB/4Hje9eBy3dyOGLLtLn6bSkizpUfCwuYBIXOA7Y3F/k/BsTQXgKqUVwQ0eiscWMdA==}
     engines: {node: '>=18.0.0'}
 
+  '@esri/arcgis-rest-feature-service@4.4.1':
+    resolution: {integrity: sha512-Dwn+CYbEwAl/vqDeEv+WweuAgx8lWpTGwn7pr0pddDBkTDeuZZt78SE/6TVBtcs6NNT69RdCxqiDZ5dVieIG1g==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@esri/arcgis-rest-portal': ^4.0.0
+      '@esri/arcgis-rest-request': ^4.0.0
+
   '@esri/arcgis-rest-fetch@4.0.0':
     resolution: {integrity: sha512-ybsMO2L4cxx0IaIx0jv6/VbXidZmQIiGD3bvPF1/n1Y1ljHIhCvX+ti54cQSfg/HW2+VAVVnt8EPD/omVhNAyg==}
 
@@ -450,6 +463,12 @@ packages:
 
   '@esri/arcgis-rest-geocoding@4.0.3':
     resolution: {integrity: sha512-0Ape94KudDN3g15g2Xz7MeOF11JArtruW1wAxbPrWB54fiTfry8Wsrw9bPPlZsk1g/tV88eHARHlhp/N9B0RPw==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@esri/arcgis-rest-request': ^4.0.0
+
+  '@esri/arcgis-rest-portal@4.7.0':
+    resolution: {integrity: sha512-X7oQM24By76bwpJxFCK6pyk0BYzXJqDbMjTQk733s1VEXWDu0SWsyTTXvVGr+yoXVYYROAB+cKW/vpsdkRZTRw==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@esri/arcgis-rest-request': ^4.0.0
@@ -1550,6 +1569,14 @@ packages:
     resolution: {integrity: sha512-Kn6yWyRe3dIPf7NqyDMhcsTBz2Oh8jPSOpBdlnLQhGBJ6iTMBFYA4B1UreGJ/WdfzQskSMh5imcyWF+wqa/Q5g==}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
+
+  '@tanstack/query-core@5.90.2':
+    resolution: {integrity: sha512-k/TcR3YalnzibscALLwxeiLUub6jN5EDLwKDiO7q5f4ICEoptJ+n9+7vcEFy5/x/i6Q+Lb/tXrsKCggf5uQJXQ==}
+
+  '@tanstack/react-query@5.90.2':
+    resolution: {integrity: sha512-CLABiR+h5PYfOWr/z+vWFt5VsOA2ekQeRQBFSKlcoW6Ndx/f8rfyVmq4LbgOM4GG2qtxAxjLYLOpCNTYm4uKzw==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@terraformer/arcgis@2.1.2':
     resolution: {integrity: sha512-IvdfqehcNAUtKU1OFMKwPT8EvdKlVFZ7q7ZKzkIF8XzYZIVsZLuXuOS1UBdRh5u/o+X5Gax7jiZhD8U/4TV+Jw==}
@@ -4141,6 +4168,12 @@ snapshots:
     dependencies:
       xss: 1.0.13
 
+  '@esri/arcgis-rest-feature-service@4.4.1(@esri/arcgis-rest-portal@4.7.0(@esri/arcgis-rest-request@4.7.3))(@esri/arcgis-rest-request@4.7.3)':
+    dependencies:
+      '@esri/arcgis-rest-portal': 4.7.0(@esri/arcgis-rest-request@4.7.3)
+      '@esri/arcgis-rest-request': 4.7.3
+      tslib: 2.8.1
+
   '@esri/arcgis-rest-fetch@4.0.0':
     dependencies:
       node-fetch: 3.3.2
@@ -4154,6 +4187,11 @@ snapshots:
       '@esri/arcgis-rest-request': 4.7.3
       '@terraformer/arcgis': 2.1.2
       '@types/terraformer__arcgis': 2.0.5
+      tslib: 2.8.1
+
+  '@esri/arcgis-rest-portal@4.7.0(@esri/arcgis-rest-request@4.7.3)':
+    dependencies:
+      '@esri/arcgis-rest-request': 4.7.3
       tslib: 2.8.1
 
   '@esri/arcgis-rest-request@4.7.3':
@@ -5816,6 +5854,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
       - typescript
+
+  '@tanstack/query-core@5.90.2': {}
+
+  '@tanstack/react-query@5.90.2(react@19.2.0)':
+    dependencies:
+      '@tanstack/query-core': 5.90.2
+      react: 19.2.0
 
   '@terraformer/arcgis@2.1.2':
     dependencies:
