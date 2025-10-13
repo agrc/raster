@@ -25,3 +25,6 @@ yarn-error.log*
 # deploy
 /.firebase
 /public/assets
+
+*storybook.log
+storybook-static
