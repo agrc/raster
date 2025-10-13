@@ -2,6 +2,23 @@ import PictureMarkerSymbol from '@arcgis/core/symbols/PictureMarkerSymbol';
 import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol';
 import type { ProductTypeKey } from './types';
 
+export const EXTENT_FIELDS = {
+  OBJECTID: 'OBJECTID',
+  Product: 'Product',
+  Category: 'Category',
+  Estimated_Date: 'Estimated_Date',
+  REST_Endpoint: 'REST_Endpoint',
+  ServiceName: 'ServiceName',
+  HTML_Page: 'HTML_Page',
+  In_House: 'In_House',
+  SHOW: 'SHOW',
+  Description: 'Description',
+
+  // these fields only show up in: autoDem, lidar, usgsDem
+  METADATA: 'METADATA',
+  REPORT: 'REPORT',
+} as const;
+
 type Config = {
   DEFAULT_EXTENT_EXPAND: number;
   MIN_DESKTOP_WIDTH: number;
@@ -13,7 +30,7 @@ type Config = {
   };
   MAP_ELEMENT_ID: string;
   EXTENT_SERVICE_URLS: Record<ProductTypeKey, `https://${string}`>;
-  EXTENTS_FIELDS: Record<string, string>;
+  EXTENT_FIELDS: typeof EXTENT_FIELDS;
 };
 
 const config: Config = {
@@ -57,21 +74,7 @@ const config: Config = {
     contours: 'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/Contour_Line_Extents/FeatureServer/0',
     drg: 'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/DRG_Extents/FeatureServer/0',
   },
-  EXTENTS_FIELDS: {
-    Product: 'Product',
-    Category: 'Category',
-    Estimated_Date: 'Estimated_Date',
-    REST_Endpoint: 'REST_Endpoint',
-    ServiceName: 'ServiceName',
-    HTML_Page: 'HTML_Page',
-    In_House: 'In_House',
-    SHOW: 'SHOW',
-    Description: 'Description',
-
-    // these fields only show up in: autoDem, lidar, usgsDem
-    METADATA: 'METADATA',
-    REPORT: 'REPORT',
-  },
-};
+  EXTENT_FIELDS,
+} as const;
 
 export default config;
