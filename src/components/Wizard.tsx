@@ -2,6 +2,7 @@ import { Disclosure, DisclosureGroup, DisclosureHeader, DisclosurePanel } from '
 import type { StepActionTypes } from '../WizardMachine';
 import AreaOfInterest from './AreaOfInterest';
 import useWizardMachine from './hooks/useWizardMachine';
+import SearchResults from './SearchResults';
 import SelectProductTypes from './SelectProductTypes';
 
 export default function Wizard() {
@@ -31,9 +32,9 @@ export default function Wizard() {
           </DisclosurePanel>
         </Disclosure>
         <Disclosure id="step3" isDisabled={!snapshot.context.productTypes.length || !snapshot.context.aoi}>
-          <DisclosureHeader>Step 3</DisclosureHeader>
+          <DisclosureHeader>Step 3 - Results</DisclosureHeader>
           <DisclosurePanel>
-            <p>This is step 3 of the wizard.</p>
+            <SearchResults />
           </DisclosurePanel>
         </Disclosure>
       </DisclosureGroup>

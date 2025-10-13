@@ -3,6 +3,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "cSpell.words": [
+    "AGOL",
     "agrc",
     "arcgis",
     "autoplay",
@@ -19,7 +20,8 @@
     "UGRC",
     "USGS",
     "VITE",
-    "Vitest"
+    "Vitest",
+    "wkid"
   ],
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
