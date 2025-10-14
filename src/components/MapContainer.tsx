@@ -1,11 +1,10 @@
-import { watch } from '@arcgis/core/core/reactiveUtils';
 import type { EventHandler } from '@arcgis/lumina';
 import '@arcgis/map-components/components/arcgis-home';
 import '@arcgis/map-components/components/arcgis-locate';
 import '@arcgis/map-components/components/arcgis-map';
 import '@arcgis/map-components/components/arcgis-zoom';
 import { BusyBar, LayerSelector, type LayerSelectorProps } from '@ugrc/utah-design-system';
-import { utahMercatorExtent } from '@ugrc/utilities/hooks';
+import { useViewLoading, utahMercatorExtent } from '@ugrc/utilities/hooks';
 import { useEffect, useRef, useState } from 'react';
 import config from '../config';
 import useMap from './hooks/useMap';
@@ -14,7 +13,7 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
   const [selectorOptions, setSelectorOptions] = useState<LayerSelectorProps | null>(null);
   const { setMapView } = useMap();
   const mapRef = useRef<HTMLArcgisMapElement>(null);
-  const [mapIdUpdating, setMapIdUpdating] = useState(false);
+  const viewIsLoading = useViewLoading(mapRef.current?.view);
 
   // setup the Map
   useEffect(() => {
@@ -22,7 +21,6 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
 
     const map = mapRef.current;
     map.constraints.snapToZoom = false;
-    watch(() => map.updating, setMapIdUpdating);
 
     setMapView(map.view);
 
@@ -45,7 +43,7 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
       onarcgisViewClick={onClick}
       extent={utahMercatorExtent.expand(config.DEFAULT_EXTENT_EXPAND)}
     >
-      <BusyBar busy={mapIdUpdating} />
+      <BusyBar busy={viewIsLoading} />
       <arcgis-zoom position="top-left"></arcgis-zoom>
       <arcgis-home position="top-left"></arcgis-home>
       {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
