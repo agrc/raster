@@ -48,6 +48,9 @@ export default function AreaOfInterest() {
       drawingLayerRef.current.add(graphic);
 
       send({ type: 'SET_AOI', aoi: graphic.geometry });
+
+      // reset sketch tool so that it's not active in step 3
+      sketchRef.current?.cancel();
     }
   };
 
