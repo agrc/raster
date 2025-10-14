@@ -1,5 +1,27 @@
 # Changelog
 
+## [3.0.0-rc.3](https://github.com/agrc/raster/compare/v3.0.0-rc.2...v3.0.0-rc.3) (2025-10-14)
+
+
+### Features
+
+* implement area of interest definition ([6856296](https://github.com/agrc/raster/commit/6856296dfeeed8523860cfa38614d2e706105230)), closes [#213](https://github.com/agrc/raster/issues/213)
+* implement extents searching ([2ead3ef](https://github.com/agrc/raster/commit/2ead3efe03cdc194880e7035f253613c7ad3d33f)), closes [#222](https://github.com/agrc/raster/issues/222)
+* implement map loading busy bar indicator ([62e37ce](https://github.com/agrc/raster/commit/62e37ceb60020651ff19dddb948fe7ffdd91db55))
+* show search results grouped by product type and category ([17b8445](https://github.com/agrc/raster/commit/17b844550333407519cad86cb858a5d1b07d2ba3)), closes [#221](https://github.com/agrc/raster/issues/221)
+
+
+### Bug Fixes
+
+* add imagery as an additional base map option ([763935e](https://github.com/agrc/raster/commit/763935ea58bae2006475b5b021dd56cdd7976acb)), closes [#214](https://github.com/agrc/raster/issues/214)
+* expand default extent to better fit the state of utah ([6992d9f](https://github.com/agrc/raster/commit/6992d9f665ed13f7716a09f68bbd69d070cbf4d0)), closes [#217](https://github.com/agrc/raster/issues/217)
+* prevent blank base maps ([cfc9d17](https://github.com/agrc/raster/commit/cfc9d174eeb9a0199b05fb2c70cb28ed3a5111f7))
+
+
+### Documentation
+
+* import architecture and schema-report docs ([0fed212](https://github.com/agrc/raster/commit/0fed212b34e0ee5ab4358d93e82f06e3dc7018ce))
+
 ## [3.0.0-rc.2](https://github.com/agrc/raster/compare/v3.0.0-rc.1...v3.0.0-rc.2) (2025-10-08)
 
 
