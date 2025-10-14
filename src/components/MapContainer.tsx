@@ -1,3 +1,4 @@
+import { watch } from '@arcgis/core/core/reactiveUtils';
 import type { EventHandler } from '@arcgis/lumina';
 import '@arcgis/map-components/components/arcgis-home';
 import '@arcgis/map-components/components/arcgis-locate';
@@ -22,7 +23,12 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
     const map = mapRef.current;
     map.constraints.snapToZoom = false;
 
-    setMapView(map.view);
+    // I had issues with the base maps not being loaded if the graphics layer in AreaOfInterest.tsx was added before the view was ready
+    watch(
+      () => map.view?.ready,
+      () => setMapView(map.view),
+      { once: true },
+    );
 
     const selectorOptions: LayerSelectorProps = {
       options: {
