@@ -12,14 +12,14 @@ These are the different types of data available through the app. Each of them ha
 
 - Aerial Photography
 - Auto-Correlated DEMs
-- LiDAR
+- Lidar
 - Contours
 - USGS DEMs
 - Topos
 
 ##### Category
 
-Top-level results groups returned in step 3. These come from the `Category` field in the extents datasets. Products are grouped by category but everything within the curly braces is removed from the label. For example from LiDAR extents: `2 Meter {2006 LiDAR}` is labeled as `2 Meter`.
+Top-level results groups returned in step 3. These come from the `Category` field in the extents datasets. Products are grouped by category but everything within the curly braces is removed from the label. For example from Lidar Extents: `2 Meter {2006 Lidar}` is labeled as `2 Meter`.
 
 ##### Product
 
@@ -36,7 +36,7 @@ A single file that can be downloaded from cloud storage. Each row in the tile in
 Currently available as hosted feature services in ArcGIS Online (AGOL) (maintained in internal, pushed to AGOL via Dolly Carton). One service per product type. Stores an extent for each feature along with metadata. These provide the search results (grouped by `Category`).
 
 - [Utah Aerial Photography Extents](https://www.arcgis.com/home/item.html?id=91f0336b027a426ba14d62aa95a4af9b#data)
-- [Utah LiDAR Extents](https://www.arcgis.com/home/item.html?id=90556bb0e09640648be66013a6ab56e6#data)
+- [Utah Lidar Extents](https://www.arcgis.com/home/item.html?id=90556bb0e09640648be66013a6ab56e6#data)
 - [Utah USGS DEM Extents](https://www.arcgis.com/home/item.html?id=855e7b6e4ce9481ca0faef64c9113f8a#data)
 - [Utah Auto Correlated DEM Extents](https://www.arcgis.com/home/item.html?id=3e82e35d69744ce4991c15daa4edd775#data)
 - [Utah Contour Line Extents](https://www.arcgis.com/home/item.html?id=3e82e35d69744ce4991c15daa4edd775#data)
@@ -72,7 +72,7 @@ A full analysis of the schema for the extents services can be found in the [sche
 - `Vertical_Accuracy`
 - `Year_Collected`
 
-These are only found in Auto-Correlated DEMs, LiDAR DEMs, and USGS DEMs:
+These are only found in Auto-Correlated DEMs, Lidar DEMs, and USGS DEMs:
 
 - `METADATA`
 - `REPORT`
