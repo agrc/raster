@@ -23,7 +23,7 @@ const initialStep = 'step1';
 
 // uncomment to default to step 3
 // const initialContext: ContextType = {
-//   productTypes: ['aerialPhotography', 'lidar'],
+//   productTypes: ['lidar', 'contours', 'autoDem'],
 //   aoi: fromJSON({
 //     type: 'point',
 //     spatialReference: {
@@ -35,14 +35,11 @@ const initialStep = 'step1';
 // };
 // const initialStep = 'step3';
 
-export function toggleProductType(
-  currentProductTypes: ProductTypeKey[],
-  productType: ProductTypeKey,
-): ProductTypeKey[] {
-  if (currentProductTypes.includes(productType)) {
-    return currentProductTypes.filter((t) => t !== productType);
+export function toggleValueInList<T>(currentList: T[], value: T) {
+  if (currentList.includes(value)) {
+    return currentList.filter((v) => v !== value);
   } else {
-    return [...currentProductTypes, productType];
+    return [...currentList, value];
   }
 }
 
@@ -78,7 +75,7 @@ export const machine = setup({
         },
         TOGGLE_PRODUCT_TYPE: {
           actions: assign({
-            productTypes: ({ context, event }) => toggleProductType(context.productTypes, event.productType),
+            productTypes: ({ context, event }) => toggleValueInList(context.productTypes, event.productType),
           }),
         },
       },

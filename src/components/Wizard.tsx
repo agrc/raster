@@ -21,19 +21,19 @@ export default function Wizard() {
       >
         <Disclosure id="step1">
           <DisclosureHeader>Step 1 - Select Products</DisclosureHeader>
-          <DisclosurePanel>
+          <DisclosurePanel className="group-data-[expanded]:px-2">
             <SelectProductTypes />
           </DisclosurePanel>
         </Disclosure>
         <Disclosure id="step2" isDisabled={!snapshot.context.productTypes.length}>
           <DisclosureHeader>Step 2 - Define Area of Interest</DisclosureHeader>
-          <DisclosurePanel>
+          <DisclosurePanel className="group-data-[expanded]:px-2">
             <AreaOfInterest />
           </DisclosurePanel>
         </Disclosure>
         <Disclosure id="step3" isDisabled={!snapshot.context.productTypes.length || !snapshot.context.aoi}>
           <DisclosureHeader>Step 3 - Results</DisclosureHeader>
-          <DisclosurePanel>
+          <DisclosurePanel className="group-data-[expanded]:px-2">
             <SearchResults />
           </DisclosurePanel>
         </Disclosure>
