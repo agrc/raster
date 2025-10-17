@@ -20,6 +20,9 @@ importers:
       '@esri/arcgis-rest-feature-service':
         specifier: ^4.4.1
         version: 4.4.1(@esri/arcgis-rest-portal@4.7.0(@esri/arcgis-rest-request@4.7.3))(@esri/arcgis-rest-request@4.7.3)
+      '@esri/arcgis-rest-request':
+        specifier: ^4.7.3
+        version: 4.7.3
       '@esri/calcite-components':
         specifier: ^3.3.2
         version: 3.3.3(@lit/context@1.1.6)
@@ -33,14 +36,17 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(@lit/context@1.1.6)
       '@ugrc/utah-design-system':
-        specifier: ^1.30.1
-        version: 1.30.1(@lit/context@1.1.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@3.4.18)
+        specifier: ^1.30.2
+        version: 1.30.2(@lit/context@1.1.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@3.4.18)
       '@ugrc/utilities':
         specifier: ^3.1.1
         version: 3.1.1(@lit/context@1.1.6)(react@19.2.0)
       '@xstate/react':
         specifier: ^6.0.0
         version: 6.0.0(@types/react@19.2.2)(react@19.2.0)(xstate@5.23.0)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       firebase:
         specifier: ^12.3.0
         version: 12.4.0
@@ -56,6 +62,9 @@ importers:
       react-aria-components:
         specifier: ^1.13.0
         version: 1.13.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      react-content-loader:
+        specifier: ^7.1.1
+        version: 7.1.1(react@19.2.0)
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
@@ -65,6 +74,12 @@ importers:
       react-stately:
         specifier: ^3.42.0
         version: 3.42.0(react@19.2.0)
+      tailwind-merge:
+        specifier: ^3.3.1
+        version: 3.3.1
+      usehooks-ts:
+        specifier: ^3.1.1
+        version: 3.1.1(react@19.2.0)
       xstate:
         specifier: ^5.22.1
         version: 5.23.0
@@ -1814,8 +1829,8 @@ packages:
   '@ugrc/tsconfigs@1.0.3':
     resolution: {integrity: sha512-9Z84bZpLJ6wRi4sm6RWvckPHs/Q6XZCHW5yjeHZzboZi/1bsJUOoh3F5wT/qQ5EKewDcHk65WcvUTWPc+JYjtQ==}
 
-  '@ugrc/utah-design-system@1.30.1':
-    resolution: {integrity: sha512-OHnbY0d6ZHHrJ6AtUedTBPbH8EA3FhwLDTiXWFuAd1zNnSr9idQc/87ruYxA5HqnMFlEA5LFs6iiavis22uwcw==}
+  '@ugrc/utah-design-system@1.30.2':
+    resolution: {integrity: sha512-zSUdZDA00qQiOtC7ZpnI7QFFwo9IangiWBKxI5DHlrQytpXBbYW+hIlQGepyPu3HwYsiXrjyO8RBK8fqGf6E6A==}
     peerDependencies:
       react: '>=16.8'
 
@@ -2940,6 +2955,9 @@ packages:
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
 
+  lodash.debounce@4.0.8:
+    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
+
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
@@ -3359,6 +3377,12 @@ packages:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
       react-dom: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
 
+  react-content-loader@7.1.1:
+    resolution: {integrity: sha512-yNkqtd+15wXRLfDKZb5nTqDV2fPTG2kpUgeGRb+WBz43bU0j4DSGXETF0bnFr44fAoTPpm0Dya0WGdhpHSvtYA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16.0.0'
+
   react-docgen-typescript@2.4.0:
     resolution: {integrity: sha512-ZtAp5XTO5HRzQctjPU0ybY0RRCQO19X/8fxn3w7y2VVTUbGHDKULPTL4ky3vB05euSgG5NpALhEhDPvQ56wvXg==}
     peerDependencies:
@@ -3650,6 +3674,9 @@ packages:
   tailwind-merge@2.6.0:
     resolution: {integrity: sha512-P+Vu1qXfzediirmHOC3xKGAYeZtPcV9g76X+xg2FD4tYgR71ewMA35Y3sCz3zhiN/dwefRpJX0yBcgwi1fXNQA==}
 
+  tailwind-merge@3.3.1:
+    resolution: {integrity: sha512-gBXpgUm/3rp1lMZZrM/w7D8GKqshif0zAymAhbCyIt8KMe+0v9DQ7cdYLR4FHH/cKpdTXb+A/tKKU3eolfsI+g==}
+
   tailwind-variants@0.3.1:
     resolution: {integrity: sha512-krn67M3FpPwElg4FsZrOQd0U26o7UDH/QOkK8RNaiCCrr052f6YJPBUfNKnPo/s/xRzNPtv1Mldlxsg8Tb46BQ==}
     engines: {node: '>=16.x', pnpm: '>=7.x'}
@@ -3817,6 +3844,12 @@ packages:
     resolution: {integrity: sha512-Pp6GSwGP/NrPIrxVFAIkOQeyw8lFenOHijQWkUTrDvrF4ALqylP2C/KCkeS9dpUM3KvYRQhna5vt7IL95+ZQ9w==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  usehooks-ts@3.1.1:
+    resolution: {integrity: sha512-I4diPp9Cq6ieSUH2wu+fDAVQO43xwtulo+fKEidHUwZPnYImbtkTjzIJYcDcJqxgmX31GVqNFURodvcgHcW0pA==}
+    engines: {node: '>=16.15.0'}
+    peerDependencies:
+      react: ^16.8.0  || ^17 || ^18 || ^19 || ^19.0.0-rc
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -6299,7 +6332,7 @@ snapshots:
     dependencies:
       '@total-typescript/tsconfig': 1.0.4
 
-  '@ugrc/utah-design-system@1.30.1(@lit/context@1.1.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@3.4.18)':
+  '@ugrc/utah-design-system@1.30.2(@lit/context@1.1.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwindcss@3.4.18)':
     dependencies:
       '@arcgis/core': 4.33.14(@lit/context@1.1.6)
       '@esri/arcgis-rest-geocoding': 4.0.3(@esri/arcgis-rest-request@4.7.3)
@@ -7713,6 +7746,8 @@ snapshots:
 
   lodash.camelcase@4.3.0: {}
 
+  lodash.debounce@4.0.8: {}
+
   lodash.merge@4.6.2: {}
 
   long@5.3.2: {}
@@ -8100,6 +8135,10 @@ snapshots:
       '@react-types/shared': 3.32.1(react@19.2.0)
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
+
+  react-content-loader@7.1.1(react@19.2.0):
+    dependencies:
+      react: 19.2.0
 
   react-docgen-typescript@2.4.0(typescript@5.9.3):
     dependencies:
@@ -8539,6 +8578,8 @@ snapshots:
 
   tailwind-merge@2.6.0: {}
 
+  tailwind-merge@3.3.1: {}
+
   tailwind-variants@0.3.1(tailwindcss@3.4.18):
     dependencies:
       tailwind-merge: 2.5.4
@@ -8724,6 +8765,11 @@ snapshots:
 
   use-sync-external-store@1.6.0(react@19.2.0):
     dependencies:
+      react: 19.2.0
+
+  usehooks-ts@3.1.1(react@19.2.0):
+    dependencies:
+      lodash.debounce: 4.0.8
       react: 19.2.0
 
   util-deprecate@1.0.2: {}

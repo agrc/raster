@@ -1,60 +1,27 @@
-import { useQuery } from '@tanstack/react-query';
-import { Spinner } from '@ugrc/utah-design-system';
+import { Tree, TreeItem } from 'react-aria-components';
 import config from '../config';
 import type { ProductTypeKey } from '../types';
 import useWizardMachine from './hooks/useWizardMachine';
-import search from './services/search';
-
-type ProductTypeResultProps = {
-  productType: ProductTypeKey;
-  aoi: __esri.GeometryUnion | nullish;
-};
-
-function ProductTypeResult({ productType, aoi }: ProductTypeResultProps) {
-  const { data, error, isLoading } = useQuery({
-    queryKey: ['searchResults', productType, aoi],
-    queryFn: () => search(productType, aoi as __esri.GeometryUnion),
-  });
-
-  if (isLoading || !data) {
-    return (
-      <div className="size-6">
-        <Spinner />
-      </div>
-    );
-  }
-
-  if (error) {
-    console.error(`Error loading search results for: ${productType}`, error);
-
-    return <div>Error loading search results. Please try again later.</div>;
-  }
-
-  return (
-    <div>
-      {Object.keys(data).map((category) => (
-        <div key={category}>
-          <h6>{category}</h6>
-          <ul>
-            {data[category]!.map((feature) => (
-              <li key={feature.attributes[config.EXTENT_FIELDS.OBJECTID]}>
-                {feature.attributes[config.EXTENT_FIELDS.Description]}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  );
-}
+import ProductType from './ProductType';
+import { TreeItemContent } from './TreeItemContent';
 
 export default function SearchResults() {
   const { snapshot } = useWizardMachine();
 
-  return snapshot.context.productTypes.map((type) => (
-    <div key={type}>
-      <h5>{config.PRODUCT_TYPES[type]}</h5>
-      <ProductTypeResult productType={type} aoi={snapshot.context.aoi} />
-    </div>
-  ));
+  // use the config object keys to make sure that the order in the results is consistent with step 1
+  return Object.keys(config.PRODUCT_TYPES)
+    .filter((type) => snapshot.context.productTypes.includes(type as ProductTypeKey))
+    .map((type) => {
+      const typeKey = type as ProductTypeKey;
+      const title = config.PRODUCT_TYPES[typeKey];
+
+      return (
+        <Tree key={type} aria-label="search results" selectionMode="none" defaultExpandedKeys={[title]}>
+          <TreeItem id={title} textValue={title} className="flex items-center">
+            <TreeItemContent className="text-lg font-semibold [&:not(:first-child)]:mt-1">{title}</TreeItemContent>
+            <ProductType productType={typeKey} aoi={snapshot.context.aoi} />
+          </TreeItem>
+        </Tree>
+      );
+    });
 }
