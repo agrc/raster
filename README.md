@@ -61,7 +61,6 @@ A full analysis of the schema for the extents services can be found in the [sche
 - `Interval`
 - `LYR_File`
 - `Product`
-- `REST_Endpoint`
 - `Resolution`
 - `SHOW`
 - `ServiceName`
@@ -101,6 +100,10 @@ A full analysis of the schema for the tile index services can be found in the [s
 ##### Staging data prior to making it visible in the app
 
 The app will only show results from the extents datasets where `upper(SHOW) = 'Y'`. This allows data to be staged in the datasets but not visible to end users until ready.
+
+### Preview Functionality
+
+The preview button is only shown for products that have a value in the `ServiceName` field. When clicked, the value is used to build a URL to the corresponding discover layer and it is added to the map.
 
 ## Attribution
 

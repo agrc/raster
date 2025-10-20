@@ -6,9 +6,9 @@ import resolveConfig from 'tailwindcss/resolveConfig';
 import { useDarkMode } from 'usehooks-ts';
 import tailwindConfig from '../../tailwind.config.js';
 import config from '../config';
+import search from '../services/search';
 import type { ProductTypeKey } from '../types';
 import Product, { type ProductFeature } from './Product';
-import search from './services/search';
 import { TreeItemContent } from './TreeItemContent';
 
 const fullConfig = resolveConfig(tailwindConfig);

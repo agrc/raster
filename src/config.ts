@@ -12,7 +12,6 @@ export const EXTENT_FIELDS = {
   Product: 'Product',
   Category: 'Category',
   Estimated_Date: 'Estimated_Date',
-  REST_Endpoint: 'REST_Endpoint',
   ServiceName: 'ServiceName',
   HTML_Page: 'HTML_Page',
   In_House: 'In_House',
@@ -37,6 +36,7 @@ type Config = {
   MAP_ELEMENT_ID: string;
   EXTENT_SERVICE_URLS: Record<ProductTypeKey, `https://${string}`>;
   EXTENT_FIELDS: typeof EXTENT_FIELDS;
+  DISCOVER_URL: string;
 };
 
 const config: Config = {
@@ -89,6 +89,7 @@ const config: Config = {
     drg: 'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/DRG_Extents/FeatureServer/0',
   },
   EXTENT_FIELDS,
+  DISCOVER_URL: 'https://discover.agrc.utah.gov/login/path/<quadWord>/tiles/<serviceName>/{level}/{col}/{row}',
 } as const;
 
 export default config;

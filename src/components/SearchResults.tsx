@@ -1,7 +1,7 @@
 import { Tree, TreeItem } from 'react-aria-components';
 import config from '../config';
+import useWizardMachine from '../hooks/useWizardMachine';
 import type { ProductTypeKey } from '../types';
-import useWizardMachine from './hooks/useWizardMachine';
 import ProductType from './ProductType';
 import { TreeItemContent } from './TreeItemContent';
 

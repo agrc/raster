@@ -7,9 +7,9 @@ import '@arcgis/map-components/components/arcgis-sketch';
 import { Label } from '@ugrc/utah-design-system';
 import { useEffect, useRef } from 'react';
 import config from '../config';
+import useMap from '../hooks/useMap';
+import useWizardMachine from '../hooks/useWizardMachine';
 import './AreaOfInterest.css';
-import useMap from './hooks/useMap';
-import useWizardMachine from './hooks/useWizardMachine';
 
 const sources = new Collection<__esri.LocatorSearchSource>([
   {
