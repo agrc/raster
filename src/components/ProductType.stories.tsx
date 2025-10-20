@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState, type ComponentType } from 'react';
 import { Tree, TreeItem } from 'react-aria-components';
+import { MapViewDecorator } from '../../.storybook/decorators/MapView';
 import config from '../config';
 import type { ProductFeature } from './Product';
 import ProductType from './ProductType';
@@ -32,7 +33,7 @@ const QueryClientDecorator = (Story: ComponentType) => {
 
 const meta = {
   component: ProductType,
-  decorators: [QueryClientDecorator],
+  decorators: [QueryClientDecorator, MapViewDecorator],
   args: {
     productType: 'lidar',
     aoi: mockAoi,
