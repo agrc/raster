@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import { MapContext } from '../../src/components/contexts/MapProvider';
+import { MapContext } from '../../src/contexts/MapProvider';
 
 export const MapViewDecorator = (Story: ComponentType) => (
   <MapContext.Provider

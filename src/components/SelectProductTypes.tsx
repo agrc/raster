@@ -2,8 +2,8 @@ import { Button, Checkbox, Tooltip } from '@ugrc/utah-design-system';
 import { HelpCircle } from 'lucide-react';
 import { TooltipTrigger } from 'react-aria-components';
 import config from '../config';
+import useWizardMachine from '../hooks/useWizardMachine';
 import type { ProductTypeKey } from '../types';
-import useWizardMachine from './hooks/useWizardMachine';
 
 export default function SelectProductTypes() {
   const { snapshot, send } = useWizardMachine();

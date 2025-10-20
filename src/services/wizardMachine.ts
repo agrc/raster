@@ -1,5 +1,5 @@
 import { and, assign, setup } from 'xstate';
-import type { ProductTypeKey } from './types';
+import type { ProductTypeKey } from '../types';
 
 export type ContextType = {
   productTypes: ProductTypeKey[];
@@ -22,8 +22,9 @@ const initialStep = 'step1';
 // const initialStep = 'step2';
 
 // uncomment to default to step 3
+// import { fromJSON } from '@arcgis/core/geometry/support/jsonUtils';
 // const initialContext: ContextType = {
-//   productTypes: ['lidar', 'contours', 'autoDem'],
+//   productTypes: ['aerialPhotography', 'lidar', 'contours', 'autoDem'],
 //   aoi: fromJSON({
 //     type: 'point',
 //     spatialReference: {

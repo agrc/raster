@@ -1,7 +1,7 @@
 import { Disclosure, DisclosureGroup, DisclosureHeader, DisclosurePanel } from '@ugrc/utah-design-system';
-import type { StepActionTypes } from '../WizardMachine';
+import useWizardMachine from '../hooks/useWizardMachine';
+import type { StepActionTypes } from '../services/wizardMachine';
 import AreaOfInterest from './AreaOfInterest';
-import useWizardMachine from './hooks/useWizardMachine';
 import SearchResults from './SearchResults';
 import SelectProductTypes from './SelectProductTypes';
 

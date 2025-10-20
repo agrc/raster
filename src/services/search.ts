@@ -6,8 +6,8 @@ import {
   type IQueryFeaturesOptions,
   type IQueryFeaturesResponse,
 } from '@esri/arcgis-rest-feature-service';
-import config from '../../config';
-import type { ProductTypeKey } from '../../types';
+import config from '../config';
+import type { ProductTypeKey } from '../types';
 
 const typesWithoutMetadataAndReport: ProductTypeKey[] = ['aerialPhotography', 'contours', 'drg'];
 
