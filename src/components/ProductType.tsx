@@ -56,7 +56,7 @@ export default function ProductType({ productType, aoi, searchFn = search }: Pro
     <TreeItem textValue={category} key={category} className="mt-1">
       <TreeItemContent>{category}</TreeItemContent>
       {data[category]!.map((product) => (
-        <Product key={product.attributes[config.EXTENT_FIELDS.OBJECTID]} graphic={product as ProductFeature} />
+        <Product key={product.attributes[config.EXTENT_FIELDS.OBJECTID]} feature={product as ProductFeature} />
       ))}
     </TreeItem>
   ));

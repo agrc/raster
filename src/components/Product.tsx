@@ -1,7 +1,11 @@
+import Graphic from '@arcgis/core/Graphic';
+import { fromJSON } from '@arcgis/core/geometry/support/jsonUtils';
 import type { IPolygon } from '@esri/arcgis-rest-request';
+import { Button } from '@ugrc/utah-design-system';
 import { TreeItem as RACTreeItem } from 'react-aria-components';
-import type config from '../config';
+import config from '../config';
 import { TreeItemContent } from './TreeItemContent';
+import useMap from './hooks/useMap';
 
 export type ProductFeature = {
   geometry: IPolygon;
@@ -17,20 +21,44 @@ export type ProductFeature = {
     [config.EXTENT_FIELDS.ServiceName]: string;
   };
 };
-type ProductProps = { graphic: ProductFeature };
+type ProductProps = { feature: ProductFeature };
 
 const commonClasses = 'rounded ml-3';
 
-export default function Product({ graphic }: ProductProps) {
-  const { Product, OBJECTID } = graphic.attributes;
+export default function Product({ feature }: ProductProps) {
+  const { Product, OBJECTID } = feature.attributes;
+
+  const { zoom, placeGraphic } = useMap();
+  const geometry = fromJSON({
+    type: 'polygon',
+    ...feature.geometry,
+    spatialReference: { wkid: 3857 },
+  });
+  const addGraphic = () => {
+    placeGraphic(new Graphic({ geometry, symbol: config.RESULT_SYMBOL }));
+  };
+  const removeGraphic = () => {
+    placeGraphic(null);
+  };
 
   return (
     <RACTreeItem
       id={`${Product}-${OBJECTID}`}
+      onHoverStart={addGraphic}
+      onHoverEnd={removeGraphic}
       textValue={Product}
-      className={`${commonClasses} flex items-center bg-secondary-900 data-[expanded]:rounded-b-none hover:bg-secondary-700 pressed:bg-secondary-800 [&:not(:first-child)]:mt-1`}
+      className={`${commonClasses} bg-secondary-900 data-[expanded]:rounded-b-none hover:bg-secondary-700 pressed:bg-secondary-800 [&:not(:first-child)]:mt-1`}
     >
-      <TreeItemContent className="text-white">{Product}</TreeItemContent>
+      <TreeItemContent
+        className="text-white"
+        buttons={
+          <Button variant="accent" size="extraSmall" className="my-0 rounded px-1" onPress={() => zoom(geometry)}>
+            Extent
+          </Button>
+        }
+      >
+        {Product}
+      </TreeItemContent>
       <RACTreeItem
         textValue="details"
         className={`${commonClasses} rounded-t-none bg-white px-2 py-1 text-sm dark:bg-zinc-800 dark:text-white`}

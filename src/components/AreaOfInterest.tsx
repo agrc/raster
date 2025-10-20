@@ -61,7 +61,7 @@ export default function AreaOfInterest() {
       // cancel any active sketching and reset toolbar
       sketchRef.current?.cancel();
 
-      result.feature.symbol = config.SYMBOLS.POINT;
+      result.feature.symbol = config.DRAWING_SYMBOLS.POINT;
 
       drawingLayerRef.current.removeAll();
       drawingLayerRef.current.add(result.feature);
@@ -98,8 +98,8 @@ export default function AreaOfInterest() {
             hideUndoRedoMenu
             layer={drawingLayerRef.current}
             onarcgisCreate={onSketchCreate}
-            polylineSymbol={config.SYMBOLS.LINE}
-            pointSymbol={config.SYMBOLS.POINT}
+            polylineSymbol={config.DRAWING_SYMBOLS.LINE}
+            pointSymbol={config.DRAWING_SYMBOLS.POINT}
             position="manual"
             ref={sketchRef}
             referenceElement={config.MAP_ELEMENT_ID}
