@@ -8,7 +8,8 @@ import { BusyBar, LayerSelector, type LayerSelectorProps } from '@ugrc/utah-desi
 import { useViewLoading, utahMercatorExtent } from '@ugrc/utilities/hooks';
 import { useEffect, useRef, useState } from 'react';
 import config from '../config';
-import useMap from './hooks/useMap';
+import useMap from '../hooks/useMap';
+import PreviewControls from './PreviewControls';
 
 export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMapElement['arcgisViewClick']> }) => {
   const [selectorOptions, setSelectorOptions] = useState<LayerSelectorProps | null>(null);
@@ -50,8 +51,9 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
       extent={utahMercatorExtent.expand(config.DEFAULT_EXTENT_EXPAND)}
     >
       <BusyBar busy={viewIsLoading} />
-      <arcgis-zoom position="top-left"></arcgis-zoom>
-      <arcgis-home position="top-left"></arcgis-home>
+      <PreviewControls />
+      <arcgis-zoom className="z-20" position="top-left"></arcgis-zoom>
+      <arcgis-home className="z-20" position="top-left"></arcgis-home>
       {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
     </arcgis-map>
   );

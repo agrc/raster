@@ -10,8 +10,8 @@ vi.mock('@esri/arcgis-rest-feature-service', () => ({
 
 import { getJsonType } from '@arcgis/core/geometry/support/jsonUtils';
 import { queryFeatures, type IFeature } from '@esri/arcgis-rest-feature-service';
-import config from '../../config';
-import type { ProductTypeKey } from '../../types';
+import config from '../config';
+import type { ProductTypeKey } from '../types';
 import { groupByCategory, query } from './search';
 
 describe('groupByCategory', () => {

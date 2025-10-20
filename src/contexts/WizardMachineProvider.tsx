@@ -1,6 +1,6 @@
 import { useActor } from '@xstate/react';
 import { createContext } from 'react';
-import { machine } from '../../WizardMachine';
+import { machine } from '../services/wizardMachine';
 
 export const WizardMachineContext = createContext<{
   snapshot: ReturnType<typeof useActor<typeof machine>>[0];

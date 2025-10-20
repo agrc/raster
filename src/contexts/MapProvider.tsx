@@ -2,7 +2,7 @@ import Graphic from '@arcgis/core/Graphic';
 import MapView from '@arcgis/core/views/MapView';
 import { useGraphicManager } from '@ugrc/utilities/hooks';
 import { createContext, type ReactNode, useState } from 'react';
-import config from '../../config';
+import config from '../config';
 
 type GraphicOptions = Graphic | Graphic[] | null;
 export const MapContext = createContext<{

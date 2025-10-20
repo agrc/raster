@@ -3,11 +3,12 @@ import { useEffect } from 'react';
 import { useOverlayTrigger } from 'react-aria';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useOverlayTriggerState } from 'react-stately';
-import { MapProvider } from './components/contexts/MapProvider';
-import WizardMachineProvider from './components/contexts/WizardMachineProvider';
 import { MapContainer } from './components/MapContainer';
 import Wizard from './components/Wizard';
 import config from './config';
+import { MapProvider } from './contexts/MapProvider';
+import PreviewProvider from './contexts/PreviewProvider';
+import WizardMachineProvider from './contexts/WizardMachineProvider';
 
 const version = import.meta.env.PACKAGE_VERSION;
 
@@ -71,19 +72,21 @@ export default function App() {
         </Header>
         <section className="relative flex min-h-0 flex-1 overflow-x-hidden md:mr-2">
           <MapProvider>
-            <Drawer main state={sideBarState} {...sideBarTriggerProps}>
-              <WizardMachineProvider>
-                <Wizard />
-              </WizardMachineProvider>
-            </Drawer>
-            <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
-              <div className="relative flex-1 overflow-hidden dark:rounded">
-                <ErrorBoundary FallbackComponent={ErrorFallback}>
-                  <MapContainer />
-                </ErrorBoundary>
+            <PreviewProvider>
+              <Drawer main state={sideBarState} {...sideBarTriggerProps}>
+                <WizardMachineProvider>
+                  <Wizard />
+                </WizardMachineProvider>
+              </Drawer>
+              <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
+                <div className="relative flex-1 overflow-hidden dark:rounded">
+                  <ErrorBoundary FallbackComponent={ErrorFallback}>
+                    <MapContainer />
+                  </ErrorBoundary>
+                </div>
+                <SocialMedia />
               </div>
-              <SocialMedia />
-            </div>
+            </PreviewProvider>
           </MapProvider>
         </section>
       </main>

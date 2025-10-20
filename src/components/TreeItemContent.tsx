@@ -23,11 +23,7 @@ export function TreeItemContent(
             <Button
               slot="chevron"
               variant="icon"
-              className={twMerge(
-                props.buttons && 'h-8',
-                'min-h-8 justify-start rounded !pr-2 text-sm dark:text-white',
-                props.className,
-              )}
+              className={twMerge('justify-start rounded !pr-2 text-sm dark:text-white', props.className)}
             >
               <ChevronRight
                 className={clsx(

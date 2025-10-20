@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { toggleValueInList } from './WizardMachine';
+import { toggleValueInList } from './wizardMachine';
 
 describe('toggleValueInList', () => {
   it('adds a product type when it is not in the list', () => {
