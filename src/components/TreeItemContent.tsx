@@ -9,25 +9,36 @@ import {
 import { twMerge } from 'tailwind-merge';
 
 export function TreeItemContent(
-  props: Omit<TreeItemContentProps, 'children'> & { children: React.ReactNode; className?: string },
+  props: Omit<TreeItemContentProps, 'children'> & {
+    children: React.ReactNode;
+    className?: string;
+    buttons?: React.ReactNode;
+  },
 ) {
   return (
     <RACTreeItemContent>
       {({ hasChildItems, isExpanded }: TreeItemContentRenderProps) =>
         hasChildItems ? (
-          <Button
-            slot="chevron"
-            variant="icon"
-            className={twMerge('w-full justify-start rounded text-sm dark:text-white', props.className)}
-          >
-            <ChevronRight
-              className={clsx(
-                'size-5 shrink-0 transition-transform duration-200',
-                hasChildItems ? (isExpanded ? 'rotate-90' : '') : undefined,
+          <div className="flex w-full items-center justify-between">
+            <Button
+              slot="chevron"
+              variant="icon"
+              className={twMerge(
+                props.buttons && 'h-8',
+                'min-h-8 justify-start rounded !pr-2 text-sm dark:text-white',
+                props.className,
               )}
-            />
-            {props.children}
-          </Button>
+            >
+              <ChevronRight
+                className={clsx(
+                  'size-4 shrink-0 transition-transform duration-200',
+                  hasChildItems ? (isExpanded ? 'rotate-90' : '') : undefined,
+                )}
+              />
+              {props.children}
+            </Button>
+            {props.buttons && <div className="mr-1">{props.buttons}</div>}
+          </div>
         ) : (
           props.children
         )

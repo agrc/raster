@@ -2,6 +2,7 @@ import Graphic from '@arcgis/core/Graphic';
 import MapView from '@arcgis/core/views/MapView';
 import { useGraphicManager } from '@ugrc/utilities/hooks';
 import { createContext, type ReactNode, useState } from 'react';
+import config from '../../config';
 
 type GraphicOptions = Graphic | Graphic[] | null;
 export const MapContext = createContext<{
@@ -22,7 +23,7 @@ export const MapProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    mapView.goTo(geometry);
+    mapView.goTo(geometry.extent.expand(config.DEFAULT_EXTENT_EXPAND));
   };
 
   const placeGraphic = (graphic: GraphicOptions): void => {

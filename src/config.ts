@@ -1,6 +1,11 @@
 import PictureMarkerSymbol from '@arcgis/core/symbols/PictureMarkerSymbol';
+import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
 import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol';
+import resolveConfig from 'tailwindcss/resolveConfig';
+import tailwindConfig from '../tailwind.config.js';
 import type { ProductTypeKey } from './types';
+
+const fullConfig = resolveConfig(tailwindConfig);
 
 export const EXTENT_FIELDS = {
   OBJECTID: 'OBJECTID',
@@ -24,10 +29,11 @@ type Config = {
   MIN_DESKTOP_WIDTH: number;
   PRODUCT_TYPES: Record<ProductTypeKey, string>;
   PRODUCT_TYPE_DESCRIPTIONS: Record<ProductTypeKey, string>;
-  SYMBOLS: {
+  DRAWING_SYMBOLS: {
     POINT: PictureMarkerSymbol;
     LINE: SimpleLineSymbol;
   };
+  RESULT_SYMBOL: SimpleFillSymbol;
   MAP_ELEMENT_ID: string;
   EXTENT_SERVICE_URLS: Record<ProductTypeKey, `https://${string}`>;
   EXTENT_FIELDS: typeof EXTENT_FIELDS;
@@ -53,7 +59,7 @@ const config: Config = {
     contours: 'Contour lines created at various intervals from Lidar and other sources',
     drg: 'U.S. Geological Survey topographic maps',
   },
-  SYMBOLS: {
+  DRAWING_SYMBOLS: {
     POINT: new PictureMarkerSymbol({
       url: '/assets/esri/images/search/search-symbol-32.png',
       height: 24,
@@ -64,6 +70,14 @@ const config: Config = {
       width: 2,
     }),
   },
+  RESULT_SYMBOL: new SimpleFillSymbol({
+    style: 'none',
+    outline: {
+      // @ts-expect-error this is a custom color
+      color: fullConfig.theme.colors.accent[500],
+      width: 3,
+    },
+  }),
   EXTENT_SERVICE_URLS: {
     aerialPhotography:
       'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/Aerial_Photography_Extents/FeatureServer/0',
