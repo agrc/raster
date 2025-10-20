@@ -36,6 +36,14 @@ const initialStep = 'step1';
 // };
 // const initialStep = 'step3';
 
+/**
+ * Toggles the presence of a value in a list: adds the value if not present, or removes it if already present.
+ *
+ * @template T - The type of elements in the list.
+ * @param {T[]} currentList - The current array of values.
+ * @param {T} value - The value to toggle in the list.
+ * @returns {T[]} A new array with the value added or removed.
+ */
 export function toggleValueInList<T>(currentList: T[], value: T) {
   if (currentList.includes(value)) {
     return currentList.filter((v) => v !== value);

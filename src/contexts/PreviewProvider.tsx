@@ -35,7 +35,7 @@ export default function PreviewProvider({ children }: { children: React.ReactNod
   };
 
   const removePreview = () => {
-    if (!mapView?.map?.basemap) return;
+    if (!mapView?.map) return;
 
     setPreviewId(null);
     const layer = mapView.map.findLayerById(layerId);
