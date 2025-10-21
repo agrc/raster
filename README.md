@@ -97,13 +97,23 @@ A full analysis of the schema for the tile index services can be found in the [s
 - `TILE`
 - `TILE_INDEX`
 
-##### Staging data prior to making it visible in the app
+### Data-Driven App Functionality
+
+#### Staging data prior to making it visible in the app
 
 The app will only show results from the extents datasets where `upper(SHOW) = 'Y'`. This allows data to be staged in the datasets but not visible to end users until ready.
 
-### Preview Functionality
+#### Preview Button
 
 The preview button is only shown for products that have a value in the `ServiceName` field. When clicked, the value is used to build a URL to the corresponding discover layer and it is added to the map.
+
+#### Download Button
+
+The download button is only shown for products where `In_House` does _not_ equal `Yes`.
+
+#### "web page" Link
+
+The "web page" link is only shown for products where the `HTML_Page` field contains a valid URL.
 
 ## Attribution
 

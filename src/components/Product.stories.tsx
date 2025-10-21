@@ -29,8 +29,11 @@ export const Default: Story = {
         [config.EXTENT_FIELDS.Product]: 'HRO 2012 (12.5cm)',
         [config.EXTENT_FIELDS.OBJECTID]: 0,
         [config.EXTENT_FIELDS.Category]: '',
+        [config.EXTENT_FIELDS.Description]:
+          '1 Meter False Color Infrared Digital Orthophotography from 2006 NAIP (county mosaics)',
         [config.EXTENT_FIELDS.Estimated_Date]: 0,
-        [config.EXTENT_FIELDS.HTML_Page]: '',
+        [config.EXTENT_FIELDS.HTML_Page]:
+          'https://gis.utah.gov/products/sgid/aerial-photography/digital-orthophoto-quadrangle/#1977-black-and-white-doqs',
         [config.EXTENT_FIELDS.In_House]: null,
         [config.EXTENT_FIELDS.SHOW]: null,
         [config.EXTENT_FIELDS.ServiceName]: '',
@@ -44,14 +47,16 @@ export const WithPreview: Story = {
     feature: {
       geometry: { type: 'polygon' } as unknown as ProductFeature['geometry'],
       attributes: {
-        [config.EXTENT_FIELDS.Product]: 'HRO 2012 (12.5cm)',
         [config.EXTENT_FIELDS.OBJECTID]: 0,
         [config.EXTENT_FIELDS.Category]: '',
+        [config.EXTENT_FIELDS.Description]:
+          '1 Meter False Color Infrared Digital Orthophotography from 2006 NAIP (county mosaics)',
         [config.EXTENT_FIELDS.Estimated_Date]: 0,
         [config.EXTENT_FIELDS.HTML_Page]: '',
         [config.EXTENT_FIELDS.In_House]: null,
-        [config.EXTENT_FIELDS.SHOW]: null,
+        [config.EXTENT_FIELDS.Product]: 'HRO 2012 (12.5cm)',
         [config.EXTENT_FIELDS.ServiceName]: 'topo_basemap',
+        [config.EXTENT_FIELDS.SHOW]: null,
       },
     },
   },
@@ -62,14 +67,16 @@ export const Wrapping: Story = {
     feature: {
       geometry: { type: 'polygon' } as unknown as ProductFeature['geometry'],
       attributes: {
-        [config.EXTENT_FIELDS.Product]: 'A Really Long Product HRO 2012 (12.5cm)',
         [config.EXTENT_FIELDS.OBJECTID]: 0,
         [config.EXTENT_FIELDS.Category]: '',
+        [config.EXTENT_FIELDS.Description]:
+          '1 Meter False Color Infrared Digital Orthophotography from 2006 NAIP (county mosaics)',
         [config.EXTENT_FIELDS.Estimated_Date]: 0,
         [config.EXTENT_FIELDS.HTML_Page]: '',
         [config.EXTENT_FIELDS.In_House]: null,
-        [config.EXTENT_FIELDS.SHOW]: null,
+        [config.EXTENT_FIELDS.Product]: 'A Really Long Product HRO 2012 (12.5cm)',
         [config.EXTENT_FIELDS.ServiceName]: 'topo_basemap',
+        [config.EXTENT_FIELDS.SHOW]: null,
       },
     },
   },
