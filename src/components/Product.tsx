@@ -85,7 +85,7 @@ export default function Product({ feature }: ProductProps) {
       textValue={Product}
       className={`${commonItemClasses} flex min-h-8 items-center bg-secondary-900 data-[expanded]:rounded-b-none hover:bg-secondary-700 pressed:bg-secondary-800 [&:not(:first-child)]:mt-1`}
     >
-      <TreeItemContent className="text-white" buttons={getButtons()}>
+      <TreeItemContent className="text-white shadow-none" buttons={getButtons()}>
         {Product}
       </TreeItemContent>
       <RACTreeItem
