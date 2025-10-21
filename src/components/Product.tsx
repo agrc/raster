@@ -100,7 +100,7 @@ export default function Product({ feature }: ProductProps) {
             <div className="mt-1 flex w-full items-center justify-between">
               <Link onPress={() => console.log('open more info')}>more info</Link>
               {isUrlLike(HTML_Page) ? <ExternalLink href={HTML_Page}>web page</ExternalLink> : null}
-              {!isYes(In_House) ? (
+              {isYes(In_House) ? (
                 <Button size="extraSmall" onPress={() => console.log('download')}>
                   Download
                 </Button>
