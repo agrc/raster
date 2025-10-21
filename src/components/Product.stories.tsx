@@ -34,7 +34,7 @@ export const Default: Story = {
         [config.EXTENT_FIELDS.Estimated_Date]: 0,
         [config.EXTENT_FIELDS.HTML_Page]:
           'https://gis.utah.gov/products/sgid/aerial-photography/digital-orthophoto-quadrangle/#1977-black-and-white-doqs',
-        [config.EXTENT_FIELDS.In_House]: null,
+        [config.EXTENT_FIELDS.In_House]: 'Yes',
         [config.EXTENT_FIELDS.SHOW]: null,
         [config.EXTENT_FIELDS.ServiceName]: '',
       },

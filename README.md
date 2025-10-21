@@ -109,7 +109,7 @@ The preview button is only shown for products that have a value in the `ServiceN
 
 #### Download Button
 
-The download button is only shown for products where `In_House` does _not_ equal `Yes`.
+The download button is only shown for products where `In_House` equals `Yes`.
 
 #### "web page" Link
 
