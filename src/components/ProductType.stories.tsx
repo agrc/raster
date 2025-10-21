@@ -58,6 +58,8 @@ const groupedResults: Record<string, ProductFeature[]> = {
         [config.EXTENT_FIELDS.OBJECTID]: 1,
         [config.EXTENT_FIELDS.Product]: 'Lidar Spring 2024',
         [config.EXTENT_FIELDS.Category]: 'Category One',
+        [config.EXTENT_FIELDS.Description]:
+          '1 Meter False Color Infrared Digital Orthophotography from 2006 NAIP (county mosaics)',
         [config.EXTENT_FIELDS.Estimated_Date]: 2024,
         [config.EXTENT_FIELDS.HTML_Page]: 'https://example.com/lidar',
         [config.EXTENT_FIELDS.In_House]: 'Yes',
@@ -71,6 +73,8 @@ const groupedResults: Record<string, ProductFeature[]> = {
         [config.EXTENT_FIELDS.OBJECTID]: 2,
         [config.EXTENT_FIELDS.Product]: 'Lidar Spring 2023',
         [config.EXTENT_FIELDS.Category]: 'Category One',
+        [config.EXTENT_FIELDS.Description]:
+          '1 Meter False Color Infrared Digital Orthophotography from 2006 NAIP (county mosaics)',
         [config.EXTENT_FIELDS.Estimated_Date]: 2023,
         [config.EXTENT_FIELDS.HTML_Page]: 'https://example.com/lidar',
         [config.EXTENT_FIELDS.In_House]: 'Yes',
@@ -86,6 +90,8 @@ const groupedResults: Record<string, ProductFeature[]> = {
         [config.EXTENT_FIELDS.OBJECTID]: 2,
         [config.EXTENT_FIELDS.Product]: 'Lidar Summer 2025',
         [config.EXTENT_FIELDS.Category]: 'Category Two',
+        [config.EXTENT_FIELDS.Description]:
+          '1 Meter False Color Infrared Digital Orthophotography from 2006 NAIP (county mosaics)',
         [config.EXTENT_FIELDS.Estimated_Date]: 2025,
         [config.EXTENT_FIELDS.HTML_Page]: 'https://example.com/lidar-summer',
         [config.EXTENT_FIELDS.In_House]: 'No',
