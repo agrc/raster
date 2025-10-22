@@ -1,7 +1,7 @@
 import Graphic from '@arcgis/core/Graphic';
 import { fromJSON } from '@arcgis/core/geometry/support/jsonUtils';
 import type { IPolygon } from '@esri/arcgis-rest-request';
-import { Button, ExternalLink, Link, ToggleButton } from '@ugrc/utah-design-system';
+import { Button, ExternalLink, ToggleButton } from '@ugrc/utah-design-system';
 import { TreeItem as RACTreeItem } from 'react-aria-components';
 import { twJoin } from 'tailwind-merge';
 import config from '../config';
@@ -98,7 +98,9 @@ export default function Product({ feature }: ProductProps) {
           <>
             {Description}
             <div className="mt-1 flex w-full items-center justify-between">
-              <Link onPress={() => console.log('open more info')}>more info</Link>
+              <Button variant="secondary" size="extraSmall" onPress={() => console.log('open more info')}>
+                more info
+              </Button>
               {isUrlLike(HTML_Page) ? <ExternalLink href={HTML_Page}>web page</ExternalLink> : null}
               {isYes(In_House) ? (
                 <Button size="extraSmall" onPress={() => console.log('download')}>
