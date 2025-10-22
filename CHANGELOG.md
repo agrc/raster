@@ -1,5 +1,25 @@
 # Changelog
 
+## [3.0.0-rc.4](https://github.com/agrc/raster/compare/v3.0.0-rc.3...v3.0.0-rc.4) (2025-10-22)
+
+
+### Features
+
+* add more info & web page links & download button ([f50c377](https://github.com/agrc/raster/commit/f50c3770a2b3c1b6ab50be3ac2409f28e50de58e)), closes [#221](https://github.com/agrc/raster/issues/221)
+* implement preview functionality ([0173ad8](https://github.com/agrc/raster/commit/0173ad8b993aa57a2c9acbd0b629d3f6c913a2cd)), closes [#221](https://github.com/agrc/raster/issues/221)
+* implement zoom to extent button and show extent on hover ([49eadde](https://github.com/agrc/raster/commit/49eadde7caad0322c4886475947de929e7697895)), closes [#221](https://github.com/agrc/raster/issues/221)
+* show search results in a tree structure ([7061a53](https://github.com/agrc/raster/commit/7061a530f3ebde545c83fbc2bfe1429d5865110f)), closes [#221](https://github.com/agrc/raster/issues/221)
+
+
+### Bug Fixes
+
+* disable drawing toolbar when search is triggered ([bdf01a4](https://github.com/agrc/raster/commit/bdf01a47df640794fc5ee24e523172f19357d934))
+
+
+### Styles
+
+* LiDAR -&gt; Lidar ([6aaa4b1](https://github.com/agrc/raster/commit/6aaa4b17cbd8d60fae81f3ab55a314994075e36c))
+
 ## [3.0.0-rc.3](https://github.com/agrc/raster/compare/v3.0.0-rc.2...v3.0.0-rc.3) (2025-10-14)
 
 
