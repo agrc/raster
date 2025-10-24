@@ -3,7 +3,7 @@ import { PreviewContext } from '../../src/contexts/PreviewProvider';
 
 export const PreviewDecorator = (Story: ComponentType) => (
   <PreviewContext.Provider
-    value={{ previewId: 'NAIP 2024 | 4-Band (county mosaic)', removePreview: () => {}, addPreview: () => {} }}
+    value={{ selectedPreviewId: 'NAIP 2024 | 4-Band (county mosaic)', removePreview: () => {}, addPreview: () => {} }}
   >
     <Story />
   </PreviewContext.Provider>

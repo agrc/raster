@@ -26,7 +26,7 @@ export const Default: Story = {
     feature: {
       geometry: { type: 'polygon' } as unknown as ProductFeature['geometry'],
       attributes: {
-        [config.EXTENT_FIELDS.Product]: 'HRO 2012 (12.5cm) {Hide Me}',
+        [config.EXTENT_FIELDS.Product]: 'HRO 2012 (12.5cm)',
         [config.EXTENT_FIELDS.OBJECTID]: 0,
         [config.EXTENT_FIELDS.Category]: '',
         [config.EXTENT_FIELDS.Description]:
