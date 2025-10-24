@@ -21,9 +21,22 @@ These are the different types of data available through the app. Each of them ha
 
 Top-level results groups returned in step 3. These come from the `Category` field in the extents datasets. Products are grouped by category but everything within the curly braces is removed from the label. For example from Lidar Extents: `2 Meter {2006 Lidar}` is labeled as `2 Meter`.
 
+Categories are sorted by `Estimated_Date` in descending order (most recent first). This is done directly in the query to the extents datasets in `src/services/search.ts`.
+
 ##### Product
 
 Individual results returned in step 3 as cards. Each product is represented by an individual row in the extents datasets.
+
+Products within each category are sorted using a configuration object.
+
+- Define sort tokens per product type in `src/config.ts` under `PRODUCT_SORT_ORDER`.
+- How it works:
+  - Sorting is applied only for product types that have an entry in `PRODUCT_SORT_ORDER`.
+  - Each product's `Product` field is matched case-insensitively against the tokens, using substring matching.
+  - Items are ordered by the index of the first matching token in the configured array.
+  - Items that don’t match any token will appear after matched items (they keep their relative order among themselves).
+
+To change the ordering, update the token arrays in `PRODUCT_SORT_ORDER`. If a product type has no entry, its products are shown in their original order.
 
 ##### Tile
 

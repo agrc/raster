@@ -40,6 +40,7 @@ type Config = {
   EXTENT_SERVICE_URLS: Record<ProductTypeKey, `https://${string}`>;
   EXTENT_FIELDS: typeof EXTENT_FIELDS;
   DISCOVER_URL: string;
+  PRODUCT_SORT_ORDER: Partial<Record<ProductTypeKey, string[]>>;
 };
 
 const config: Config = {
@@ -93,6 +94,10 @@ const config: Config = {
   },
   EXTENT_FIELDS,
   DISCOVER_URL: 'https://discover.agrc.utah.gov/login/path/<quadWord>/tiles/<serviceName>/{level}/{col}/{row}',
+  PRODUCT_SORT_ORDER: {
+    aerialPhotography: ['rgb', 'cir', 'single', 'b&w'],
+    lidar: ['bare', 'first'],
+  },
 } as const;
 
 export default config;
