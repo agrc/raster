@@ -57,13 +57,7 @@ export default function Product({ feature, id }: ProductProps) {
   const getButtons = () => {
     return (
       <div className="flex gap-1">
-        <Button
-          key="extent"
-          variant="accent"
-          size="extraSmall"
-          className={buttonClasses}
-          onPress={() => zoom(geometry)}
-        >
+        <Button key="extent" size="extraSmall" className={buttonClasses} onPress={() => zoom(geometry)}>
           Extent
         </Button>
         {ServiceName ? (
@@ -86,7 +80,7 @@ export default function Product({ feature, id }: ProductProps) {
       onHoverStart={addGraphic}
       onHoverEnd={removeGraphic}
       textValue={Product}
-      className={`${commonItemClasses} flex min-h-8 items-center bg-secondary-900 data-[expanded]:rounded-b-none hover:bg-secondary-700 pressed:bg-secondary-800 [&:not(:first-child)]:mt-1`}
+      className={`${commonItemClasses} flex min-h-8 items-center bg-secondary-700 data-[expanded]:rounded-b-none hover:bg-secondary-500 pressed:bg-secondary-600 [&:not(:first-child)]:mt-1`}
     >
       <TreeItemContent className="text-white shadow-none" buttons={getButtons()}>
         {Product}
@@ -104,7 +98,7 @@ export default function Product({ feature, id }: ProductProps) {
               </Button>
               {isUrlLike(HTML_Page) ? <ExternalLink href={HTML_Page}>web page</ExternalLink> : null}
               {isYes(In_House) ? (
-                <Button size="extraSmall" onPress={() => console.log('download')}>
+                <Button variant="accent" size="extraSmall" onPress={() => console.log('download')}>
                   Download
                 </Button>
               ) : null}
