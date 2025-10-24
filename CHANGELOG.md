@@ -1,5 +1,32 @@
 # Changelog
 
+## [3.0.0-rc.5](https://github.com/agrc/raster/compare/v3.0.0-rc.4...v3.0.0-rc.5) (2025-10-24)
+
+
+### Features
+
+* add year collected to lidar category labels ([97ad17e](https://github.com/agrc/raster/commit/97ad17e03b6f12352f2d53b64ec865811dd33a86)), closes [#168](https://github.com/agrc/raster/issues/168)
+* save clicks by auto-expanding tree items that are single children ([89db81d](https://github.com/agrc/raster/commit/89db81dcf9370276d61aae780b6553eae032a5e6)), closes [#221](https://github.com/agrc/raster/issues/221)
+
+
+### Bug Fixes
+
+* make sure that the preview does not cover up the AOI graphic ([5b15fa5](https://github.com/agrc/raster/commit/5b15fa593da116758539b5e987f91655585103ec))
+* provide more consistent ordering of products within categories ([c17f8a7](https://github.com/agrc/raster/commit/c17f8a751adf0b963ad6e5bc4e9766401e8fc228)), closes [#234](https://github.com/agrc/raster/issues/234)
+* remove curly brace text in product names ([75801d3](https://github.com/agrc/raster/commit/75801d357231f888e1eeb80044f2e3742cc09249))
+* reset AOI when selected product types changes ([183869e](https://github.com/agrc/raster/commit/183869ee09306fc42615c3a8daacf7e411fecd84))
+
+
+### Documentation
+
+* document lidar category naming convention ([26fed48](https://github.com/agrc/raster/commit/26fed48382ea78b812c0159545093956725f8239))
+
+
+### Styles
+
+* better alignment of more info & download buttons ([3350f73](https://github.com/agrc/raster/commit/3350f7394de2dce140ee445eef105079087101bc))
+* better contrast of product header and buttons ([11a60e8](https://github.com/agrc/raster/commit/11a60e8b645d9979234ffa4cfc1f40acbd7e82dd))
+
 ## [3.0.0-rc.4](https://github.com/agrc/raster/compare/v3.0.0-rc.3...v3.0.0-rc.4) (2025-10-22)
 
 
