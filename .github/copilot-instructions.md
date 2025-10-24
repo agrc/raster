@@ -9,10 +9,12 @@
 ## Tech stack at a glance
 
 - **Runtime:** TypeScript + React 19, Vite 6, ESM-only (`"type": "module"`).
-- **Map tooling:** `@arcgis/core` + `@arcgis/map-components` for map + widgets; `esriConfig.assetsPath = './assets'` expects copied ArcGIS assets.
-- **Design system:** `@ugrc/utah-design-system` (Header/Footer, Drawer, Firebase providers, LayerSelector, etc.) and `@ugrc/utilities` hooks (map extent, graphics management).
-- **Styling:** Tailwind CSS with `@ugrc/tailwind-preset`; additional global styles in `src/index.css`.
-- **Build/test:** Vite (dev/build/preview), TypeScript project refs (`tsc -b`), Vitest (`happy-dom`), ESLint (`@ugrc/eslint-config`), Prettier (+ organize imports, Tailwind plugin).
+- **Map tooling:** `@arcgis/core` + `@arcgis/map-components` + `@arcgis/lumina` for map + widgets; `esriConfig.assetsPath = './assets'` expects copied ArcGIS assets.
+- **Design system:** `@ugrc/utah-design-system` (Header/Footer, Drawer, Firebase providers, LayerSelector, BusyBar, etc.) and `@ugrc/utilities` hooks (map extent, graphics management, view loading).
+- **State management:** XState 5 (`xstate`, `@xstate/react`) for wizard flow; `@tanstack/react-query` for server state; React Context for map/preview state.
+- **Styling:** Tailwind CSS with `@ugrc/tailwind-preset`; additional global styles in `src/index.css`; `tailwind-merge` (`twMerge`, `twJoin`) for class composition.
+- **UI components:** React Aria (`react-aria`, `react-aria-components`, `react-stately`) for accessible primitives; Lucide React for icons; Calcite Components for Esri-aligned UI.
+- **Build/test:** Vite (dev/build/preview), TypeScript project refs (`tsc -b`), Vitest (`happy-dom`), ESLint (`@ugrc/eslint-config`), Prettier (+ organize imports, Tailwind plugin), Storybook for component development.
 - **Hosting:** Firebase (`firebase.json` sets headers + SPA rewrite). `copy:arcgis` script mirrors ArcGIS static assets into `public/assets` when dependencies bump.
 
 ## Project structure
@@ -20,14 +22,20 @@
 ```
 root
 ├── src/
-│   ├── main.tsx              // App bootstrap, Firebase config parsing, MapProvider
-│   ├── App.tsx               // Layout shell, error boundary, Layer drawer
-│   ├── config.ts             // Central UI constants
-│   └── components/           // Shared UI pieces (buttons, modals, etc.)
+│   ├── main.tsx              // App bootstrap, Firebase config parsing, QueryClient setup
+│   ├── App.tsx               // Layout shell, error boundary, providers, Wizard drawer
+│   ├── config.ts             // Central UI constants, symbols, service URLs
+│   ├── types.ts              // Shared TypeScript type definitions
+│   ├── components/           // UI components (Wizard, Product, Category, MapContainer, etc.)
+│   ├── contexts/             // React contexts (MapProvider, PreviewProvider, WizardMachineProvider)
+│   ├── hooks/                // Custom hooks (useMap, usePreview, useWizardMachine)
+│   └── services/             // Business logic (search, wizardMachine state machine)
+├── index.html                // Root document, theme metadata
 ├── public/
-│   ├── index.html            // Root document, theme metadata
-│   └── assets/               // Copied ArcGIS/UDS assets, fonts, localization bundles
-├── .github/                  // Automation metadata (add files here, e.g., this guide)
+│   ├── assets/               // Copied ArcGIS/UDS assets, fonts, localization bundles
+│   ├── fonts/                // Web fonts
+│   └── favicon.ico           // Site icon
+├── .github/                  // Automation metadata (workflows, this guide)
 ├── package.json              // Scripts + deps (pnpm preferred; `pnpm-lock.yaml` present)
 ├── tailwind.config.js        // Uses UDS preset + heading font override
 ├── tsconfig.*.json           // Extend `@ugrc/tsconfigs`
@@ -66,18 +74,23 @@ Large vendor bundles live in `public/assets/esri` & `public/assets/components`; 
 ## Coding guidelines and conventions
 
 - Favor React function components + hooks; wrap map interactions in context (`useMap`) rather than prop-drilling raw `MapView` references.
-- Keep `MapProvider` the single source of truth for map state (`setMapView`, `placeGraphic`, `zoom`). Log warnings instead of throwing when map isn’t ready (matches existing patterns).
+- Keep `MapProvider` the single source of truth for map state (`setMapView`, `placeGraphic`, `zoom`). Log warnings instead of throwing when map isn't ready (matches existing patterns).
+- Use XState for complex wizard/workflow state management; the wizard machine lives in `src/services/wizardMachine.ts` and is accessed via `WizardMachineProvider` + `useWizardMachine` hook.
+- Use `@tanstack/react-query` for server-side data fetching (e.g., ArcGIS REST queries); wrap API calls in `services/` modules.
 - Type imports using `__esri.*` ambient types (ArcGIS supplies them globally); avoid duplicating type definitions.
-- Tailwind: extend via `className` utilities; global typography is defined in `index.css`. For design-system components, prefer UDS props over custom markup.
+- Tailwind: extend via `className` utilities; global typography is defined in `index.css`. Use `twMerge` for merging Tailwind classes (overriding conflicting utilities) or `twJoin` for simple concatenation with conditional classes. For design-system components, prefer UDS props over custom markup.
 - Environment-sensitive code should guard against `import.meta.env` missing values to keep preview builds working without secrets.
-- Vendor assets in `public/assets` are treated as generated—don’t hand-edit. For new static content, prefer `public/` root or React-managed assets.
+- Vendor assets in `public/assets` are treated as generated—don't hand-edit. For new static content, prefer `public/` root or React-managed assets.
+- Component stories use Storybook; keep stories co-located with components (`*.stories.tsx`).
 
 ## Map & ArcGIS specifics
 
-- `MapContainer` creates a bare `EsriMap` + `MapView` and disables zoom snapping. Modify layer setup via context/hook once `mapView` is ready.
-- The `LayerSelector` component expects `selectorOptions.options.view` and a valid Discover token; re-use that shape when extending.
-- Hooks like `useGraphicManager` (from `@ugrc/utilities`) manage temporary graphics; call `placeGraphic` with a single `Graphic` or array.
+- `MapContainer` creates an `<arcgis-map>` web component (from `@arcgis/map-components`) and disables zoom snapping. Modify layer setup via context/hook once `mapView` is ready. Uses `watch()` from `@arcgis/core/core/reactiveUtils` to detect view readiness.
+- The `LayerSelector` component expects `selectorOptions.options.view` and a valid Discover token (`VITE_DISCOVER`); re-use that shape when extending.
+- `MapProvider` wraps `useGraphicManager` (from `@ugrc/utilities`) to manage temporary graphics. Call `placeGraphic` with `Graphic | Graphic[] | null` to add/remove graphics on the map.
+- `useViewLoading` hook (from `@ugrc/utilities`) tracks map loading state and drives the `BusyBar` component.
 - Tree-shaking ArcGIS modules: import from `@arcgis/core/...` (ESM). When adding layers/widgets, always `await layer.when()` before interacting, otherwise the map will warn in dev.
+- Map web components must be registered via imports: `import '@arcgis/map-components/components/arcgis-map'` etc.
 
 ## Firebase & deployment notes
 
