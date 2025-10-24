@@ -13,6 +13,7 @@
     "dedupe",
     "geolocation",
     "Geospatial",
+    "Lucide",
     "NAIP",
     "nosniff",
     "onarcgis",
@@ -25,7 +26,8 @@
     "USGS",
     "VITE",
     "Vitest",
-    "wkid"
+    "wkid",
+    "xstate"
   ],
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
