@@ -21,6 +21,9 @@ export const EXTENT_FIELDS = {
   // these fields only show up in: autoDem, lidar, usgsDem
   METADATA: 'METADATA',
   REPORT: 'REPORT',
+
+  // this field only show up in: lidar
+  Year_Collected: 'Year_Collected',
 } as const;
 
 type Config = {

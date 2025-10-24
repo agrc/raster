@@ -8,9 +8,8 @@ import tailwindConfig from '../../tailwind.config.js';
 import config from '../config';
 import search from '../services/search';
 import type { ProductTypeKey } from '../types';
-import Product, { type ProductFeature } from './Product';
+import Category from './Category.js';
 import { TreeItemContent } from './TreeItemContent';
-import { removeCurlyBracesContent } from './utils.js';
 
 const fullConfig = resolveConfig(tailwindConfig);
 
@@ -74,16 +73,7 @@ export default function ProductType({ productType, aoi, isOnly, searchFn = searc
         <TreeItemContent className={topLevelClasses}>{title}</TreeItemContent>
         {categories.length > 0 ? (
           categories.map((category) => (
-            <TreeItem textValue={removeCurlyBracesContent(category)} id={category} key={category} className="mt-1">
-              <TreeItemContent>{removeCurlyBracesContent(category)}</TreeItemContent>
-              {data[category]!.map((product) => (
-                <Product
-                  key={product.attributes[config.EXTENT_FIELDS.OBJECTID]}
-                  id={product.attributes[config.EXTENT_FIELDS.OBJECTID]}
-                  feature={product as ProductFeature}
-                />
-              ))}
-            </TreeItem>
+            <Category key={category} category={category} products={data[category]!} productType={productType} />
           ))
         ) : (
           <TreeItem textValue="no-results" id="no-results" className="ml-1 text-sm">

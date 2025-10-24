@@ -30,6 +30,12 @@ export async function query(productType: ProductTypeKey, aoi: __esri.GeometryUni
     });
   }
 
+  if (productType !== 'lidar') {
+    commonOptions.outFields = (commonOptions.outFields as string[]).filter((field) => {
+      return field !== 'Year_Collected';
+    });
+  }
+
   const response = (await queryFeatures({
     url,
     ...commonOptions,

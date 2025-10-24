@@ -83,16 +83,17 @@ describe('query', () => {
     expect(geometry.toJSON).toHaveBeenCalledTimes(1);
   });
 
-  it('filters metadata fields for services without metadata and report columns', async () => {
+  it('filters metadata/report and lidar-only fields for services without them', async () => {
     const productType: ProductTypeKey = 'contours';
     const features = [{ attributes: { name: 'contour-1' } } as unknown as IFeature];
     mockedQueryFeatures.mockResolvedValue({ features } as never);
 
     const result = await query(productType, geometry);
 
-    const expectedOutFields = Object.values(config.EXTENT_FIELDS).filter((field) => {
-      return !['METADATA', 'REPORT'].includes(field);
-    });
+    const expectedOutFields = Object.values(config.EXTENT_FIELDS)
+      .filter((field) => !['METADATA', 'REPORT'].includes(field))
+      // "Year_Collected" is only requested for lidar product type
+      .filter((field) => field !== 'Year_Collected');
 
     expect(result).toBe(features);
     expectSharedOptions(productType, expectedOutFields);
