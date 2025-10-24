@@ -29,7 +29,7 @@ export default function PreviewProvider({ children }: { children: React.ReactNod
       id: layerId,
     });
 
-    mapView.map.add(layer);
+    mapView.map.add(layer, 0);
 
     setPreviewId(id);
   };
