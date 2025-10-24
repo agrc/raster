@@ -4,7 +4,7 @@ import config from '../config';
 import useMap from '../hooks/useMap';
 
 export const PreviewContext = createContext<{
-  previewId: string | null;
+  selectedPreviewId: string | null;
   addPreview: (id: string, serviceName: string) => void;
   removePreview: () => void;
 } | null>(null);
@@ -12,7 +12,7 @@ export const PreviewContext = createContext<{
 const layerId = 'preview-layer';
 
 export default function PreviewProvider({ children }: { children: React.ReactNode }) {
-  const [previewId, setPreviewId] = useState<string | null>(null);
+  const [selectedPreviewId, setPreviewId] = useState<string | null>(null);
   const { mapView } = useMap();
 
   const addPreview = (id: string, serviceName: string) => {
@@ -42,5 +42,9 @@ export default function PreviewProvider({ children }: { children: React.ReactNod
     if (layer) mapView.map.remove(layer);
   };
 
-  return <PreviewContext.Provider value={{ previewId, addPreview, removePreview }}>{children}</PreviewContext.Provider>;
+  return (
+    <PreviewContext.Provider value={{ selectedPreviewId, addPreview, removePreview }}>
+      {children}
+    </PreviewContext.Provider>
+  );
 }
