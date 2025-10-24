@@ -1,3 +1,25 @@
+import type { IFeature } from '@esri/arcgis-rest-request';
+import config from '../config';
+
+export function getSort(order: string[]) {
+  order = order.map((val) => val.toLocaleLowerCase());
+
+  return (a: IFeature, b: IFeature) => {
+    const aValue = a.attributes[config.EXTENT_FIELDS.Product].toLocaleLowerCase();
+    const aIndex = order.findIndex((val) => aValue.includes(val));
+    const bValue = b.attributes[config.EXTENT_FIELDS.Product].toLocaleLowerCase();
+    const bIndex = order.findIndex((val) => bValue.includes(val));
+
+    // Unmatched items (index === -1) should be sorted to the end, and
+    // maintain their relative order among themselves (by returning 0).
+    if (aIndex === -1 && bIndex === -1) return 0;
+    if (aIndex === -1) return 1;
+    if (bIndex === -1) return -1;
+
+    return aIndex - bIndex;
+  };
+}
+
 export function isYes(value: string | null | undefined) {
   if (typeof value !== 'string') {
     return false;
