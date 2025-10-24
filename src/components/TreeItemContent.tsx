@@ -1,12 +1,11 @@
 import { Button } from '@ugrc/utah-design-system';
-import { clsx } from 'clsx';
 import { ChevronRight } from 'lucide-react';
 import {
   TreeItemContent as RACTreeItemContent,
   type TreeItemContentProps,
   type TreeItemContentRenderProps,
 } from 'react-aria-components';
-import { twMerge } from 'tailwind-merge';
+import { twJoin, twMerge } from 'tailwind-merge';
 
 export function TreeItemContent(
   props: Omit<TreeItemContentProps, 'children'> & {
@@ -26,7 +25,7 @@ export function TreeItemContent(
               className={twMerge('justify-start rounded !pr-2 text-sm dark:text-white', props.className)}
             >
               <ChevronRight
-                className={clsx(
+                className={twJoin(
                   'size-4 shrink-0 transition-transform duration-200',
                   hasChildItems ? (isExpanded ? 'rotate-90' : '') : undefined,
                 )}
