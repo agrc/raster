@@ -25,3 +25,8 @@ export function isUrlLike(text: string | null | undefined) {
     return false;
   }
 }
+
+export function removeCurlyBracesContent(text: string) {
+  // Remove non-nested occurrences of {...} including the braces themselves, then trim.
+  return text.replace(/\{[^}]*\}/g, '').trim();
+}
