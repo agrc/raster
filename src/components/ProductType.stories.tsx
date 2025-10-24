@@ -163,3 +163,65 @@ export const NoResults: Story = {
   },
   render: (args) => <ProductTypeStoryWrapper {...args} />,
 };
+
+const groupedLidarResults: Record<string, ProductFeature[]> = {
+  'Category One {2025 LIDAR}': [
+    {
+      geometry: { type: 'polygon' } as unknown as ProductFeature['geometry'],
+      attributes: {
+        [config.EXTENT_FIELDS.OBJECTID]: 1,
+        [config.EXTENT_FIELDS.Product]: 'Lidar Spring 2024',
+        [config.EXTENT_FIELDS.Category]: 'Category One {2025 LIDAR}',
+        [config.EXTENT_FIELDS.Description]:
+          '1 Meter False Color Infrared Digital Orthophotography from 2006 NAIP (county mosaics)',
+        [config.EXTENT_FIELDS.Estimated_Date]: 2024,
+        [config.EXTENT_FIELDS.HTML_Page]: 'https://example.com/lidar',
+        [config.EXTENT_FIELDS.In_House]: 'Yes',
+        [config.EXTENT_FIELDS.SHOW]: 'Y',
+        [config.EXTENT_FIELDS.ServiceName]: 'lidar_spring_2024',
+        [config.EXTENT_FIELDS.Year_Collected]: '2024',
+      },
+    },
+    {
+      geometry: { type: 'polygon' } as unknown as ProductFeature['geometry'],
+      attributes: {
+        [config.EXTENT_FIELDS.OBJECTID]: 2,
+        [config.EXTENT_FIELDS.Product]: 'Lidar Spring 2023',
+        [config.EXTENT_FIELDS.Category]: 'Category One {2025 LIDAR}',
+        [config.EXTENT_FIELDS.Description]:
+          '1 Meter False Color Infrared Digital Orthophotography from 2006 NAIP (county mosaics)',
+        [config.EXTENT_FIELDS.Estimated_Date]: 2023,
+        [config.EXTENT_FIELDS.HTML_Page]: 'https://example.com/lidar',
+        [config.EXTENT_FIELDS.In_House]: 'Yes',
+        [config.EXTENT_FIELDS.SHOW]: 'Y',
+        [config.EXTENT_FIELDS.ServiceName]: 'lidar_spring_2023',
+      },
+    },
+  ],
+  'Category Two {2022 LIDAR}': [
+    {
+      geometry: { type: 'polygon' } as unknown as ProductFeature['geometry'],
+      attributes: {
+        [config.EXTENT_FIELDS.OBJECTID]: 3,
+        [config.EXTENT_FIELDS.Product]: 'Lidar Summer 2022',
+        [config.EXTENT_FIELDS.Category]: 'Category Two {2022 LIDAR}',
+        [config.EXTENT_FIELDS.Description]:
+          '1 Meter False Color Infrared Digital Orthophotography from 2006 NAIP (county mosaics)',
+        [config.EXTENT_FIELDS.Estimated_Date]: 2022,
+        [config.EXTENT_FIELDS.HTML_Page]: 'https://example.com/lidar-summer',
+        [config.EXTENT_FIELDS.In_House]: 'No',
+        [config.EXTENT_FIELDS.SHOW]: 'Y',
+        [config.EXTENT_FIELDS.ServiceName]: 'lidar_summer_2022',
+        [config.EXTENT_FIELDS.Year_Collected]: '2022',
+      },
+    },
+  ],
+};
+
+export const LidarWithYearCollected: Story = {
+  args: {
+    productType: 'lidar',
+    searchFn: () => Promise.resolve(groupedLidarResults),
+  },
+  render: (args) => <ProductTypeStoryWrapper {...args} />,
+};
