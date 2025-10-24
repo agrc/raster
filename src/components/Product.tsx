@@ -8,7 +8,7 @@ import config from '../config';
 import useMap from '../hooks/useMap';
 import usePreview from '../hooks/usePreview';
 import { TreeItemContent } from './TreeItemContent';
-import { isUrlLike, isYes } from './utils';
+import { isUrlLike, isYes, removeCurlyBracesContent } from './utils';
 
 export type ProductFeature = {
   geometry: IPolygon;
@@ -88,7 +88,7 @@ export default function Product({ feature }: ProductProps) {
       className={`${commonItemClasses} flex min-h-8 items-center bg-secondary-900 data-[expanded]:rounded-b-none hover:bg-secondary-700 pressed:bg-secondary-800 [&:not(:first-child)]:mt-1`}
     >
       <TreeItemContent className="text-white shadow-none" buttons={getButtons()}>
-        {Product}
+        {removeCurlyBracesContent(Product)}
       </TreeItemContent>
       <RACTreeItem
         textValue="details"

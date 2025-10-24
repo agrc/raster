@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isUrlLike, isYes } from './utils';
+import { isUrlLike, isYes, removeCurlyBracesContent } from './utils';
 
 describe('isUrlLike', () => {
   it('returns true for http and https URLs', () => {
@@ -41,5 +41,15 @@ describe('isYes', () => {
     ['partial match', 'yes please'],
   ])('returns false for %s', (_, value) => {
     expect(isYes(value)).toBe(false);
+  });
+});
+
+describe('removeCurlyBraces', () => {
+  it.each([
+    ['removes single block', 'Test Hello {remove me}', 'Test Hello'],
+    ['handles trailing block with space', 'A {x} ', 'A'],
+    ['no braces stays same', 'Nothing to change', 'Nothing to change'],
+  ])('%s', (_, input, output) => {
+    expect(removeCurlyBracesContent(input)).toBe(output);
   });
 });
