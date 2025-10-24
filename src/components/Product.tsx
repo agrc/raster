@@ -8,7 +8,7 @@ import config from '../config';
 import useMap from '../hooks/useMap';
 import usePreview from '../hooks/usePreview';
 import { TreeItemContent } from './TreeItemContent';
-import { isUrlLike, isYes, removeCurlyBracesContent } from './utils';
+import { isUrlLike, isYes } from './utils';
 
 export type ProductFeature = {
   geometry: IPolygon;
@@ -24,17 +24,17 @@ export type ProductFeature = {
     [config.EXTENT_FIELDS.SHOW]: 'Y' | null;
   };
 };
-type ProductProps = { feature: ProductFeature };
+type ProductProps = { feature: ProductFeature; id: number };
 
 const commonItemClasses = 'rounded ml-3';
 const buttonClasses = 'my-0 rounded px-1';
 
-export default function Product({ feature }: ProductProps) {
+export default function Product({ feature, id }: ProductProps) {
   const { Product, Category, Description, ServiceName, HTML_Page, In_House } = feature.attributes;
 
   const { zoom, placeGraphic } = useMap();
-  const { previewId, addPreview, removePreview } = usePreview();
-  const id = `${Category} | ${Product}`;
+  const { selectedPreviewId, addPreview, removePreview } = usePreview();
+  const previewId = `${Category} | ${Product}`;
 
   const geometry = fromJSON({
     type: 'polygon',
@@ -50,7 +50,7 @@ export default function Product({ feature }: ProductProps) {
   };
 
   const onAddPreview = () => {
-    addPreview(id, ServiceName);
+    addPreview(previewId, ServiceName);
   };
 
   const getButtons = () => {
@@ -69,7 +69,7 @@ export default function Product({ feature }: ProductProps) {
           <ToggleButton
             key="preview"
             className={twJoin(buttonClasses, 'min-h-6 px-2 text-xs')}
-            isSelected={previewId === id}
+            isSelected={selectedPreviewId === previewId}
             onChange={(isSelected) => (isSelected ? onAddPreview() : removePreview())}
           >
             Preview
@@ -88,7 +88,7 @@ export default function Product({ feature }: ProductProps) {
       className={`${commonItemClasses} flex min-h-8 items-center bg-secondary-900 data-[expanded]:rounded-b-none hover:bg-secondary-700 pressed:bg-secondary-800 [&:not(:first-child)]:mt-1`}
     >
       <TreeItemContent className="text-white shadow-none" buttons={getButtons()}>
-        {removeCurlyBracesContent(Product)}
+        {Product}
       </TreeItemContent>
       <RACTreeItem
         textValue="details"
