@@ -19,7 +19,9 @@ These are the different types of data available through the app. Each of them ha
 
 ##### Category
 
-Top-level results groups returned in step 3. These come from the `Category` field in the extents datasets. Products are grouped by category but everything within the curly braces is removed from the label. For example from Lidar Extents: `2 Meter {2006 Lidar}` is labeled as `2 Meter`.
+Top-level results groups returned in step 3. These come from the `Category` field in the extents datasets. Products are grouped by category but everything within the curly braces is removed from the label. For example: `HRO 2012 (12.5cm) {2012 Remove Me}` is labeled as `HRO 2012 (12.5cm)`.
+
+For Lidar, `Year_Collected` is appended to the category label to [provide more context](https://github.com/agrc/raster/issues/168).
 
 Categories are sorted by `Estimated_Date` in descending order (most recent first). This is done directly in the query to the extents datasets in `src/services/search.ts`.
 
