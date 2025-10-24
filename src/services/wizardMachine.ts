@@ -85,6 +85,7 @@ export const machine = setup({
         TOGGLE_PRODUCT_TYPE: {
           actions: assign({
             productTypes: ({ context, event }) => toggleValueInList(context.productTypes, event.productType),
+            aoi: null, // reset AOI when product types change so that the results are cleared out
           }),
         },
       },
