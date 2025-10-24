@@ -22,6 +22,7 @@ export type ProductFeature = {
     [config.EXTENT_FIELDS.Product]: string;
     [config.EXTENT_FIELDS.ServiceName]: string;
     [config.EXTENT_FIELDS.SHOW]: 'Y' | null;
+    [config.EXTENT_FIELDS.Year_Collected]?: string; // lidar only
   };
 };
 type ProductProps = { feature: ProductFeature; id: number };
@@ -97,7 +98,7 @@ export default function Product({ feature, id }: ProductProps) {
         <TreeItemContent>
           <>
             {Description}
-            <div className="mt-1 flex w-full items-center justify-between">
+            <div className="my-1 flex w-full items-center justify-between">
               <Button variant="secondary" size="extraSmall" onPress={() => console.log('open more info')}>
                 more info
               </Button>
