@@ -26,7 +26,14 @@ if (import.meta.env.VITE_FIREBASE_CONFIG) {
 
 console.log(`Raster app version: ${import.meta.env.PACKAGE_VERSION}`);
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 30 * 60 * 1000, // 30 minutes
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
