@@ -7,6 +7,18 @@ import type { ProductTypeKey } from './types';
 
 const fullConfig = resolveConfig(tailwindConfig);
 
+const demMoreInfoFieldInfos = {
+  File_Format: 'File Format',
+  File_Extension: 'File Extension',
+  Average_File_Size: 'Average File Size',
+  Horizontal_Accuracy: 'Horizontal Accuracy',
+  Vertical_Accuracy: 'Vertical Accuracy',
+  Contact: 'Contact',
+  In_House: 'Stored at UGRC?',
+  FTP_Path: 'Storage Path',
+  HTML_Page: 'Web Page',
+};
+
 export const EXTENT_FIELDS = {
   OBJECTID: 'OBJECTID',
   Product: 'Product',
@@ -39,6 +51,7 @@ type Config = {
   MAP_ELEMENT_ID: string;
   EXTENT_SERVICE_URLS: Record<ProductTypeKey, `https://${string}`>;
   EXTENT_FIELDS: typeof EXTENT_FIELDS;
+  MORE_INFO_FIELD_INFOS: Record<ProductTypeKey, Record<string, string>>;
   DISCOVER_URL: string;
   PRODUCT_SORT_ORDER: Partial<Record<ProductTypeKey, string[]>>;
 };
@@ -93,6 +106,50 @@ const config: Config = {
     drg: 'https://services1.arcgis.com/99lidPhWCzftIe9K/arcgis/rest/services/DRG_Extents/FeatureServer/0',
   },
   EXTENT_FIELDS,
+  MORE_INFO_FIELD_INFOS: {
+    aerialPhotography: {
+      Resolution: 'Resolution',
+      Year_Collected: 'Year Collected',
+      File_Format: 'File Format',
+      Average_File_Size: 'Average File Size',
+      Horizontal_Accuracy: 'Horizontal Accuracy',
+      FlightDate_Location: 'Flight Date Location',
+      Contact: 'Contact',
+      In_House: 'Stored at UGRC?',
+      FTP_Path: 'Storage Path',
+      HTML_Page: 'Web Page',
+    },
+    lidar: {
+      Year_Collected: 'Year Collected',
+      File_Format: 'File Format',
+      File_Extension: 'File Extension',
+      Average_File_Size: 'Average File Size',
+      Horizontal_Accuracy: 'Horizontal Accuracy',
+      Vertical_Accuracy: 'Vertical Accuracy',
+      Contact: 'Contact',
+      In_House: 'Stored at UGRC?',
+      FTP_Path: 'Storage Path',
+      HTML_Page: 'Web Page',
+    },
+    usgsDem: demMoreInfoFieldInfos,
+    autoDem: demMoreInfoFieldInfos,
+    contours: {
+      Year_Collected: 'Year Collected',
+      Contact: 'Contact',
+      In_House: 'Stored at UGRC?',
+      FTP_Path: 'Storage Path',
+      HTML_Page: 'Web Page',
+    },
+    drg: {
+      File_Format: 'File Format',
+      Average_File_Size: 'Average File Size',
+      Horizontal_Accuracy: 'Horizontal Accuracy',
+      Contact: 'Contact',
+      In_House: 'Stored at UGRC?',
+      FTP_Path: 'Storage Path',
+      HTML_Page: 'Web Page',
+    },
+  },
   DISCOVER_URL: 'https://discover.agrc.utah.gov/login/path/<quadWord>/tiles/<serviceName>/{level}/{col}/{row}',
   PRODUCT_SORT_ORDER: {
     aerialPhotography: ['rgb', 'cir', 'single', 'b&w'],

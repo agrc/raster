@@ -32,6 +32,7 @@ export default function Category({ category, products, productType }: CategoryPr
       <TreeItemContent>{categoryLabel}</TreeItemContent>
       {sortedProducts.map((product) => (
         <Product
+          productType={productType}
           key={product.attributes[config.EXTENT_FIELDS.OBJECTID]}
           id={product.attributes[config.EXTENT_FIELDS.OBJECTID]}
           feature={product as ProductFeature}
