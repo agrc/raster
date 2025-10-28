@@ -54,7 +54,7 @@ Currently available as hosted feature services in ArcGIS Online (AGOL) (maintain
 - [Utah Lidar Extents](https://www.arcgis.com/home/item.html?id=90556bb0e09640648be66013a6ab56e6#data)
 - [Utah USGS DEM Extents](https://www.arcgis.com/home/item.html?id=855e7b6e4ce9481ca0faef64c9113f8a#data)
 - [Utah Auto Correlated DEM Extents](https://www.arcgis.com/home/item.html?id=3e82e35d69744ce4991c15daa4edd775#data)
-- [Utah Contour Line Extents](https://www.arcgis.com/home/item.html?id=3e82e35d69744ce4991c15daa4edd775#data)
+- [Utah Contour Line Extents](https://www.arcgis.com/home/item.html?id=df220fc45d2a44f7b9a8ca2a3635e777#data)
 - [Utah DRG Extents](https://www.arcgis.com/home/item.html?id=7da0b87ffa894450b65f955daae23bfb#data)
 
 ##### Common Fields for Extents
