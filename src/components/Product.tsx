@@ -1,12 +1,14 @@
 import Graphic from '@arcgis/core/Graphic';
 import { fromJSON } from '@arcgis/core/geometry/support/jsonUtils';
 import type { IPolygon } from '@esri/arcgis-rest-request';
-import { Button, ExternalLink, ToggleButton } from '@ugrc/utah-design-system';
-import { TreeItem as RACTreeItem } from 'react-aria-components';
+import { Button, Dialog, ExternalLink, Modal, ToggleButton } from '@ugrc/utah-design-system';
+import { DialogTrigger, TreeItem as RACTreeItem } from 'react-aria-components';
 import { twJoin } from 'tailwind-merge';
 import config from '../config';
 import useMap from '../hooks/useMap';
 import usePreview from '../hooks/usePreview';
+import type { ProductTypeKey } from '../types';
+import MoreInfo from './MoreInfo';
 import { TreeItemContent } from './TreeItemContent';
 import { isUrlLike, isYes } from './utils';
 
@@ -25,13 +27,13 @@ export type ProductFeature = {
     [config.EXTENT_FIELDS.Year_Collected]?: string; // lidar only
   };
 };
-type ProductProps = { feature: ProductFeature; id: number };
+type ProductProps = { feature: ProductFeature; id: number; productType: ProductTypeKey };
 
 const commonItemClasses = 'rounded ml-3';
 const buttonClasses = 'my-0 rounded px-1';
 
-export default function Product({ feature, id }: ProductProps) {
-  const { Product, Category, Description, ServiceName, HTML_Page, In_House } = feature.attributes;
+export default function Product({ feature, id, productType }: ProductProps) {
+  const { Product, Category, Description, ServiceName, HTML_Page, In_House, OBJECTID } = feature.attributes;
 
   const { zoom, placeGraphic } = useMap();
   const { selectedPreviewId, addPreview, removePreview } = usePreview();
@@ -93,9 +95,16 @@ export default function Product({ feature, id }: ProductProps) {
           <>
             {Description}
             <div className="my-1 flex w-full items-center justify-between">
-              <Button variant="secondary" size="extraSmall" onPress={() => console.log('open more info')}>
-                more info
-              </Button>
+              <DialogTrigger>
+                <Button variant="secondary" size="extraSmall">
+                  more info
+                </Button>
+                <Modal isDismissable>
+                  <Dialog>
+                    <MoreInfo title={Description} productType={productType} objectId={OBJECTID} />
+                  </Dialog>
+                </Modal>
+              </DialogTrigger>
               {isUrlLike(HTML_Page) ? <ExternalLink href={HTML_Page}>web page</ExternalLink> : null}
               {isYes(In_House) ? (
                 <Button variant="accent" size="extraSmall" onPress={() => console.log('download')}>

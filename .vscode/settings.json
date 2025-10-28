@@ -11,6 +11,7 @@
     "basemaps",
     "cooldown",
     "dedupe",
+    "Dismissable",
     "geolocation",
     "Geospatial",
     "Lucide",
