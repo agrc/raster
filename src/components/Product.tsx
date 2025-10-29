@@ -79,8 +79,8 @@ export default function Product({ feature, id, productType }: ProductProps) {
   return (
     <RACTreeItem
       id={id}
-      onHoverStart={addGraphic}
-      onHoverEnd={removeGraphic}
+      onMouseEnter={addGraphic}
+      onMouseLeave={removeGraphic}
       textValue={Product}
       className={`${commonItemClasses} flex min-h-8 items-center bg-secondary-700 data-[expanded]:rounded-b-none hover:bg-secondary-500 pressed:bg-secondary-600 [&:not(:first-child)]:mt-1`}
     >
@@ -88,6 +88,8 @@ export default function Product({ feature, id, productType }: ProductProps) {
         {Product}
       </TreeItemContent>
       <RACTreeItem
+        onMouseEnter={addGraphic}
+        onMouseLeave={removeGraphic}
         textValue="details"
         className={`${commonItemClasses} rounded-t-none bg-white px-2 py-1 text-sm dark:bg-zinc-800 dark:text-white`}
       >
