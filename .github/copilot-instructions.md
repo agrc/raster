@@ -82,6 +82,7 @@ Large vendor bundles live in `public/assets/esri` & `public/assets/components`; 
 - Environment-sensitive code should guard against `import.meta.env` missing values to keep preview builds working without secrets.
 - Vendor assets in `public/assets` are treated as generated—don't hand-edit. For new static content, prefer `public/` root or React-managed assets.
 - Component stories use Storybook; keep stories co-located with components (`*.stories.tsx`).
+- **Do not suggest code changes that are purely formatting-related** (whitespace, indentation, quote style, semicolons, etc.). Prettier runs automatically on save and handles all formatting. Focus suggestions on logic, structure, naming, types, and functionality only.
 
 ## Map & ArcGIS specifics
 
