@@ -66,10 +66,11 @@ export default function AutoExtentVisualizer() {
 
       // Zoom to combined extent of all graphics
       if (graphics.length > 0) {
-        // Get the combined extent of all graphics
-        const allGeometries = graphics.map((g) => g.geometry).filter((g) => g !== null);
-        if (allGeometries.length > 0) {
-          zoom({ extent: allGeometries[0]!.extent });
+        // Union all extents together
+        const extents = graphics.map((g) => g.geometry?.extent).filter((e) => e !== null && e !== undefined);
+        if (extents.length > 0) {
+          const combinedExtent = extents.reduce((acc, extent) => acc.union(extent!), extents[0]!);
+          zoom({ extent: combinedExtent });
         }
       }
     });
