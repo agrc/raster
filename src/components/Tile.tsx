@@ -26,7 +26,7 @@ export default function Tile({ attributes, onHover, isHighlighted }: TileProps) 
     }
   }, [isHighlighted]);
 
-  const handleClick = () => {
+  const handleDownload = () => {
     markAsDownloaded(OBJECTID);
   };
 
@@ -45,7 +45,7 @@ export default function Tile({ attributes, onHover, isHighlighted }: TileProps) 
         }}
         onMouseEnter={() => onHover(OBJECTID, true)}
         onMouseLeave={() => onHover(OBJECTID, false)}
-        onClick={handleClick}
+        onPress={handleDownload}
       >
         <span className="flex items-center gap-2">
           {isDownloaded && <Check className="h-4 w-4 text-green-600 dark:text-green-400" aria-label="Downloaded" />}
