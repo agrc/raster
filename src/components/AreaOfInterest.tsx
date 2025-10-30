@@ -98,6 +98,13 @@ export default function AreaOfInterest() {
             hideUndoRedoMenu
             layer={drawingLayerRef.current}
             onarcgisCreate={onSketchCreate}
+            onarcgisPropertyChange={(event) => {
+              // clear everything if a new sketch tool is selected
+              if (event.target.state === 'active') {
+                searchRef.current?.clear();
+                drawingLayerRef.current.removeAll();
+              }
+            }}
             polylineSymbol={config.DRAWING_SYMBOLS.LINE}
             pointSymbol={config.DRAWING_SYMBOLS.POINT}
             position="manual"
