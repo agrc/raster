@@ -9,6 +9,13 @@
 /deploy
 /dist
 
+# typescript build artifacts
+*.tsbuildinfo
+/src/**/*.js
+/src/**/*.js.map
+/.storybook/**/*.js
+/.storybook/**/*.js.map
+
 # secrets
 .env.local
 *.odc
