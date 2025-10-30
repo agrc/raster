@@ -110,7 +110,7 @@ export default function Download() {
     enabled: !!productType && !!tileIndex,
   });
 
-  const { setCount } = useTiles();
+  const { setCount, clearDownloaded, downloadedTiles } = useTiles();
 
   useEffect(() => {
     if (!productType || !tileIndex) {
@@ -121,7 +121,8 @@ export default function Download() {
     }
 
     setCount(null);
-  }, [productType, tileIndex, mapView, setCount]);
+    clearDownloaded();
+  }, [productType, tileIndex, mapView, setCount, clearDownloaded]);
 
   const onTileHover = useCallback(
     (objectId: number, on: boolean) => {
@@ -149,14 +150,36 @@ export default function Download() {
 
     const featureSet = FeatureSet.fromJSON(data) as FeatureSet;
 
+    // Add a custom field to track downloaded status
+    const downloadedField = {
+      name: 'downloaded',
+      type: 'string' as const,
+      alias: 'Downloaded',
+    };
+
+    // Add the downloaded field to each feature
+    featureSet.features.forEach((feature) => {
+      feature.attributes.downloaded = 'no';
+    });
+
     featureLayerRef.current = new FeatureLayer({
       source: featureSet.features,
-      fields: featureSet.fields,
+      fields: [...featureSet.fields, downloadedField],
       objectIdField: data.objectIdFieldName,
       geometryType: 'polygon',
       renderer: {
-        type: 'simple',
-        symbol: config.TILE_SYMBOL,
+        type: 'unique-value',
+        field: 'downloaded',
+        uniqueValueInfos: [
+          {
+            value: 'yes',
+            symbol: config.DOWNLOADED_TILE_SYMBOL,
+          },
+          {
+            value: 'no',
+            symbol: config.TILE_SYMBOL,
+          },
+        ],
       },
       popupEnabled: true,
       popupTemplate: {
@@ -209,6 +232,35 @@ export default function Download() {
       handle?.remove();
     };
   }, [mapView, data, zoom, setCount, onTileHover, description, metadata, report, productType]);
+
+  // Update feature layer when tiles are downloaded
+  useEffect(() => {
+    if (!featureLayerRef.current || !mapView) return;
+
+    const layer = featureLayerRef.current;
+
+    // Query all features and update their downloaded status
+    layer
+      .queryFeatures({
+        where: '1=1',
+        outFields: ['*'],
+        returnGeometry: false,
+      })
+      .then((result) => {
+        const edits = result.features
+          .filter((feature) => downloadedTiles.has(feature.attributes[config.INDEX_FIELDS.OBJECTID]))
+          .map((feature) => {
+            feature.attributes.downloaded = 'yes';
+            return feature;
+          });
+
+        if (edits.length > 0) {
+          layer.applyEdits({
+            updateFeatures: edits,
+          });
+        }
+      });
+  }, [downloadedTiles, mapView]);
 
   return (
     <div className="flex-col space-y-2 text-sm">

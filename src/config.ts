@@ -60,6 +60,7 @@ type Config = {
   };
   RESULT_SYMBOL: SimpleFillSymbol;
   TILE_SYMBOL: SimpleFillSymbol;
+  DOWNLOADED_TILE_SYMBOL: SimpleFillSymbol;
   MAP_ELEMENT_ID: string;
   EXTENT_SERVICE_URLS: Record<ProductTypeKey, `https://${string}`>;
   INDEX_SERVICE_URLS: Record<ProductTypeKey, `https://${string}`>;
@@ -115,6 +116,14 @@ const config: Config = {
     outline: {
       // @ts-expect-error this is a custom color
       color: fullConfig.theme.colors.primary[500],
+      width: 2,
+    },
+  }),
+  DOWNLOADED_TILE_SYMBOL: new SimpleFillSymbol({
+    style: 'solid',
+    color: [34, 197, 94, 0.2], // green with transparency
+    outline: {
+      color: [34, 197, 94, 1], // green-600
       width: 2,
     },
   }),
