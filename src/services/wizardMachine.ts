@@ -18,6 +18,7 @@ export type StepActionTypes = 'STEP1' | 'STEP2' | 'STEP3';
 type InitialStateConfig = {
   context: ContextType;
   step: 'step1' | 'step2' | 'step3' | 'step4';
+  productTypesToQuery?: ProductTypeKey[] | null;
 };
 
 /**
@@ -37,18 +38,19 @@ export function getInitialState(urlParams?: {
     'drg',
   ];
 
-  // If category filter is present, auto-select all product types and skip to step 2
+  // If category filter is present, we need to query to determine which product types have results
   const categoryFilter = urlParams?.cat || urlParams?.catGroup || null;
 
   if (categoryFilter) {
     return {
       context: {
-        productTypes: allProductTypeKeys,
+        productTypes: [], // Will be populated after querying
         aoi: null,
         download: null,
         categoryFilter,
       },
       step: 'step2',
+      productTypesToQuery: allProductTypeKeys, // Signal that we need to query
     };
   }
 

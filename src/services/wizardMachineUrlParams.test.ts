@@ -10,11 +10,13 @@ describe('getInitialState with URL params', () => {
     expect(result.context.categoryFilter).toBeNull();
   });
 
-  it('selects all product types and skips to step 2 when cat is provided', () => {
+  it('signals to query product types and skips to step 2 when cat is provided', () => {
     const result = getInitialState({ cat: 'HRO 2009 (25cm)', catGroup: null, products: null });
 
     expect(result.step).toBe('step2');
-    expect(result.context.productTypes).toEqual([
+    expect(result.context.productTypes).toEqual([]); // Empty until queried
+    expect(result.context.categoryFilter).toBe('HRO 2009 (25cm)');
+    expect(result.productTypesToQuery).toEqual([
       'aerialPhotography',
       'lidar',
       'usgsDem',
@@ -22,14 +24,15 @@ describe('getInitialState with URL params', () => {
       'contours',
       'drg',
     ]);
-    expect(result.context.categoryFilter).toBe('HRO 2009 (25cm)');
   });
 
-  it('selects all product types and skips to step 2 when catGroup is provided', () => {
+  it('signals to query product types and skips to step 2 when catGroup is provided', () => {
     const result = getInitialState({ cat: null, catGroup: ['24K GeoPDF', '24K DRG'], products: null });
 
     expect(result.step).toBe('step2');
-    expect(result.context.productTypes).toEqual([
+    expect(result.context.productTypes).toEqual([]); // Empty until queried
+    expect(result.context.categoryFilter).toEqual(['24K GeoPDF', '24K DRG']);
+    expect(result.productTypesToQuery).toEqual([
       'aerialPhotography',
       'lidar',
       'usgsDem',
@@ -37,7 +40,6 @@ describe('getInitialState with URL params', () => {
       'contours',
       'drg',
     ]);
-    expect(result.context.categoryFilter).toEqual(['24K GeoPDF', '24K DRG']);
   });
 
   it('prefers cat over catGroup when both are provided', () => {
