@@ -7,6 +7,7 @@ import { twJoin } from 'tailwind-merge';
 import config from '../config';
 import useMap from '../hooks/useMap';
 import usePreview from '../hooks/usePreview';
+import useWizardMachine from '../hooks/useWizardMachine';
 import type { ProductTypeKey } from '../types';
 import MoreInfo from './MoreInfo';
 import { TreeItemContent } from './TreeItemContent';
@@ -25,6 +26,7 @@ export type ProductFeature = {
     [config.EXTENT_FIELDS.ServiceName]: string;
     [config.EXTENT_FIELDS.SHOW]: 'Y' | null;
     [config.EXTENT_FIELDS.Year_Collected]?: string; // lidar only
+    [config.EXTENT_FIELDS.Tile_Index]: string;
   };
 };
 type ProductProps = { feature: ProductFeature; id: number; productType: ProductTypeKey };
@@ -33,10 +35,11 @@ const commonItemClasses = 'rounded ml-3';
 const buttonClasses = 'my-0 rounded px-1';
 
 export default function Product({ feature, id, productType }: ProductProps) {
-  const { Product, Category, Description, ServiceName, HTML_Page, In_House, OBJECTID } = feature.attributes;
+  const { Product, Category, Description, ServiceName, HTML_Page, In_House, Tile_Index, OBJECTID } = feature.attributes;
 
   const { zoom, placeGraphic } = useMap();
   const { selectedPreviewId, addPreview, removePreview } = usePreview();
+  const { send } = useWizardMachine();
   const previewId = `${Category} | ${Product}`;
 
   const geometry = fromJSON({
@@ -109,7 +112,11 @@ export default function Product({ feature, id, productType }: ProductProps) {
               </DialogTrigger>
               {isUrlLike(HTML_Page) ? <ExternalLink href={HTML_Page}>web page</ExternalLink> : null}
               {isYes(In_House) ? (
-                <Button variant="accent" size="extraSmall" onPress={() => console.log('download')}>
+                <Button
+                  variant="accent"
+                  size="extraSmall"
+                  onPress={() => send({ type: 'DOWNLOAD', productType, tileIndex: Tile_Index })}
+                >
                   Download
                 </Button>
               ) : null}

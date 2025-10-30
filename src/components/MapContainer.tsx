@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import config from '../config';
 import useMap from '../hooks/useMap';
 import PreviewControls from './PreviewControls';
+import TilesControls from './TilesControls';
 
 export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMapElement['arcgisViewClick']> }) => {
   const [selectorOptions, setSelectorOptions] = useState<LayerSelectorProps | null>(null);
@@ -49,9 +50,17 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
       className="size-full"
       onarcgisViewClick={onClick}
       extent={utahMercatorExtent.expand(config.DEFAULT_EXTENT_EXPAND)}
+      // @ts-expect-error Esri types are too strict
+      popup={{
+        dockOptions: {
+          buttonEnabled: false,
+        },
+        highlightEnabled: false,
+      }}
     >
       <BusyBar busy={viewIsLoading} />
       <PreviewControls />
+      <TilesControls />
       <arcgis-zoom className="z-20" position="top-left"></arcgis-zoom>
       <arcgis-home className="z-20" position="top-left"></arcgis-home>
       {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
