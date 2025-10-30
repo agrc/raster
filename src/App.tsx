@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useOverlayTrigger } from 'react-aria';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useOverlayTriggerState } from 'react-stately';
-import AutoExtentVisualizer from './components/AutoExtentVisualizer';
 import { MapContainer } from './components/MapContainer';
 import Wizard from './components/Wizard';
 import config from './config';
@@ -90,7 +89,6 @@ export default function App() {
                   <Drawer main state={sideBarState} {...sideBarTriggerProps}>
                     <Wizard />
                   </Drawer>
-                  <AutoExtentVisualizer />
                   <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
                     <div className="relative flex-1 overflow-hidden dark:rounded">
                       <ErrorBoundary FallbackComponent={ErrorFallback}>

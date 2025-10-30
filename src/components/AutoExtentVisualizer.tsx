@@ -42,29 +42,37 @@ export default function AutoExtentVisualizer() {
     staleTime: Infinity, // Don't refetch, this data is static for the session
   });
 
-  // Place graphics on the map when extents data is available
+  // Place graphics on the map when extents data is available and map is ready
   useEffect(() => {
-    if (!extentsData || extentsData.length === 0 || !mapView) {
+    if (!extentsData || extentsData.length === 0 || !mapView || !mapView.ready) {
       return;
     }
 
-    const graphics = extentsData.map((feature) => {
-      return new Graphic({
-        geometry: fromJSON(feature.geometry),
-        symbol: config.RESULT_SYMBOL,
+    // Wait for map to be fully ready before adding graphics
+    mapView.when(() => {
+      const graphics = extentsData.map((feature) => {
+        const geometry = fromJSON(feature.geometry);
+        // Ensure geometry has spatial reference set to Web Mercator (3857)
+        if (geometry && !geometry.spatialReference) {
+          geometry.spatialReference = { wkid: 3857 };
+        }
+        return new Graphic({
+          geometry,
+          symbol: config.RESULT_SYMBOL,
+        });
       });
-    });
 
-    placeGraphic(graphics);
+      placeGraphic(graphics);
 
-    // Zoom to combined extent of all graphics
-    if (graphics.length > 0) {
-      // Get the combined extent of all graphics
-      const allGeometries = graphics.map((g) => g.geometry).filter((g) => g !== null);
-      if (allGeometries.length > 0) {
-        zoom({ extent: allGeometries[0]!.extent });
+      // Zoom to combined extent of all graphics
+      if (graphics.length > 0) {
+        // Get the combined extent of all graphics
+        const allGeometries = graphics.map((g) => g.geometry).filter((g) => g !== null);
+        if (allGeometries.length > 0) {
+          zoom({ extent: allGeometries[0]!.extent });
+        }
       }
-    }
+    });
   }, [extentsData, mapView, placeGraphic, zoom]);
 
   return null; // This is an invisible component

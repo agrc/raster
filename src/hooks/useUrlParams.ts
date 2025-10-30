@@ -52,14 +52,8 @@ export function useUrlParams(): UrlParams & { hasFilters: boolean; resetUrl: str
 
   const hasFilters = params.cat !== null || params.catGroup !== null;
 
-  // Create reset URL (removes cat/catGroup filters but keeps other params)
-  const resetUrl = useMemo(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.delete('cat');
-    searchParams.delete('catGroup');
-    const newSearch = searchParams.toString();
-    return newSearch ? `${window.location.pathname}?${newSearch}` : window.location.pathname;
-  }, []);
+  // Reset URL is just the base path with no parameters
+  const resetUrl = '/';
 
   return {
     ...params,

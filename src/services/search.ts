@@ -31,7 +31,6 @@ export async function queryExtentsByCategoryFilter(
   }
 
   const commonOptions: Partial<IQueryFeaturesOptions> = {
-    orderByFields: `${config.EXTENT_FIELDS.Estimated_Date} DESC`,
     outFields: ['OBJECTID'],
     returnGeometry: true,
     where: whereClause,

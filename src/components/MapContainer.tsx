@@ -9,6 +9,7 @@ import { useViewLoading, utahMercatorExtent } from '@ugrc/utilities/hooks';
 import { useEffect, useRef, useState } from 'react';
 import config from '../config';
 import useMap from '../hooks/useMap';
+import AutoExtentVisualizer from './AutoExtentVisualizer';
 import PreviewControls from './PreviewControls';
 import TilesControls from './TilesControls';
 
@@ -44,26 +45,29 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
   }, [setMapView]);
 
   return (
-    <arcgis-map
-      id={config.MAP_ELEMENT_ID}
-      ref={mapRef}
-      className="size-full"
-      onarcgisViewClick={onClick}
-      extent={utahMercatorExtent.expand(config.DEFAULT_EXTENT_EXPAND)}
-      // @ts-expect-error Esri types are too strict
-      popup={{
-        dockOptions: {
-          buttonEnabled: false,
-        },
-        highlightEnabled: false,
-      }}
-    >
-      <BusyBar busy={viewIsLoading} />
-      <PreviewControls />
-      <TilesControls />
-      <arcgis-zoom className="z-20" position="top-left"></arcgis-zoom>
-      <arcgis-home className="z-20" position="top-left"></arcgis-home>
-      {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
-    </arcgis-map>
+    <>
+      <AutoExtentVisualizer />
+      <arcgis-map
+        id={config.MAP_ELEMENT_ID}
+        ref={mapRef}
+        className="size-full"
+        onarcgisViewClick={onClick}
+        extent={utahMercatorExtent.expand(config.DEFAULT_EXTENT_EXPAND)}
+        // @ts-expect-error Esri types are too strict
+        popup={{
+          dockOptions: {
+            buttonEnabled: false,
+          },
+          highlightEnabled: false,
+        }}
+      >
+        <BusyBar busy={viewIsLoading} />
+        <PreviewControls />
+        <TilesControls />
+        <arcgis-zoom className="z-20" position="top-left"></arcgis-zoom>
+        <arcgis-home className="z-20" position="top-left"></arcgis-home>
+        {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
+      </arcgis-map>
+    </>
   );
 };
