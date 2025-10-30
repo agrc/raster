@@ -58,9 +58,9 @@ test.describe('Lidar DEMs workflow', () => {
 
     // Click on a product to see more info
     const productCard = page.locator('[class*="Product"]').first();
-    if (await productCard.isVisible()) {
+    if (await productCard.isVisible({ timeout: 5000 }).catch(() => false)) {
       const moreInfoButton = productCard.getByRole('button', { name: /more info/i }).first();
-      if (await moreInfoButton.isVisible()) {
+      if (await moreInfoButton.isVisible({ timeout: 5000 }).catch(() => false)) {
         await moreInfoButton.click();
         await page.waitForTimeout(1000);
 

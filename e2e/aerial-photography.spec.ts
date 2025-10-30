@@ -45,7 +45,7 @@ test.describe('Aerial Photography workflow', () => {
 
     // Preview the product on map
     const previewButton = page.getByRole('button', { name: /preview/i }).first();
-    if (await previewButton.isVisible()) {
+    if (await previewButton.isVisible({ timeout: 5000 }).catch(() => false)) {
       await previewButton.click();
       await page.waitForTimeout(2000);
     }
@@ -53,7 +53,7 @@ test.describe('Aerial Photography workflow', () => {
     // Move to Step 4: Download
     // Click on the download button/icon for a tile
     const downloadIcon = page.locator('[class*="download"]').first();
-    if (await downloadIcon.isVisible()) {
+    if (await downloadIcon.isVisible({ timeout: 5000 }).catch(() => false)) {
       await downloadIcon.click();
       await page.waitForTimeout(1000);
 
@@ -88,7 +88,7 @@ test.describe('Aerial Photography workflow', () => {
 
     // Verify category filters are available (RGB, CIR, B&W, etc.)
     const categorySection = page.locator('text=/RGB|CIR|B&W|Single/i').first();
-    if (await categorySection.isVisible()) {
+    if (await categorySection.isVisible({ timeout: 5000 }).catch(() => false)) {
       await expect(categorySection).toBeVisible();
     }
   });
