@@ -30,6 +30,7 @@ export const EXTENT_FIELDS = {
   SHOW: 'SHOW',
   Description: 'Description',
   Tile_Index: 'Tile_Index',
+  FTP_Path: 'FTP_Path',
 
   // these fields only show up in: autoDem, lidar, usgsDem
   METADATA: 'METADATA',
