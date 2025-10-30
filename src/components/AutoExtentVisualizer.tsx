@@ -1,7 +1,7 @@
 import Graphic from '@arcgis/core/Graphic';
 import { fromJSON } from '@arcgis/core/geometry/support/jsonUtils';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import config from '../config';
 import useMap from '../hooks/useMap';
 import { useUrlParams } from '../hooks/useUrlParams';
@@ -14,6 +14,7 @@ import type { ProductTypeKey } from '../types';
 export default function AutoExtentVisualizer() {
   const { hasFilters, cat, catGroup } = useUrlParams();
   const { placeGraphic, zoom, mapView } = useMap();
+  const graphicsHaveBeenPlaced = useRef(false);
 
   const categoryFilter = cat || catGroup;
 
@@ -23,14 +24,7 @@ export default function AutoExtentVisualizer() {
     queryFn: async () => {
       if (!categoryFilter) return null;
 
-      const allProductTypes: ProductTypeKey[] = [
-        'aerialPhotography',
-        'lidar',
-        'usgsDem',
-        'autoDem',
-        'contours',
-        'drg',
-      ];
+      const allProductTypes: ProductTypeKey[] = ['aerialPhotography', 'lidar', 'usgsDem', 'autoDem', 'contours', 'drg'];
 
       const allExtents = await Promise.all(
         allProductTypes.map((productType) => queryExtentsByCategoryFilter(productType, categoryFilter)),
@@ -50,12 +44,15 @@ export default function AutoExtentVisualizer() {
 
     // Wait for map to be fully ready before adding graphics
     mapView.when(() => {
+      // if (graphicsHaveBeenPlaced.current) return;
+
+      graphicsHaveBeenPlaced.current = true;
       const graphics = extentsData.map((feature) => {
-        const geometry = fromJSON(feature.geometry);
-        // Ensure geometry has spatial reference set to Web Mercator (3857)
-        if (geometry && !geometry.spatialReference) {
-          geometry.spatialReference = { wkid: 3857 };
-        }
+        const geometry = fromJSON({
+          ...feature.geometry,
+          spatialReference: { wkid: 3857 },
+        });
+
         return new Graphic({
           geometry,
           symbol: config.RESULT_SYMBOL,
