@@ -235,30 +235,32 @@ export default function Download() {
 
   // Update feature layer when tiles are downloaded
   useEffect(() => {
-    if (!featureLayerRef.current || !mapView) return;
+    if (!featureLayerRef.current || !mapView || downloadedTiles.size === 0) return;
 
     const layer = featureLayerRef.current;
 
-    // Query all features and update their downloaded status
+    // Query only the downloaded features for efficiency
+    const oids = Array.from(downloadedTiles).join(',');
     layer
       .queryFeatures({
-        where: '1=1',
+        where: `${config.INDEX_FIELDS.OBJECTID} IN (${oids})`,
         outFields: ['*'],
         returnGeometry: false,
       })
       .then((result) => {
-        const edits = result.features
-          .filter((feature) => downloadedTiles.has(feature.attributes[config.INDEX_FIELDS.OBJECTID]))
-          .map((feature) => {
-            feature.attributes.downloaded = 'yes';
-            return feature;
-          });
+        const edits = result.features.map((feature) => {
+          feature.attributes.downloaded = 'yes';
+          return feature;
+        });
 
         if (edits.length > 0) {
-          layer.applyEdits({
+          return layer.applyEdits({
             updateFeatures: edits,
           });
         }
+      })
+      .catch((error) => {
+        console.error('Failed to update downloaded tile visualization:', error);
       });
   }, [downloadedTiles, mapView]);
 
