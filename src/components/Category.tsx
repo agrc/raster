@@ -17,7 +17,7 @@ export default function Category({ category, products, productType }: CategoryPr
   let categoryLabel = removeCurlyBracesContent(category);
 
   if (productType === 'lidar') {
-    categoryLabel += ` - ${products[0]!.attributes[config.EXTENT_FIELDS.Year_Collected]}`;
+    categoryLabel += ` (${products[0]!.attributes[config.EXTENT_FIELDS.Year_Collected]})`;
   }
 
   // sort product if there is a config defined
