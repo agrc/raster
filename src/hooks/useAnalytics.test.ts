@@ -33,13 +33,7 @@ describe('AnalyticsEvent types', () => {
   });
 
   it('should support AOI draw events with various methods', () => {
-    const methods: Array<'point' | 'polyline' | 'polygon' | 'rectangle' | 'circle'> = [
-      'point',
-      'polyline',
-      'polygon',
-      'rectangle',
-      'circle',
-    ];
+    const methods = ['point', 'polyline', 'polygon', 'extent', 'circle'];
 
     methods.forEach((method) => {
       const event: AnalyticsEvent = {

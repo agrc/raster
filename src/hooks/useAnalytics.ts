@@ -8,7 +8,7 @@ export type AnalyticsEvent =
   | { type: 'product_type_deselected'; productType: ProductTypeKey }
   // Step 2 - AOI definition
   | { type: 'aoi_search'; method: 'address' }
-  | { type: 'aoi_draw'; method: 'point' | 'polyline' | 'polygon' | 'rectangle' | 'circle' }
+  | { type: 'aoi_draw'; method: string }
   // Step 3 - Result actions
   | { type: 'result_extent_click'; productType: ProductTypeKey; product: string }
   | { type: 'result_preview_toggle'; productType: ProductTypeKey; product: string; action: 'add' | 'remove' }

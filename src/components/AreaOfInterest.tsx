@@ -53,18 +53,7 @@ export default function AreaOfInterest() {
 
       // Track AOI definition by drawing
       if (graphic.geometry) {
-        const geometryType = graphic.geometry.type;
-        let method: 'point' | 'polyline' | 'polygon' | 'rectangle' | 'circle' = 'polygon';
-        if (geometryType === 'point') {
-          method = 'point';
-        } else if (geometryType === 'polyline') {
-          method = 'polyline';
-        } else if (geometryType === 'polygon') {
-          method = 'polygon';
-        } else if (geometryType === 'extent') {
-          method = 'rectangle';
-        }
-        trackEvent({ type: 'aoi_draw', method });
+        trackEvent({ type: 'aoi_draw', method: graphic.geometry.type });
       }
 
       // reset sketch tool so that it's not active in step 3
