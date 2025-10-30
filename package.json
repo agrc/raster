@@ -13,7 +13,10 @@
     "start": "vite",
     "start:ci": "vite --host",
     "storybook": "storybook dev -p 6006",
-    "test": "vitest"
+    "test": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed"
   },
   "browserslist": {
     "production": [
@@ -54,7 +57,9 @@
     "xstate": "^5.23.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.56.1",
     "@storybook/react-vite": "^9.1.10",
+    "@types/node": "^24.9.2",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@ugrc/tailwind-preset": "^1.2.0",
@@ -64,6 +69,7 @@
     "cpy-cli": "^6.0.0",
     "eslint": "^9.38.0",
     "happy-dom": "^19.0.2",
+    "playwright": "^1.56.1",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.3.0",
