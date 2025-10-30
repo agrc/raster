@@ -32,6 +32,14 @@ const links = [
     action: { url: 'https://gis.utah.gov/products/discover/' },
   },
   {
+    key: 'UGRC Base Map Information',
+    action: { url: 'https://gis.utah.gov/products/sgid/base-maps/' },
+  },
+  {
+    key: 'UGRC Aerial Photography',
+    action: { url: 'https://gis.utah.gov/products/sgid/aerial-photography/' },
+  },
+  {
     key: `Version ${version} changelog`,
     action: { url: `https://github.com/agrc/raster/releases/v${version}` },
   },
