@@ -108,10 +108,9 @@ export default function Product({ feature, id, productType }: ProductProps) {
             onChange={(isSelected) => {
               if (isSelected) {
                 onAddPreview();
-                logEvent('result_preview_toggle', { productType, product: Product, action: 'add' });
+                logEvent('result_preview_add', { productType, product: Product });
               } else {
                 removePreview();
-                logEvent('result_preview_toggle', { productType, product: Product, action: 'remove' });
               }
             }}
           >

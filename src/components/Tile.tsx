@@ -1,16 +1,15 @@
 import { Link, useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import { useEffect, useRef } from 'react';
 import { twJoin } from 'tailwind-merge';
-import type { ProductTypeKey, TileFeature } from '../types';
+import type { TileFeature } from '../types';
 
 export type TileProps = {
   attributes: TileFeature['attributes'];
   onHover: (objectId: number, on: boolean) => void;
   isHighlighted?: boolean;
-  productType: ProductTypeKey;
 };
 
-export default function Tile({ attributes, onHover, isHighlighted, productType }: TileProps) {
+export default function Tile({ attributes, onHover, isHighlighted }: TileProps) {
   const { OBJECTID, TILE, SIZE, EXT, PATH } = attributes;
   const filename = `${TILE}${EXT}`;
 
@@ -33,7 +32,7 @@ export default function Tile({ attributes, onHover, isHighlighted, productType }
         )}
         href={`${PATH}${filename}`}
         onClick={() => {
-          logEvent('tile_download_click', { productType, tileName: filename, source: 'sidebar' });
+          logEvent('tile_download_click', { url: `${PATH}${filename}`, tileName: filename, source: 'sidebar' });
         }}
         onMouseEnter={() => onHover(OBJECTID, true)}
         onMouseLeave={() => onHover(OBJECTID, false)}

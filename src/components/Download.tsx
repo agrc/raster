@@ -66,7 +66,7 @@ function PopupContent({ attributes, description, metadata, report, productType }
           download
           href={`${PATH}${TILE}${EXT}`}
           onClick={() => {
-            logEvent('tile_download_click', { productType, tileName: `${TILE}${EXT}`, source: 'popup' });
+            logEvent('tile_download_click', { url: `${PATH}${TILE}${EXT}`, tileName: `${TILE}${EXT}`, source: 'popup' });
           }}
         >
           Tile
@@ -252,7 +252,6 @@ export default function Download() {
               isHighlighted={feature.attributes[config.INDEX_FIELDS.OBJECTID] === highlightedOid}
               key={feature.attributes[config.INDEX_FIELDS.OBJECTID]}
               onHover={onTileHover}
-              productType={productType!}
             />
           ))}
         </div>
