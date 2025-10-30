@@ -4,6 +4,7 @@ import type { ProductTypeKey } from '../types';
 export type ContextType = {
   productTypes: ProductTypeKey[];
   aoi: __esri.GeometryUnion | nullish;
+  download: [ProductTypeKey, string] | null;
 };
 export type StepActionTypes = 'STEP1' | 'STEP2' | 'STEP3';
 
@@ -11,6 +12,7 @@ export type StepActionTypes = 'STEP1' | 'STEP2' | 'STEP3';
 const initialContext: ContextType = {
   productTypes: [],
   aoi: null,
+  download: null,
 };
 const initialStep = 'step1';
 
@@ -18,6 +20,7 @@ const initialStep = 'step1';
 // const initialContext: ContextType = {
 //   productTypes: ['aerialPhotography', 'lidar'],
 //   aoi: null,
+//   download: null,
 // };
 // const initialStep = 'step2';
 
@@ -33,8 +36,88 @@ const initialStep = 'step1';
 //     x: -12456493.518214382,
 //     y: 4943442.769128876,
 //   }),
+//   download: null,
 // };
 // const initialStep = 'step3';
+
+// uncomment to default to step 4
+// import { fromJSON } from '@arcgis/core/geometry/support/jsonUtils';
+// const initialContext: ContextType = {
+//   productTypes: ['aerialPhotography', 'lidar', 'contours', 'autoDem'],
+//   aoi: fromJSON({
+//     spatialReference: {
+//       latestWkid: 3857,
+//       wkid: 102100,
+//     },
+//     rings: [
+//       [
+//         [-12443368.450306015, 4982949.48390072],
+//         [-12443489.945116451, 4980631.22481595],
+//         [-12443853.098425189, 4978338.365062839],
+//         [-12444453.931448586, 4976096.025692656],
+//         [-12445285.861334305, 4973928.774244778],
+//         [-12446339.773284426, 4971860.355579595],
+//         [-12447604.120419076, 4969913.431724848],
+//         [-12449065.050286468, 4968109.333585709],
+//         [-12450706.556633255, 4966467.827238922],
+//         [-12452510.654772393, 4965006.8973715305],
+//         [-12454457.578627141, 4963742.550236881],
+//         [-12456525.997292323, 4962688.638286761],
+//         [-12458693.248740202, 4961856.708401042],
+//         [-12460935.588110385, 4961255.875377645],
+//         [-12463228.447863495, 4960892.722068906],
+//         [-12465546.706948265, 4960771.22725847],
+//         [-12467864.966033036, 4960892.722068906],
+//         [-12470157.825786145, 4961255.875377645],
+//         [-12472400.165156329, 4961856.708401042],
+//         [-12474567.416604208, 4962688.638286761],
+//         [-12476635.83526939, 4963742.550236881],
+//         [-12478582.759124137, 4965006.8973715305],
+//         [-12480386.857263276, 4966467.827238922],
+//         [-12482028.363610063, 4968109.333585709],
+//         [-12483489.293477455, 4969913.431724848],
+//         [-12484753.640612105, 4971860.355579595],
+//         [-12485807.552562226, 4973928.774244778],
+//         [-12486639.482447945, 4976096.025692656],
+//         [-12487240.315471342, 4978338.365062839],
+//         [-12487603.46878008, 4980631.22481595],
+//         [-12487724.963590516, 4982949.48390072],
+//         [-12487603.46878008, 4985267.742985491],
+//         [-12487240.315471342, 4987560.6027386],
+//         [-12486639.482447945, 4989802.942108785],
+//         [-12485807.552562226, 4991970.193556663],
+//         [-12484753.640612105, 4994038.612221845],
+//         [-12483489.293477455, 4995985.536076592],
+//         [-12482028.363610063, 4997789.634215731],
+//         [-12480386.857263276, 4999431.1405625185],
+//         [-12478582.759124137, 5000892.07042991],
+//         [-12476635.83526939, 5002156.41756456],
+//         [-12474567.416604208, 5003210.3295146795],
+//         [-12472400.165156329, 5004042.2594003985],
+//         [-12470157.825786145, 5004643.092423796],
+//         [-12467864.966033036, 5005006.245732535],
+//         [-12465546.706948265, 5005127.740542971],
+//         [-12463228.447863495, 5005006.245732535],
+//         [-12460935.588110385, 5004643.092423796],
+//         [-12458693.248740202, 5004042.2594003985],
+//         [-12456525.997292323, 5003210.3295146795],
+//         [-12454457.578627141, 5002156.41756456],
+//         [-12452510.654772393, 5000892.07042991],
+//         [-12450706.556633255, 4999431.1405625185],
+//         [-12449065.050286468, 4997789.634215731],
+//         [-12447604.120419076, 4995985.536076592],
+//         [-12446339.773284426, 4994038.612221845],
+//         [-12445285.861334305, 4991970.193556663],
+//         [-12444453.931448586, 4989802.942108785],
+//         [-12443853.098425189, 4987560.602738601],
+//         [-12443489.945116451, 4985267.742985491],
+//         [-12443368.450306015, 4982949.48390072],
+//       ],
+//     ],
+//   }),
+//   download: ['aerialPhotography', 'NAIP2018_RGB_QQuads'],
+// };
+// const initialStep = 'step4';
 
 /**
  * Toggles the presence of a value in a list: adds the value if not present, or removes it if already present.
@@ -59,6 +142,8 @@ export const machine = setup({
       | { type: 'STEP1' }
       | { type: 'STEP2' }
       | { type: 'STEP3' }
+      | { type: 'STEP4' }
+      | { type: 'DOWNLOAD'; productType: ProductTypeKey; tileIndex: string }
       | { type: 'TOGGLE_PRODUCT_TYPE'; productType: ProductTypeKey }
       | { type: 'SET_AOI'; aoi: __esri.GeometryUnion | nullish },
   },
@@ -66,26 +151,32 @@ export const machine = setup({
     hasProductTypes: ({ context }) => context.productTypes.length > 0,
     hasAoi: ({ context }) => context.aoi !== null,
     hasProductTypesAndAoi: and(['hasProductTypes', 'hasAoi']),
+    hasDownload: ({ context }) => context.download !== null,
   },
 }).createMachine({
-  id: 'wizard',
+  id: 'wizardMachine',
   context: initialContext,
   initial: initialStep,
   states: {
     step1: {
       on: {
         STEP2: {
-          guard: 'hasProductTypes',
           target: 'step2',
+          guard: 'hasProductTypes',
         },
         STEP3: {
-          guard: 'hasProductTypesAndAoi',
           target: 'step3',
+          guard: 'hasProductTypesAndAoi',
+        },
+        STEP4: {
+          target: 'step4',
+          guard: 'hasDownload',
         },
         TOGGLE_PRODUCT_TYPE: {
           actions: assign({
             productTypes: ({ context, event }) => toggleValueInList(context.productTypes, event.productType),
-            aoi: null, // reset AOI when product types change so that the results are cleared out
+            aoi: null,
+            download: null,
           }),
         },
       },
@@ -95,25 +186,59 @@ export const machine = setup({
         SET_AOI: {
           actions: assign({
             aoi: ({ event }) => event.aoi,
+            download: null,
           }),
-          target: 'step3',
-        },
-        STEP3: {
-          guard: 'hasAoi',
           target: 'step3',
         },
         STEP1: {
           target: 'step1',
         },
+        STEP3: {
+          guard: 'hasAoi',
+          target: 'step3',
+        },
+        STEP4: {
+          guard: 'hasDownload',
+          target: 'step4',
+        },
       },
     },
     step3: {
+      entry: assign({
+        download: null, // reset download when returning to results
+      }),
       on: {
         STEP1: {
           target: 'step1',
         },
         STEP2: {
           target: 'step2',
+          guard: 'hasProductTypes',
+        },
+        STEP4: {
+          target: 'step4',
+          guard: 'hasDownload',
+        },
+        DOWNLOAD: {
+          target: 'step4',
+          actions: assign({
+            download: ({ event }) => [event.productType, event.tileIndex],
+          }),
+        },
+      },
+    },
+    step4: {
+      on: {
+        STEP1: {
+          target: 'step1',
+        },
+        STEP2: {
+          target: 'step2',
+          guard: 'hasProductTypes',
+        },
+        STEP3: {
+          target: 'step3',
+          guard: 'hasProductTypesAndAoi',
         },
       },
     },

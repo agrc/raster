@@ -79,7 +79,7 @@ A full analysis of the schema for the extents services can be found in the [sche
 - `Resolution`
 - `SHOW`
 - `ServiceName`
-- `Tile_Index`
+- `Tile_Index` (relates to `TILE_INDEX` field in tile index datasets)
 - `Total_Size`
 - `Total_Square_Miles`
 - `Upload_Date`
@@ -110,7 +110,7 @@ A full analysis of the schema for the tile index services can be found in the [s
 - `PATH`
 - `SIZE`
 - `TILE`
-- `TILE_INDEX`
+- `TILE_INDEX` (relates to `Tile_Index` field in extents datasets)
 
 ### Data-Driven App Functionality
 
