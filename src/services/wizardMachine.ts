@@ -11,16 +11,75 @@ export type ContextType = {
     metadata?: string;
     report?: string;
   } | null;
+  categoryFilter?: string | string[] | null;
 };
 export type StepActionTypes = 'STEP1' | 'STEP2' | 'STEP3';
 
-// production defaults to step 1
-const initialContext: ContextType = {
-  productTypes: [],
-  aoi: null,
-  download: null,
+type InitialStateConfig = {
+  context: ContextType;
+  step: 'step1' | 'step2' | 'step3' | 'step4';
 };
-const initialStep = 'step1';
+
+/**
+ * Determines initial state based on URL parameters or defaults
+ */
+export function getInitialState(urlParams?: {
+  cat?: string | null;
+  catGroup?: string[] | null;
+  products?: number[] | null;
+}): InitialStateConfig {
+  const allProductTypeKeys: ProductTypeKey[] = [
+    'aerialPhotography',
+    'lidar',
+    'usgsDem',
+    'autoDem',
+    'contours',
+    'drg',
+  ];
+
+  // If category filter is present, auto-select all product types and skip to step 2
+  const categoryFilter = urlParams?.cat || urlParams?.catGroup || null;
+
+  if (categoryFilter) {
+    return {
+      context: {
+        productTypes: allProductTypeKeys,
+        aoi: null,
+        download: null,
+        categoryFilter,
+      },
+      step: 'step2',
+    };
+  }
+
+  // If products parameter is present, pre-select those product types
+  if (urlParams?.products && urlParams.products.length > 0) {
+    const selectedProductTypes = urlParams.products
+      .filter((index) => index >= 0 && index < allProductTypeKeys.length)
+      .map((index) => allProductTypeKeys[index]!);
+
+    return {
+      context: {
+        productTypes: selectedProductTypes,
+        aoi: null,
+        download: null,
+        categoryFilter: null,
+      },
+      step: 'step1',
+    };
+  }
+
+  // Default to step 1
+  return {
+    context: {
+      productTypes: [],
+      aoi: null,
+      download: null,
+      categoryFilter: null,
+    },
+    step: 'step1',
+  };
+}
 
 // uncomment to default to step 2
 // const initialContext: ContextType = {
@@ -159,6 +218,7 @@ export const machine = setup({
         }
       | { type: 'TOGGLE_PRODUCT_TYPE'; productType: ProductTypeKey }
       | { type: 'SET_AOI'; aoi: __esri.GeometryUnion | nullish },
+    input: {} as InitialStateConfig | undefined,
   },
   guards: {
     hasProductTypes: ({ context }) => context.productTypes.length > 0,
@@ -168,8 +228,8 @@ export const machine = setup({
   },
 }).createMachine({
   id: 'wizardMachine',
-  context: initialContext,
-  initial: initialStep,
+  context: ({ input }) => input?.context ?? getInitialState().context,
+  initial: 'step1',
   states: {
     step1: {
       on: {

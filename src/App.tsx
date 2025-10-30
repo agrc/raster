@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useOverlayTrigger } from 'react-aria';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useOverlayTriggerState } from 'react-stately';
+import AutoExtentVisualizer from './components/AutoExtentVisualizer';
 import { MapContainer } from './components/MapContainer';
 import Wizard from './components/Wizard';
 import config from './config';
@@ -10,6 +11,7 @@ import { MapProvider } from './contexts/MapProvider';
 import PreviewProvider from './contexts/PreviewProvider';
 import TilesContextProvider from './contexts/TilesContextProvider';
 import WizardMachineProvider from './contexts/WizardMachineProvider';
+import { useUrlParams } from './hooks/useUrlParams';
 
 const version = import.meta.env.PACKAGE_VERSION;
 
@@ -47,6 +49,7 @@ const links = [
 
 export default function App() {
   const app = useFirebaseApp();
+  const urlParams = useUrlParams();
   const sideBarState = useOverlayTriggerState({ defaultOpen: window.innerWidth >= config.MIN_DESKTOP_WIDTH });
   const sideBarTriggerProps = useOverlayTrigger(
     {
@@ -75,7 +78,7 @@ export default function App() {
           <div className="flex h-full grow items-center gap-3">
             <UgrcLogo />
             <h2 className="font-heading text-2xl font-black text-zinc-600 md:text-4xl lg:text-5xl dark:text-zinc-100">
-              UGRC Raster Data Discovery
+              {urlParams.title || 'UGRC Raster Data Discovery'}
             </h2>
           </div>
         </Header>
@@ -83,19 +86,20 @@ export default function App() {
           <MapProvider>
             <TilesContextProvider>
               <PreviewProvider>
-                <Drawer main state={sideBarState} {...sideBarTriggerProps}>
-                  <WizardMachineProvider>
+                <WizardMachineProvider>
+                  <Drawer main state={sideBarState} {...sideBarTriggerProps}>
                     <Wizard />
-                  </WizardMachineProvider>
-                </Drawer>
-                <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
-                  <div className="relative flex-1 overflow-hidden dark:rounded">
-                    <ErrorBoundary FallbackComponent={ErrorFallback}>
-                      <MapContainer />
-                    </ErrorBoundary>
+                  </Drawer>
+                  <AutoExtentVisualizer />
+                  <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
+                    <div className="relative flex-1 overflow-hidden dark:rounded">
+                      <ErrorBoundary FallbackComponent={ErrorFallback}>
+                        <MapContainer />
+                      </ErrorBoundary>
+                    </div>
+                    <SocialMedia />
                   </div>
-                  <SocialMedia />
-                </div>
+                </WizardMachineProvider>
               </PreviewProvider>
             </TilesContextProvider>
           </MapProvider>

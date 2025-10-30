@@ -11,14 +11,68 @@ import type { ProductTypeKey } from '../types';
 
 const typesWithoutMetadataAndReport: ProductTypeKey[] = ['aerialPhotography', 'contours', 'drg'];
 
-export async function query(productType: ProductTypeKey, aoi: __esri.GeometryUnion) {
+/**
+ * Queries for extents without an AOI (used to get all extents matching a category filter)
+ */
+export async function queryExtentsByCategoryFilter(
+  productType: ProductTypeKey,
+  categoryFilter: string | string[],
+): Promise<IFeature[]> {
+  let whereClause = `upper(${config.EXTENT_FIELDS.SHOW}) = 'Y'`;
+
+  // Add category filter
+  if (Array.isArray(categoryFilter)) {
+    // Handle catGroup (multiple categories)
+    const categoryList = categoryFilter.map((cat) => `'${cat.replace(/'/g, "''")}'`).join(', ');
+    whereClause += ` AND ${config.EXTENT_FIELDS.Category} IN (${categoryList})`;
+  } else {
+    // Handle cat (single category)
+    whereClause += ` AND ${config.EXTENT_FIELDS.Category} = '${categoryFilter.replace(/'/g, "''")}'`;
+  }
+
+  const commonOptions: Partial<IQueryFeaturesOptions> = {
+    orderByFields: `${config.EXTENT_FIELDS.Estimated_Date} DESC`,
+    outFields: ['OBJECTID'],
+    returnGeometry: true,
+    where: whereClause,
+  };
+
+  const url = config.EXTENT_SERVICE_URLS[productType];
+
+  const response = (await queryFeatures({
+    url,
+    ...commonOptions,
+  })) as IQueryFeaturesResponse;
+
+  return response.features;
+}
+
+export async function query(
+  productType: ProductTypeKey,
+  aoi: __esri.GeometryUnion,
+  categoryFilter?: string | string[] | null,
+) {
+  let whereClause = `upper(${config.EXTENT_FIELDS.SHOW}) = 'Y'`;
+
+  // Add category filter if provided
+  if (categoryFilter) {
+    if (Array.isArray(categoryFilter)) {
+      // Handle catGroup (multiple categories)
+      const categoryList = categoryFilter.map((cat) => `'${cat.replace(/'/g, "''")}'`).join(', ');
+      whereClause += ` AND ${config.EXTENT_FIELDS.Category} IN (${categoryList})`;
+    } else {
+      // Handle cat (single category)
+      whereClause += ` AND ${config.EXTENT_FIELDS.Category} = '${categoryFilter.replace(/'/g, "''")}'`;
+    }
+  }
+
   const commonOptions: Partial<IQueryFeaturesOptions> = {
     geometry: aoi.toJSON(),
     geometryType: getJsonType(aoi) as GeometryType,
     orderByFields: `${config.EXTENT_FIELDS.Estimated_Date} DESC`,
     outFields: Object.values(config.EXTENT_FIELDS),
     returnGeometry: true,
-    where: `upper(${config.EXTENT_FIELDS.SHOW}) = 'Y'`,
+    where: whereClause,
   };
 
   const url = config.EXTENT_SERVICE_URLS[productType];
@@ -64,8 +118,12 @@ export function groupByCategory(features: IFeature[]) {
   return grouped;
 }
 
-export default async function search(productType: ProductTypeKey, aoi: __esri.GeometryUnion) {
-  const results = await query(productType, aoi);
+export default async function search(
+  productType: ProductTypeKey,
+  aoi: __esri.GeometryUnion,
+  categoryFilter?: string | string[] | null,
+) {
+  const results = await query(productType, aoi, categoryFilter);
 
   return groupByCategory(results);
 }

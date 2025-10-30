@@ -2,14 +2,23 @@ import { Button, Checkbox, Tooltip } from '@ugrc/utah-design-system';
 import { HelpCircle } from 'lucide-react';
 import { TooltipTrigger } from 'react-aria-components';
 import config from '../config';
+import { useUrlParams } from '../hooks/useUrlParams';
 import useWizardMachine from '../hooks/useWizardMachine';
 import type { ProductTypeKey } from '../types';
 
 export default function SelectProductTypes() {
   const { snapshot, send } = useWizardMachine();
+  const { hasFilters, resetUrl } = useUrlParams();
 
   return (
     <div className="space-y-2">
+      {hasFilters && (
+        <p className="text-sm">
+          <a href={resetUrl} className="text-primary-500 underline hover:text-primary-600 dark:text-primary-400">
+            Want to search for more than {snapshot.context.categoryFilter ? (Array.isArray(snapshot.context.categoryFilter) ? snapshot.context.categoryFilter.join(', ') : snapshot.context.categoryFilter) : ''} data?
+          </a>
+        </p>
+      )}
       <p className="text-sm">Please select the type of product(s) you are looking for...</p>
       {Object.entries(config.PRODUCT_TYPES).map(([key, label]) => (
         <div key={key}>

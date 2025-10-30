@@ -17,15 +17,22 @@ type ProductTypeProps = {
   productType: ProductTypeKey;
   aoi: __esri.GeometryUnion | nullish;
   isOnly?: boolean;
+  categoryFilter?: string | string[] | null;
   searchFn?: typeof search; // for storybook tests
 };
 
 const topLevelClasses = 'text-lg font-semibold [&:not(:first-child)]:mt-1';
 
-export default function ProductType({ productType, aoi, isOnly, searchFn = search }: ProductTypeProps) {
+export default function ProductType({
+  productType,
+  aoi,
+  isOnly,
+  categoryFilter,
+  searchFn = search,
+}: ProductTypeProps) {
   const { data, error, isLoading } = useQuery({
-    queryKey: ['searchResults', productType, aoi],
-    queryFn: () => searchFn(productType, aoi as __esri.GeometryUnion),
+    queryKey: ['searchResults', productType, aoi, categoryFilter],
+    queryFn: () => searchFn(productType, aoi as __esri.GeometryUnion, categoryFilter),
   });
 
   const { isDarkMode } = useDarkMode();
