@@ -1,11 +1,10 @@
 import Graphic from '@arcgis/core/Graphic';
 import { fromJSON } from '@arcgis/core/geometry/support/jsonUtils';
 import type { IPolygon } from '@esri/arcgis-rest-request';
-import { Button, Dialog, ExternalLink, Modal, ToggleButton } from '@ugrc/utah-design-system';
+import { Button, Dialog, ExternalLink, Modal, ToggleButton, useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import { DialogTrigger, TreeItem as RACTreeItem } from 'react-aria-components';
 import { twJoin } from 'tailwind-merge';
 import config from '../config';
-import { useAnalytics } from '../hooks/useAnalytics';
 import useMap from '../hooks/useMap';
 import usePreview from '../hooks/usePreview';
 import useWizardMachine from '../hooks/useWizardMachine';
@@ -67,7 +66,7 @@ export default function Product({ feature, id, productType }: ProductProps) {
   const { zoom, placeGraphic } = useMap();
   const { selectedPreviewId, addPreview, removePreview } = usePreview();
   const { send } = useWizardMachine();
-  const { trackEvent } = useAnalytics();
+  const logEvent = useFirebaseAnalytics();
   const previewId = `${Category} | ${Product}`;
 
   const geometry = fromJSON({
@@ -96,7 +95,7 @@ export default function Product({ feature, id, productType }: ProductProps) {
           className={buttonClasses}
           onPress={() => {
             zoom(geometry);
-            trackEvent({ type: 'result_extent_click', productType, product: Product });
+            logEvent('result_extent_click', { productType, product: Product });
           }}
         >
           Extent
@@ -109,10 +108,10 @@ export default function Product({ feature, id, productType }: ProductProps) {
             onChange={(isSelected) => {
               if (isSelected) {
                 onAddPreview();
-                trackEvent({ type: 'result_preview_toggle', productType, product: Product, action: 'add' });
+                logEvent('result_preview_toggle', { productType, product: Product, action: 'add' });
               } else {
                 removePreview();
-                trackEvent({ type: 'result_preview_toggle', productType, product: Product, action: 'remove' });
+                logEvent('result_preview_toggle', { productType, product: Product, action: 'remove' });
               }
             }}
           >
@@ -149,7 +148,7 @@ export default function Product({ feature, id, productType }: ProductProps) {
                   variant="secondary"
                   size="extraSmall"
                   onPress={() => {
-                    trackEvent({ type: 'result_more_info_click', productType, product: Product });
+                    logEvent('result_more_info_click', { productType, product: Product });
                   }}
                 >
                   more info
@@ -164,7 +163,7 @@ export default function Product({ feature, id, productType }: ProductProps) {
                 <ExternalLink
                   href={HTML_Page}
                   onClick={() => {
-                    trackEvent({ type: 'result_web_page_click', productType, product: Product });
+                    logEvent('result_web_page_click', { productType, product: Product });
                   }}
                 >
                   web page
@@ -183,7 +182,7 @@ export default function Product({ feature, id, productType }: ProductProps) {
                       metadata,
                       report,
                     });
-                    trackEvent({ type: 'result_download_click', productType, product: Product });
+                    logEvent('result_download_click', { productType, product: Product });
                   }}
                 >
                   Download

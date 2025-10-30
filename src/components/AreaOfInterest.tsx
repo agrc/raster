@@ -4,10 +4,9 @@ import SketchTooltipOptions from '@arcgis/core/views/interactive/sketch/SketchTo
 import type { EventHandler } from '@arcgis/lumina';
 import '@arcgis/map-components/components/arcgis-search';
 import '@arcgis/map-components/components/arcgis-sketch';
-import { Label } from '@ugrc/utah-design-system';
+import { Label, useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import { useEffect, useRef } from 'react';
 import config from '../config';
-import { useAnalytics } from '../hooks/useAnalytics';
 import useMap from '../hooks/useMap';
 import useWizardMachine from '../hooks/useWizardMachine';
 import './AreaOfInterest.css';
@@ -27,7 +26,7 @@ export default function AreaOfInterest() {
   const { send } = useWizardMachine();
   const searchRef = useRef<HTMLArcgisSearchElement>(null);
   const sketchRef = useRef<HTMLArcgisSketchElement>(null);
-  const { trackEvent } = useAnalytics();
+  const logEvent = useFirebaseAnalytics();
 
   // add graphics layer to the map
   useEffect(() => {
@@ -53,7 +52,7 @@ export default function AreaOfInterest() {
 
       // Track AOI definition by drawing
       if (graphic.geometry) {
-        trackEvent({ type: 'aoi_draw', method: graphic.geometry.type });
+        logEvent('aoi_draw', { method: graphic.geometry.type });
       }
 
       // reset sketch tool so that it's not active in step 3
@@ -76,7 +75,7 @@ export default function AreaOfInterest() {
       send({ type: 'SET_AOI', aoi: result.feature.geometry });
 
       // Track AOI definition by search
-      trackEvent({ type: 'aoi_search', method: 'address' });
+      logEvent('aoi_search', { method: 'address' });
     }
   };
 

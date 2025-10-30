@@ -1,15 +1,14 @@
-import { Button, Checkbox, Link, Tooltip } from '@ugrc/utah-design-system';
+import { Button, Checkbox, Link, Tooltip, useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import { HelpCircle } from 'lucide-react';
 import { TooltipTrigger } from 'react-aria-components';
 import config from '../config';
-import { useAnalytics } from '../hooks/useAnalytics';
 import { useUrlParams } from '../hooks/useUrlParams';
 import useWizardMachine from '../hooks/useWizardMachine';
 import type { ProductTypeKey } from '../types';
 
 export default function SelectProductTypes() {
   const { snapshot, send } = useWizardMachine();
-  const { trackEvent } = useAnalytics();
+  const logEvent = useFirebaseAnalytics();
   const { hasFilters, categories } = useUrlParams();
 
   return (
@@ -25,11 +24,10 @@ export default function SelectProductTypes() {
 
               send({ type: 'TOGGLE_PRODUCT_TYPE', productType });
 
-              // Track the selection/deselection
-              trackEvent({
-                type: isCurrentlySelected ? 'product_type_deselected' : 'product_type_selected',
-                productType,
-              });
+              // Track only when checkbox is checked
+              if (!isCurrentlySelected) {
+                logEvent('product_type_selected', { productType });
+              }
             }}
           >
             <div className="inline-flex items-center gap-0.5">

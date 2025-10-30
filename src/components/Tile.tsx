@@ -1,7 +1,6 @@
-import { Link } from '@ugrc/utah-design-system';
+import { Link, useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import { useEffect, useRef } from 'react';
 import { twJoin } from 'tailwind-merge';
-import { useAnalytics } from '../hooks/useAnalytics';
 import type { ProductTypeKey, TileFeature } from '../types';
 
 export type TileProps = {
@@ -16,7 +15,7 @@ export default function Tile({ attributes, onHover, isHighlighted, productType }
   const filename = `${TILE}${EXT}`;
 
   const rootNodeRef = useRef<HTMLDivElement>(null);
-  const { trackEvent } = useAnalytics();
+  const logEvent = useFirebaseAnalytics();
 
   useEffect(() => {
     if (isHighlighted) {
@@ -34,12 +33,9 @@ export default function Tile({ attributes, onHover, isHighlighted, productType }
         )}
         href={`${PATH}${filename}`}
         onClick={() => {
-          trackEvent({ type: 'tile_download_click', productType, tileName: filename, source: 'sidebar' });
+          logEvent('tile_download_click', { productType, tileName: filename, source: 'sidebar' });
         }}
-        onMouseEnter={() => {
-          onHover(OBJECTID, true);
-          trackEvent({ type: 'tile_hover', productType });
-        }}
+        onMouseEnter={() => onHover(OBJECTID, true)}
         onMouseLeave={() => onHover(OBJECTID, false)}
       >
         <span>{filename}</span>
