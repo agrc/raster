@@ -2,6 +2,82 @@
 
 This repository contains the source code for the raster data discovery website maintained by the Utah Geospatial Resource Center (UGRC). The website provides users with tools to discover, visualize, and download various raster datasets relevant to Utah.
 
+## URL Parameters
+
+The application can be customized using URL parameters to create direct links to specific datasets or pre-configure the search experience.
+
+### Available Parameters
+
+#### `title`
+
+Overrides the title of the application displayed in the header.
+
+**Example:**
+
+```
+https://raster.utah.gov/?title=My%20Custom%20Title
+```
+
+#### `cat`
+
+Filters product results to show only products where the `Category` field equals this value. When this parameter is present, the app will:
+
+- Automatically select all product types
+- Skip directly to Step 2 (Define Area of Interest)
+- Display the extent of matching products on the map
+- Show a "Want to search for more..." link in Steps 1 and 3 that links back to the non-filtered app
+
+**Example:**
+
+```
+https://raster.utah.gov/?cat=HRO%202009%20(25cm)
+https://raster.utah.gov/?cat=.5%20Meter%20%7B2025%20Moab%20Utah%20LiDAR%7D&title=Moab%20Utah%202025%20LiDAR
+```
+
+#### `catGroup`
+
+Filters product results to show only products where the `Category` field matches any value in this comma-separated list. When this parameter is present, the app will:
+
+- Automatically select all product types
+- Skip directly to Step 2 (Define Area of Interest)
+- Display the extent of matching products on the map
+- Show a "Want to search for more..." link in Steps 1 and 3 that links back to the non-filtered app
+
+**Example:**
+
+```
+https://raster.utah.gov/?catGroup=24K%20GeoPDF,24K%20DRG&title=USGS%2024K%20Topo%20Maps
+```
+
+**Note:** A URL may contain only one of `cat` or `catGroup`. If both are present, `cat` will be used.
+
+#### `products`
+
+Pre-selects product type checkboxes in Step 1 using zero-based indices. Multiple values can be provided as a comma-separated list.
+
+Product type indices (zero-based):
+
+- `0` - Aerial Photography
+- `1` - Lidar DEMs
+- `2` - USGS DEMs
+- `3` - Auto-Correlated DEMs
+- `4` - Contours
+- `5` - USGS Topo Maps
+
+**Example:**
+
+```
+https://raster.utah.gov/?products=1,3&title=Lidar%20and%20Auto-Correlated%20DEMs
+```
+
+### Parameter Combinations
+
+All parameters can be mixed and matched as needed. For example:
+
+```
+https://raster.utah.gov/?products=0,1&title=Imagery%20and%20Lidar
+```
+
 ## Architecture
 
 ### Models
