@@ -7,6 +7,7 @@ import '@arcgis/map-components/components/arcgis-sketch';
 import { Label } from '@ugrc/utah-design-system';
 import { useEffect, useRef } from 'react';
 import config from '../config';
+import { useAnalytics } from '../hooks/useAnalytics';
 import useMap from '../hooks/useMap';
 import useWizardMachine from '../hooks/useWizardMachine';
 import './AreaOfInterest.css';
@@ -26,6 +27,7 @@ export default function AreaOfInterest() {
   const { send } = useWizardMachine();
   const searchRef = useRef<HTMLArcgisSearchElement>(null);
   const sketchRef = useRef<HTMLArcgisSketchElement>(null);
+  const { trackEvent } = useAnalytics();
 
   // add graphics layer to the map
   useEffect(() => {
@@ -49,6 +51,22 @@ export default function AreaOfInterest() {
 
       send({ type: 'SET_AOI', aoi: graphic.geometry });
 
+      // Track AOI definition by drawing
+      if (graphic.geometry) {
+        const geometryType = graphic.geometry.type;
+        let method: 'point' | 'polyline' | 'polygon' | 'rectangle' | 'circle' = 'polygon';
+        if (geometryType === 'point') {
+          method = 'point';
+        } else if (geometryType === 'polyline') {
+          method = 'polyline';
+        } else if (geometryType === 'polygon') {
+          method = 'polygon';
+        } else if (geometryType === 'extent') {
+          method = 'rectangle';
+        }
+        trackEvent({ type: 'aoi_draw', method });
+      }
+
       // reset sketch tool so that it's not active in step 3
       sketchRef.current?.cancel();
     }
@@ -67,6 +85,9 @@ export default function AreaOfInterest() {
       drawingLayerRef.current.add(result.feature);
 
       send({ type: 'SET_AOI', aoi: result.feature.geometry });
+
+      // Track AOI definition by search
+      trackEvent({ type: 'aoi_search', method: 'address' });
     }
   };
 

@@ -5,6 +5,7 @@ import { Button, Dialog, ExternalLink, Modal, ToggleButton } from '@ugrc/utah-de
 import { DialogTrigger, TreeItem as RACTreeItem } from 'react-aria-components';
 import { twJoin } from 'tailwind-merge';
 import config from '../config';
+import { useAnalytics } from '../hooks/useAnalytics';
 import useMap from '../hooks/useMap';
 import usePreview from '../hooks/usePreview';
 import useWizardMachine from '../hooks/useWizardMachine';
@@ -66,6 +67,7 @@ export default function Product({ feature, id, productType }: ProductProps) {
   const { zoom, placeGraphic } = useMap();
   const { selectedPreviewId, addPreview, removePreview } = usePreview();
   const { send } = useWizardMachine();
+  const { trackEvent } = useAnalytics();
   const previewId = `${Category} | ${Product}`;
 
   const geometry = fromJSON({
@@ -88,7 +90,15 @@ export default function Product({ feature, id, productType }: ProductProps) {
   const getButtons = () => {
     return (
       <div className="flex gap-1">
-        <Button key="extent" size="extraSmall" className={buttonClasses} onPress={() => zoom(geometry)}>
+        <Button
+          key="extent"
+          size="extraSmall"
+          className={buttonClasses}
+          onPress={() => {
+            zoom(geometry);
+            trackEvent({ type: 'result_extent_click', productType, product: Product });
+          }}
+        >
           Extent
         </Button>
         {ServiceName ? (
@@ -96,7 +106,15 @@ export default function Product({ feature, id, productType }: ProductProps) {
             key="preview"
             className={twJoin(buttonClasses, 'min-h-6 px-2 text-xs')}
             isSelected={selectedPreviewId === previewId}
-            onChange={(isSelected) => (isSelected ? onAddPreview() : removePreview())}
+            onChange={(isSelected) => {
+              if (isSelected) {
+                onAddPreview();
+                trackEvent({ type: 'result_preview_toggle', productType, product: Product, action: 'add' });
+              } else {
+                removePreview();
+                trackEvent({ type: 'result_preview_toggle', productType, product: Product, action: 'remove' });
+              }
+            }}
           >
             Preview
           </ToggleButton>
@@ -127,7 +145,13 @@ export default function Product({ feature, id, productType }: ProductProps) {
             {Description}
             <div className="my-1 flex w-full items-center justify-between">
               <DialogTrigger>
-                <Button variant="secondary" size="extraSmall">
+                <Button
+                  variant="secondary"
+                  size="extraSmall"
+                  onPress={() => {
+                    trackEvent({ type: 'result_more_info_click', productType, product: Product });
+                  }}
+                >
                   more info
                 </Button>
                 <Modal isDismissable>
@@ -136,12 +160,21 @@ export default function Product({ feature, id, productType }: ProductProps) {
                   </Dialog>
                 </Modal>
               </DialogTrigger>
-              {isUrlLike(HTML_Page) ? <ExternalLink href={HTML_Page}>web page</ExternalLink> : null}
+              {isUrlLike(HTML_Page) ? (
+                <ExternalLink
+                  href={HTML_Page}
+                  onClick={() => {
+                    trackEvent({ type: 'result_web_page_click', productType, product: Product });
+                  }}
+                >
+                  web page
+                </ExternalLink>
+              ) : null}
               {isYes(In_House) ? (
                 <Button
                   variant="accent"
                   size="extraSmall"
-                  onPress={() =>
+                  onPress={() => {
                     send({
                       type: 'DOWNLOAD',
                       productType,
@@ -149,8 +182,9 @@ export default function Product({ feature, id, productType }: ProductProps) {
                       description: Description,
                       metadata,
                       report,
-                    })
-                  }
+                    });
+                    trackEvent({ type: 'result_download_click', productType, product: Product });
+                  }}
                 >
                   Download
                 </Button>

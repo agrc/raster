@@ -2,12 +2,14 @@ import { Button, Checkbox, Link, Tooltip } from '@ugrc/utah-design-system';
 import { HelpCircle } from 'lucide-react';
 import { TooltipTrigger } from 'react-aria-components';
 import config from '../config';
+import { useAnalytics } from '../hooks/useAnalytics';
 import { useUrlParams } from '../hooks/useUrlParams';
 import useWizardMachine from '../hooks/useWizardMachine';
 import type { ProductTypeKey } from '../types';
 
 export default function SelectProductTypes() {
   const { snapshot, send } = useWizardMachine();
+  const { trackEvent } = useAnalytics();
   const { hasFilters, categories } = useUrlParams();
 
   return (
@@ -17,7 +19,18 @@ export default function SelectProductTypes() {
         <div key={key}>
           <Checkbox
             isSelected={snapshot.context.productTypes.includes(key as ProductTypeKey)}
-            onChange={() => send({ type: 'TOGGLE_PRODUCT_TYPE', productType: key as ProductTypeKey })}
+            onChange={() => {
+              const productType = key as ProductTypeKey;
+              const isCurrentlySelected = snapshot.context.productTypes.includes(productType);
+
+              send({ type: 'TOGGLE_PRODUCT_TYPE', productType });
+
+              // Track the selection/deselection
+              trackEvent({
+                type: isCurrentlySelected ? 'product_type_deselected' : 'product_type_selected',
+                productType,
+              });
+            }}
           >
             <div className="inline-flex items-center gap-0.5">
               {label}
