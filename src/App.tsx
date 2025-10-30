@@ -8,6 +8,7 @@ import Wizard from './components/Wizard';
 import config from './config';
 import { MapProvider } from './contexts/MapProvider';
 import PreviewProvider from './contexts/PreviewProvider';
+import TilesContextProvider from './contexts/TilesContextProvider';
 import WizardMachineProvider from './contexts/WizardMachineProvider';
 
 const version = import.meta.env.PACKAGE_VERSION;
@@ -72,21 +73,23 @@ export default function App() {
         </Header>
         <section className="relative flex min-h-0 flex-1 overflow-x-hidden md:mr-2">
           <MapProvider>
-            <PreviewProvider>
-              <Drawer main state={sideBarState} {...sideBarTriggerProps}>
-                <WizardMachineProvider>
-                  <Wizard />
-                </WizardMachineProvider>
-              </Drawer>
-              <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
-                <div className="relative flex-1 overflow-hidden dark:rounded">
-                  <ErrorBoundary FallbackComponent={ErrorFallback}>
-                    <MapContainer />
-                  </ErrorBoundary>
+            <TilesContextProvider>
+              <PreviewProvider>
+                <Drawer main state={sideBarState} {...sideBarTriggerProps}>
+                  <WizardMachineProvider>
+                    <Wizard />
+                  </WizardMachineProvider>
+                </Drawer>
+                <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
+                  <div className="relative flex-1 overflow-hidden dark:rounded">
+                    <ErrorBoundary FallbackComponent={ErrorFallback}>
+                      <MapContainer />
+                    </ErrorBoundary>
+                  </div>
+                  <SocialMedia />
                 </div>
-                <SocialMedia />
-              </div>
-            </PreviewProvider>
+              </PreviewProvider>
+            </TilesContextProvider>
           </MapProvider>
         </section>
       </main>
