@@ -16,10 +16,10 @@ export type AnalyticsEvent =
   | { type: 'result_download_click'; productType: ProductTypeKey; product: string }
   | { type: 'result_web_page_click'; productType: ProductTypeKey; product: string }
   // Step 4 - Tile actions
-  | { type: 'tile_download_click'; productType: ProductTypeKey; tileName: string }
+  | { type: 'tile_download_click'; productType: ProductTypeKey; tileName: string; source: 'popup' | 'sidebar' }
   | { type: 'tile_hover'; productType: ProductTypeKey }
-  | { type: 'tile_metadata_download'; productType: ProductTypeKey }
-  | { type: 'tile_report_download'; productType: ProductTypeKey };
+  | { type: 'tile_metadata_download'; productType: ProductTypeKey; source: 'popup' | 'sidebar' }
+  | { type: 'tile_report_download'; productType: ProductTypeKey; source: 'popup' | 'sidebar' };
 
 export function useAnalytics() {
   const logEvent = useFirebaseAnalytics();

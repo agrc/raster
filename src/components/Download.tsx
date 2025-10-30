@@ -18,6 +18,7 @@ function getMetadataLink(
   url: string,
   productType: ProductTypeKey,
   trackEvent: ReturnType<typeof useAnalytics>['trackEvent'],
+  source: 'popup' | 'sidebar',
 ) {
   if (url.toLocaleLowerCase().endsWith('.xml')) {
     // the heads for XML files from GCP buckets don't let the browser download them directly so we open them in a new tab
@@ -25,7 +26,7 @@ function getMetadataLink(
       <ExternalLink
         href={url}
         onClick={() => {
-          trackEvent({ type: 'tile_metadata_download', productType });
+          trackEvent({ type: 'tile_metadata_download', productType, source });
         }}
       >
         Metadata
@@ -37,7 +38,7 @@ function getMetadataLink(
         href={url}
         download
         onClick={() => {
-          trackEvent({ type: 'tile_metadata_download', productType });
+          trackEvent({ type: 'tile_metadata_download', productType, source });
         }}
       >
         Metadata
@@ -66,7 +67,7 @@ function PopupContent({ attributes, description, metadata, report, productType }
           download
           href={`${PATH}${TILE}${EXT}`}
           onClick={() => {
-            trackEvent({ type: 'tile_download_click', productType, tileName: `${TILE}${EXT}` });
+            trackEvent({ type: 'tile_download_click', productType, tileName: `${TILE}${EXT}`, source: 'popup' });
           }}
         >
           Tile
@@ -74,7 +75,7 @@ function PopupContent({ attributes, description, metadata, report, productType }
         {metadata ? (
           <>
             {' | '}
-            {getMetadataLink(metadata, productType, trackEvent)}
+            {getMetadataLink(metadata, productType, trackEvent, 'popup')}
           </>
         ) : null}
         {report ? (
@@ -84,7 +85,7 @@ function PopupContent({ attributes, description, metadata, report, productType }
               download
               href={report}
               onClick={() => {
-                trackEvent({ type: 'tile_report_download', productType });
+                trackEvent({ type: 'tile_report_download', productType, source: 'popup' });
               }}
             >
               Report
@@ -226,13 +227,13 @@ export default function Download() {
       <p className="font-bold">{description}</p>
       {metadata || report ? (
         <div className="flex justify-between">
-          {metadata && productType && getMetadataLink(metadata, productType, trackEvent)}
+          {metadata && productType && getMetadataLink(metadata, productType, trackEvent, 'sidebar')}
           {report && productType && (
             <Link
               href={report}
               download
               onClick={() => {
-                trackEvent({ type: 'tile_report_download', productType });
+                trackEvent({ type: 'tile_report_download', productType, source: 'sidebar' });
               }}
             >
               Report

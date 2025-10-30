@@ -34,7 +34,7 @@ export default function Tile({ attributes, onHover, isHighlighted, productType }
         )}
         href={`${PATH}${filename}`}
         onClick={() => {
-          trackEvent({ type: 'tile_download_click', productType, tileName: filename });
+          trackEvent({ type: 'tile_download_click', productType, tileName: filename, source: 'sidebar' });
         }}
         onMouseEnter={() => {
           onHover(OBJECTID, true);

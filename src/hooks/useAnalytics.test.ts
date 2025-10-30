@@ -106,14 +106,25 @@ describe('AnalyticsEvent types', () => {
   });
 
   it('should support tile interaction events', () => {
-    const downloadEvent: AnalyticsEvent = {
+    const downloadEventSidebar: AnalyticsEvent = {
       type: 'tile_download_click',
       productType: 'aerialPhotography',
       tileName: 'tile_001.tif',
+      source: 'sidebar',
     };
 
-    expect(downloadEvent.type).toBe('tile_download_click');
-    expect(downloadEvent.tileName).toBe('tile_001.tif');
+    expect(downloadEventSidebar.type).toBe('tile_download_click');
+    expect(downloadEventSidebar.tileName).toBe('tile_001.tif');
+    expect(downloadEventSidebar.source).toBe('sidebar');
+
+    const downloadEventPopup: AnalyticsEvent = {
+      type: 'tile_download_click',
+      productType: 'aerialPhotography',
+      tileName: 'tile_002.tif',
+      source: 'popup',
+    };
+
+    expect(downloadEventPopup.source).toBe('popup');
 
     const hoverEvent: AnalyticsEvent = {
       type: 'tile_hover',
@@ -122,18 +133,38 @@ describe('AnalyticsEvent types', () => {
 
     expect(hoverEvent.type).toBe('tile_hover');
 
-    const metadataEvent: AnalyticsEvent = {
+    const metadataEventSidebar: AnalyticsEvent = {
       type: 'tile_metadata_download',
       productType: 'usgsDem',
+      source: 'sidebar',
     };
 
-    expect(metadataEvent.type).toBe('tile_metadata_download');
+    expect(metadataEventSidebar.type).toBe('tile_metadata_download');
+    expect(metadataEventSidebar.source).toBe('sidebar');
 
-    const reportEvent: AnalyticsEvent = {
+    const metadataEventPopup: AnalyticsEvent = {
+      type: 'tile_metadata_download',
+      productType: 'usgsDem',
+      source: 'popup',
+    };
+
+    expect(metadataEventPopup.source).toBe('popup');
+
+    const reportEventSidebar: AnalyticsEvent = {
       type: 'tile_report_download',
       productType: 'autoDem',
+      source: 'sidebar',
     };
 
-    expect(reportEvent.type).toBe('tile_report_download');
+    expect(reportEventSidebar.type).toBe('tile_report_download');
+    expect(reportEventSidebar.source).toBe('sidebar');
+
+    const reportEventPopup: AnalyticsEvent = {
+      type: 'tile_report_download',
+      productType: 'autoDem',
+      source: 'popup',
+    };
+
+    expect(reportEventPopup.source).toBe('popup');
   });
 });
