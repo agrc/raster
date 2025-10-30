@@ -1,7 +1,7 @@
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import FeatureSet from '@arcgis/core/rest/support/FeatureSet';
 import { useQuery } from '@tanstack/react-query';
-import { Banner, Link } from '@ugrc/utah-design-system';
+import { Banner, ExternalLink, Link } from '@ugrc/utah-design-system';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { BulletList } from 'react-content-loader';
 import { createRoot } from 'react-dom/client';
@@ -18,16 +18,50 @@ import Tile from './Tile';
 
 const fullConfig = resolveConfig(tailwindConfig);
 
-function PopupContent({ attributes }: { attributes: TileFeature['attributes'] }) {
+function getMetadataLink(url: string) {
+  if (url.toLocaleLowerCase().endsWith('.xml')) {
+    // the heads for XML files from GCP buckets don't let the browser download them directly so we open them in a new tab
+    return <ExternalLink href={url}>Metadata</ExternalLink>;
+  } else {
+    return (
+      <Link href={url} download>
+        Metadata
+      </Link>
+    );
+  }
+}
+
+type PopupContentProps = {
+  attributes: TileFeature['attributes'];
+  description: string;
+  metadata?: string;
+  report?: string;
+};
+function PopupContent({ attributes, description, metadata, report }: PopupContentProps) {
   const { PATH, TILE, EXT, SIZE } = attributes;
 
   return (
-    <div className="space-y-2 p-3 text-lg">
+    <div className="space-y-2 p-3">
+      <p>{description}</p>
       <div>
-        <strong>{TILE}</strong>
-      </div>
-      <div>
-        <strong>File:</strong> <Link href={`${PATH}${TILE}${EXT}`}>Tile</Link>
+        <strong>File:</strong>{' '}
+        <Link download href={`${PATH}${TILE}${EXT}`}>
+          Tile
+        </Link>
+        {metadata ? (
+          <>
+            {' | '}
+            {getMetadataLink(metadata)}
+          </>
+        ) : null}
+        {report ? (
+          <>
+            {' | '}
+            <Link download href={report}>
+              Report
+            </Link>
+          </>
+        ) : null}
       </div>
       <div>
         <strong>Size:</strong> <span>{SIZE.toLocaleString()} MB</span>
@@ -38,7 +72,7 @@ function PopupContent({ attributes }: { attributes: TileFeature['attributes'] })
 
 export default function Download() {
   const { snapshot } = useWizardMachine();
-  const [productType, tileIndex] = snapshot.context.download || [];
+  const { productType, tileIndex, description, metadata, report } = snapshot.context.download || {};
   const { mapView, zoom } = useMap();
   const featureLayerRef = useRef<__esri.FeatureLayer | null>(null);
   const { isDarkMode } = useDarkMode();
@@ -101,11 +135,18 @@ export default function Download() {
       popupTemplate: {
         overwriteActions: true,
         outFields: Object.values(config.INDEX_FIELDS),
-        title: 'Tile Details',
+        title: '{TILE}',
         content: ({ graphic }: { graphic: TileFeature }) => {
           const container = document.createElement('div');
           const root = createRoot(container);
-          root.render(<PopupContent attributes={graphic.attributes} />);
+          root.render(
+            <PopupContent
+              attributes={graphic.attributes}
+              description={description ?? ''}
+              metadata={metadata}
+              report={report}
+            />,
+          );
           return container;
         },
       },
@@ -140,11 +181,29 @@ export default function Download() {
     return () => {
       handle?.remove();
     };
-  }, [mapView, data, zoom, setCount, onTileHover]);
+  }, [mapView, data, zoom, setCount, onTileHover, description, metadata, report]);
 
   return (
-    <div className="text-sm">
-      <p>Click on a tile below to download.</p>
+    <div className="flex-col space-y-2 text-sm">
+      <p className="italic">Click on a tile on the map or in the list below to download its associated files.</p>
+      {productType === 'autoDem' ? (
+        <p>
+          <strong>Please note:</strong> The auto-correlation process is not as rigorous as other methods of elevation
+          modeling such as photogrammetry, lidar mapping, radar mapping, etc, and therefore end-users should be aware
+          that anomalies are expected within the elevation dataset.
+        </p>
+      ) : null}
+      <p className="font-bold">{description}</p>
+      {metadata || report ? (
+        <div className="flex justify-between">
+          {metadata && getMetadataLink(metadata)}
+          {report && (
+            <Link href={report} download>
+              Report
+            </Link>
+          )}
+        </div>
+      ) : null}
       {isLoading ? (
         <BulletList
           backgroundColor={isDarkMode ? fullConfig.theme.colors.zinc[800] : fullConfig.theme.colors.zinc[300]}
@@ -153,14 +212,16 @@ export default function Download() {
       ) : error || !data ? (
         <Banner>Error loading tiles</Banner>
       ) : (
-        data.features.map((feature) => (
-          <Tile
-            attributes={feature.attributes}
-            isHighlighted={feature.attributes[config.INDEX_FIELDS.OBJECTID] === highlightedOid}
-            key={feature.attributes[config.INDEX_FIELDS.OBJECTID]}
-            onHover={onTileHover}
-          />
-        ))
+        <div>
+          {data.features.map((feature) => (
+            <Tile
+              attributes={feature.attributes}
+              isHighlighted={feature.attributes[config.INDEX_FIELDS.OBJECTID] === highlightedOid}
+              key={feature.attributes[config.INDEX_FIELDS.OBJECTID]}
+              onHover={onTileHover}
+            />
+          ))}
+        </div>
       )}
     </div>
   );
