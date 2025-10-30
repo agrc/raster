@@ -4,7 +4,13 @@ import type { ProductTypeKey } from '../types';
 export type ContextType = {
   productTypes: ProductTypeKey[];
   aoi: __esri.GeometryUnion | nullish;
-  download: [ProductTypeKey, string] | null;
+  download: {
+    productType: ProductTypeKey;
+    tileIndex: string;
+    description: string;
+    metadata?: string;
+    report?: string;
+  } | null;
 };
 export type StepActionTypes = 'STEP1' | 'STEP2' | 'STEP3';
 
@@ -143,7 +149,14 @@ export const machine = setup({
       | { type: 'STEP2' }
       | { type: 'STEP3' }
       | { type: 'STEP4' }
-      | { type: 'DOWNLOAD'; productType: ProductTypeKey; tileIndex: string }
+      | {
+          type: 'DOWNLOAD';
+          productType: ProductTypeKey;
+          tileIndex: string;
+          description: string;
+          metadata?: string;
+          report?: string;
+        }
       | { type: 'TOGGLE_PRODUCT_TYPE'; productType: ProductTypeKey }
       | { type: 'SET_AOI'; aoi: __esri.GeometryUnion | nullish },
   },
@@ -222,7 +235,13 @@ export const machine = setup({
         DOWNLOAD: {
           target: 'step4',
           actions: assign({
-            download: ({ event }) => [event.productType, event.tileIndex],
+            download: ({ event }) => ({
+              productType: event.productType,
+              tileIndex: event.tileIndex,
+              description: event.description,
+              metadata: event.metadata,
+              report: event.report,
+            }),
           }),
         },
       },

@@ -27,6 +27,9 @@ export type ProductFeature = {
     [config.EXTENT_FIELDS.SHOW]: 'Y' | null;
     [config.EXTENT_FIELDS.Year_Collected]?: string; // lidar only
     [config.EXTENT_FIELDS.Tile_Index]: string;
+    [config.EXTENT_FIELDS.FTP_Path]: string;
+    [config.EXTENT_FIELDS.METADATA]?: string;
+    [config.EXTENT_FIELDS.REPORT]?: string;
   };
 };
 type ProductProps = { feature: ProductFeature; id: number; productType: ProductTypeKey };
@@ -35,7 +38,30 @@ const commonItemClasses = 'rounded ml-3';
 const buttonClasses = 'my-0 rounded px-1';
 
 export default function Product({ feature, id, productType }: ProductProps) {
-  const { Product, Category, Description, ServiceName, HTML_Page, In_House, Tile_Index, OBJECTID } = feature.attributes;
+  const {
+    Product,
+    Category,
+    Description,
+    ServiceName,
+    HTML_Page,
+    In_House,
+    Tile_Index,
+    OBJECTID,
+    METADATA,
+    REPORT,
+    FTP_Path,
+  } = feature.attributes;
+
+  let metadata: string | undefined;
+  let report: string | undefined;
+  if (isUrlLike(FTP_Path)) {
+    if (METADATA) {
+      metadata = `${FTP_Path}${METADATA}`;
+    }
+    if (REPORT) {
+      report = `${FTP_Path}${REPORT}`;
+    }
+  }
 
   const { zoom, placeGraphic } = useMap();
   const { selectedPreviewId, addPreview, removePreview } = usePreview();
@@ -115,7 +141,16 @@ export default function Product({ feature, id, productType }: ProductProps) {
                 <Button
                   variant="accent"
                   size="extraSmall"
-                  onPress={() => send({ type: 'DOWNLOAD', productType, tileIndex: Tile_Index })}
+                  onPress={() =>
+                    send({
+                      type: 'DOWNLOAD',
+                      productType,
+                      tileIndex: Tile_Index,
+                      description: Description,
+                      metadata,
+                      report,
+                    })
+                  }
                 >
                   Download
                 </Button>
