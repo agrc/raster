@@ -123,7 +123,11 @@ const initialStep = 'initialize';
 //       ],
 //     ],
 //   }),
-//   download: ['aerialPhotography', 'NAIP2018_RGB_QQuads'],
+//   download: {
+//     productType: 'aerialPhotography',
+//     tileIndex: 'NAIP2018_RGB_QQuads',
+//     description: 'NAIP 2018 RGB Quarter Quads',
+//   },
 // };
 // const initialStep = 'step4';
 
