@@ -8,7 +8,7 @@ type GraphicOptions = Graphic | Graphic[] | null;
 export const MapContext = createContext<{
   mapView: MapView | null;
   setMapView: (mapView: MapView | null) => void;
-  placeGraphic: (graphic: GraphicOptions) => void;
+  setGraphic: (graphic: GraphicOptions) => void;
   zoom: (geometry: __esri.GoToTarget2D) => void;
 } | null>(null);
 
@@ -26,16 +26,12 @@ export const MapProvider = ({ children }: { children: ReactNode }) => {
     mapView.goTo(geometry.extent.expand(config.DEFAULT_EXTENT_EXPAND));
   };
 
-  const placeGraphic = (graphic: GraphicOptions): void => {
-    setGraphic(graphic);
-  };
-
   return (
     <MapContext.Provider
       value={{
         mapView,
         setMapView,
-        placeGraphic,
+        setGraphic,
         zoom,
       }}
     >

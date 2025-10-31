@@ -1,7 +1,7 @@
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import FeatureSet from '@arcgis/core/rest/support/FeatureSet';
 import { useQuery } from '@tanstack/react-query';
-import { Banner, ExternalLink, Link } from '@ugrc/utah-design-system';
+import { Banner, ExternalLink, Link, useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import config from '../config';
@@ -13,13 +13,28 @@ import type { TileFeature } from '../types';
 import ListLoader from './ListLoader';
 import Tile from './Tile';
 
-function getMetadataLink(url: string) {
+function getMetadataLink(url: string, logEvent: ReturnType<typeof useFirebaseAnalytics>, source: 'popup' | 'sidebar') {
   if (url.toLocaleLowerCase().endsWith('.xml')) {
     // the heads for XML files from GCP buckets don't let the browser download them directly so we open them in a new tab
-    return <ExternalLink href={url}>Metadata</ExternalLink>;
+    return (
+      <ExternalLink
+        href={url}
+        onClick={() => {
+          logEvent('tile_metadata_download', { source });
+        }}
+      >
+        Metadata
+      </ExternalLink>
+    );
   } else {
     return (
-      <Link href={url} download>
+      <Link
+        href={url}
+        download
+        onClick={() => {
+          logEvent('tile_metadata_download', { source });
+        }}
+      >
         Metadata
       </Link>
     );
@@ -34,25 +49,42 @@ type PopupContentProps = {
 };
 function PopupContent({ attributes, description, metadata, report }: PopupContentProps) {
   const { PATH, TILE, EXT, SIZE } = attributes;
+  const logEvent = useFirebaseAnalytics();
 
   return (
     <div className="space-y-2 p-3">
       <p>{description}</p>
       <div>
         <strong>File:</strong>{' '}
-        <Link download href={`${PATH}${TILE}${EXT}`}>
+        <Link
+          download
+          href={`${PATH}${TILE}${EXT}`}
+          onClick={() => {
+            logEvent('tile_download_click', {
+              url: `${PATH}${TILE}${EXT}`,
+              tileName: `${TILE}${EXT}`,
+              source: 'popup',
+            });
+          }}
+        >
           Tile
         </Link>
         {metadata ? (
           <>
             {' | '}
-            {getMetadataLink(metadata)}
+            {getMetadataLink(metadata, logEvent, 'popup')}
           </>
         ) : null}
         {report ? (
           <>
             {' | '}
-            <Link download href={report}>
+            <Link
+              download
+              href={report}
+              onClick={() => {
+                logEvent('tile_report_download', { source: 'popup' });
+              }}
+            >
               Report
             </Link>
           </>
@@ -71,6 +103,7 @@ export default function Download() {
   const { mapView, zoom } = useMap();
   const featureLayerRef = useRef<__esri.FeatureLayer | null>(null);
   const [highlightedOid, setHighlightedOid] = useState<number | null>(null);
+  const logEvent = useFirebaseAnalytics();
   const { data, error, isLoading } = useQuery({
     queryKey: ['tiles', productType, tileIndex, snapshot.context.aoi],
     queryFn: () => getTiles(productType!, tileIndex!, snapshot.context.aoi!),
@@ -175,7 +208,7 @@ export default function Download() {
     return () => {
       handle?.remove();
     };
-  }, [mapView, data, zoom, setCount, onTileHover, description, metadata, report]);
+  }, [mapView, data, zoom, setCount, onTileHover, description, metadata, report, productType]);
 
   return (
     <div className="flex-col space-y-2 text-sm">
@@ -190,9 +223,15 @@ export default function Download() {
       <p className="font-bold">{description}</p>
       {metadata || report ? (
         <div className="flex justify-between">
-          {metadata && getMetadataLink(metadata)}
+          {metadata && getMetadataLink(metadata, logEvent, 'sidebar')}
           {report && (
-            <Link href={report} download>
+            <Link
+              href={report}
+              download
+              onClick={() => {
+                logEvent('tile_report_download', { source: 'sidebar' });
+              }}
+            >
               Report
             </Link>
           )}
