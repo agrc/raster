@@ -9,23 +9,18 @@ import useMap from '../hooks/useMap';
 import useTiles from '../hooks/useTiles';
 import useWizardMachine from '../hooks/useWizardMachine';
 import getTiles from '../services/tiles';
-import type { ProductTypeKey, TileFeature } from '../types';
+import type { TileFeature } from '../types';
 import ListLoader from './ListLoader';
 import Tile from './Tile';
 
-function getMetadataLink(
-  url: string,
-  productType: ProductTypeKey,
-  logEvent: ReturnType<typeof useFirebaseAnalytics>,
-  source: 'popup' | 'sidebar',
-) {
+function getMetadataLink(url: string, logEvent: ReturnType<typeof useFirebaseAnalytics>, source: 'popup' | 'sidebar') {
   if (url.toLocaleLowerCase().endsWith('.xml')) {
     // the heads for XML files from GCP buckets don't let the browser download them directly so we open them in a new tab
     return (
       <ExternalLink
         href={url}
         onClick={() => {
-          logEvent('tile_metadata_download', { productType, source });
+          logEvent('tile_metadata_download', { source });
         }}
       >
         Metadata
@@ -37,7 +32,7 @@ function getMetadataLink(
         href={url}
         download
         onClick={() => {
-          logEvent('tile_metadata_download', { productType, source });
+          logEvent('tile_metadata_download', { source });
         }}
       >
         Metadata
@@ -51,9 +46,8 @@ type PopupContentProps = {
   description: string;
   metadata?: string;
   report?: string;
-  productType: ProductTypeKey;
 };
-function PopupContent({ attributes, description, metadata, report, productType }: PopupContentProps) {
+function PopupContent({ attributes, description, metadata, report }: PopupContentProps) {
   const { PATH, TILE, EXT, SIZE } = attributes;
   const logEvent = useFirebaseAnalytics();
 
@@ -78,7 +72,7 @@ function PopupContent({ attributes, description, metadata, report, productType }
         {metadata ? (
           <>
             {' | '}
-            {getMetadataLink(metadata, productType, logEvent, 'popup')}
+            {getMetadataLink(metadata, logEvent, 'popup')}
           </>
         ) : null}
         {report ? (
@@ -88,7 +82,7 @@ function PopupContent({ attributes, description, metadata, report, productType }
               download
               href={report}
               onClick={() => {
-                logEvent('tile_report_download', { productType, source: 'popup' });
+                logEvent('tile_report_download', { source: 'popup' });
               }}
             >
               Report
@@ -178,7 +172,6 @@ export default function Download() {
               description={description ?? ''}
               metadata={metadata}
               report={report}
-              productType={productType!}
             />,
           );
           return container;
@@ -230,13 +223,13 @@ export default function Download() {
       <p className="font-bold">{description}</p>
       {metadata || report ? (
         <div className="flex justify-between">
-          {metadata && productType && getMetadataLink(metadata, productType, logEvent, 'sidebar')}
-          {report && productType && (
+          {metadata && getMetadataLink(metadata, logEvent, 'sidebar')}
+          {report && (
             <Link
               href={report}
               download
               onClick={() => {
-                logEvent('tile_report_download', { productType, source: 'sidebar' });
+                logEvent('tile_report_download', { source: 'sidebar' });
               }}
             >
               Report
