@@ -1,9 +1,11 @@
-import { and, assign, setup } from 'xstate';
+import { and, assign, fromPromise, setup } from 'xstate';
 import type { ProductTypeKey } from '../types';
+import { getInitialProductTypes, parseUrlParams } from './urlParams';
 
 export type ContextType = {
   productTypes: ProductTypeKey[];
-  aoi: __esri.GeometryUnion | nullish;
+  urlCategories?: string[];
+  aoi?: __esri.GeometryUnion | nullish;
   download: {
     productType: ProductTypeKey;
     tileIndex: string;
@@ -20,7 +22,7 @@ const initialContext: ContextType = {
   aoi: null,
   download: null,
 };
-const initialStep = 'step1';
+const initialStep = 'initialize';
 
 // uncomment to default to step 2
 // const initialContext: ContextType = {
@@ -133,7 +135,7 @@ const initialStep = 'step1';
  * @param {T} value - The value to toggle in the list.
  * @returns {T[]} A new array with the value added or removed.
  */
-export function toggleValueInList<T>(currentList: T[], value: T) {
+export function toggleValueInList<T>(currentList: T[], value: T): T[] {
   if (currentList.includes(value)) {
     return currentList.filter((v) => v !== value);
   } else {
@@ -160,6 +162,9 @@ export const machine = setup({
       | { type: 'TOGGLE_PRODUCT_TYPE'; productType: ProductTypeKey }
       | { type: 'SET_AOI'; aoi: __esri.GeometryUnion | nullish },
   },
+  actors: {
+    getInitialProductTypes: fromPromise(getInitialProductTypes),
+  },
   guards: {
     hasProductTypes: ({ context }) => context.productTypes.length > 0,
     hasAoi: ({ context }) => context.aoi !== null,
@@ -171,6 +176,24 @@ export const machine = setup({
   context: initialContext,
   initial: initialStep,
   states: {
+    initialize: {
+      invoke: {
+        src: 'getInitialProductTypes',
+        onDone: {
+          actions: assign({
+            productTypes: ({ event }) => event.output,
+            urlCategories: () => parseUrlParams().categories,
+          }),
+          target: 'evaluate',
+        },
+        onError: {
+          target: 'step1',
+        },
+      },
+    },
+    evaluate: {
+      always: [{ guard: 'hasProductTypes', target: 'step2' }, { target: 'step1' }],
+    },
     step1: {
       on: {
         STEP2: {

@@ -10,6 +10,7 @@ import { MapProvider } from './contexts/MapProvider';
 import PreviewProvider from './contexts/PreviewProvider';
 import TilesContextProvider from './contexts/TilesContextProvider';
 import WizardMachineProvider from './contexts/WizardMachineProvider';
+import { useUrlParams } from './hooks/useUrlParams';
 
 const version = import.meta.env.PACKAGE_VERSION;
 
@@ -54,6 +55,7 @@ export default function App() {
     },
     sideBarState,
   );
+  const { title } = useUrlParams();
 
   // initialize firebase performance metrics
   useEffect(() => {
@@ -75,7 +77,7 @@ export default function App() {
           <div className="flex h-full grow items-center gap-3">
             <UgrcLogo />
             <h2 className="font-heading text-2xl font-black text-zinc-600 md:text-4xl lg:text-5xl dark:text-zinc-100">
-              UGRC Raster Data Discovery
+              {title ?? 'UGRC Raster Data Discovery'}
             </h2>
           </div>
         </Header>
