@@ -66,7 +66,11 @@ function PopupContent({ attributes, description, metadata, report, productType }
           download
           href={`${PATH}${TILE}${EXT}`}
           onClick={() => {
-            logEvent('tile_download_click', { url: `${PATH}${TILE}${EXT}`, tileName: `${TILE}${EXT}`, source: 'popup' });
+            logEvent('tile_download_click', {
+              url: `${PATH}${TILE}${EXT}`,
+              tileName: `${TILE}${EXT}`,
+              source: 'popup',
+            });
           }}
         >
           Tile
