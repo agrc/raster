@@ -1,3 +1,4 @@
+import { whenOnce } from '@arcgis/core/core/reactiveUtils';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import FeatureSet from '@arcgis/core/rest/support/FeatureSet';
 import { useQuery } from '@tanstack/react-query';
@@ -12,6 +13,9 @@ import getTiles from '../services/tiles';
 import type { TileFeature } from '../types';
 import ListLoader from './ListLoader';
 import Tile from './Tile';
+const NO = 'no';
+const YES = 'yes';
+const DOWNLOADED = 'downloaded';
 
 function getMetadataLink(url: string, logEvent: ReturnType<typeof useFirebaseAnalytics>, source: 'popup' | 'sidebar') {
   if (url.toLocaleLowerCase().endsWith('.xml')) {
@@ -46,10 +50,12 @@ type PopupContentProps = {
   description: string;
   metadata?: string;
   report?: string;
+  // we have to pass these as props since this component is rendered outside of React tree and thus doesn't have access to contexts
+  logEvent: ReturnType<typeof useFirebaseAnalytics>;
+  markAsDownloaded: (objectId: number) => void;
 };
-function PopupContent({ attributes, description, metadata, report }: PopupContentProps) {
-  const { PATH, TILE, EXT, SIZE } = attributes;
-  const logEvent = useFirebaseAnalytics();
+function PopupContent({ attributes, description, metadata, report, logEvent, markAsDownloaded }: PopupContentProps) {
+  const { PATH, TILE, EXT, SIZE, OBJECTID } = attributes;
 
   return (
     <div className="space-y-2 p-3">
@@ -60,6 +66,7 @@ function PopupContent({ attributes, description, metadata, report }: PopupConten
           download
           href={`${PATH}${TILE}${EXT}`}
           onClick={() => {
+            markAsDownloaded(OBJECTID);
             logEvent('tile_download_click', {
               url: `${PATH}${TILE}${EXT}`,
               tileName: `${TILE}${EXT}`,
@@ -110,18 +117,18 @@ export default function Download() {
     enabled: !!productType && !!tileIndex,
   });
 
-  const { setCount } = useTiles();
+  const { setCount, clear, downloadedTiles, markAsDownloaded } = useTiles();
 
+  // remove feature layer and clear tiles when productType or tileIndex is unset
   useEffect(() => {
     if (!productType || !tileIndex) {
       if (featureLayerRef.current && mapView?.map) {
         mapView.map.remove(featureLayerRef.current);
         featureLayerRef.current = null;
+        clear();
       }
     }
-
-    setCount(null);
-  }, [productType, tileIndex, mapView, setCount]);
+  }, [productType, tileIndex, mapView, clear]);
 
   const onTileHover = useCallback(
     (objectId: number, on: boolean) => {
@@ -133,7 +140,7 @@ export default function Download() {
             where: `${config.INDEX_FIELDS.OBJECTID} = ${objectId}`,
           },
           excludedEffect: 'blur(1px) opacity(60%)',
-          includedEffect: 'drop-shadow(2px, 2px, 3px) bloom(1.5, 0.5px, 0.1)',
+          includedEffect: 'drop-shadow(2px, 2px, 3px)',
         };
         setHighlightedOid(objectId);
       } else {
@@ -144,19 +151,68 @@ export default function Download() {
     [mapView],
   );
 
+  // Update feature layer when tiles are downloaded
   useEffect(() => {
-    if (!mapView?.map || !data) return;
+    if (!featureLayerRef.current || !mapView || downloadedTiles.size === 0) return;
+
+    const layer = featureLayerRef.current;
+
+    // Query only the downloaded features for efficiency
+    const objectIds = Array.from(downloadedTiles).join(',');
+    if (!objectIds) return;
+    layer
+      .queryFeatures({
+        where: `${config.INDEX_FIELDS.OBJECTID} IN (${objectIds})`,
+        outFields: ['*'],
+        returnGeometry: false,
+      })
+      .then((result) => {
+        const edits = result.features.map((feature) => {
+          feature.attributes[DOWNLOADED] = YES;
+          return feature;
+        });
+
+        if (edits.length > 0) {
+          return layer.applyEdits({
+            updateFeatures: edits,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error('Failed to update downloaded tile visualization:', error);
+      });
+  }, [downloadedTiles, mapView]);
+
+  // add feature layer
+  useEffect(() => {
+    if (!mapView?.map || !data || featureLayerRef.current) return;
+
+    const downloadedField: __esri.FieldProperties = {
+      name: DOWNLOADED,
+      type: 'string',
+      defaultValue: NO,
+    };
 
     const featureSet = FeatureSet.fromJSON(data) as FeatureSet;
 
     featureLayerRef.current = new FeatureLayer({
       source: featureSet.features,
-      fields: featureSet.fields,
+      fields: [...featureSet.fields, downloadedField],
       objectIdField: data.objectIdFieldName,
       geometryType: 'polygon',
       renderer: {
-        type: 'simple',
-        symbol: config.TILE_SYMBOL,
+        type: 'unique-value',
+        field: DOWNLOADED,
+        uniqueValueInfos: [
+          {
+            value: NO,
+            symbol: config.TILE_SYMBOL,
+          },
+          {
+            value: YES,
+            symbol: config.DOWNLOADED_TILE_SYMBOL,
+          },
+        ],
       },
       popupEnabled: true,
       popupTemplate: {
@@ -172,6 +228,8 @@ export default function Download() {
               description={description ?? ''}
               metadata={metadata}
               report={report}
+              logEvent={logEvent}
+              markAsDownloaded={markAsDownloaded}
             />,
           );
           return container;
@@ -180,7 +238,7 @@ export default function Download() {
     });
 
     mapView.map.add(featureLayerRef.current);
-    featureLayerRef.current.when(() => {
+    whenOnce(() => featureLayerRef.current?.fullExtent).then(() => {
       zoom(featureLayerRef.current!.fullExtent);
     });
 
@@ -208,7 +266,19 @@ export default function Download() {
     return () => {
       handle?.remove();
     };
-  }, [mapView, data, zoom, setCount, onTileHover, description, metadata, report, productType]);
+  }, [
+    mapView,
+    data,
+    zoom,
+    setCount,
+    onTileHover,
+    description,
+    metadata,
+    report,
+    productType,
+    logEvent,
+    markAsDownloaded,
+  ]);
 
   return (
     <div className="flex-col space-y-2 text-sm">

@@ -1,11 +1,14 @@
+import Color from '@arcgis/core/Color';
 import PictureMarkerSymbol from '@arcgis/core/symbols/PictureMarkerSymbol';
 import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
 import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol';
 import resolveConfig from 'tailwindcss/resolveConfig';
-import tailwindConfig from '../tailwind.config.js';
+import tailwindConfig from '../tailwind.config';
 import type { ProductTypeKey } from './types';
 
 const fullConfig = resolveConfig(tailwindConfig);
+const green = new Color(fullConfig.theme.colors.green[600]);
+const greenTransparent = new Color([green.r, green.g, green.b, 0.75]);
 
 const demMoreInfoFieldInfos = {
   File_Format: 'File Format',
@@ -60,6 +63,7 @@ type Config = {
   };
   RESULT_SYMBOL: SimpleFillSymbol;
   TILE_SYMBOL: SimpleFillSymbol;
+  DOWNLOADED_TILE_SYMBOL: SimpleFillSymbol;
   MAP_ELEMENT_ID: string;
   EXTENT_SERVICE_URLS: Record<ProductTypeKey, `https://${string}`>;
   INDEX_SERVICE_URLS: Record<ProductTypeKey, `https://${string}`>;
@@ -115,6 +119,14 @@ const config: Config = {
     outline: {
       // @ts-expect-error this is a custom color
       color: fullConfig.theme.colors.primary[500],
+      width: 2,
+    },
+  }),
+  DOWNLOADED_TILE_SYMBOL: new SimpleFillSymbol({
+    style: 'solid',
+    color: greenTransparent,
+    outline: {
+      color: fullConfig.theme.colors.green[800],
       width: 2,
     },
   }),
