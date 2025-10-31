@@ -1,4 +1,4 @@
-import { Link } from '@ugrc/utah-design-system';
+import { Link, useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import { useEffect, useRef } from 'react';
 import { twJoin } from 'tailwind-merge';
 import type { TileFeature } from '../types';
@@ -14,6 +14,7 @@ export default function Tile({ attributes, onHover, isHighlighted }: TileProps) 
   const filename = `${TILE}${EXT}`;
 
   const rootNodeRef = useRef<HTMLDivElement>(null);
+  const logEvent = useFirebaseAnalytics();
 
   useEffect(() => {
     if (isHighlighted) {
@@ -30,6 +31,9 @@ export default function Tile({ attributes, onHover, isHighlighted }: TileProps) 
           isHighlighted && 'bg-zinc-50 font-bold dark:bg-zinc-800',
         )}
         href={`${PATH}${filename}`}
+        onClick={() => {
+          logEvent('tile_download_click', { url: `${PATH}${filename}`, tileName: filename, source: 'sidebar' });
+        }}
         onMouseEnter={() => onHover(OBJECTID, true)}
         onMouseLeave={() => onHover(OBJECTID, false)}
       >
