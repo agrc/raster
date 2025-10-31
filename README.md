@@ -130,6 +130,40 @@ The download button is only shown for products where `In_House` equals `Yes`.
 
 The "web page" link is only shown for products where the `HTML_Page` field contains a valid URL.
 
+### Deep links and URL parameters
+
+You can pre-configure the app via the URL to create shareable links that focus the experience on certain products and categories, and optionally set a custom page title. These parameters are read on load and influence both the map and the wizard flow.
+
+#### Supported query parameters
+
+- `title` (string, optional)
+  - Sets the large heading in the site header.
+  - Example: `?title=Summit%20County%20Raster%20Finder`
+
+- `cat` (string, optional)
+  - A single category to filter results to. Must match a category label from the extents data (see “Category” above). Associated product types will be pre-selected on Step 1.
+  - Example: `?cat=Contours`
+
+- `catGroup` (comma-separated list of strings, optional)
+  - Multiple categories to filter to.
+  - Example: `?catGroup=Elevation%20Models,Slope%20Maps`
+
+- `products` (comma-separated list of numbers, optional)
+  - Pre-selects product types on Step 1 by index, using the fixed order defined in `src/config.ts` under `PRODUCT_TYPES`.
+  - Current mapping (index ➜ type):
+    - `0` ➜ Aerial Photography (`aerialPhotography`)
+    - `1` ➜ Lidar DEMs (`lidar`)
+    - `2` ➜ USGS DEMs (`usgsDem`)
+    - `3` ➜ Auto-Correlated DEMs (`autoDem`)
+    - `4` ➜ Contours (`contours`)
+    - `5` ➜ USGS Topo Maps (`drg`)
+  - Non-numeric entries and out-of-range indexes are ignored.
+  - Example: `?products=1,5`
+
+You can combine all of the above, for example:
+
+- `?title=Summit%20County&cat=Contours&catGroup=Elevation%20Models,Slope%20Maps&products=1,5`
+
 ## Attribution
 
 This project was developed with the assistance of [GitHub Copilot](https://github.com/features/copilot).

@@ -1,17 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { Banner, Button, ExternalLink, Link } from '@ugrc/utah-design-system';
 import { X } from 'lucide-react';
-import { BulletList } from 'react-content-loader';
 import { twJoin } from 'tailwind-merge';
-import resolveConfig from 'tailwindcss/resolveConfig';
-import { useDarkMode } from 'usehooks-ts';
-import tailwindConfig from '../../tailwind.config';
 import config from '../config';
 import getMoreInfo from '../services/moreInfo';
 import type { ProductTypeKey } from '../types';
+import ListLoader from './ListLoader';
 import { isUrlLike } from './utils';
 
-const fullConfig = resolveConfig(tailwindConfig);
 const commonTableCellClasses = 'py-2 [tr:not(:last-child)_&]:border-b';
 
 export function turnEmailsIntoLinks(text: string | null | undefined) {
@@ -52,7 +48,6 @@ export default function MoreInfo({ title, productType, objectId, getMoreInfoFn =
     queryKey: ['moreInfo', productType, objectId],
     queryFn: () => getMoreInfoFn(productType, objectId),
   });
-  const { isDarkMode } = useDarkMode();
 
   return (
     <>
@@ -63,10 +58,7 @@ export default function MoreInfo({ title, productType, objectId, getMoreInfoFn =
         </Button>
       </div>
       {isLoading ? (
-        <BulletList
-          backgroundColor={isDarkMode ? fullConfig.theme.colors.zinc[800] : fullConfig.theme.colors.zinc[300]}
-          foregroundColor="#FFFFFF"
-        />
+        <ListLoader />
       ) : error || !data ? (
         <Banner>Error loading more information</Banner>
       ) : (

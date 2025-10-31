@@ -66,7 +66,7 @@ describe('query', () => {
       orderByFields: `${config.EXTENT_FIELDS.Estimated_Date} DESC`,
       outFields: expectedOutFields,
       returnGeometry: true,
-      where: `upper(${config.EXTENT_FIELDS.SHOW}) = 'Y'`,
+      where: `lower(${config.EXTENT_FIELDS.SHOW}) = 'y'`,
     });
   };
 

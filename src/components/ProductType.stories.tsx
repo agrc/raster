@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState, type ComponentType } from 'react';
 import { MapViewDecorator } from '../../.storybook/decorators/MapView';
 import { PreviewDecorator } from '../../.storybook/decorators/Preview';
+import { WizardMachineDecorator } from '../../.storybook/decorators/WizardMachine';
 import config from '../config';
 import type { ProductFeature } from './Product';
 import ProductType from './ProductType';
@@ -32,7 +33,7 @@ const QueryClientDecorator = (Story: ComponentType) => {
 
 const meta = {
   component: ProductType,
-  decorators: [QueryClientDecorator, MapViewDecorator, PreviewDecorator],
+  decorators: [QueryClientDecorator, MapViewDecorator, PreviewDecorator, WizardMachineDecorator],
   args: {
     productType: 'lidar',
     aoi: mockAoi,

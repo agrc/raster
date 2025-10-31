@@ -1,16 +1,18 @@
-import { Button, Checkbox, Tooltip } from '@ugrc/utah-design-system';
+import { Button, Checkbox, Link, Tooltip } from '@ugrc/utah-design-system';
 import { HelpCircle } from 'lucide-react';
 import { TooltipTrigger } from 'react-aria-components';
 import config from '../config';
+import { useUrlParams } from '../hooks/useUrlParams';
 import useWizardMachine from '../hooks/useWizardMachine';
 import type { ProductTypeKey } from '../types';
 
 export default function SelectProductTypes() {
   const { snapshot, send } = useWizardMachine();
+  const { hasFilters, categories } = useUrlParams();
 
   return (
-    <div className="space-y-2">
-      <p className="text-sm">Please select the type of product(s) you are looking for...</p>
+    <div className="space-y-2 text-sm">
+      <p>Please select the type of product(s) you are looking for...</p>
       {Object.entries(config.PRODUCT_TYPES).map(([key, label]) => (
         <div key={key}>
           <Checkbox
@@ -29,7 +31,8 @@ export default function SelectProductTypes() {
           </Checkbox>
         </div>
       ))}
-      <p className="text-sm">...then proceed to Step 2 below</p>
+      <p>...then proceed to Step 2 below</p>
+      {hasFilters && <Link href="/">Want to search for more than {categories.join(', ')}?</Link>}
     </div>
   );
 }
