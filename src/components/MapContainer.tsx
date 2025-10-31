@@ -16,7 +16,7 @@ import TilesControls from './TilesControls';
 
 export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMapElement['arcgisViewClick']> }) => {
   const [selectorOptions, setSelectorOptions] = useState<LayerSelectorProps | null>(null);
-  const { setMapView, placeGraphic } = useMap();
+  const { setMapView, setGraphic: setGraphic } = useMap();
   const mapRef = useRef<HTMLArcgisMapElement>(null);
   const viewIsLoading = useViewLoading(mapRef.current?.view);
 
@@ -29,9 +29,9 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
   // place any graphics from the categories passed in via URL
   useEffect(() => {
     if (urlData?.graphics) {
-      placeGraphic(urlData.graphics);
+      setGraphic(urlData.graphics);
     }
-  }, [urlData?.graphics, placeGraphic]);
+  }, [urlData?.graphics, setGraphic]);
 
   // setup the Map
   useEffect(() => {

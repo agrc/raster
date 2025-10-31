@@ -63,7 +63,7 @@ export default function Product({ feature, id, productType }: ProductProps) {
     }
   }
 
-  const { zoom, placeGraphic } = useMap();
+  const { zoom, setGraphic } = useMap();
   const { selectedPreviewId, addPreview, removePreview } = usePreview();
   const { send } = useWizardMachine();
   const logEvent = useFirebaseAnalytics();
@@ -76,10 +76,10 @@ export default function Product({ feature, id, productType }: ProductProps) {
   });
 
   const addGraphic = () => {
-    placeGraphic(new Graphic({ geometry, symbol: config.RESULT_SYMBOL }));
+    setGraphic(new Graphic({ geometry, symbol: config.RESULT_SYMBOL }));
   };
   const removeGraphic = () => {
-    placeGraphic(null);
+    setGraphic(null);
   };
 
   const onAddPreview = () => {
