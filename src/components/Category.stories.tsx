@@ -2,13 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tree } from 'react-aria-components';
 import { MapViewDecorator } from '../../.storybook/decorators/MapView';
 import { PreviewDecorator } from '../../.storybook/decorators/Preview';
+import { WizardMachineDecorator } from '../../.storybook/decorators/WizardMachine';
 import config from '../config';
 import Category from './Category';
 import type { ProductFeature } from './Product';
 
 const meta = {
   component: Category,
-  decorators: [MapViewDecorator, PreviewDecorator],
+  decorators: [MapViewDecorator, PreviewDecorator, WizardMachineDecorator],
   render: (args) => (
     <div className="w-80 rounded-b-lg bg-gray-100 px-2 py-2 dark:bg-black">
       <Tree aria-label="Category" selectionMode="none" defaultExpandedKeys={[args.category]}>

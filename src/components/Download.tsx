@@ -3,20 +3,15 @@ import FeatureSet from '@arcgis/core/rest/support/FeatureSet';
 import { useQuery } from '@tanstack/react-query';
 import { Banner, ExternalLink, Link } from '@ugrc/utah-design-system';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { BulletList } from 'react-content-loader';
 import { createRoot } from 'react-dom/client';
-import resolveConfig from 'tailwindcss/resolveConfig';
-import { useDarkMode } from 'usehooks-ts';
-import tailwindConfig from '../../tailwind.config';
 import config from '../config';
 import useMap from '../hooks/useMap';
 import useTiles from '../hooks/useTiles';
 import useWizardMachine from '../hooks/useWizardMachine';
 import getTiles from '../services/tiles';
 import type { TileFeature } from '../types';
+import ListLoader from './ListLoader';
 import Tile from './Tile';
-
-const fullConfig = resolveConfig(tailwindConfig);
 
 function getMetadataLink(url: string) {
   if (url.toLocaleLowerCase().endsWith('.xml')) {
@@ -75,7 +70,6 @@ export default function Download() {
   const { productType, tileIndex, description, metadata, report } = snapshot.context.download || {};
   const { mapView, zoom } = useMap();
   const featureLayerRef = useRef<__esri.FeatureLayer | null>(null);
-  const { isDarkMode } = useDarkMode();
   const [highlightedOid, setHighlightedOid] = useState<number | null>(null);
   const { data, error, isLoading } = useQuery({
     queryKey: ['tiles', productType, tileIndex, snapshot.context.aoi],
@@ -205,10 +199,7 @@ export default function Download() {
         </div>
       ) : null}
       {isLoading ? (
-        <BulletList
-          backgroundColor={isDarkMode ? fullConfig.theme.colors.zinc[800] : fullConfig.theme.colors.zinc[300]}
-          foregroundColor="#FFFFFF"
-        />
+        <ListLoader />
       ) : error || !data ? (
         <Banner>Error loading tiles</Banner>
       ) : (
