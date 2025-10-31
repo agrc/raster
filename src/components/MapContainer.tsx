@@ -16,7 +16,7 @@ import TilesControls from './TilesControls';
 
 export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMapElement['arcgisViewClick']> }) => {
   const [selectorOptions, setSelectorOptions] = useState<LayerSelectorProps | null>(null);
-  const { setMapView, setGraphic: setGraphic } = useMap();
+  const { setMapView, setGraphic } = useMap();
   const mapRef = useRef<HTMLArcgisMapElement>(null);
   const viewIsLoading = useViewLoading(mapRef.current?.view);
 
