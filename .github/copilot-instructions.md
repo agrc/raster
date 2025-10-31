@@ -74,7 +74,7 @@ Large vendor bundles live in `public/assets/esri` & `public/assets/components`; 
 ## Coding guidelines and conventions
 
 - Favor React function components + hooks; wrap map interactions in context (`useMap`) rather than prop-drilling raw `MapView` references.
-- Keep `MapProvider` the single source of truth for map state (`setMapView`, `placeGraphic`, `zoom`). Log warnings instead of throwing when map isn't ready (matches existing patterns).
+- Keep `MapProvider` the single source of truth for map state (`setMapView`, `setGraphic`, `zoom`). Log warnings instead of throwing when map isn't ready (matches existing patterns).
 - Use XState for complex wizard/workflow state management; the wizard machine lives in `src/services/wizardMachine.ts` and is accessed via `WizardMachineProvider` + `useWizardMachine` hook.
 - Use `@tanstack/react-query` for server-side data fetching (e.g., ArcGIS REST queries); wrap API calls in `services/` modules.
 - Type imports using `__esri.*` ambient types (ArcGIS supplies them globally); avoid duplicating type definitions.
@@ -88,7 +88,7 @@ Large vendor bundles live in `public/assets/esri` & `public/assets/components`; 
 
 - `MapContainer` creates an `<arcgis-map>` web component (from `@arcgis/map-components`) and disables zoom snapping. Modify layer setup via context/hook once `mapView` is ready. Uses `watch()` from `@arcgis/core/core/reactiveUtils` to detect view readiness.
 - The `LayerSelector` component expects `selectorOptions.options.view` and a valid Discover token (`VITE_DISCOVER`); re-use that shape when extending.
-- `MapProvider` wraps `useGraphicManager` (from `@ugrc/utilities`) to manage temporary graphics. Call `placeGraphic` with `Graphic | Graphic[] | null` to add/remove graphics on the map.
+- `MapProvider` wraps `useGraphicManager` (from `@ugrc/utilities`) to manage temporary graphics. Call `setGraphic` with `Graphic | Graphic[] | null` to add/remove graphics on the map.
 - `useViewLoading` hook (from `@ugrc/utilities`) tracks map loading state and drives the `BusyBar` component.
 - Tree-shaking ArcGIS modules: import from `@arcgis/core/...` (ESM). When adding layers/widgets, always `await layer.when()` before interacting, otherwise the map will warn in dev.
 - Map web components must be registered via imports: `import '@arcgis/map-components/components/arcgis-map'` etc.
