@@ -4,19 +4,34 @@ import '@arcgis/map-components/components/arcgis-home';
 import '@arcgis/map-components/components/arcgis-locate';
 import '@arcgis/map-components/components/arcgis-map';
 import '@arcgis/map-components/components/arcgis-zoom';
+import { useQuery } from '@tanstack/react-query';
 import { BusyBar, LayerSelector, type LayerSelectorProps } from '@ugrc/utah-design-system';
 import { useViewLoading, utahMercatorExtent } from '@ugrc/utilities/hooks';
 import { useEffect, useRef, useState } from 'react';
 import config from '../config';
 import useMap from '../hooks/useMap';
+import { getGraphicsAndExtent, parseUrlParams } from '../services/urlParams';
 import PreviewControls from './PreviewControls';
 import TilesControls from './TilesControls';
 
 export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMapElement['arcgisViewClick']> }) => {
   const [selectorOptions, setSelectorOptions] = useState<LayerSelectorProps | null>(null);
-  const { setMapView } = useMap();
+  const { setMapView, placeGraphic } = useMap();
   const mapRef = useRef<HTMLArcgisMapElement>(null);
   const viewIsLoading = useViewLoading(mapRef.current?.view);
+
+  const { data: urlData } = useQuery({
+    queryKey: ['urlExtents'],
+    queryFn: () => getGraphicsAndExtent(parseUrlParams()),
+    staleTime: Infinity,
+  });
+
+  // place any graphics from the categories passed in via URL
+  useEffect(() => {
+    if (urlData?.graphics) {
+      placeGraphic(urlData.graphics);
+    }
+  }, [urlData?.graphics, placeGraphic]);
 
   // setup the Map
   useEffect(() => {
@@ -49,7 +64,9 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
       ref={mapRef}
       className="size-full"
       onarcgisViewClick={onClick}
-      extent={utahMercatorExtent.expand(config.DEFAULT_EXTENT_EXPAND)}
+      extent={
+        urlData?.extent?.expand(config.DEFAULT_EXTENT_EXPAND) ?? utahMercatorExtent.expand(config.DEFAULT_EXTENT_EXPAND)
+      }
       // @ts-expect-error Esri types are too strict
       popup={{
         dockOptions: {

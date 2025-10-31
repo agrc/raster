@@ -1,17 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { Banner } from '@ugrc/utah-design-system';
 import { Tree, TreeItem } from 'react-aria-components';
-import { List } from 'react-content-loader';
-import resolveConfig from 'tailwindcss/resolveConfig';
-import { useDarkMode } from 'usehooks-ts';
-import tailwindConfig from '../../tailwind.config.js';
 import config from '../config';
+import useWizardMachine from '../hooks/useWizardMachine';
 import search from '../services/search';
 import type { ProductTypeKey } from '../types';
-import Category from './Category.js';
+import Category from './Category';
+import ListLoader from './ListLoader';
 import { TreeItemContent } from './TreeItemContent';
-
-const fullConfig = resolveConfig(tailwindConfig);
 
 type ProductTypeProps = {
   productType: ProductTypeKey;
@@ -23,22 +19,19 @@ type ProductTypeProps = {
 const topLevelClasses = 'text-lg font-semibold [&:not(:first-child)]:mt-1';
 
 export default function ProductType({ productType, aoi, isOnly, searchFn = search }: ProductTypeProps) {
+  const { snapshot } = useWizardMachine();
   const { data, error, isLoading } = useQuery({
-    queryKey: ['searchResults', productType, aoi],
-    queryFn: () => searchFn(productType, aoi as __esri.GeometryUnion),
+    queryKey: ['searchResults', productType, aoi, snapshot.context.urlCategories],
+    queryFn: () => searchFn(productType, aoi as __esri.GeometryUnion, snapshot.context.urlCategories),
   });
 
-  const { isDarkMode } = useDarkMode();
   const title = config.PRODUCT_TYPES[productType];
 
   if (isLoading) {
     return (
       <>
         <span className={topLevelClasses}>{title}</span>
-        <List
-          backgroundColor={isDarkMode ? fullConfig.theme.colors.zinc[800] : fullConfig.theme.colors.zinc[300]}
-          foregroundColor="#FFFFFF"
-        />
+        <ListLoader />
       </>
     );
   }
