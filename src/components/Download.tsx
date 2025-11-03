@@ -104,6 +104,9 @@ function PopupContent({ attributes, description, metadata, report, logEvent, mar
   );
 }
 
+const popupContainer = document.createElement('div');
+const popupRoot = createRoot(popupContainer);
+
 export default function Download() {
   const { snapshot } = useWizardMachine();
   const { productType, tileIndex, description, metadata, report } = snapshot.context.download || {};
@@ -220,9 +223,7 @@ export default function Download() {
         outFields: Object.values(config.INDEX_FIELDS),
         title: '{TILE}',
         content: ({ graphic }: { graphic: TileFeature }) => {
-          const container = document.createElement('div');
-          const root = createRoot(container);
-          root.render(
+          popupRoot.render(
             <PopupContent
               attributes={graphic.attributes}
               description={description ?? ''}
@@ -232,7 +233,7 @@ export default function Download() {
               markAsDownloaded={markAsDownloaded}
             />,
           );
-          return container;
+          return popupContainer;
         },
       },
     });
