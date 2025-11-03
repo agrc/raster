@@ -48,8 +48,8 @@ export function parseUrlParams(): UrlParams {
 
   const productTypes = productIndexes
     ? productIndexes
-        .map((index) => Object.keys(config.PRODUCT_TYPES)[index])
-        .filter((pt): pt is ProductTypeKey => !!pt && pt in config.PRODUCT_TYPES)
+        .filter((index) => index in config.PRODUCT_TYPE_INDEX)
+        .map((index) => config.PRODUCT_TYPE_INDEX[index]!)
     : [];
 
   return {
