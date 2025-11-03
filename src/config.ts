@@ -57,6 +57,7 @@ type Config = {
   MIN_DESKTOP_WIDTH: number;
   PRODUCT_TYPES: Record<ProductTypeKey, string>;
   PRODUCT_TYPE_DESCRIPTIONS: Record<ProductTypeKey, string>;
+  PRODUCT_TYPE_INDEX: Record<number, ProductTypeKey>;
   DRAWING_SYMBOLS: {
     POINT: PictureMarkerSymbol;
     LINE: SimpleLineSymbol;
@@ -93,6 +94,15 @@ const config: Config = {
     autoDem: 'Digital elevation models derived through an auto-correlation process from aerial photography',
     contours: 'Contour lines created at various intervals from Lidar and other sources',
     drg: 'U.S. Geological Survey topographic maps',
+  },
+  // this is to preserve URL parameters in case we ever re-order the product types in the UI
+  PRODUCT_TYPE_INDEX: {
+    0: 'aerialPhotography',
+    1: 'lidar',
+    2: 'usgsDem',
+    3: 'autoDem',
+    4: 'contours',
+    5: 'drg',
   },
   DRAWING_SYMBOLS: {
     POINT: new PictureMarkerSymbol({
