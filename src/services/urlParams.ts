@@ -85,7 +85,7 @@ export async function getInitialProductTypes(): Promise<ProductTypeKey[]> {
     );
   }
 
-  return productTypesFromCategories.concat(urlParams.productTypes);
+  return Array.from(new Set(productTypesFromCategories.concat(urlParams.productTypes)));
 }
 
 export async function getGraphicsAndExtent(urlParams?: UrlParams) {
@@ -99,7 +99,7 @@ export async function getGraphicsAndExtent(urlParams?: UrlParams) {
   await Promise.all(
     Object.keys(config.PRODUCT_TYPES).map(async (pt) => {
       const options: Partial<IQueryFeaturesOptions> = {
-        where: `lower(${config.EXTENT_FIELDS.Category}) in ('${categories.map((c) => c.toLowerCase()).join("','")}') AND upper(${config.EXTENT_FIELDS.SHOW}) = 'Y'`,
+        where: `lower(${config.EXTENT_FIELDS.Category}) in ('${categories.map((c) => c.toLowerCase().replace(/'/g, "''")).join("','")}') AND upper(${config.EXTENT_FIELDS.SHOW}) = 'Y'`,
       };
 
       const response = (await queryFeatures({

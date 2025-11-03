@@ -18,7 +18,7 @@ const YES = 'yes';
 const DOWNLOADED = 'downloaded';
 
 function getMetadataLink(url: string, logEvent: ReturnType<typeof useFirebaseAnalytics>, source: 'popup' | 'sidebar') {
-  if (url.toLocaleLowerCase().endsWith('.xml')) {
+  if (url.toLowerCase().endsWith('.xml')) {
     // the heads for XML files from GCP buckets don't let the browser download them directly so we open them in a new tab
     return (
       <ExternalLink
