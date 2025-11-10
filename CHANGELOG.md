@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.11](https://github.com/agrc/raster/compare/v2.5.10...v2.5.11) (2025-11-10)
+
+
+### Dependencies
+
+* **dev:** bump the safe-dependencies group with 2 updates ([#225](https://github.com/agrc/raster/issues/225)) ([e2bba81](https://github.com/agrc/raster/commit/e2bba813210be1fb3976c68bab2a764f33204f7c))
+
 ## [2.5.10](https://github.com/agrc/raster/compare/v2.5.10-rc.2...v2.5.10) (2025-09-04)
 
 
