@@ -23,7 +23,7 @@ export const MapProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    mapView.goTo(geometry.extent.expand(config.DEFAULT_EXTENT_EXPAND));
+    mapView.goTo(geometry.extent.clone().expand(config.DEFAULT_EXTENT_EXPAND));
   };
 
   return (
