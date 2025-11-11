@@ -34,7 +34,7 @@ export default function Tile({ attributes, onHover, isHighlighted }: TileProps) 
           isHighlighted && 'bg-zinc-50 font-bold dark:bg-zinc-800',
         )}
         href={`${PATH}${filename}`}
-        onClick={() => {
+        onPress={() => {
           markAsDownloaded(OBJECTID);
           logEvent('tile_download_click', { url: `${PATH}${filename}`, tileName: filename, source: 'sidebar' });
         }}
