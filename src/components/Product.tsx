@@ -161,7 +161,7 @@ export default function Product({ feature, id, productType }: ProductProps) {
               {isUrlLike(HTML_Page) ? (
                 <ExternalLink
                   href={HTML_Page}
-                  onClick={() => {
+                  onPress={() => {
                     logEvent('result_web_page_click', { productType, product: Product });
                   }}
                 >

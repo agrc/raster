@@ -23,7 +23,7 @@ function getMetadataLink(url: string, logEvent: ReturnType<typeof useFirebaseAna
     return (
       <ExternalLink
         href={url}
-        onClick={() => {
+        onPress={() => {
           logEvent('tile_metadata_download', { source });
         }}
       >
@@ -35,7 +35,7 @@ function getMetadataLink(url: string, logEvent: ReturnType<typeof useFirebaseAna
       <Link
         href={url}
         download
-        onClick={() => {
+        onPress={() => {
           logEvent('tile_metadata_download', { source });
         }}
       >
@@ -65,7 +65,7 @@ function PopupContent({ attributes, description, metadata, report, logEvent, mar
         <Link
           download
           href={`${PATH}${TILE}${EXT}`}
-          onClick={() => {
+          onPress={() => {
             markAsDownloaded(OBJECTID);
             logEvent('tile_download_click', {
               url: `${PATH}${TILE}${EXT}`,
@@ -88,7 +88,7 @@ function PopupContent({ attributes, description, metadata, report, logEvent, mar
             <Link
               download
               href={report}
-              onClick={() => {
+              onPress={() => {
                 logEvent('tile_report_download', { source: 'popup' });
               }}
             >
@@ -299,7 +299,7 @@ export default function Download() {
             <Link
               href={report}
               download
-              onClick={() => {
+              onPress={() => {
                 logEvent('tile_report_download', { source: 'sidebar' });
               }}
             >
