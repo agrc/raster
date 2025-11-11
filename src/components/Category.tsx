@@ -28,7 +28,7 @@ export default function Category({ category, products, productType }: CategoryPr
   }
 
   return (
-    <TreeItem textValue={categoryLabel} id={category} key={category} className="mt-1">
+    <TreeItem textValue={categoryLabel} id={category} key={category} className="ml-2 mt-1">
       <TreeItemContent>{categoryLabel}</TreeItemContent>
       {sortedProducts.map((product) => (
         <Product

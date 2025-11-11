@@ -17,12 +17,12 @@ export type ContextType = {
 export type StepActionTypes = 'STEP1' | 'STEP2' | 'STEP3';
 
 // production defaults to step 1
-const initialContext: ContextType = {
-  productTypes: [],
-  aoi: null,
-  download: null,
-};
-const initialStep = 'initialize';
+// const initialContext: ContextType = {
+//   productTypes: [],
+//   aoi: null,
+//   download: null,
+// };
+// const initialStep = 'initialize';
 
 // uncomment to default to step 2
 // const initialContext: ContextType = {
@@ -33,20 +33,20 @@ const initialStep = 'initialize';
 // const initialStep = 'step2';
 
 // uncomment to default to step 3
-// import { fromJSON } from '@arcgis/core/geometry/support/jsonUtils';
-// const initialContext: ContextType = {
-//   productTypes: ['aerialPhotography', 'lidar', 'contours', 'autoDem'],
-//   aoi: fromJSON({
-//     type: 'point',
-//     spatialReference: {
-//       wkid: 102100,
-//     },
-//     x: -12456493.518214382,
-//     y: 4943442.769128876,
-//   }),
-//   download: null,
-// };
-// const initialStep = 'step3';
+import { fromJSON } from '@arcgis/core/geometry/support/jsonUtils';
+const initialContext: ContextType = {
+  productTypes: ['aerialPhotography', 'lidar', 'contours', 'autoDem'],
+  aoi: fromJSON({
+    type: 'point',
+    spatialReference: {
+      wkid: 102100,
+    },
+    x: -12456493.518214382,
+    y: 4943442.769128876,
+  }),
+  download: null,
+};
+const initialStep = 'step3';
 
 // uncomment to default to step 4
 // import { fromJSON } from '@arcgis/core/geometry/support/jsonUtils';
