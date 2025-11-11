@@ -9,7 +9,6 @@ import { useEffect, useRef } from 'react';
 import config from '../config';
 import useMap from '../hooks/useMap';
 import useWizardMachine from '../hooks/useWizardMachine';
-import './AreaOfInterest.css';
 
 const sources = new Collection<__esri.LocatorSearchSource>([
   {
@@ -84,6 +83,7 @@ export default function AreaOfInterest() {
       <Label>
         Search for an address
         <arcgis-search
+          className="w-full"
           includeDefaultSourcesDisabled
           locationDisabled
           onarcgisSelectResult={onSearchSelect}
@@ -98,6 +98,7 @@ export default function AreaOfInterest() {
         Or draw on the map using the tools below
         <div className="mt-1 flex items-center justify-center">
           <arcgis-sketch
+            className="border border-gray-400"
             creationMode="continuous"
             defaultGraphicsLayerDisabled
             hideSelectionToolsLassoSelection
@@ -116,10 +117,10 @@ export default function AreaOfInterest() {
             }}
             polylineSymbol={config.DRAWING_SYMBOLS.LINE}
             pointSymbol={config.DRAWING_SYMBOLS.POINT}
-            position="manual"
             ref={sketchRef}
             referenceElement={config.MAP_ELEMENT_ID}
             scale="s"
+            toolbarKind="docked"
             tooltipOptions={tooltipOptions}
           />
         </div>
