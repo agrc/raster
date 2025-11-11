@@ -1,6 +1,3 @@
-@import '@esri/calcite-components/dist/calcite/calcite.css';
-@import '@arcgis/map-components/main.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

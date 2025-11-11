@@ -1,8 +1,0 @@
-/* this did not work when setting directly on the <arcgis-search> component or a parent element */
-.arcgis-search {
-  --arcgis-internal-search-width: 100%;
-}
-
-.esri-sketch calcite-action[data-action-key='pointer-select'] {
-  display: none;
-}
