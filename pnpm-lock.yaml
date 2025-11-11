@@ -12,8 +12,8 @@ importers:
         specifier: ^4.33.14
         version: 4.33.14(@lit/context@1.1.6)
       '@arcgis/lumina':
-        specifier: ^4.33.24
-        version: 4.33.24
+        specifier: ^4.34.9
+        version: 4.34.9(@lit/context@1.1.6)(lit@3.3.1)
       '@arcgis/map-components':
         specifier: ^4.34.9
         version: 4.34.9(@arcgis/core@4.33.14(@lit/context@1.1.6))(@esri/calcite-components@3.3.3(@lit/context@1.1.6))(@lit/context@1.1.6)
@@ -105,9 +105,6 @@ importers:
       eslint:
         specifier: ^9.38.0
         version: 9.38.0(jiti@1.21.7)
-      eslint-plugin-storybook:
-        specifier: 10.0.7
-        version: 10.0.7(eslint@9.38.0(jiti@1.21.7))(storybook@10.0.7(@testing-library/dom@10.4.1)(prettier@3.6.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vite@7.1.12(@types/node@24.7.2)(jiti@1.21.7)))(typescript@5.9.3)
       happy-dom:
         specifier: ^19.0.2
         version: 19.0.2
@@ -157,23 +154,8 @@ packages:
   '@amcharts/amcharts5@5.14.4':
     resolution: {integrity: sha512-Tl7wQLWvsvyWVtlCIm1yhZtJviSDYjuNTnlUkO0D49GyByoK0nb9fr0DK4rUw4DVgyLcySxWBsb2lzTJm5Rd9Q==}
 
-  '@arcgis/components-utils@4.33.24':
-    resolution: {integrity: sha512-+7mt88zsibAJyCmCIdV4XYSfsBgBxo48MkfZ0E7aWfXz9Ns3jZ6n7hmRu/kJP5qnBg2X9EXcrDH/RLtAJpQ6Ww==}
-
   '@arcgis/core@4.33.14':
     resolution: {integrity: sha512-2/W8el2uGPib2NO7OoCqDx0Nniu7QlJQJr5AeU+50kVktJD3HhcwNJxqg8Jiibyml3AK0rB03HW1Ypbct7gMpg==}
-
-  '@arcgis/lumina@4.33.24':
-    resolution: {integrity: sha512-aPmPi+j3bFUI2ZQBy2bQ0vyBMl6CmXVUPRpcOl8+XawVPd21LSNKNmvzz7lkBiFc7H2sYd53rdL8o+eiozeYNw==}
-
-  '@arcgis/lumina@4.34.6':
-    resolution: {integrity: sha512-8Ior4DZhb9qPhnaNq2Bc/daV5Hem6ZqYmLdv8Sqnu/6qhMu8cUamHcmwNk4W/2OXT11e8g10MTmJ7LprNGsdVQ==}
-    peerDependencies:
-      '@lit/context': ^1.1.5
-      lit: ^3.3.0
-    peerDependenciesMeta:
-      '@lit/context':
-        optional: true
 
   '@arcgis/lumina@4.34.9':
     resolution: {integrity: sha512-efqO+SwR+1IYf29AATh1l2FUeypRyRINTBNkaJY+KkaFe+8gqSJ45qOmputhyzF5WTRDb7WhOYgnChjp6VYPpA==}
@@ -193,9 +175,6 @@ packages:
   '@arcgis/toolkit@4.34.0-next.164':
     resolution: {integrity: sha512-1/gK10IqK2RCAxP8EmmYUS1YyQeM9HRXkeO2/flTWCCvRBeFGOucC91L4rJLg0QpmvLgdzg4035YY2XGhnQxRw==}
     deprecated: This version is no longer supported. Upgrade to @latest
-
-  '@arcgis/toolkit@4.34.6':
-    resolution: {integrity: sha512-t6s+7zuhvMIjHiir6VjDfhL4SmE2hIrxW1FKxtdF11q5CmjaAMYMcI6QR6nV2rAwqwuIDN42kGZrl4zJI3b2kg==}
 
   '@arcgis/toolkit@4.34.9':
     resolution: {integrity: sha512-wFST+eVnCwmg9NyICVyn9bsBnR+TlWklsGqG3L7xqSTgfXo6TuCThE7wtTb8xWxsTBkGvImqMUgpgLuwQuTQ1g==}
@@ -844,15 +823,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@lit-labs/ssr-client@1.1.7':
-    resolution: {integrity: sha512-VvqhY/iif3FHrlhkzEPsuX/7h/NqnfxLwVf0p8ghNIlKegRyRqgeaJevZ57s/u/LiFyKgqksRP5n+LmNvpxN+A==}
-
   '@lit-labs/ssr-dom-shim@1.4.0':
     resolution: {integrity: sha512-ficsEARKnmmW5njugNYKipTm4SFnbik7CXtoencDZzmzo/dQ+2Q0bgkzJuoJP20Aj0F+izzJjOqsnkd6F/o1bw==}
-
-  '@lit-labs/ssr@3.3.1':
-    resolution: {integrity: sha512-JlF1PempxvzrGEpRFrF+Ki0MHzR3HA51SK8Zv0cFpW9p0bPW4k0FeCwrElCu371UEpXF7RcaE2wgYaE1az0XKg==}
-    engines: {node: '>=13.9.0'}
 
   '@lit/context@1.1.6':
     resolution: {integrity: sha512-M26qDE6UkQbZA2mQ3RjJ3Gzd8TxP+/0obMgE5HfkfLhEEyYE3Bui4A5XHiGPjy0MUGAyxB3QgVuw2ciS0kHn6A==}
@@ -874,9 +846,6 @@ packages:
 
   '@open-wc/dedupe-mixin@1.4.0':
     resolution: {integrity: sha512-Sj7gKl1TLcDbF7B6KUhtvr+1UCxdhMbNY5KxdU5IfMFWqL8oy1ZeAcCANjoB1TL0AJTcPmcCFsCbHf8X2jGDUA==}
-
-  '@parse5/tools@0.3.0':
-    resolution: {integrity: sha512-zxRyTHkqb7WQMV8kTNBKWb1BeOFUKXBXTBWuxg9H9hfvQB3IwP6Iw2U75Ia5eyRxPNltmY7E8YAlz6zWwUnjKg==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -1880,9 +1849,6 @@ packages:
   '@types/lodash@4.17.20':
     resolution: {integrity: sha512-H3MHACvFUEiujabxhaI/ImO6gUrd8oOurg7LQtS7mbwIXA/cUqWrvBsaeJ23aZEPk1TAYkurjfMbSELfoCXlGA==}
 
-  '@types/node@16.18.126':
-    resolution: {integrity: sha512-OTcgaiwfGFBKacvfwuHzzn1KLxH/er8mluiy8/uM3sGXHaRe73RrSIj01jow9t4kJEW633Ov+cOexXeiApTyAw==}
-
   '@types/node@20.19.21':
     resolution: {integrity: sha512-CsGG2P3I5y48RPMfprQGfy4JPRZ6csfC3ltBZSRItG3ngggmNY/qs2uZKp4p9VbrpqNNSMzUZNFZKzgOGnd/VA==}
 
@@ -2659,14 +2625,6 @@ packages:
     resolution: {integrity: sha512-i6UzDscO/XfAcNYD75CfICkmfLedpyPDdozrLMmQc5ORaQcdMoc21OnlEylMIqI7U8eniKrPMxxtj8k0vhmJhA==}
     engines: {node: '>=14'}
 
-  enhanced-resolve@5.18.3:
-    resolution: {integrity: sha512-d4lC8xfavMeBjzGr2vECC3fsGXziXZQyJxD868h2M/mBI3PwAuODxAkLkq5HYuvrPYcUtiLzsTo8U3PgX3Ocww==}
-    engines: {node: '>=10.13.0'}
-
-  entities@6.0.1:
-    resolution: {integrity: sha512-aN97NXWF6AWBTahfVOIrB/NShkzi5H7F9r1s9mD3cDj4Ko5f2qhhVoYMibXF7GlLveb/D2ioWay8lxI97Ven3g==}
-    engines: {node: '>=0.12'}
-
   es-abstract@1.24.0:
     resolution: {integrity: sha512-WSzPgsdLtTcQwm4CROfS5ju2Wa1QQcVeT37jFjYzdFz1r9ahadC8B8/a4qxJxM+09F18iumCdRmlr96ZYkQvEg==}
     engines: {node: '>= 0.4'}
@@ -2775,12 +2733,6 @@ packages:
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
-
-  eslint-plugin-storybook@10.0.7:
-    resolution: {integrity: sha512-qOQq9KdT1jsBgT3qsxUH2n67aj1WR8D1XCoER8Q6yuVlS5TimNwk1mZeWkXVf/o4RQQT6flT2y5cG2gPLZPvJA==}
-    peerDependencies:
-      eslint: '>=8'
-      storybook: ^10.0.7
 
   eslint-plugin-storybook@9.1.10:
     resolution: {integrity: sha512-HAVQ9HTMydcFj5KjnzsETOwPe19eIViwRBhc47lvU04YEFTgEg2rlXN1xozxHUlQ+XkkoKYkIUYoqo7KgGhkIA==}
@@ -3504,9 +3456,6 @@ packages:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
 
-  parse5@7.3.0:
-    resolution: {integrity: sha512-IInvU7fabl34qmi9gY8XOVxhYyMyuH2xUNpb2q8/Y+7552KlejkRvqvD19nMoUW/uQGGbqNpA6Tufu5FL5BZgw==}
-
   path-exists@4.0.0:
     resolution: {integrity: sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==}
     engines: {node: '>=8'}
@@ -4059,10 +4008,6 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  tapable@2.3.0:
-    resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
-    engines: {node: '>=6'}
-
   thenify-all@1.6.0:
     resolution: {integrity: sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==}
     engines: {node: '>=0.8'}
@@ -4447,10 +4392,6 @@ snapshots:
       svg-arc-to-cubic-bezier: 3.2.0
       tslib: 2.8.1
 
-  '@arcgis/components-utils@4.33.24':
-    dependencies:
-      tslib: 2.8.1
-
   '@arcgis/core@4.33.14(@lit/context@1.1.6)':
     dependencies:
       '@esri/arcgis-html-sanitizer': 4.1.0
@@ -4461,25 +4402,6 @@ snapshots:
       marked: 15.0.12
     transitivePeerDependencies:
       - '@lit/context'
-
-  '@arcgis/lumina@4.33.24':
-    dependencies:
-      '@arcgis/components-utils': 4.33.24
-      '@lit-labs/ssr': 3.3.1
-      '@lit-labs/ssr-client': 1.1.7
-      '@lit/context': 1.1.6
-      csstype: 3.1.3
-      lit: 3.3.1
-      tslib: 2.8.1
-
-  '@arcgis/lumina@4.34.6(@lit/context@1.1.6)(lit@3.3.1)':
-    dependencies:
-      '@arcgis/toolkit': 4.34.6
-      csstype: 3.1.3
-      lit: 3.3.1
-      tslib: 2.8.1
-    optionalDependencies:
-      '@lit/context': 1.1.6
 
   '@arcgis/lumina@4.34.9(@lit/context@1.1.6)(lit@3.3.1)':
     dependencies:
@@ -4503,10 +4425,6 @@ snapshots:
       - '@lit/context'
 
   '@arcgis/toolkit@4.34.0-next.164':
-    dependencies:
-      tslib: 2.8.1
-
-  '@arcgis/toolkit@4.34.6':
     dependencies:
       tslib: 2.8.1
 
@@ -4797,7 +4715,7 @@ snapshots:
 
   '@esri/calcite-components@3.3.3(@lit/context@1.1.6)':
     dependencies:
-      '@arcgis/lumina': 4.34.6(@lit/context@1.1.6)(lit@3.3.1)
+      '@arcgis/lumina': 4.34.9(@lit/context@1.1.6)(lit@3.3.1)
       '@arcgis/toolkit': 4.34.0-next.164
       '@esri/calcite-ui-icons': 4.3.0
       '@floating-ui/dom': 1.7.4
@@ -5277,31 +5195,12 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@lit-labs/ssr-client@1.1.7':
-    dependencies:
-      '@lit/reactive-element': 2.1.1
-      lit: 3.3.1
-      lit-html: 3.3.1
-
   '@lit-labs/ssr-dom-shim@1.4.0': {}
-
-  '@lit-labs/ssr@3.3.1':
-    dependencies:
-      '@lit-labs/ssr-client': 1.1.7
-      '@lit-labs/ssr-dom-shim': 1.4.0
-      '@lit/reactive-element': 2.1.1
-      '@parse5/tools': 0.3.0
-      '@types/node': 16.18.126
-      enhanced-resolve: 5.18.3
-      lit: 3.3.1
-      lit-element: 4.2.1
-      lit-html: 3.3.1
-      node-fetch: 3.3.2
-      parse5: 7.3.0
 
   '@lit/context@1.1.6':
     dependencies:
       '@lit/reactive-element': 2.1.1
+    optional: true
 
   '@lit/reactive-element@2.1.1':
     dependencies:
@@ -5320,10 +5219,6 @@ snapshots:
       fastq: 1.19.1
 
   '@open-wc/dedupe-mixin@1.4.0': {}
-
-  '@parse5/tools@0.3.0':
-    dependencies:
-      parse5: 7.3.0
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -6768,8 +6663,6 @@ snapshots:
 
   '@types/lodash@4.17.20': {}
 
-  '@types/node@16.18.126': {}
-
   '@types/node@20.19.21':
     dependencies:
       undici-types: 6.21.0
@@ -7737,13 +7630,6 @@ snapshots:
 
   empathic@2.0.0: {}
 
-  enhanced-resolve@5.18.3:
-    dependencies:
-      graceful-fs: 4.2.11
-      tapable: 2.3.0
-
-  entities@6.0.1: {}
-
   es-abstract@1.24.0:
     dependencies:
       array-buffer-byte-length: 1.0.2
@@ -7977,15 +7863,6 @@ snapshots:
       semver: 6.3.1
       string.prototype.matchall: 4.0.12
       string.prototype.repeat: 1.0.0
-
-  eslint-plugin-storybook@10.0.7(eslint@9.38.0(jiti@1.21.7))(storybook@10.0.7(@testing-library/dom@10.4.1)(prettier@3.6.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vite@7.1.12(@types/node@24.7.2)(jiti@1.21.7)))(typescript@5.9.3):
-    dependencies:
-      '@typescript-eslint/utils': 8.46.1(eslint@9.38.0(jiti@1.21.7))(typescript@5.9.3)
-      eslint: 9.38.0(jiti@1.21.7)
-      storybook: 10.0.7(@testing-library/dom@10.4.1)(prettier@3.6.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vite@7.1.12(@types/node@24.7.2)(jiti@1.21.7))
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
 
   eslint-plugin-storybook@9.1.10(eslint@9.38.0(jiti@1.21.7))(storybook@10.0.7(@testing-library/dom@10.4.1)(prettier@3.6.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vite@7.1.12(@types/node@24.7.2)(jiti@1.21.7)))(typescript@5.9.3):
     dependencies:
@@ -8742,10 +8619,6 @@ snapshots:
     dependencies:
       callsites: 3.1.0
 
-  parse5@7.3.0:
-    dependencies:
-      entities: 6.0.1
-
   path-exists@4.0.0: {}
 
   path-key@3.1.1: {}
@@ -9451,8 +9324,6 @@ snapshots:
     transitivePeerDependencies:
       - tsx
       - yaml
-
-  tapable@2.3.0: {}
 
   thenify-all@1.6.0:
     dependencies:
