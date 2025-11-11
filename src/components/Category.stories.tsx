@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tree } from 'react-aria-components';
+import { AnalyticsProviderDecorator } from '../../.storybook/decorators/Analytics';
 import { MapViewDecorator } from '../../.storybook/decorators/MapView';
 import { PreviewDecorator } from '../../.storybook/decorators/Preview';
 import { WizardMachineDecorator } from '../../.storybook/decorators/WizardMachine';
@@ -9,7 +10,7 @@ import type { ProductFeature } from './Product';
 
 const meta = {
   component: Category,
-  decorators: [MapViewDecorator, PreviewDecorator, WizardMachineDecorator],
+  decorators: [MapViewDecorator, PreviewDecorator, WizardMachineDecorator, AnalyticsProviderDecorator],
   render: (args) => (
     <div className="w-80 rounded-b-lg bg-gray-100 px-2 py-2 dark:bg-black">
       <Tree aria-label="Category" selectionMode="none" defaultExpandedKeys={[args.category]}>
