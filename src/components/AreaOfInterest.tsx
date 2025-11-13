@@ -80,10 +80,9 @@ export default function AreaOfInterest() {
 
   return (
     <div className="flex flex-col gap-3">
-      <Label className="w-full">
+      <Label>
         Search for an address
         <arcgis-search
-          className="w-full"
           includeDefaultSourcesDisabled
           locationDisabled
           onarcgisSelectResult={onSearchSelect}
@@ -94,9 +93,9 @@ export default function AreaOfInterest() {
           sources={sources}
         />
       </Label>
-      <Label className="w-full">
+      <Label>
         Or draw on the map using the tools below
-        <div className="mt-1 flex items-center justify-center">
+        <div className="flex items-center justify-start">
           <arcgis-sketch
             className="border border-gray-400"
             creationMode="continuous"
