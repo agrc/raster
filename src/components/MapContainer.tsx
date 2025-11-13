@@ -78,8 +78,8 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
       <BusyBar busy={viewIsLoading} />
       <PreviewControls />
       <TilesControls />
-      <arcgis-zoom className="z-20" slot="top-left"></arcgis-zoom>
-      <arcgis-home className="z-20" slot="top-left"></arcgis-home>
+      <arcgis-zoom slot="top-left"></arcgis-zoom>
+      <arcgis-home slot="top-left"></arcgis-home>
       {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
     </arcgis-map>
   );
