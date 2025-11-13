@@ -85,7 +85,7 @@ export default function App() {
           <MapProvider>
             <TilesContextProvider>
               <PreviewProvider>
-                <Drawer main state={sideBarState} {...sideBarTriggerProps}>
+                <Drawer main state={sideBarState} {...sideBarTriggerProps} size="large">
                   <WizardMachineProvider>
                     <Wizard />
                   </WizardMachineProvider>
