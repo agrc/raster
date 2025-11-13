@@ -54,6 +54,7 @@ type PopupContentProps = {
   logEvent: ReturnType<typeof useFirebaseAnalytics>;
   markAsDownloaded: (objectId: number) => void;
 };
+
 function PopupContent({ attributes, description, metadata, report, logEvent, markAsDownloaded }: PopupContentProps) {
   const { PATH, TILE, EXT, SIZE, OBJECTID } = attributes;
 
