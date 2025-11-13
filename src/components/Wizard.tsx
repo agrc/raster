@@ -10,7 +10,7 @@ export default function Wizard() {
   const { snapshot, send } = useWizardMachine();
 
   return (
-    <div className="px-1 py-1 md:py-0">
+    <div className="px-2 py-2 md:py-0">
       <DisclosureGroup
         expandedKeys={[snapshot.value as string]}
         onExpandedChange={(newKeys) => {
