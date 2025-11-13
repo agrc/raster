@@ -34,7 +34,7 @@ export type ProductFeature = {
 };
 type ProductProps = { feature: ProductFeature; id: number; productType: ProductTypeKey };
 
-const commonItemClasses = 'rounded ml-3';
+const commonItemClasses = 'rounded ml-6';
 const buttonClasses = 'my-0 rounded px-1';
 
 export default function Product({ feature, id, productType }: ProductProps) {
