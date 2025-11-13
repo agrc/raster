@@ -10,13 +10,11 @@ export default function PreviewControls() {
   }
 
   return (
-    <div className="absolute top-0 z-10 flex w-full items-center justify-center">
-      <div className="mx-10 mt-4 flex rounded-md bg-accent-300/75 px-2 py-1 text-zinc-800">
-        {selectedPreviewId}
-        <Button className="ml-1" variant="icon" onPress={removePreview} aria-label="Clear preview layer">
-          <X size={16} className="text-zinc-800" />
-        </Button>
-      </div>
+    <div className="absolute left-1/2 top-4 z-10 flex -translate-x-1/2 rounded-md bg-accent-300/75 px-2 py-1 text-zinc-800">
+      {selectedPreviewId}
+      <Button className="ml-1" variant="icon" onPress={removePreview} aria-label="Clear preview layer">
+        <X size={16} className="text-zinc-800" />
+      </Button>
     </div>
   );
 }
