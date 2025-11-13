@@ -79,8 +79,8 @@ export default function AreaOfInterest() {
   };
 
   return (
-    <>
-      <Label>
+    <div className="flex flex-col gap-3">
+      <Label className="w-full">
         Search for an address
         <arcgis-search
           className="w-full"
@@ -94,7 +94,7 @@ export default function AreaOfInterest() {
           sources={sources}
         />
       </Label>
-      <Label className="mt-4 block">
+      <Label className="w-full">
         Or draw on the map using the tools below
         <div className="mt-1 flex items-center justify-center">
           <arcgis-sketch
@@ -125,6 +125,6 @@ export default function AreaOfInterest() {
           />
         </div>
       </Label>
-    </>
+    </div>
   );
 }
