@@ -1,27 +1,25 @@
 // spec: tests/aerial-photography-search-test-plan.md
-// seed: tests/seed.spec.ts
+// Refactored: Uses shared test helpers
 
 import { expect, test } from '@playwright/test';
+import { expandStep, navigateToApp, TIMEOUTS, waitForMap } from '../fixtures/test-helpers';
 
 test.describe('Edge Cases and Error Handling', () => {
   test('4.2 Search with Very Large Area of Interest', async ({ page }) => {
-    // 1. Navigate to http://localhost:5173
-    await page.goto('http://localhost:5173');
+    await navigateToApp(page);
 
-    // 2. Select "Aerial Photography" via label within Step 1 group for reliability
+    // Select product via Step 1 group for reliability
     const step1Group = page.getByRole('group', { name: 'Step 1 - Select Products' });
     await step1Group.getByText('Aerial Photography').click();
 
-    // 3. Expand Step 2
-    await page.getByRole('button', { name: 'Step 2 - Define Area of' }).click();
+    // Expand Step 2
+    await expandStep(page, 'Step 2 - Define Area of');
 
-    // 4. Choose "Draw a rectangle"
+    // Choose "Draw a rectangle"
     await page.getByRole('button', { name: 'Draw a rectangle' }).click();
-    await page.waitForTimeout(300);
+    await page.waitForTimeout(TIMEOUTS.TOOL_ACTIVATION);
 
-    // 5. Drag to draw a very large rectangle covering most of the viewport
-    // Use viewport-relative coordinates to draw across the map
-    // Draw within the map application's bounding box to avoid drawer overlap
+    // Drag to draw a very large rectangle covering most of the viewport
     const app = page.getByRole('application');
     const box = await app.boundingBox();
     if (!box) throw new Error('Map application bounding box not found');
@@ -35,10 +33,10 @@ test.describe('Edge Cases and Error Handling', () => {
     await page.mouse.move(endX, endY);
     await page.mouse.up();
 
-    // 6. Wait for Step 3 results
-    await expect(page.getByRole('treegrid', { name: 'search results' })).toBeVisible({ timeout: 20000 });
+    // Wait for results with extended timeout
+    await expect(page.getByRole('treegrid', { name: 'search results' }).first()).toBeVisible({ timeout: 20000 });
 
     // UI remains responsive
-    await expect(page.locator('arcgis-map')).toBeVisible();
+    await waitForMap(page);
   });
 });

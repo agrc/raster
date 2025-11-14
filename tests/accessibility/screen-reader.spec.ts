@@ -1,16 +1,16 @@
 // spec: tests/aerial-photography-search-test-plan.md
-// seed: tests/seed.spec.ts
+// Refactored: Uses shared test helpers
 
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import { drawPointOnMap, expandStep, navigateToApp, selectProduct, waitForResults } from '../fixtures/test-helpers';
 
 test.describe('Accessibility Testing', () => {
   test('7.2 Screen Reader Compatibility (Automated Checks)', async ({ page }) => {
     // Note: Full screen reader validation requires manual testing. This automates ARIA role checks.
 
-    // 1. Navigate to http://localhost:5173
-    await page.goto('http://localhost:5173');
+    await navigateToApp(page);
 
-    // 2. Verify step headers have button role and expected states
+    // Verify step headers have button role and expected states
     const step1 = page.getByRole('button', { name: /Step 1 - Select Products/i });
     const step2 = page.getByRole('button', { name: /Step 2 - Define Area of/i });
     const step3 = page.getByRole('button', { name: /Step 3 - Results/i });
@@ -22,14 +22,13 @@ test.describe('Accessibility Testing', () => {
     await expect(step3).toBeDisabled();
     await expect(step4).toBeDisabled();
 
-    // 3. Complete basic search to show results and verify ARIA treegrid roles
-    await page.getByText('Aerial Photography').click();
-    await step2.click();
-    await page.getByRole('button', { name: 'Draw a point' }).click();
-    await page.getByRole('application').click();
+    // Complete basic search to show results and verify ARIA treegrid roles
+    await selectProduct(page, 'Aerial Photography');
+    await expandStep(page, 'Step 2 - Define Area of');
+    await drawPointOnMap(page);
 
-    const treegrid = page.getByRole('treegrid', { name: 'search results' });
-    await expect(treegrid).toBeVisible({ timeout: 15000 });
+    const treegrid = await waitForResults(page);
+    await expect(treegrid).toBeVisible();
 
     // Verify rows and interactive buttons are present
     await expect(page.getByRole('row', { level: 1 }).first()).toBeVisible();
