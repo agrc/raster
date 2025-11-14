@@ -1,5 +1,35 @@
 # Changelog
 
+## [3.0.0-rc.6](https://github.com/agrc/raster/compare/v3.0.0-rc.5...v3.0.0-rc.6) (2025-11-14)
+
+
+### Features
+
+* add links to base map and aerial photography pages ([330604d](https://github.com/agrc/raster/commit/330604dd702ccd3d83238d0cc238123d679e006c)), closes [#227](https://github.com/agrc/raster/issues/227)
+* add metadata and report links to download ([615f000](https://github.com/agrc/raster/commit/615f0009b3bbd7b9216a0aa862587b6fdadda389)), closes [#218](https://github.com/agrc/raster/issues/218)
+* basic tile download list and popup ([a74f681](https://github.com/agrc/raster/commit/a74f68162c27baefc6a479b3c8d222f0c625ee19)), closes [#218](https://github.com/agrc/raster/issues/218)
+* cache all queries for 30 minutes ([33135ed](https://github.com/agrc/raster/commit/33135edeb247ca2bef3c044a676e96c55d32307d))
+* Firebase Analytics tracking for user interactions ([8ed9fd4](https://github.com/agrc/raster/commit/8ed9fd432b2fd41fbca84f2a86a37b134e5922e7)), closes [#215](https://github.com/agrc/raster/issues/215)
+* implement more info dialog ([b4c3c66](https://github.com/agrc/raster/commit/b4c3c66c6532aa98249d367a7ebbb603891fabc9)), closes [#223](https://github.com/agrc/raster/issues/223)
+* implement URL parameters ([3572a70](https://github.com/agrc/raster/commit/3572a7069b7da21f9b1ca9bc75601954e93c7cf5)), closes [#212](https://github.com/agrc/raster/issues/212)
+* indicate which tiles have been downloaded ([642d708](https://github.com/agrc/raster/commit/642d708e695f9cfdde7c8a9e24029dae05107a98)), closes [#247](https://github.com/agrc/raster/issues/247)
+
+
+### Bug Fixes
+
+* clear any existing AOI if a new sketch tool is activated ([a3eb5b8](https://github.com/agrc/raster/commit/a3eb5b866ae0f8123bdd2c90c9439a0e0c727363)), closes [#221](https://github.com/agrc/raster/issues/221)
+* fix bug causing multiple taps on the extent button from zooming the map out continually ([7798b1a](https://github.com/agrc/raster/commit/7798b1aaf745553a0388fd4f8f1f7a5dcfe5f4a9))
+* move year in lidar categories to parenthesis ([5b2a008](https://github.com/agrc/raster/commit/5b2a0085e063a977d6bc32f22d68538957ee7078)), closes [#168](https://github.com/agrc/raster/issues/168)
+* show extents on hovering over product card contents, not just header ([f96a613](https://github.com/agrc/raster/commit/f96a6139f579cbd07d311edb50ec7d1109fea778))
+
+
+### Styles
+
+* add left margin to categories ([55745a7](https://github.com/agrc/raster/commit/55745a79a7bedbb3a2e62e1f672d43e54a1a5853))
+* increase indent for product cards ([58f57f6](https://github.com/agrc/raster/commit/58f57f60b28be31fb46c3a7ea0bd34bb7b84b4fa))
+* make drawing toolbar fit in better with other controls ([d696bec](https://github.com/agrc/raster/commit/d696beca4e217c82a375ac70498668e9e6ebdb79))
+* make gutters more consistent ([10c16d6](https://github.com/agrc/raster/commit/10c16d6628382dcb6e2be4ae0ac5349f35c1aa6d))
+
 ## [3.0.0-rc.5](https://github.com/agrc/raster/compare/v3.0.0-rc.4...v3.0.0-rc.5) (2025-10-24)
 
 
