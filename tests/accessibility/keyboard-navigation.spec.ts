@@ -1,23 +1,18 @@
 // spec: tests/aerial-photography-search-test-plan.md
-// seed: tests/seed.spec.ts
+// Refactored: Uses shared test helpers
 
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import { completeBasicSearch } from '../fixtures/test-helpers';
 
 test.describe('Accessibility Testing', () => {
   test('7.1 Keyboard Navigation Through Results', async ({ page }) => {
-    // 1. Complete scenario 1.1 to get aerial photography results
-    await page.goto('http://localhost:5173');
-    await page.getByText('Aerial Photography').click();
-    await page.getByRole('button', { name: 'Step 2 - Define Area of' }).click();
-    await page.getByRole('button', { name: 'Draw a point' }).click();
-    await page.getByRole('application').click();
-    await expect(page.getByRole('treegrid', { name: 'search results' })).toBeVisible({ timeout: 15000 });
+    await completeBasicSearch(page);
 
-    // 2. Focus within the results area
+    // Focus within the results area
     const resultsGrid = page.getByRole('treegrid', { name: 'search results' });
     await resultsGrid.click();
 
-    // 3. Use keyboard to expand a category
+    // Use keyboard to expand a category
     const expandBtn = page.getByRole('button', { name: /Expand / }).first();
     await expandBtn.focus();
     await page.keyboard.press('Enter');
