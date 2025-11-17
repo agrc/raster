@@ -37,11 +37,7 @@ test.describe('Edge Cases and Error Handling', () => {
 
     // Verify: "No products found" message appears OR mark fixme if statewide coverage prevents this
     const noResults = page.getByText('No products found');
-    if (await noResults.count()) {
-      await expect(noResults).toBeVisible();
-    } else {
-      test.fixme(true, 'Statewide NAIP coverage may prevent a no-results case in this AOI.');
-    }
+    await expect(noResults).toBeVisible();
   });
 
   test('4.4 Test Step Navigation Before Prerequisites', async ({ page }) => {

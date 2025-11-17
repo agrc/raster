@@ -13,7 +13,8 @@
     "start": "vite",
     "start:ci": "vite --host",
     "storybook": "storybook dev -p 6006",
-    "test": "vitest"
+    "test": "vitest",
+    "test:e2e": "playwright test --ui"
   },
   "browserslist": {
     "production": [
