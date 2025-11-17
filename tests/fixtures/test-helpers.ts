@@ -10,7 +10,7 @@ export const CATEGORY_PATTERN = /NAIP|HRO|DOQ|Historical/i;
 
 // Timeouts
 export const TIMEOUTS = {
-  MAP_LOAD: 30000,
+  MAP_LOAD: 60000,
   TOOL_ACTIVATION: 300,
   ANIMATION: 500,
   POINT_PLACEMENT: 1000,
