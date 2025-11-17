@@ -2,6 +2,7 @@
  * Shared test helpers and utilities for Playwright tests
  */
 
+import '@arcgis/map-components/components/arcgis-map';
 import { expect, type Page } from '@playwright/test';
 
 // Constants
@@ -28,7 +29,7 @@ export async function waitForMap(page: Page) {
   await page.waitForFunction(
     () => {
       const map = document.querySelector('arcgis-map');
-      return map && (map as any).view?.ready;
+      return map && (map as HTMLArcgisMapElement).view?.ready;
     },
     { timeout: TIMEOUTS.MAP_LOAD },
   );
