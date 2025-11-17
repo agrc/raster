@@ -10,7 +10,7 @@ export const CATEGORY_PATTERN = /NAIP|HRO|DOQ|Historical/i;
 
 // Timeouts
 export const TIMEOUTS = {
-  MAP_LOAD: 10000,
+  MAP_LOAD: 30000,
   TOOL_ACTIVATION: 300,
   ANIMATION: 500,
   POINT_PLACEMENT: 1000,
@@ -22,7 +22,16 @@ export const TIMEOUTS = {
  * Wait for the map to be fully loaded and visible
  */
 export async function waitForMap(page: Page) {
+  // Wait for both DOM and web component initialization
   await expect(page.locator('arcgis-map')).toBeVisible({ timeout: TIMEOUTS.MAP_LOAD });
+  // Ensure map view is actually ready, not just visible
+  await page.waitForFunction(
+    () => {
+      const map = document.querySelector('arcgis-map');
+      return map && (map as any).view?.ready;
+    },
+    { timeout: TIMEOUTS.MAP_LOAD },
+  );
 }
 
 /**
