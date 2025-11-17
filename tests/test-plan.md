@@ -510,50 +510,7 @@ The UGRC Raster Data Discovery application is a React-based single-page applicat
 
 ---
 
-### 9. Performance Testing
-
-**Objective**: Verify search and rendering performance is acceptable.
-
-#### 9.1 Measure Search Response Time
-
-**Steps:**
-
-1. Open browser dev tools Network panel
-2. Navigate to application
-3. Select "Aerial Photography"
-4. Define area of interest in Salt Lake County
-5. Expand Step 3
-6. Note the time from click to results displayed
-7. Check Network panel for queryFeatures request
-
-**Expected Results:**
-
-- Search request completes in under 5 seconds for typical area
-- Loading indicator appears immediately when search starts
-- Results render smoothly once data arrives
-- No multiple redundant requests are made
-- React Query caching prevents duplicate requests
-
-#### 9.2 Test Result Rendering Performance
-
-**Steps:**
-
-1. Complete scenario 4.2 (large area search with many results)
-2. Observe result rendering time
-3. Try expanding/collapsing categories with many products
-4. Scroll through a long list of products
-
-**Expected Results:**
-
-- Initial render of results completes in under 2 seconds
-- Expanding categories with 10+ products is smooth
-- Scrolling through results is smooth without lag
-- No memory leaks or performance degradation over time
-- React components re-render efficiently
-
----
-
-### 10. State Management and Persistence
+### 9. State Management and Persistence
 
 **Objective**: Verify wizard state is managed correctly.
 
@@ -574,23 +531,6 @@ The UGRC Raster Data Discovery application is a React-based single-page applicat
 - Deselecting all product types disables subsequent steps
 - Wizard machine state (XState) manages transitions correctly
 - Context preserves selections across step transitions
-
-#### 10.2 Test Browser Navigation
-
-**Steps:**
-
-1. Complete aerial photography search through Step 3
-2. Note the URL (check for any state parameters)
-3. Click browser back button
-4. Click browser forward button
-5. Refresh the page (F5 or Cmd+R)
-
-**Expected Results:**
-
-- Application state may or may not persist across refreshes (depends on implementation)
-- Browser back/forward navigation works without breaking the app
-- If URL parameters are present (categories), they are respected on page load
-- No console errors occur during navigation events
 
 ---
 
@@ -624,7 +564,6 @@ The UGRC Raster Data Discovery application is a React-based single-page applicat
 - [ ] 6.3 - Tree expansion states work correctly
 - [ ] 7.1 - Keyboard navigation is functional
 - [ ] 8.1 - Mobile viewport is usable
-- [ ] 9.1 - Search completes in acceptable time
 
 ---
 

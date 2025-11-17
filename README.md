@@ -164,6 +164,38 @@ You can combine all of the above, for example:
 
 - `?title=Summit%20County&cat=Contours&catGroup=Elevation%20Models,Slope%20Maps&products=1,5`
 
+## Development
+
+### Setup
+
+1. Install dependencies: `pnpm install`
+2. Copy ArcGIS assets: `pnpm copy:arcgis`
+3. Create `.env` file:
+
+   ```env
+   VITE_DISCOVER=<quad-word-token>
+   VITE_FIREBASE_CONFIG=<json-config>
+   ```
+
+### Commands
+
+| Command          | Description                  |
+| ---------------- | ---------------------------- |
+| `pnpm start`     | Start dev server (port 5173) |
+| `pnpm build`     | Build for production         |
+| `pnpm preview`   | Preview production build     |
+| `pnpm test`      | Run unit tests (watch mode)  |
+| `pnpm test run`  | Run unit tests (single pass) |
+| `pnpm test:e2e`  | Run Playwright tests         |
+| `pnpm check`     | Type check                   |
+| `pnpm lint`      | Lint code                    |
+| `pnpm format`    | Format code                  |
+| `pnpm storybook` | Launch Storybook             |
+
+Both unit and e2e tests can be run via VSCode's test explorer.
+
+See `.github/copilot-instructions.md` for architecture details.
+
 ## Attribution
 
 This project was developed with the assistance of [GitHub Copilot](https://github.com/features/copilot).

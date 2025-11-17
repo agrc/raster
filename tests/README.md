@@ -4,7 +4,7 @@ This directory contains end-to-end tests for the Raster Data Discovery applicati
 
 ## Directory Structure
 
-```
+```text
 tests/
 ├── fixtures/              # Shared test utilities and helpers
 │   └── test-helpers.ts    # Common functions, constants, and workflows
@@ -54,26 +54,6 @@ The `fixtures/test-helpers.ts` file provides reusable utilities to eliminate cod
 
 ## Usage Example
 
-**Before refactoring:**
-
-```typescript
-test('Search for Aerial Photography', async ({ page }) => {
-  await page.goto('http://localhost:5173');
-  await page.waitForLoadState('networkidle');
-  await expect(page.locator('arcgis-map')).toBeVisible({ timeout: 10000 });
-
-  const checkbox = page.getByRole('checkbox', { name: /Aerial Photography/i });
-  await expect(checkbox).toBeVisible();
-  await checkbox.click({ force: true });
-  await expect(checkbox).toBeChecked();
-
-  const step2Header = page.getByRole('button', { name: /Step 2 - Define Area of/i });
-  await expect(step2Header).toBeEnabled();
-  await step2Header.click();
-  // ... 20+ more lines
-});
-```
-
 **After refactoring:**
 
 ```typescript
@@ -99,14 +79,14 @@ test('Search for Aerial Photography', async ({ page }) => {
 
 ```bash
 # Run all tests
-pnpm test
+pnpm exec playwright test
 
 # Run tests in a specific category
-pnpm test tests/search/
-pnpm test tests/accessibility/
+pnpm exec playwright test tests/search/
+pnpm exec playwright test tests/accessibility/
 
 # Run a specific test file
-pnpm test tests/search/basic-aerial-photography.spec.ts
+pnpm exec playwright test tests/search/basic-aerial-photography.spec.ts
 
 # Run in UI mode for debugging
 pnpm exec playwright test --ui
