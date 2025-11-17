@@ -99,7 +99,7 @@ jobs:
           pnpm exec playwright install --with-deps
 
       - name: 🎭 Run Playwright tests
-        run: pnpm exec playwright test
+        run: pnpm exec playwright test --max-failures=5
 
       - name: ⬆️ Upload Playwright report
         uses: actions/upload-artifact@v4
