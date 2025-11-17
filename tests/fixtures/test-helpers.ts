@@ -2,7 +2,6 @@
  * Shared test helpers and utilities for Playwright tests
  */
 
-import '@arcgis/map-components/components/arcgis-map';
 import { expect, type Page } from '@playwright/test';
 
 // Constants
@@ -28,8 +27,8 @@ export async function waitForMap(page: Page) {
   // Ensure map view is actually ready, not just visible
   await page.waitForFunction(
     () => {
-      const map = document.querySelector('arcgis-map');
-      return map && (map as HTMLArcgisMapElement).view?.ready;
+      const map = document.querySelector('arcgis-map') as { view?: { ready: boolean } } | null;
+      return map && map.view?.ready;
     },
     { timeout: TIMEOUTS.MAP_LOAD },
   );
