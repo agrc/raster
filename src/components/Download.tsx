@@ -189,7 +189,15 @@ export default function Download() {
 
   // add feature layer
   useEffect(() => {
-    if (!mapView?.map || !data || featureLayerRef.current) return;
+    const layerId = `tiles-${productType}-${tileIndex}`;
+    if (!mapView?.map || !data || featureLayerRef.current?.id === layerId) return;
+
+    // remove previous layer
+    if (featureLayerRef.current && mapView?.map) {
+      mapView.map.remove(featureLayerRef.current);
+      featureLayerRef.current = null;
+      clear();
+    }
 
     const downloadedField: __esri.FieldProperties = {
       name: DOWNLOADED,
@@ -200,6 +208,7 @@ export default function Download() {
     const featureSet = FeatureSet.fromJSON(data) as FeatureSet;
 
     featureLayerRef.current = new FeatureLayer({
+      id: layerId,
       source: featureSet.features,
       fields: [...featureSet.fields, downloadedField],
       objectIdField: data.objectIdFieldName,
