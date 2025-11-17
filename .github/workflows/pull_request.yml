@@ -71,6 +71,7 @@ jobs:
 
   test-e2e:
     name: End-to-End tests
+    needs: [test-unit, test-check]
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
@@ -111,7 +112,7 @@ jobs:
   deploy-preview:
     name: Firebase preview
     runs-on: ubuntu-latest
-    needs: [test-unit, test-check]
+    needs: [test-unit, test-check, test-e2e]
     if: ${{ github.head_ref != 'dev' }}
     environment:
       name: preview
