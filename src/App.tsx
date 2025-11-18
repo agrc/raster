@@ -88,7 +88,7 @@ export default function App() {
                 <Drawer main state={sideBarState} {...sideBarTriggerProps} size="large">
                   <WizardMachineProvider>
                     <Wizard />
-                    <div className="qualtrics-survey"></div>
+                    <div className="qualtrics-survey px-3 text-sm"></div>
                   </WizardMachineProvider>
                 </Drawer>
                 <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
