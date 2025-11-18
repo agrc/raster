@@ -73,15 +73,18 @@ describe('getTiles', () => {
     expect(result.features).toEqual(features);
     expect(result.features).toHaveLength(2);
     expect(mockedQueryFeatures).toHaveBeenCalledTimes(1);
-    expect(mockedQueryFeatures).toHaveBeenCalledWith({
-      url: config.INDEX_SERVICE_URLS[productType],
-      where: `${config.INDEX_FIELDS.TILE_INDEX} = '${tileIndex}'`,
-      outFields: Object.values(config.INDEX_FIELDS),
-      geometry: geometryJson,
-      geometryType: 'esriGeometryPolygon',
-      returnGeometry: true,
-      orderByFields: `${config.INDEX_FIELDS.OBJECTID} ASC`,
-    });
+    expect(mockedQueryFeatures).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: config.INDEX_SERVICE_URLS[productType],
+        where: `${config.INDEX_FIELDS.TILE_INDEX} = '${tileIndex}'`,
+        outFields: Object.values(config.INDEX_FIELDS),
+        geometry: geometryJson,
+        geometryType: 'esriGeometryPolygon',
+        returnGeometry: true,
+        orderByFields: `${config.INDEX_FIELDS.OBJECTID} ASC`,
+        signal: expect.any(AbortSignal),
+      }),
+    );
   });
 
   it('throws an error when no tiles are found', async () => {
@@ -159,16 +162,20 @@ describe('getTiles', () => {
     expect(mockedQueryFeatures).toHaveBeenCalledTimes(2);
 
     // Check second call includes resultOffset
-    expect(mockedQueryFeatures).toHaveBeenNthCalledWith(2, {
-      url: config.INDEX_SERVICE_URLS[productType],
-      where: `${config.INDEX_FIELDS.TILE_INDEX} = '${tileIndex}'`,
-      outFields: Object.values(config.INDEX_FIELDS),
-      geometry: geometryJson,
-      geometryType: 'esriGeometryPolygon',
-      returnGeometry: true,
-      orderByFields: `${config.INDEX_FIELDS.OBJECTID} ASC`,
-      resultOffset: 2,
-    });
+    expect(mockedQueryFeatures).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({
+        url: config.INDEX_SERVICE_URLS[productType],
+        where: `${config.INDEX_FIELDS.TILE_INDEX} = '${tileIndex}'`,
+        outFields: Object.values(config.INDEX_FIELDS),
+        geometry: geometryJson,
+        geometryType: 'esriGeometryPolygon',
+        returnGeometry: true,
+        orderByFields: `${config.INDEX_FIELDS.OBJECTID} ASC`,
+        resultOffset: 2,
+        signal: expect.any(AbortSignal),
+      }),
+    );
   });
 
   it('handles multiple pagination cycles', async () => {
@@ -213,12 +220,14 @@ describe('getTiles', () => {
       2,
       expect.objectContaining({
         resultOffset: 2,
+        signal: expect.any(AbortSignal),
       }),
     );
     expect(mockedQueryFeatures).toHaveBeenNthCalledWith(
       3,
       expect.objectContaining({
         resultOffset: 4,
+        signal: expect.any(AbortSignal),
       }),
     );
   });

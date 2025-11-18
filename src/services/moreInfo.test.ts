@@ -39,12 +39,15 @@ describe('getMoreInfo', () => {
 
     expect(result).toEqual(attributes);
     expect(mockedQueryFeatures).toHaveBeenCalledTimes(1);
-    expect(mockedQueryFeatures).toHaveBeenCalledWith({
-      url: config.EXTENT_SERVICE_URLS[productType],
-      where: `${config.EXTENT_FIELDS.OBJECTID} = ${objectId}`,
-      outFields: Object.keys(config.MORE_INFO_FIELD_INFOS[productType] || {}),
-      returnGeometry: false,
-    });
+    expect(mockedQueryFeatures).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: config.EXTENT_SERVICE_URLS[productType],
+        where: `${config.EXTENT_FIELDS.OBJECTID} = ${objectId}`,
+        outFields: Object.keys(config.MORE_INFO_FIELD_INFOS[productType] || {}),
+        returnGeometry: false,
+        signal: expect.any(AbortSignal),
+      }),
+    );
   });
 
   it('throws when no features are returned', async () => {
@@ -55,11 +58,14 @@ describe('getMoreInfo', () => {
 
     await expect(getMoreInfo(productType, objectId)).rejects.toThrow('No more info found');
 
-    expect(mockedQueryFeatures).toHaveBeenCalledWith({
-      url: config.EXTENT_SERVICE_URLS[productType],
-      where: `${config.EXTENT_FIELDS.OBJECTID} = ${objectId}`,
-      outFields: Object.keys(config.MORE_INFO_FIELD_INFOS[productType] || {}),
-      returnGeometry: false,
-    });
+    expect(mockedQueryFeatures).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: config.EXTENT_SERVICE_URLS[productType],
+        where: `${config.EXTENT_FIELDS.OBJECTID} = ${objectId}`,
+        outFields: Object.keys(config.MORE_INFO_FIELD_INFOS[productType] || {}),
+        returnGeometry: false,
+        signal: expect.any(AbortSignal),
+      }),
+    );
   });
 });

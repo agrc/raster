@@ -59,15 +59,18 @@ describe('query', () => {
   });
 
   const expectSharedOptions = (productType: ProductTypeKey, expectedOutFields: string[]) => {
-    expect(mockedQueryFeatures).toHaveBeenCalledWith({
-      url: config.EXTENT_SERVICE_URLS[productType],
-      geometry: geometryJson,
-      geometryType: 'esriGeometryPolygon',
-      orderByFields: `${config.EXTENT_FIELDS.Estimated_Date} DESC`,
-      outFields: expectedOutFields,
-      returnGeometry: true,
-      where: `lower(${config.EXTENT_FIELDS.SHOW}) = 'y'`,
-    });
+    expect(mockedQueryFeatures).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: config.EXTENT_SERVICE_URLS[productType],
+        geometry: geometryJson,
+        geometryType: 'esriGeometryPolygon',
+        orderByFields: `${config.EXTENT_FIELDS.Estimated_Date} DESC`,
+        outFields: expectedOutFields,
+        returnGeometry: true,
+        where: `lower(${config.EXTENT_FIELDS.SHOW}) = 'y'`,
+        signal: expect.any(AbortSignal),
+      }),
+    );
   };
 
   it('queries with all extent fields for services that include metadata', async () => {

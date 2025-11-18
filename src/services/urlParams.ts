@@ -66,17 +66,16 @@ export async function getInitialProductTypes(): Promise<ProductTypeKey[]> {
   if (urlParams.categories.length > 0) {
     await Promise.all(
       Object.keys(config.PRODUCT_TYPES).map(async (pt) => {
-        const options: Partial<IQueryFeaturesOptions> = {
+        const options: IQueryFeaturesOptions = {
+          url: config.EXTENT_SERVICE_URLS[pt as ProductTypeKey],
           where: `lower(${config.EXTENT_FIELDS.Category}) in ('${urlParams.categories
             .map((c) => c.toLowerCase().replace(/'/g, "''"))
             .join("','")}') AND upper(${config.EXTENT_FIELDS.SHOW}) = 'Y'`,
           returnCountOnly: true,
+          signal: AbortSignal.timeout(config.DEFAULT_REQUEST_TIMEOUT),
         };
 
-        const response = (await queryFeatures({
-          url: config.EXTENT_SERVICE_URLS[pt as ProductTypeKey],
-          ...options,
-        })) as IQueryResponse;
+        const response = (await queryFeatures(options)) as IQueryResponse;
 
         if (response.count && response.count > 0) {
           productTypesFromCategories.push(pt as ProductTypeKey);
@@ -98,14 +97,13 @@ export async function getGraphicsAndExtent(urlParams?: UrlParams) {
 
   await Promise.all(
     Object.keys(config.PRODUCT_TYPES).map(async (pt) => {
-      const options: Partial<IQueryFeaturesOptions> = {
+      const options: IQueryFeaturesOptions = {
+        url: config.EXTENT_SERVICE_URLS[pt as ProductTypeKey],
         where: `lower(${config.EXTENT_FIELDS.Category}) in ('${categories.map((c) => c.toLowerCase().replace(/'/g, "''")).join("','")}') AND upper(${config.EXTENT_FIELDS.SHOW}) = 'Y'`,
+        signal: AbortSignal.timeout(config.DEFAULT_REQUEST_TIMEOUT),
       };
 
-      const response = (await queryFeatures({
-        url: config.EXTENT_SERVICE_URLS[pt as ProductTypeKey],
-        ...options,
-      })) as IQueryFeaturesResponse;
+      const response = (await queryFeatures(options)) as IQueryFeaturesResponse;
 
       graphics.push(
         ...response.features.map(
