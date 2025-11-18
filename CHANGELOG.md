@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.0.0-rc.7](https://github.com/agrc/raster/compare/v3.0.0-rc.6...v3.0.0-rc.7) (2025-11-18)
+
+
+### Features
+
+* add lidar link to header menu ([5ae0e54](https://github.com/agrc/raster/commit/5ae0e545181dc1aaa19a237e30091ef0fe77f275)), closes [#227](https://github.com/agrc/raster/issues/227)
+* add qualtrics survey ([7015f5d](https://github.com/agrc/raster/commit/7015f5d9f66411e1ac005d9d886a6b963635f155))
+* add request timeouts and retry buttons where appropriate ([e4216bd](https://github.com/agrc/raster/commit/e4216bd909b52394d75bf72d1f7419df43a71353)), closes [#223](https://github.com/agrc/raster/issues/223)
+
+
+### Bug Fixes
+
+* fix bug preventing previous download tile layers from being removed ([06dc838](https://github.com/agrc/raster/commit/06dc838eefc28dff3ff584fad7bf5b74fac1b3eb))
+
+
+### Styles
+
+* provide more padding for qualtrics survey ([0b9aa2c](https://github.com/agrc/raster/commit/0b9aa2c7c97fa009b88a36042b13f3906d76b05c))
+
 ## [3.0.0-rc.6](https://github.com/agrc/raster/compare/v3.0.0-rc.5...v3.0.0-rc.6) (2025-11-14)
 
 
