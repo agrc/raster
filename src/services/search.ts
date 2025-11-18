@@ -32,6 +32,7 @@ export async function query(productType: ProductTypeKey, aoi: __esri.GeometryUni
     outFields: Object.values(config.EXTENT_FIELDS),
     returnGeometry: true,
     where,
+    signal: AbortSignal.timeout(config.DEFAULT_REQUEST_TIMEOUT),
   };
 
   const url = config.EXTENT_SERVICE_URLS[productType];

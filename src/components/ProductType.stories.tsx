@@ -119,7 +119,7 @@ const groupedResults: Record<string, ProductFeature[]> = {
 
 function ProductTypeStoryWrapper(args: React.ComponentProps<typeof ProductType>) {
   return (
-    <div className="w-80 rounded-b-lg bg-gray-100 px-2 py-2 dark:bg-black">
+    <div className="w-96 rounded-b-lg bg-gray-100 px-2 py-2 dark:bg-black">
       <ProductType {...args} />
     </div>
   );

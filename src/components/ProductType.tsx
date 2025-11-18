@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Banner } from '@ugrc/utah-design-system';
+import { Banner, Button } from '@ugrc/utah-design-system';
 import { Tree, TreeItem } from 'react-aria-components';
 import config from '../config';
 import useWizardMachine from '../hooks/useWizardMachine';
@@ -20,7 +20,7 @@ const topLevelClasses = 'text-lg font-semibold [&:not(:first-child)]:mt-1';
 
 export default function ProductType({ productType, aoi, isOnly, searchFn = search }: ProductTypeProps) {
   const { snapshot } = useWizardMachine();
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, refetch } = useQuery({
     queryKey: ['searchResults', productType, aoi, snapshot.context.urlCategories],
     queryFn: () => searchFn(productType, aoi as __esri.GeometryUnion, snapshot.context.urlCategories),
   });
@@ -40,7 +40,14 @@ export default function ProductType({ productType, aoi, isOnly, searchFn = searc
     return (
       <>
         <span className={topLevelClasses}>{title}</span>
-        <Banner className="m-2">Error loading search results</Banner>
+        <Banner className="m-2">
+          <div className="flex flex-col gap-1">
+            Error loading search results
+            <Button className="self-end" variant="destructive" size="extraSmall" onClick={() => refetch()}>
+              Retry
+            </Button>
+          </div>
+        </Banner>
       </>
     );
   }

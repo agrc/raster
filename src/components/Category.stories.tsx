@@ -12,7 +12,7 @@ const meta = {
   component: Category,
   decorators: [MapViewDecorator, PreviewDecorator, WizardMachineDecorator, AnalyticsProviderDecorator],
   render: (args) => (
-    <div className="w-80 rounded-b-lg bg-gray-100 px-2 py-2 dark:bg-black">
+    <div className="w-96 rounded-b-lg bg-gray-100 px-2 py-2 dark:bg-black">
       <Tree aria-label="Category" selectionMode="none" defaultExpandedKeys={[args.category]}>
         <Category {...args} />
       </Tree>

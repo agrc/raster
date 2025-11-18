@@ -21,6 +21,7 @@ export default async function getTiles(productType: ProductTypeKey, tileIndex: s
     geometryType: getJsonType(aoi) as GeometryType,
     returnGeometry: true,
     orderByFields: `${config.INDEX_FIELDS.OBJECTID} ASC`,
+    signal: AbortSignal.timeout(config.DEFAULT_REQUEST_TIMEOUT),
   };
 
   const response = (await queryFeatures(queryParams)) as ResponseType;
