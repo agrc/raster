@@ -196,6 +196,10 @@ Both unit and e2e tests can be run via VSCode's test explorer.
 
 See `.github/copilot-instructions.md` for architecture details.
 
+## Qualtrics Survey
+
+The qualtrics survey is controlled via a script tag in `index.html` and points to a div with a class name of `qualtrics-survey` in `App.tsx`. To see the data collected from the survey go to this [qualtrics dashboard](https://utconcierge.qualtrics.com/reporting-dashboard/web/680153c0074a1e00077973be/pages/Page_9913a052-b81e-4989-829f-d8171b5f41fa/view).
+
 ## Attribution
 
 This project was developed with the assistance of [GitHub Copilot](https://github.com/features/copilot).
