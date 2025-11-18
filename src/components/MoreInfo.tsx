@@ -44,7 +44,7 @@ type MoreInfoProps = {
 };
 
 export default function MoreInfo({ title, productType, objectId, getMoreInfoFn = getMoreInfo }: MoreInfoProps) {
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, refetch } = useQuery({
     queryKey: ['moreInfo', productType, objectId],
     queryFn: () => getMoreInfoFn(productType, objectId),
   });
@@ -60,7 +60,14 @@ export default function MoreInfo({ title, productType, objectId, getMoreInfoFn =
       {isLoading ? (
         <ListLoader />
       ) : error || !data ? (
-        <Banner>Error loading more information</Banner>
+        <Banner className="w-96">
+          <div className="flex flex-col">
+            Error loading more information
+            <Button className="self-end" variant="destructive" size="extraSmall" onClick={() => refetch()}>
+              Retry
+            </Button>
+          </div>
+        </Banner>
       ) : (
         <table className="mt-2">
           <tbody>

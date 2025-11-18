@@ -13,6 +13,7 @@ export default async function getMoreInfo(productType: ProductTypeKey, objectId:
     where: `${config.EXTENT_FIELDS.OBJECTID} = ${objectId}`,
     outFields: Object.keys(config.MORE_INFO_FIELD_INFOS[productType] || {}),
     returnGeometry: false,
+    signal: AbortSignal.timeout(config.DEFAULT_REQUEST_TIMEOUT),
   })) as IQueryFeaturesResponse;
 
   if (response.features.length === 0) {

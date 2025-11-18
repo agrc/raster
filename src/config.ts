@@ -73,6 +73,7 @@ type Config = {
   INDEX_FIELDS: typeof INDEX_FIELDS;
   DISCOVER_URL: string;
   PRODUCT_SORT_ORDER: Partial<Record<ProductTypeKey, string[]>>;
+  DEFAULT_REQUEST_TIMEOUT: number;
 };
 
 const config: Config = {
@@ -211,6 +212,7 @@ const config: Config = {
     aerialPhotography: ['rgb', 'cir', 'single', 'b&w'],
     lidar: ['bare', 'first'],
   },
+  DEFAULT_REQUEST_TIMEOUT: 20000, // in milliseconds
 } as const;
 
 export default config;
