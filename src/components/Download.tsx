@@ -289,6 +289,8 @@ export default function Download() {
     productType,
     logEvent,
     markAsDownloaded,
+    tileIndex,
+    clear,
   ]);
 
   return (
