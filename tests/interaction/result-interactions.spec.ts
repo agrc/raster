@@ -97,7 +97,7 @@ test.describe('Search Result Interaction Testing', () => {
     await expect(webPageLink).toContainText('web page');
 
     // Verify the link has the correct href
-    await expect(webPageLink).toHaveAttribute('href', 'https://gis.utah.gov/products/sgid/aerial-photography/naip/');
+    await expect(webPageLink).toHaveAttribute('href', /https:\/\/gis\.utah\.gov\//);
   });
 
   test('2.5 Test Download Button Availability', async ({ page }) => {

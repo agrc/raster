@@ -100,7 +100,7 @@ jobs:
           pnpm exec playwright install --with-deps
 
       - name: 🎭 Run Playwright tests
-        run: pnpm exec playwright test --max-failures=5
+        run: pnpm exec playwright test --max-failures=10
         env:
           VITE_DISCOVER: ${{ secrets.VITE_DISCOVER }}
           VITE_FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
