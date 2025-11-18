@@ -61,7 +61,7 @@ export default function MoreInfo({ title, productType, objectId, getMoreInfoFn =
         <ListLoader />
       ) : error || !data ? (
         <Banner className="w-96">
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-1">
             Error loading more information
             <Button className="self-end" variant="destructive" size="extraSmall" onClick={() => refetch()}>
               Retry
