@@ -35,7 +35,7 @@ test.describe('Edge Cases and Error Handling', () => {
     // Verify: "Aerial Photography" header appears
     await expect(page.getByRole('button', { name: 'Collapse Aerial Photography' })).toBeVisible();
 
-    // Verify: "No products found" message appears OR mark fixme if statewide coverage prevents this
+    // Verify: "No products found" message appears
     const noResults = page.getByText('No products found');
     await expect(noResults).toBeVisible();
   });

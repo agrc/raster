@@ -514,7 +514,7 @@ The UGRC Raster Data Discovery application is a React-based single-page applicat
 
 **Objective**: Verify wizard state is managed correctly.
 
-#### 10.1 Test Step State Transitions
+#### 9.1 Test Step State Transitions
 
 **Steps:**
 
