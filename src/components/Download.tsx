@@ -287,6 +287,7 @@ export default function Download({ getTilesService = getTiles }: DownloadProps) 
     markAsDownloaded,
     tileIndex,
     clear,
+    layerId,
   ]);
 
   return (
