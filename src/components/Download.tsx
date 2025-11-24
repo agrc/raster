@@ -2,7 +2,7 @@ import { whenOnce } from '@arcgis/core/core/reactiveUtils';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import FeatureSet from '@arcgis/core/rest/support/FeatureSet';
 import { useQuery } from '@tanstack/react-query';
-import { Banner, ExternalLink, Link, useFirebaseAnalytics } from '@ugrc/utah-design-system';
+import { Banner, Button, ExternalLink, Link, useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import config from '../config';
@@ -108,16 +108,20 @@ function PopupContent({ attributes, description, metadata, report, logEvent, mar
 const popupContainer = document.createElement('div');
 const popupRoot = createRoot(popupContainer);
 
-export default function Download() {
+type DownloadProps = {
+  getTilesService?: typeof getTiles;
+};
+
+export default function Download({ getTilesService = getTiles }: DownloadProps) {
   const { snapshot } = useWizardMachine();
   const { productType, tileIndex, description, metadata, report } = snapshot.context.download || {};
   const { mapView, zoom } = useMap();
   const featureLayerRef = useRef<__esri.FeatureLayer | null>(null);
   const [highlightedOid, setHighlightedOid] = useState<number | null>(null);
   const logEvent = useFirebaseAnalytics();
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, refetch } = useQuery({
     queryKey: ['tiles', productType, tileIndex, snapshot.context.aoi],
-    queryFn: () => getTiles(productType!, tileIndex!, snapshot.context.aoi!),
+    queryFn: () => getTilesService(productType!, tileIndex!, snapshot.context.aoi!),
     enabled: !!productType && !!tileIndex,
   });
 
@@ -134,11 +138,9 @@ export default function Download() {
     }
   }, [productType, tileIndex, mapView, clear]);
 
-  const onTileHover = useCallback(
-    (objectId: number, on: boolean) => {
-      if (!featureLayerRef.current || !mapView) return;
-
-      if (on) {
+  const onTileHover = useCallback((objectId: number, on: boolean) => {
+    if (on) {
+      if (featureLayerRef.current) {
         featureLayerRef.current.featureEffect = {
           filter: {
             where: `${config.INDEX_FIELDS.OBJECTID} = ${objectId}`,
@@ -146,14 +148,15 @@ export default function Download() {
           excludedEffect: 'blur(1px) opacity(60%)',
           includedEffect: 'drop-shadow(2px, 2px, 3px)',
         };
-        setHighlightedOid(objectId);
-      } else {
-        featureLayerRef.current.featureEffect = null;
-        setHighlightedOid(null);
       }
-    },
-    [mapView],
-  );
+      setHighlightedOid(objectId);
+    } else {
+      if (featureLayerRef.current) {
+        featureLayerRef.current.featureEffect = null;
+      }
+      setHighlightedOid(null);
+    }
+  }, []);
 
   // Update feature layer when tiles are downloaded
   useEffect(() => {
@@ -323,7 +326,23 @@ export default function Download() {
       {isLoading ? (
         <ListLoader />
       ) : error || !data ? (
-        <Banner>Error loading tiles</Banner>
+        <Banner>
+          <div className="flex flex-col gap-1">
+            {error instanceof Error && error.name === 'MaxTilesExceededError' ? (
+              <>
+                The number of tiles for this area exceeds the maximum allowed ({config.MAX_DOWNLOAD_TILES}). Please
+                narrow your area of interest and try again.
+              </>
+            ) : (
+              <>
+                Error loading more information
+                <Button className="self-end" variant="destructive" size="extraSmall" onClick={() => refetch()}>
+                  Retry
+                </Button>
+              </>
+            )}
+          </div>
+        </Banner>
       ) : (
         <div>
           {data.features.map((feature) => (
