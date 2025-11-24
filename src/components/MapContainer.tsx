@@ -35,7 +35,7 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
 
   // setup the Map
   useEffect(() => {
-    if (!mapRef.current) return;
+    if (!mapRef.current || !mapRef.current?.view) return;
 
     const map = mapRef.current;
     map.constraints.snapToZoom = false;
