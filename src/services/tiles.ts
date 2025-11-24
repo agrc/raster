@@ -3,6 +3,19 @@ import { queryFeatures, type GeometryType, type IQueryFeaturesResponse } from '@
 import config from '../config';
 import type { ProductTypeKey, TileFeature } from '../types';
 
+function checkForMaxTiles(numTiles: number) {
+  if (numTiles > config.MAX_DOWNLOAD_TILES) {
+    throw new MaxTilesExceededError();
+  }
+}
+
+export class MaxTilesExceededError extends Error {
+  constructor() {
+    super();
+    this.name = 'MaxTilesExceededError';
+  }
+}
+
 export default async function getTiles(productType: ProductTypeKey, tileIndex: string, aoi: __esri.GeometryUnion) {
   const outFields = Object.values(config.INDEX_FIELDS);
 
@@ -30,6 +43,8 @@ export default async function getTiles(productType: ProductTypeKey, tileIndex: s
     throw new Error(`No tiles found for productType "${productType}" and tileIndex "${tileIndex}"`);
   }
 
+  checkForMaxTiles(response.features.length);
+
   if (response.exceededTransferLimit) {
     // page through results if we hit the transfer limit
     let allFeatures = response.features;
@@ -43,6 +58,7 @@ export default async function getTiles(productType: ProductTypeKey, tileIndex: s
       })) as ResponseType;
 
       allFeatures = [...allFeatures, ...nextResponse.features];
+      checkForMaxTiles(allFeatures.length);
       resultOffset += nextResponse.features.length;
       exceededTransferLimit = nextResponse.exceededTransferLimit;
     }
