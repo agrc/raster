@@ -11,7 +11,7 @@ function checkForMaxTiles(numTiles: number) {
 
 export class MaxTilesExceededError extends Error {
   constructor() {
-    super();
+    super('Maximum number of tiles exceeded');
     this.name = 'MaxTilesExceededError';
   }
 }
