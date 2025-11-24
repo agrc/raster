@@ -124,19 +124,20 @@ export default function Download({ getTilesService = getTiles }: DownloadProps) 
     queryFn: () => getTilesService(productType!, tileIndex!, snapshot.context.aoi!),
     enabled: !!productType && !!tileIndex,
   });
+  const layerId = `tiles-${productType}-${tileIndex}`;
 
   const { setCount, clear, downloadedTiles, markAsDownloaded } = useTiles();
 
-  // remove feature layer and clear tiles when productType or tileIndex is unset
+  // remove feature layer and clear tiles when productType or tileIndex is changed or unset
   useEffect(() => {
-    if (!productType || !tileIndex) {
+    if (!productType || !tileIndex || featureLayerRef.current?.id !== layerId) {
       if (featureLayerRef.current && mapView?.map) {
         mapView.map.remove(featureLayerRef.current);
         featureLayerRef.current = null;
         clear();
       }
     }
-  }, [productType, tileIndex, mapView, clear]);
+  }, [productType, tileIndex, mapView, clear, layerId]);
 
   const onTileHover = useCallback((objectId: number, on: boolean) => {
     if (on) {
@@ -192,15 +193,7 @@ export default function Download({ getTilesService = getTiles }: DownloadProps) 
 
   // add feature layer
   useEffect(() => {
-    const layerId = `tiles-${productType}-${tileIndex}`;
     if (!mapView?.map || !data || featureLayerRef.current?.id === layerId) return;
-
-    // remove previous layer
-    if (featureLayerRef.current && mapView?.map) {
-      mapView.map.remove(featureLayerRef.current);
-      featureLayerRef.current = null;
-      clear();
-    }
 
     const downloadedField: __esri.FieldProperties = {
       name: DOWNLOADED,
