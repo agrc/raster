@@ -67,6 +67,7 @@ Large vendor bundles live in `public/assets/esri` & `public/assets/components`; 
 
 - **Type checking:** `pnpm check` (runs `tsc -b` against `tsconfig.browser.json` + `tsconfig.vite-config.json`). **Always run this to check for TypeScript errors.** Fix TS issues before shipping; unchecked map typings quickly lead to runtime errors.
 - **Tests:** `pnpm test` runs Vitest in watch mode; use `pnpm test run` for a single pass (handy in CI). Vitest uses `happy-dom`; no DOM globals are auto-exposed outside tests, so import `@testing-library` helpers as needed.
+- **E2E Tests:** `pnpm test:e2e` runs Playwright tests in UI mode. CI runs `playwright test` (headless).
 - **Lint:** `pnpm lint`. ESLint config extends UGRC rules; they already handle React 19 + hooks.
 - **Formatting:** `pnpm format`. Prettier plugin auto-sorts imports; avoid manual grouping to prevent churn.
 - **CI expectations:** builds run `tsc -b && vite build`; ensure new TS paths are covered. Firebase deploys expect `dist/` + up-to-date headers in `firebase.json`.
@@ -110,6 +111,17 @@ Large vendor bundles live in `public/assets/esri` & `public/assets/components`; 
 ## Quick troubleshooting
 
 - Missing basemaps? Check `VITE_DISCOVER` and run `pnpm copy:arcgis` (assets or token mismatch).
+
+## Playwright & E2E Testing
+
+- **Structure:** Tests live in `tests/` organized by category (`search/`, `interaction/`, `accessibility/`, etc.).
+- **Fixtures:** Shared helpers in `tests/fixtures/test-helpers.ts` (e.g., `completeBasicSearch`, `waitForMap`, `selectProduct`). **Always use these helpers** instead of rewriting common workflows.
+- **Configuration:** `playwright.config.ts` handles browser projects (Chromium, WebKit) and starts the dev server automatically.
+- **Best Practices:**
+  - Use `completeBasicSearch(page)` to quickly get to a state with results.
+  - Use `waitForMap(page)` to ensure the ArcGIS map is ready before interacting.
+  - Prefer `getByRole` and accessible locators over CSS selectors.
+  - Keep tests focused on specific features; rely on fixtures for setup.
 
 ## Commits
 
