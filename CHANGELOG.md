@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.0.0-rc.8](https://github.com/agrc/raster/compare/v3.0.0-rc.7...v3.0.0-rc.8) (2025-11-24)
+
+
+### Features
+
+* implement tile download limits and error handling for exceeded tile requests ([0c6c221](https://github.com/agrc/raster/commit/0c6c221e91d5238f74ff2bf00d08b0fbbd345bb2))
+
+
+### Bug Fixes
+
+* better logic for clearing old tile map layers ([0ba4328](https://github.com/agrc/raster/commit/0ba43281ad2560823c559a3483d231e11801069c))
+* prevent app from attempting to load before mapview is ready ([f97c21c](https://github.com/agrc/raster/commit/f97c21c57e32969427575fa87b903e19c043189c))
+
 ## [3.0.0-rc.7](https://github.com/agrc/raster/compare/v3.0.0-rc.6...v3.0.0-rc.7) (2025-11-18)
 
 
