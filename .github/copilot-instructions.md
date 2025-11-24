@@ -65,7 +65,7 @@ Large vendor bundles live in `public/assets/esri` & `public/assets/components`; 
 
 ## Build, quality, and validation
 
-- **Type checking:** `pnpm check` (runs `tsc -b` against `tsconfig.browser.json` + `tsconfig.vite-config.json`). Fix TS issues before shipping; unchecked map typings quickly lead to runtime errors.
+- **Type checking:** `pnpm check` (runs `tsc -b` against `tsconfig.browser.json` + `tsconfig.vite-config.json`). **Always run this to check for TypeScript errors.** Fix TS issues before shipping; unchecked map typings quickly lead to runtime errors.
 - **Tests:** `pnpm test` runs Vitest in watch mode; use `pnpm test run` for a single pass (handy in CI). Vitest uses `happy-dom`; no DOM globals are auto-exposed outside tests, so import `@testing-library` helpers as needed.
 - **Lint:** `pnpm lint`. ESLint config extends UGRC rules; they already handle React 19 + hooks.
 - **Formatting:** `pnpm format`. Prettier plugin auto-sorts imports; avoid manual grouping to prevent churn.
