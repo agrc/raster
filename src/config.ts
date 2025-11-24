@@ -74,6 +74,7 @@ type Config = {
   DISCOVER_URL: string;
   PRODUCT_SORT_ORDER: Partial<Record<ProductTypeKey, string[]>>;
   DEFAULT_REQUEST_TIMEOUT: number;
+  MAX_DOWNLOAD_TILES: number;
 };
 
 const config: Config = {
@@ -213,6 +214,7 @@ const config: Config = {
     lidar: ['bare', 'first'],
   },
   DEFAULT_REQUEST_TIMEOUT: 20000, // in milliseconds
+  MAX_DOWNLOAD_TILES: 500,
 } as const;
 
 export default config;
