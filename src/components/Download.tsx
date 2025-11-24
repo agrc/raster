@@ -329,7 +329,7 @@ export default function Download({ getTilesService = getTiles }: DownloadProps) 
               </>
             ) : (
               <>
-                Error loading more information
+                Failed to load tile information
                 <Button className="self-end" variant="destructive" size="extraSmall" onClick={() => refetch()}>
                   Retry
                 </Button>
