@@ -41,7 +41,7 @@ const links = [
     action: { url: 'https://gis.utah.gov/products/sgid/aerial-photography/' },
   },
   {
-    key: 'Lidar',
+    key: 'UGRC Lidar',
     action: { url: 'https://gis.utah.gov/products/sgid/elevation/lidar/' },
   },
   {
