@@ -1,5 +1,82 @@
 # Changelog
 
+## [3.0.0-rc.9](https://github.com/agrc/raster/compare/v2.5.11...v3.0.0-rc.9) (2025-11-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* This is a total rewrite of the application
+
+### Features
+
+* add home button ([67d026a](https://github.com/agrc/raster/commit/67d026af02159912fcbdf52188d720c9930a9c1a)), closes [#217](https://github.com/agrc/raster/issues/217)
+* add lidar link to header menu ([c359b7d](https://github.com/agrc/raster/commit/c359b7ddd1ce9e0c5c1e0699a3d7fbff75c04eae)), closes [#227](https://github.com/agrc/raster/issues/227)
+* add links to base map and aerial photography pages ([1d3cdb0](https://github.com/agrc/raster/commit/1d3cdb06bf988f5f95dc9dc69c5e0135bd694a23)), closes [#227](https://github.com/agrc/raster/issues/227)
+* add metadata and report links to download ([9352117](https://github.com/agrc/raster/commit/9352117f77480aaccd1d95febbf7fbe501316a68)), closes [#218](https://github.com/agrc/raster/issues/218)
+* add more info & web page links & download button ([2b49e03](https://github.com/agrc/raster/commit/2b49e036d0ed82b9b062222b06b797b00b7103e7)), closes [#221](https://github.com/agrc/raster/issues/221)
+* add qualtrics survey ([3f983d9](https://github.com/agrc/raster/commit/3f983d9d07914ac299314d78e9f0495ebe803649))
+* add request timeouts and retry buttons where appropriate ([1325db1](https://github.com/agrc/raster/commit/1325db1cd19956e76c928bc8d08aa298f674ae59)), closes [#223](https://github.com/agrc/raster/issues/223)
+* add uds tooltips ([c961ad8](https://github.com/agrc/raster/commit/c961ad8a414e977e116bddc92d9b5ae1006e0fc4)), closes [#220](https://github.com/agrc/raster/issues/220)
+* add year collected to lidar category labels ([d621a0d](https://github.com/agrc/raster/commit/d621a0dd1301ebc8e30a7db8713721b2e525869e)), closes [#168](https://github.com/agrc/raster/issues/168)
+* basic tile download list and popup ([ecba668](https://github.com/agrc/raster/commit/ecba668d5763a01247cb5e44b9f2ebe7cc0bb13e)), closes [#218](https://github.com/agrc/raster/issues/218)
+* cache all queries for 30 minutes ([9655e4e](https://github.com/agrc/raster/commit/9655e4e8e6a134668d3f7c2562a9fe1535a96109))
+* create state machine and model product type selection ([4427ea2](https://github.com/agrc/raster/commit/4427ea21cbb5cb48362eb057882ea1340a77992f)), closes [#220](https://github.com/agrc/raster/issues/220)
+* Firebase Analytics tracking for user interactions ([7952908](https://github.com/agrc/raster/commit/7952908f6bb47e2dc1d10bf4a3fc16be783cadfa)), closes [#215](https://github.com/agrc/raster/issues/215)
+* implement area of interest definition ([04bd6e1](https://github.com/agrc/raster/commit/04bd6e16734bc071bb4b4659a89a0f438fdd9307)), closes [#213](https://github.com/agrc/raster/issues/213)
+* implement extents searching ([4074816](https://github.com/agrc/raster/commit/4074816eebf3e9dff7953fa362c82efee79a2376)), closes [#222](https://github.com/agrc/raster/issues/222)
+* implement map loading busy bar indicator ([7cfd63f](https://github.com/agrc/raster/commit/7cfd63ffe3f6043cdc443c5281fc55e5dc92cb6d))
+* implement more info dialog ([5411302](https://github.com/agrc/raster/commit/54113020aa982f10f4df58812935b814d83a2356)), closes [#223](https://github.com/agrc/raster/issues/223)
+* implement preview functionality ([86f9704](https://github.com/agrc/raster/commit/86f9704de0999212b7a6ce09975e6fd1121ed8f2)), closes [#221](https://github.com/agrc/raster/issues/221)
+* implement tile download limits and error handling for exceeded tile requests ([f851ef7](https://github.com/agrc/raster/commit/f851ef7ed74bd8f77ff030d82bb59e62576659f4))
+* implement URL parameters ([41110ed](https://github.com/agrc/raster/commit/41110ed0b4082cbe5e1e58579155448097abd565)), closes [#212](https://github.com/agrc/raster/issues/212)
+* implement zoom to extent button and show extent on hover ([17e5d87](https://github.com/agrc/raster/commit/17e5d87f4d538fe3c869f40ea799c3afff1633f4)), closes [#221](https://github.com/agrc/raster/issues/221)
+* indicate which tiles have been downloaded ([ca11c96](https://github.com/agrc/raster/commit/ca11c962f3130c6ca6ac5ca74f3dd40abfd4d38b)), closes [#247](https://github.com/agrc/raster/issues/247)
+* save clicks by auto-expanding tree items that are single children ([9ed8530](https://github.com/agrc/raster/commit/9ed853060a5dfe145d1c97580341f418084b4baa)), closes [#221](https://github.com/agrc/raster/issues/221)
+* show search results grouped by product type and category ([48c076d](https://github.com/agrc/raster/commit/48c076d5d5944e7f61b13041cd1bbdcf1d6adccd)), closes [#221](https://github.com/agrc/raster/issues/221)
+* show search results in a tree structure ([21ed003](https://github.com/agrc/raster/commit/21ed0039a42d6a0d67aa1f3a4b0ff215333bd554)), closes [#221](https://github.com/agrc/raster/issues/221)
+
+
+### Bug Fixes
+
+* add imagery as an additional base map option ([a7601bb](https://github.com/agrc/raster/commit/a7601bb3453465a93ee9a59a6b5f5903734df2f1)), closes [#214](https://github.com/agrc/raster/issues/214)
+* add UGRC to lidar link text ([3b8ba21](https://github.com/agrc/raster/commit/3b8ba21e04293b99a9d210c83e8e0848105ca9ab))
+* better logic for clearing old tile map layers ([1c3e3f8](https://github.com/agrc/raster/commit/1c3e3f82160b29ef6ca53635510a268e0b81d783))
+* clear any existing AOI if a new sketch tool is activated ([a19cd54](https://github.com/agrc/raster/commit/a19cd5452cfed4ffceec261834916da64a5a1da2)), closes [#221](https://github.com/agrc/raster/issues/221)
+* disable drawing toolbar when search is triggered ([b77393c](https://github.com/agrc/raster/commit/b77393c011bf0a1664b02f0e49a61ba425d121a4))
+* don't run firebase performance in dev ([5761499](https://github.com/agrc/raster/commit/5761499ef5bb46fefb7633f77f62673b8544fdf1))
+* expand default extent to better fit the state of utah ([7b1cd23](https://github.com/agrc/raster/commit/7b1cd2311281454567e15789c5114195d68e7e00)), closes [#217](https://github.com/agrc/raster/issues/217)
+* fix bug causing multiple taps on the extent button from zooming the map out continually ([0e243ed](https://github.com/agrc/raster/commit/0e243edbfd2e6bafd64e1ed398663d09de3124fb))
+* fix bug preventing previous download tile layers from being removed ([e134732](https://github.com/agrc/raster/commit/e134732643a87f6168d931297b9e939feb3cfd09))
+* make sure that the preview does not cover up the AOI graphic ([c0a8d8d](https://github.com/agrc/raster/commit/c0a8d8de71ab8a60af9b6486f07b14677c9c0a76))
+* move year in lidar categories to parenthesis ([a0d3c04](https://github.com/agrc/raster/commit/a0d3c0482ee83efcbf6dd62735b3f7163a9c3959)), closes [#168](https://github.com/agrc/raster/issues/168)
+* prevent app from attempting to load before mapview is ready ([3ca0af3](https://github.com/agrc/raster/commit/3ca0af31b275500815aa3e34b08d2fe4e845d1c5))
+* prevent blank base maps ([68766ea](https://github.com/agrc/raster/commit/68766ea93e196a749f9538abba5a536b72ddf6ac))
+* provide more consistent ordering of products within categories ([94c9eb9](https://github.com/agrc/raster/commit/94c9eb92bf9ee6a6d0379a4a2465242546cacdd7)), closes [#234](https://github.com/agrc/raster/issues/234)
+* remove curly brace text in product names ([2153bb9](https://github.com/agrc/raster/commit/2153bb9ebe48e0bea01329e98548a72831ae188d))
+* reset AOI when selected product types changes ([67b8995](https://github.com/agrc/raster/commit/67b8995bbfc5cd6631ec744e4106261948394bb0))
+* set appropriate base map options ([4d4145a](https://github.com/agrc/raster/commit/4d4145a3aab9640b67f15c626f5fe5cba00a7375)), closes [#214](https://github.com/agrc/raster/issues/214)
+* show extents on hovering over product card contents, not just header ([14b5c96](https://github.com/agrc/raster/commit/14b5c965ed7aa4ca34a0316c5d8369327903998e))
+* start fresh with atlas template ([83db5a3](https://github.com/agrc/raster/commit/83db5a325fc78dc2b8078e7fded96950b915900f))
+
+
+### Documentation
+
+* document lidar category naming convention ([5eed9c1](https://github.com/agrc/raster/commit/5eed9c1085622e6adf132fa3fe22588624182134))
+* import architecture and schema-report docs ([c65ba95](https://github.com/agrc/raster/commit/c65ba95f36aaac7df7264c77eda1e1da28668239))
+
+
+### Styles
+
+* add left margin to categories ([d03699f](https://github.com/agrc/raster/commit/d03699f451dacef4ed7ad83d431cad472458e8fd))
+* better alignment of more info & download buttons ([eb66597](https://github.com/agrc/raster/commit/eb665975237b90f7b9a693b0190678622cc60a03))
+* better contrast of product header and buttons ([6d8d411](https://github.com/agrc/raster/commit/6d8d41150a0d33f128ced96f6768b65cd8403d2d))
+* better title sizes and sidebar layout on smaller screens ([bceb694](https://github.com/agrc/raster/commit/bceb694aeceab302228632af0b56f0717e83f370))
+* increase indent for product cards ([3864b62](https://github.com/agrc/raster/commit/3864b625d7f69a4d0a93f74dff6e3610ebb40958))
+* LiDAR -&gt; Lidar ([a5bc040](https://github.com/agrc/raster/commit/a5bc04035ccfa7e94321ba100695bef0e0050b7e))
+* make drawing toolbar fit in better with other controls ([526d99e](https://github.com/agrc/raster/commit/526d99e06bd85e401b8e6d72c1e5dab1b64f782c))
+* make gutters more consistent ([179ef1e](https://github.com/agrc/raster/commit/179ef1e6e1aabb1e8ddf336ee7d49fd3a925d142))
+* provide more padding for qualtrics survey ([fd4faa5](https://github.com/agrc/raster/commit/fd4faa5e7db912e3c06042a5f464a8d2f113ad71))
+
 ## [3.0.0-rc.8](https://github.com/agrc/raster/compare/v3.0.0-rc.7...v3.0.0-rc.8) (2025-11-24)
 
 
