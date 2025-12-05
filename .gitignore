@@ -37,3 +37,9 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 /.playwright-mcp/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# npm (project uses pnpm)
+package-lock.json
