@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.0.0-rc.10](https://github.com/agrc/raster/compare/v3.0.0-rc.9...v3.0.0-rc.10) (2025-12-05)
+
+
+### Bug Fixes
+
+* add light background to qualtrics survey ([d4c8990](https://github.com/agrc/raster/commit/d4c899032b519278602855e48d9e0e4f00f0d339)), closes [#271](https://github.com/agrc/raster/issues/271)
+* add temporary patch to fix upstream disclosure bug ([85c856f](https://github.com/agrc/raster/commit/85c856f4fb139676dc1e56033319bd3fd493b6d8)), closes [#244](https://github.com/agrc/raster/issues/244)
+* fix bug preventing visual download clues from working when downloading via map popup ([283cdf6](https://github.com/agrc/raster/commit/283cdf66879eb3c5aee2f405a0aafae1d337b3be))
+
 ## [3.0.0-rc.9](https://github.com/agrc/raster/compare/v2.5.11...v3.0.0-rc.9) (2025-11-25)
 
 
