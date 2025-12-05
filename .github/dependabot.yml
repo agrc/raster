@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: monthly
+      interval: quarterly
     groups:
       safe-dependencies:
         update-types:
@@ -15,11 +15,6 @@ updates:
     commit-message:
       prefix: deps
       prefix-development: deps(dev)
-    ignore:
-      - dependency-name: uglify-js
-        update-types:
-          - version-update:semver-major
-          - version-update:semver-minor
     cooldown:
       default-days: 10
       semver-major-days: 60
@@ -27,10 +22,11 @@ updates:
       semver-patch-days: 7
       exclude:
         - '@ugrc/*'
+
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: monthly
+      interval: quarterly
     groups:
       ci-dependencies:
         dependency-type: production

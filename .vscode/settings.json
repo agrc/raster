@@ -1,19 +1,43 @@
 {
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "cSpell.words": [
-    "cachebreaker",
-    "chbx",
-    "dijit",
-    "firebaserc",
-    "hostingchannels",
-    "Merc",
-    "overriden",
-    "proenv",
-    "querytxt",
-    "rasterapp",
-    "rdiv",
-    "Scalebar",
+    "AGOL",
+    "agrc",
+    "arcgis",
+    "autoplay",
+    "basemap",
+    "basemaps",
+    "cooldown",
+    "dedupe",
+    "Dismissable",
+    "geolocation",
+    "Geospatial",
+    "Lucide",
+    "NAIP",
+    "networkidle",
+    "nosniff",
+    "onarcgis",
+    "Orthophotography",
+    "prebuild",
+    "QUALTRICS",
+    "SAMEORIGIN",
+    "Topo",
+    "treegrid",
+    "UGRC",
+    "usehooks",
     "USGS",
-    "whos"
+    "vaadin",
+    "viewports",
+    "VITE",
+    "Vitest",
+    "wkid",
+    "xstate"
   ],
-  "editor.formatOnSave": false
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }

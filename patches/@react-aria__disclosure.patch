@@ -1,0 +1,39 @@
+diff --git a/dist/useDisclosure.main.js b/dist/useDisclosure.main.js
+index 3e5d0039e6bce2531de3724850df001db113a3a1..c29f642a5b1d3902e880e3efc425b473754712b5 100644
+--- a/dist/useDisclosure.main.js
++++ b/dist/useDisclosure.main.js
+@@ -116,7 +116,7 @@ function $ef53cd1bcef2de68$export$6e3e27031a30522f(props, state, ref) {
+             role: 'group',
+             'aria-labelledby': triggerId,
+             'aria-hidden': !state.isExpanded,
+-            hidden: isSSR || isDisabled ? isDisabled || !state.isExpanded : undefined
++            hidden: !state.isExpanded || undefined
+         }
+     };
+ }
+diff --git a/dist/useDisclosure.mjs b/dist/useDisclosure.mjs
+index 0165e0b51422f9e035cd1ec04f6185e2bd96d98e..e84d5583bad3c7e7b600849202030ac4e10f8d00 100644
+--- a/dist/useDisclosure.mjs
++++ b/dist/useDisclosure.mjs
+@@ -110,7 +110,7 @@ function $5e910fae8e128ead$export$6e3e27031a30522f(props, state, ref) {
+             role: 'group',
+             'aria-labelledby': triggerId,
+             'aria-hidden': !state.isExpanded,
+-            hidden: isSSR || isDisabled ? isDisabled || !state.isExpanded : undefined
++            hidden: !state.isExpanded || undefined
+         }
+     };
+ }
+diff --git a/dist/useDisclosure.module.js b/dist/useDisclosure.module.js
+index 0165e0b51422f9e035cd1ec04f6185e2bd96d98e..e84d5583bad3c7e7b600849202030ac4e10f8d00 100644
+--- a/dist/useDisclosure.module.js
++++ b/dist/useDisclosure.module.js
+@@ -110,7 +110,7 @@ function $5e910fae8e128ead$export$6e3e27031a30522f(props, state, ref) {
+             role: 'group',
+             'aria-labelledby': triggerId,
+             'aria-hidden': !state.isExpanded,
+-            hidden: isSSR || isDisabled ? isDisabled || !state.isExpanded : undefined
++            hidden: !state.isExpanded || undefined
+         }
+     };
+ }

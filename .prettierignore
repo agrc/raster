@@ -1,0 +1,6 @@
+.vscode
+/scripts
+/dist
+/public/assets
+CHANGELOG.md
+pnpm-lock.yaml

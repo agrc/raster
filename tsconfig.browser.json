@@ -1,0 +1,5 @@
+{
+  "extends": "@ugrc/tsconfigs/browser",
+  // the tailwind config is used in ProductType.tsx
+  "include": ["src", ".storybook/**/*", "tailwind.config.js"]
+}

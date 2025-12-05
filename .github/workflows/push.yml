@@ -6,23 +6,17 @@ on:
       - dev
       - main
 
-permissions:
-  contents: write
-  id-token: write
-  deployments: write
-  pull-requests: write
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  release:
+  release-please:
     name: Create release
     runs-on: ubuntu-latest
-    outputs:
-      release_created: ${{ steps.release-please.outputs.release_created }}
-      released_version: ${{ steps.release-please.outputs.released_version }}
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - name: 🚀 Create Release
@@ -35,4 +29,3 @@ jobs:
           github-app-key: ${{ secrets.UGRC_RELEASE_BOT_APP_KEY }}
           github-app-name: ${{ secrets.UGRC_RELEASE_BOT_NAME }}
           github-app-email: ${{ secrets.UGRC_RELEASE_BOT_EMAIL }}
-          extra-files: _src/app/config.js
