@@ -85,6 +85,9 @@
       "esbuild",
       "protobufjs"
     ],
-    "overrides": {}
+    "overrides": {},
+    "patchedDependencies": {
+      "@react-aria/disclosure": "patches/@react-aria__disclosure.patch"
+    }
   }
 }

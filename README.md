@@ -194,6 +194,16 @@ You can combine all of the above, for example:
 
 Both unit and e2e tests can be run via VSCode's test explorer.
 
+### Patches
+
+This project uses [pnpm's patching feature](https://pnpm.io/cli/patch) to apply fixes to dependencies before upstream releases.
+
+| Package | Issue | Fix PR | Remove when |
+|---------|-------|--------|-------------|
+| `@react-aria/disclosure` | [#9004](https://github.com/adobe/react-spectrum/issues/9004) | [#9045](https://github.com/adobe/react-spectrum/pull/9045) | Merged and released in `react-aria-components` |
+
+**Bug:** Collapsed `Disclosure` content becomes visible when `isDisabled` toggles from `true` to `false`.
+
 See `.github/copilot-instructions.md` for architecture details.
 
 ## Qualtrics Survey
