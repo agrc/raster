@@ -17,14 +17,14 @@ const NO = 'no';
 const YES = 'yes';
 const DOWNLOADED = 'downloaded';
 
-function getMetadataLink(url: string, logEvent: ReturnType<typeof useFirebaseAnalytics>, source: 'popup' | 'sidebar') {
+function getSidebarMetadataLink(url: string, logEvent: ReturnType<typeof useFirebaseAnalytics>) {
   if (url.toLowerCase().endsWith('.xml')) {
     // the heads for XML files from GCP buckets don't let the browser download them directly so we open them in a new tab
     return (
       <ExternalLink
         href={url}
         onPress={() => {
-          logEvent('tile_metadata_download', { source });
+          logEvent('tile_metadata_download', { source: 'sidebar' });
         }}
       >
         Metadata
@@ -36,7 +36,7 @@ function getMetadataLink(url: string, logEvent: ReturnType<typeof useFirebaseAna
         href={url}
         download
         onPress={() => {
-          logEvent('tile_metadata_download', { source });
+          logEvent('tile_metadata_download', { source: 'sidebar' });
         }}
       >
         Metadata
@@ -55,18 +55,53 @@ type PopupContentProps = {
   markAsDownloaded: (objectId: number) => void;
 };
 
+// PopupContent is rendered into a detached DOM container via createRoot for the ArcGIS popup.
+// We use native anchor elements here instead of React Aria's Link/ExternalLink components because
+// React Aria uses pointer events internally, which get intercepted by the ArcGIS popup container,
+// preventing onClick/onPress handlers from firing. Native onClick handlers work correctly.
+// We rely on Esri's default link styling since the popup renders inside a shadow DOM where
+// Tailwind classes from the main stylesheet are not available.
+function PopupMetadataLink({ url, logEvent }: { url: string; logEvent: ReturnType<typeof useFirebaseAnalytics> }) {
+  if (url.toLowerCase().endsWith('.xml')) {
+    return (
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => {
+          logEvent('tile_metadata_download', { source: 'popup' });
+        }}
+      >
+        Metadata
+      </a>
+    );
+  } else {
+    return (
+      <a
+        href={url}
+        download
+        onClick={() => {
+          logEvent('tile_metadata_download', { source: 'popup' });
+        }}
+      >
+        Metadata
+      </a>
+    );
+  }
+}
+
 function PopupContent({ attributes, description, metadata, report, logEvent, markAsDownloaded }: PopupContentProps) {
   const { PATH, TILE, EXT, SIZE, OBJECTID } = attributes;
 
   return (
-    <div className="space-y-2 p-3">
+    <div>
       <p>{description}</p>
       <div>
         <strong>File:</strong>{' '}
-        <Link
+        <a
           download
           href={`${PATH}${TILE}${EXT}`}
-          onPress={() => {
+          onClick={() => {
             markAsDownloaded(OBJECTID);
             logEvent('tile_download_click', {
               url: `${PATH}${TILE}${EXT}`,
@@ -76,25 +111,25 @@ function PopupContent({ attributes, description, metadata, report, logEvent, mar
           }}
         >
           Tile
-        </Link>
+        </a>
         {metadata ? (
           <>
             {' | '}
-            {getMetadataLink(metadata, logEvent, 'popup')}
+            <PopupMetadataLink url={metadata} logEvent={logEvent} />
           </>
         ) : null}
         {report ? (
           <>
             {' | '}
-            <Link
+            <a
               download
               href={report}
-              onPress={() => {
+              onClick={() => {
                 logEvent('tile_report_download', { source: 'popup' });
               }}
             >
               Report
-            </Link>
+            </a>
           </>
         ) : null}
       </div>
@@ -303,7 +338,7 @@ export default function Download({ getTilesService = getTiles }: DownloadProps) 
       <p className="font-bold">{description}</p>
       {metadata || report ? (
         <div className="flex justify-between">
-          {metadata && getMetadataLink(metadata, logEvent, 'sidebar')}
+          {metadata && getSidebarMetadataLink(metadata, logEvent)}
           {report && (
             <Link
               href={report}
