@@ -1,5 +1,26 @@
 # Changelog
 
+## [3.0.0](https://github.com/agrc/raster/compare/v2.5.11...v3.0.0) (2025-12-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* Total rewrite to use modern libraries
+    - Esri API for JavaScript 4.x
+    - Implement Utah Design System including many accessibility improvements
+    - Added visual cues for downloaded tiles
+    - Added support for dark mode
+    - Fixed a variety of bugs
+
+### Features
+
+* rewrite application using modern libraries ([9bce3e6](https://github.com/agrc/raster/commit/9bce3e62948a6b0878db6c8d0929992031075686))
+
+
+### Dependencies
+
+* bump the safe-dependencies group with 2 updates ([2de7811](https://github.com/agrc/raster/commit/2de78113cffdca97ee2746c0c6618bdec0e095d5))
+
 ## [3.0.0-rc.10](https://github.com/agrc/raster/compare/v3.0.0-rc.9...v3.0.0-rc.10) (2025-12-05)
 
 
