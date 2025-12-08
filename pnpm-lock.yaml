@@ -38,8 +38,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2
       '@ugrc/utah-design-system':
-        specifier: ^1.32.0
-        version: 1.33.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@3.4.18(yaml@2.8.2))
+        specifier: ^1.34.0
+        version: 1.34.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@3.4.18(yaml@2.8.2))
       '@ugrc/utilities':
         specifier: ^3.1.1
         version: 3.1.1(react@19.2.1)
@@ -50,8 +50,8 @@ importers:
         specifier: ^12.3.0
         version: 12.6.0
       lucide-react:
-        specifier: ^0.548.0
-        version: 0.548.0(react@19.2.1)
+        specifier: ^0.554.0
+        version: 0.554.0(react@19.2.1)
       react:
         specifier: ^19.2.0
         version: 19.2.1
@@ -2113,8 +2113,8 @@ packages:
   '@ugrc/tsconfigs@1.0.3':
     resolution: {integrity: sha512-9Z84bZpLJ6wRi4sm6RWvckPHs/Q6XZCHW5yjeHZzboZi/1bsJUOoh3F5wT/qQ5EKewDcHk65WcvUTWPc+JYjtQ==}
 
-  '@ugrc/utah-design-system@1.33.1':
-    resolution: {integrity: sha512-yuGwofFHoMyeXOOMXhZvIJbECle4F0iJgv/nSXSeaWcOi4+KOizaaNo4xnB8gpm9u/rcw7FUBwcLwvdA2w+ibQ==}
+  '@ugrc/utah-design-system@1.34.0':
+    resolution: {integrity: sha512-mZSfselDj46DW/dMmrcH0QS16KHAKsv4YaPZtIOHRlId0FXncntquuLaamY4GdZYVUS3QHP5sWOqyQra04lfQg==}
     peerDependencies:
       react: '>=16.8'
 
@@ -3386,6 +3386,10 @@ packages:
     resolution: {integrity: sha512-Rczb6FMM6JT0lvrOlP5WUOCB7s9XKxzwgErzhKlKde1bEV90FXplV1o87fpt4PU/asJFiqjYJxAJyzJhcrxOsQ==}
     engines: {node: '>=18'}
 
+  ky@1.14.1:
+    resolution: {integrity: sha512-hYje4L9JCmpEQBtudo+v52X5X8tgWXUYyPcxKSuxQNboqufecl9VMWjGiucAFH060AwPXHZuH+WB2rrqfkmafw==}
+    engines: {node: '>=18'}
+
   language-subtag-registry@0.3.23:
     resolution: {integrity: sha512-0K65Lea881pHotoGEa5gDlMxt3pctLi2RplBb7Ezh4rRdLEOtgi7n4EwK9lamnUCkKBqaeKRVebTq6BAxSkpXQ==}
 
@@ -3445,8 +3449,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@0.548.0:
-    resolution: {integrity: sha512-63b16z63jM9yc1MwxajHeuu0FRZFsDtljtDjYm26Kd86UQ5HQzu9ksEtoUUw4RBuewodw/tGFmvipePvRsKeDA==}
+  lucide-react@0.554.0:
+    resolution: {integrity: sha512-St+z29uthEJVx0Is7ellNkgTEhaeSoA42I7JjOCBCrc5X6LYMGSv0P/2uS5HDLTExP5tpiqRD2PyUEOS6s9UXA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -7076,7 +7080,7 @@ snapshots:
     dependencies:
       '@total-typescript/tsconfig': 1.0.4
 
-  '@ugrc/utah-design-system@1.33.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@3.4.18(yaml@2.8.2))':
+  '@ugrc/utah-design-system@1.34.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(tailwindcss@3.4.18(yaml@2.8.2))':
     dependencies:
       '@arcgis/core': 4.34.8
       '@esri/arcgis-rest-geocoding': 4.0.3(@esri/arcgis-rest-request@4.7.3)
@@ -7084,9 +7088,9 @@ snapshots:
       '@types/lodash-es': 4.17.12
       '@ugrc/utilities': 3.1.1(react@19.2.1)
       firebase: 12.6.0
-      ky: 1.14.0
+      ky: 1.14.1
       lodash-es: 4.17.21
-      lucide-react: 0.548.0(react@19.2.1)
+      lucide-react: 0.554.0(react@19.2.1)
       react: 19.2.1
       react-aria: 3.44.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       react-aria-components: 1.13.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -8684,6 +8688,8 @@ snapshots:
 
   ky@1.14.0: {}
 
+  ky@1.14.1: {}
+
   language-subtag-registry@0.3.23: {}
 
   language-tags@1.0.9:
@@ -8741,7 +8747,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@0.548.0(react@19.2.1):
+  lucide-react@0.554.0(react@19.2.1):
     dependencies:
       react: 19.2.1
 
