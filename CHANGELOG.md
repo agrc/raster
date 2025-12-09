@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/agrc/raster/compare/v3.0.0...v3.0.1) (2025-12-09)
+
+
+### Bug Fixes
+
+* fix layer selector by downgrading @arcgis/map-components package ([fbae6ca](https://github.com/agrc/raster/commit/fbae6cacd95502a982ab1d83fa965cd3aaa6a1e2)), closes [#259](https://github.com/agrc/raster/issues/259)
+
 ## [3.0.0](https://github.com/agrc/raster/compare/v2.5.11...v3.0.0) (2025-12-08)
 
 
