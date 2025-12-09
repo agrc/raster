@@ -93,7 +93,7 @@ These are only found in Auto-Correlated DEMs, Lidar DEMs, and USGS DEMs:
 
 #### Tile Indexes
 
-Individual tile index data aggregated into six feature classes corresponding with the product types similar to extents above.
+Individual tile index data aggregated into six feature classes corresponding with the product types similar to extents above. Maintained exclusively in AGOL. Each row represents a single tile that can be downloaded. These are queried to get the download links for each product.
 
 - [Utah Aerial Photography Tiles](https://utah.maps.arcgis.com/home/item.html?id=747a5deabc6e46e9bec5594ce0993612#data)
 - [Utah Lidar Tiles](https://utah.maps.arcgis.com/home/item.html?id=fc0ab17302f64c8e9d734f978f520c9b#data)
@@ -198,8 +198,8 @@ Both unit and e2e tests can be run via VSCode's test explorer.
 
 This project uses [pnpm's patching feature](https://pnpm.io/cli/patch) to apply fixes to dependencies before upstream releases.
 
-| Package | Issue | Fix PR | Remove when |
-|---------|-------|--------|-------------|
+| Package                  | Issue                                                        | Fix PR                                                     | Remove when                                    |
+| ------------------------ | ------------------------------------------------------------ | ---------------------------------------------------------- | ---------------------------------------------- |
 | `@react-aria/disclosure` | [#9004](https://github.com/adobe/react-spectrum/issues/9004) | [#9045](https://github.com/adobe/react-spectrum/pull/9045) | Merged and released in `react-aria-components` |
 
 **Bug:** Collapsed `Disclosure` content becomes visible when `isDisabled` toggles from `true` to `false`.
