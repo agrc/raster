@@ -29,9 +29,9 @@
     ]
   },
   "dependencies": {
-    "@arcgis/core": "^4.33.14",
-    "@arcgis/lumina": "^4.33.24",
-    "@arcgis/map-components": "^4.33.24",
+    "@arcgis/core": "~4.33.14",
+    "@arcgis/lumina": "~4.33.24",
+    "@arcgis/map-components": "~4.33.24",
     "@esri/arcgis-rest-feature-service": "^4.4.1",
     "@esri/arcgis-rest-request": "^4.7.3",
     "@tanstack/react-query": "^5.90.5",
