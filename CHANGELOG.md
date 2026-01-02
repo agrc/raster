@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.0.2-rc.1](https://github.com/agrc/raster/compare/v3.0.1...v3.0.2-rc.1) (2026-01-02)
+
+
+### Features
+
+* add place search component to map ([f70e481](https://github.com/agrc/raster/commit/f70e4819072d4dfad0d7312200ee063b2b95d212)), closes [#253](https://github.com/agrc/raster/issues/253)
+* add tool for copying bulk download snippets for various tools ([d667068](https://github.com/agrc/raster/commit/d667068c1e15a49a931d1a87b81f82a074110c67)), closes [#165](https://github.com/agrc/raster/issues/165)
+
+
+### Bug Fixes
+
+* bump react-aria-components to get bug fix ([a6c2b88](https://github.com/agrc/raster/commit/a6c2b88de3022a24727e916afa1347ad486e70d5)), closes [#244](https://github.com/agrc/raster/issues/244)
+* prevent tiles found and preview banners from overlapping ([e27f09d](https://github.com/agrc/raster/commit/e27f09dbd3e2d19d113a8a3ee0d7ab6ed18146bc)), closes [#288](https://github.com/agrc/raster/issues/288)
+
+
+### Dependencies
+
+* bump npm dependencies 🌲 ([a94a5e6](https://github.com/agrc/raster/commit/a94a5e647b68e3d77968b606082d34006d05cad4))
+
 ## [3.0.1](https://github.com/agrc/raster/compare/v3.0.0...v3.0.1) (2025-12-09)
 
 
