@@ -8,8 +8,8 @@ export default function TilesControls() {
   }
 
   return (
-    <div className="absolute left-1/2 top-4 z-10 -translate-x-1/2 rounded-md bg-primary-300/75 px-2 py-1 text-zinc-800">
-      {count.toLocaleString()} Tiles Found
+    <div className="mx-auto w-fit rounded-md bg-primary-300/75 px-2 py-1 text-zinc-800">
+      <b>{count.toLocaleString()}</b> tiles found
     </div>
   );
 }
