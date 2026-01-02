@@ -76,8 +76,11 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
       }}
     >
       <BusyBar busy={viewIsLoading} />
-      <PreviewControls />
-      <TilesControls />
+      {/* group PreviewControls and TilesControls inside the same container so that we can allow them to be positioned together */}
+      <div className="absolute left-1/2 top-4 z-10 flex -translate-x-1/2 flex-col gap-2">
+        <PreviewControls />
+        <TilesControls />
+      </div>
       <arcgis-zoom slot="top-left"></arcgis-zoom>
       <arcgis-home slot="top-left"></arcgis-home>
       {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
