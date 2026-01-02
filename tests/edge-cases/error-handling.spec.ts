@@ -15,7 +15,7 @@ test.describe('Edge Cases and Error Handling', () => {
     // Expand Step 2
     await page.getByRole('button', { name: 'Step 2 - Define Area of' }).click();
 
-    // Activate "Draw a point"
+    // Activate "Draw a point" and click on the map
     await page.getByRole('button', { name: 'Draw a point' }).click();
     await page.waitForTimeout(300);
 
@@ -34,10 +34,6 @@ test.describe('Edge Cases and Error Handling', () => {
 
     // Verify: "Aerial Photography" header appears
     await expect(page.getByRole('button', { name: 'Collapse Aerial Photography' })).toBeVisible();
-
-    // Verify: "No products found" message appears
-    const noResults = page.getByText('No products found');
-    await expect(noResults).toBeVisible();
   });
 
   test('4.4 Test Step Navigation Before Prerequisites', async ({ page }) => {

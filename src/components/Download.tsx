@@ -2,7 +2,8 @@ import { whenOnce } from '@arcgis/core/core/reactiveUtils';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import FeatureSet from '@arcgis/core/rest/support/FeatureSet';
 import { useQuery } from '@tanstack/react-query';
-import { Banner, Button, ExternalLink, Link, useFirebaseAnalytics } from '@ugrc/utah-design-system';
+import { Banner, Button, ExternalLink, Link, Radio, RadioGroup, useFirebaseAnalytics } from '@ugrc/utah-design-system';
+import { Check, Copy } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import config from '../config';
@@ -13,6 +14,7 @@ import getTiles from '../services/tiles';
 import type { TileFeature } from '../types';
 import ListLoader from './ListLoader';
 import Tile from './Tile';
+import { generateCommands, type DownloadTool } from './utils';
 const NO = 'no';
 const YES = 'yes';
 const DOWNLOADED = 'downloaded';
@@ -162,6 +164,8 @@ export default function Download({ getTilesService = getTiles }: DownloadProps) 
   const layerId = `tiles-${productType}-${tileIndex}`;
 
   const { setCount, clear, downloadedTiles, markAsDownloaded } = useTiles();
+  const [selectedTool, setSelectedTool] = useState<DownloadTool>('curl');
+  const [copied, setCopied] = useState(false);
 
   // remove feature layer and clear tiles when productType or tileIndex is changed or unset
   useEffect(() => {
@@ -350,6 +354,47 @@ export default function Download({ getTilesService = getTiles }: DownloadProps) 
               Report
             </Link>
           )}
+        </div>
+      ) : null}
+      {data && data.features.length > 0 ? (
+        <div className="space-y-2 rounded border border-zinc-300 bg-zinc-50 p-2 dark:border-zinc-600 dark:bg-zinc-800">
+          <RadioGroup
+            label="Bulk download snippet"
+            value={selectedTool}
+            onChange={(value) => setSelectedTool(value as DownloadTool)}
+            orientation="horizontal"
+          >
+            <Radio value="curl">curl</Radio>
+            <Radio value="wget">wget</Radio>
+            <Radio value="aria2c">aria2c</Radio>
+          </RadioGroup>
+          <p className="text-xs text-zinc-600 dark:text-zinc-300">
+            Tip: On Windows PowerShell, curl works best. Wget requires GNU wget.exe.
+          </p>
+          <Button
+            variant="secondary"
+            size="extraSmall"
+            className="w-full"
+            onPress={async () => {
+              const command = generateCommands(selectedTool, data.features);
+              await navigator.clipboard.writeText(command);
+              setCopied(true);
+              logEvent('copy_tile_commands', { tool: selectedTool, count: data.features.length });
+              setTimeout(() => setCopied(false), 2000);
+            }}
+          >
+            {copied ? (
+              <>
+                <Check size={14} className="mr-1" />
+                Copied!
+              </>
+            ) : (
+              <>
+                <Copy size={14} className="mr-1" />
+                Copy command to download {data.features.length.toLocaleString()} tiles
+              </>
+            )}
+          </Button>
         </div>
       ) : null}
       {isLoading ? (
