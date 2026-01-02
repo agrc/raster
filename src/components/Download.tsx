@@ -391,7 +391,8 @@ export default function Download({ getTilesService = getTiles }: DownloadProps) 
             ) : (
               <>
                 <Copy size={14} className="mr-1" />
-                Copy command to download {data.features.length.toLocaleString()} tiles
+                Copy command to download {data.features.length.toLocaleString()}{' '}
+                {data.features.length === 1 ? 'tile' : 'tiles'}
               </>
             )}
           </Button>
