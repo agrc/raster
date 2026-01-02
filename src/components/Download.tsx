@@ -377,10 +377,18 @@ export default function Download({ getTilesService = getTiles }: DownloadProps) 
             className="w-full"
             onPress={async () => {
               const command = generateCommands(selectedTool, data.features);
-              await navigator.clipboard.writeText(command);
-              setCopied(true);
-              logEvent('copy_tile_commands', { tool: selectedTool, count: data.features.length });
-              setTimeout(() => setCopied(false), 2000);
+              try {
+                if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
+                  throw new Error('Clipboard API is not available');
+                }
+                await navigator.clipboard.writeText(command);
+                setCopied(true);
+                logEvent('copy_tile_commands', { tool: selectedTool, count: data.features.length });
+                setTimeout(() => setCopied(false), 2000);
+              } catch (error) {
+                // Clipboard write failed; do not show "Copied!" to the user.
+                console.error('Failed to copy download command to clipboard:', error);
+              }
             }}
           >
             {copied ? (
