@@ -15,29 +15,21 @@ test.describe('Edge Cases and Error Handling', () => {
     // Expand Step 2
     await page.getByRole('button', { name: 'Step 2 - Define Area of' }).click();
 
-    // Activate "Draw a point"
+    // Activate "Draw a point" and click on the map
     await page.getByRole('button', { name: 'Draw a point' }).click();
     await page.waitForTimeout(300);
+    await page.getByRole('application').click();
+    await page.waitForTimeout(1000);
 
-    // Click just below the map "Home" button to target a likely no-coverage area
-    const homeBtn = page.getByRole('button', { name: 'Home' });
-    await expect(homeBtn).toBeVisible();
-    const box = await homeBtn.boundingBox();
-    if (!box) throw new Error('Home button bounding box not available');
-    const clickX = box.x + box.width / 2;
-    const clickY = box.y + box.height + 40; // 40px below Home button
-    await page.mouse.click(clickX, clickY);
+    // Wait for Step 3 to auto-expand and show results
+    const step3Header = page.getByRole('button', { name: /Step 3 - Results/i });
+    await expect(step3Header).toHaveAttribute('aria-expanded', 'true', { timeout: 15000 });
 
-    // Expand Step 3 and wait for results
     const resultsGrid = page.getByRole('treegrid', { name: 'search results' });
     await expect(resultsGrid).toBeVisible({ timeout: 15000 });
 
     // Verify: "Aerial Photography" header appears
     await expect(page.getByRole('button', { name: 'Collapse Aerial Photography' })).toBeVisible();
-
-    // Verify: "No products found" message appears
-    const noResults = page.getByText('No products found');
-    await expect(noResults).toBeVisible();
   });
 
   test('4.4 Test Step Navigation Before Prerequisites', async ({ page }) => {

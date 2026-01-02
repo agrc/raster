@@ -1,7 +1,7 @@
 import type { IFeature } from '@esri/arcgis-rest-request';
 import { describe, expect, it } from 'vitest';
 import config from '../config';
-import { getSort, isUrlLike, isYes, removeCurlyBracesContent } from './utils';
+import { generateCommands, getSort, isUrlLike, isYes, removeCurlyBracesContent, type DownloadTool } from './utils';
 
 describe('isUrlLike', () => {
   it('returns true for http and https URLs', () => {
@@ -224,5 +224,79 @@ describe('getSort', () => {
       // 'Pure CIR' should match on 'cir' (index 1)
       expect(features[2]!.attributes[config.EXTENT_FIELDS.Product]).toBe('Pure CIR');
     });
+  });
+});
+
+describe('generateCommands', () => {
+  const createFeature = (path: string, tile: string, ext: string) => ({
+    attributes: {
+      [config.INDEX_FIELDS.PATH]: path,
+      [config.INDEX_FIELDS.TILE]: tile,
+      [config.INDEX_FIELDS.EXT]: ext,
+    },
+  });
+
+  const singleFeature = [createFeature('https://storage.example.com/tiles/', 'tile_001', '.tif')];
+
+  const multipleFeatures = [
+    createFeature('https://storage.example.com/tiles/', 'tile_001', '.tif'),
+    createFeature('https://storage.example.com/tiles/', 'tile_002', '.tif'),
+    createFeature('https://other.example.com/data/', 'dem_abc', '.img'),
+  ];
+
+  describe('wget', () => {
+    it('generates correct command for single URL', () => {
+      const result = generateCommands('wget', singleFeature);
+      expect(result).toBe('wget "https://storage.example.com/tiles/tile_001.tif"');
+    });
+
+    it('generates correct command for multiple URLs', () => {
+      const result = generateCommands('wget', multipleFeatures);
+      expect(result).toBe(
+        'wget "https://storage.example.com/tiles/tile_001.tif" "https://storage.example.com/tiles/tile_002.tif" "https://other.example.com/data/dem_abc.img"',
+      );
+    });
+  });
+
+  describe('curl', () => {
+    it('generates correct command for single URL', () => {
+      const result = generateCommands('curl', singleFeature);
+      expect(result).toBe('curl -O "https://storage.example.com/tiles/tile_001.tif"');
+    });
+
+    it('generates correct command for multiple URLs', () => {
+      const result = generateCommands('curl', multipleFeatures);
+      expect(result).toBe(
+        'curl -O "https://storage.example.com/tiles/tile_001.tif" -O "https://storage.example.com/tiles/tile_002.tif" -O "https://other.example.com/data/dem_abc.img"',
+      );
+    });
+  });
+
+  describe('aria2c', () => {
+    it('generates correct command for single URL', () => {
+      const result = generateCommands('aria2c', singleFeature);
+      expect(result).toBe('aria2c -Z "https://storage.example.com/tiles/tile_001.tif"');
+    });
+
+    it('generates correct command for multiple URLs', () => {
+      const result = generateCommands('aria2c', multipleFeatures);
+      expect(result).toBe(
+        'aria2c -Z "https://storage.example.com/tiles/tile_001.tif" "https://storage.example.com/tiles/tile_002.tif" "https://other.example.com/data/dem_abc.img"',
+      );
+    });
+  });
+
+  describe('URL construction', () => {
+    it('correctly concatenates PATH, TILE, and EXT attributes', () => {
+      const feature = createFeature('https://bucket.storage.com/folder/', 'my_tile_name', '.geotiff');
+      const result = generateCommands('wget', [feature]);
+      expect(result).toContain('https://bucket.storage.com/folder/my_tile_name.geotiff');
+    });
+  });
+
+  it.each<DownloadTool>(['wget', 'curl', 'aria2c'])('handles empty features array for %s', (tool) => {
+    const result = generateCommands(tool, []);
+    // Should not throw, returns command with no URLs
+    expect(typeof result).toBe('string');
   });
 });
