@@ -1,8 +1,11 @@
+import Collection from '@arcgis/core/core/Collection';
 import { watch } from '@arcgis/core/core/reactiveUtils';
 import type { EventHandler } from '@arcgis/lumina';
+import '@arcgis/map-components/components/arcgis-expand';
 import '@arcgis/map-components/components/arcgis-home';
 import '@arcgis/map-components/components/arcgis-locate';
 import '@arcgis/map-components/components/arcgis-map';
+import '@arcgis/map-components/components/arcgis-search';
 import '@arcgis/map-components/components/arcgis-zoom';
 import { useQuery } from '@tanstack/react-query';
 import { BusyBar, LayerSelector, type LayerSelectorProps } from '@ugrc/utah-design-system';
@@ -13,6 +16,14 @@ import useMap from '../hooks/useMap';
 import { getGraphicsAndExtent, parseUrlParams } from '../services/urlParams';
 import PreviewControls from './PreviewControls';
 import TilesControls from './TilesControls';
+
+const sources = new Collection<__esri.LocatorSearchSource>([
+  {
+    name: 'Search for address or place',
+    placeholder: 'e.g. Manti or Salt Flats',
+    url: 'https://masquerade.ugrc.utah.gov/arcgis/rest/services/UtahLocator/GeocodeServer',
+  },
+]);
 
 export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMapElement['arcgisViewClick']> }) => {
   const [selectorOptions, setSelectorOptions] = useState<LayerSelectorProps | null>(null);
@@ -81,8 +92,17 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
         <PreviewControls />
         <TilesControls />
       </div>
-      <arcgis-zoom slot="top-left"></arcgis-zoom>
-      <arcgis-home slot="top-left"></arcgis-home>
+      <arcgis-zoom position="top-left"></arcgis-zoom>
+      <arcgis-home position="top-left"></arcgis-home>
+      <arcgis-expand position="top-left" expandIcon="search">
+        <arcgis-search
+          includeDefaultSourcesDisabled
+          locationDisabled
+          popupDisabled
+          resultGraphicDisabled
+          sources={sources}
+        ></arcgis-search>
+      </arcgis-expand>
       {selectorOptions && <LayerSelector {...selectorOptions}></LayerSelector>}
     </arcgis-map>
   );
