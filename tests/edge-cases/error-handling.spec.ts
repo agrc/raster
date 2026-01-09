@@ -19,13 +19,13 @@ test.describe('Edge Cases and Error Handling', () => {
     await page.getByRole('button', { name: 'Draw a point' }).click();
     await page.waitForTimeout(300);
 
-    // Click just below the map "Home" button to target a likely no-coverage area
-    const homeBtn = page.getByRole('button', { name: 'Home' });
-    await expect(homeBtn).toBeVisible();
-    const box = await homeBtn.boundingBox();
-    if (!box) throw new Error('Home button bounding box not available');
+    // Click just below the map "Search" button to target a likely no-coverage area
+    const searchBtn = page.getByRole('button', { name: 'Search' });
+    await expect(searchBtn).toBeVisible();
+    const box = await searchBtn.boundingBox();
+    if (!box) throw new Error('Search button bounding box not available');
     const clickX = box.x + box.width / 2;
-    const clickY = box.y + box.height + 40; // 40px below Home button
+    const clickY = box.y + box.height + 40; // 40px below Search button
     await page.mouse.click(clickX, clickY);
 
     // Expand Step 3 and wait for results

@@ -94,7 +94,7 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
       </div>
       <arcgis-zoom position="top-left"></arcgis-zoom>
       <arcgis-home position="top-left"></arcgis-home>
-      <arcgis-expand position="top-left" expandIcon="search">
+      <arcgis-expand position="top-left" expandTooltip="Search" expandIcon="search">
         <arcgis-search
           includeDefaultSourcesDisabled
           locationDisabled
