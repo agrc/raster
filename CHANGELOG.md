@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.0.2](https://github.com/agrc/raster/compare/v3.0.1...v3.0.2) (2026-01-12)
+
+
+### Features
+
+* add place search component to map ([e691300](https://github.com/agrc/raster/commit/e691300e7d39257070b61ab82f2ddebbc153244a)), closes [#253](https://github.com/agrc/raster/issues/253)
+
+
+### Bug Fixes
+
+* bump react-aria-components to get bug fix ([a46928c](https://github.com/agrc/raster/commit/a46928c1e2e40510d810cdfa9bb29e5f2519ef02)), closes [#244](https://github.com/agrc/raster/issues/244)
+* fix search button tooltip and test ([5867857](https://github.com/agrc/raster/commit/586785772b75cba3bbe60f08f6113d4b87f37e0a))
+* prevent tiles found and preview banners from overlapping ([8e36419](https://github.com/agrc/raster/commit/8e364190eb6b3be16e0b97daab65d83ecbbb71d3)), closes [#288](https://github.com/agrc/raster/issues/288)
+
+
+### Dependencies
+
+* bump npm dependencies 🌲 ([586e81f](https://github.com/agrc/raster/commit/586e81feb08b335d71e83623c07ce9860712d5a1))
+
 ## [3.0.2-rc.2](https://github.com/agrc/raster/compare/v3.0.1...v3.0.2-rc.2) (2026-01-09)
 
 
