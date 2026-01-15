@@ -91,6 +91,8 @@ export default function App() {
               <PreviewProvider>
                 <Drawer main state={sideBarState} {...sideBarTriggerProps} size="large">
                   <WizardMachineProvider>
+                    <h1 className="sr-only">Raster Data Discovery Wizard</h1>
+                    <h2 className="sr-only">Follow the four steps to discover and download raster data</h2>
                     <Wizard />
                     <div className="qualtrics-survey m-2 rounded-lg bg-gray-100 px-2 pb-2 pt-1 text-sm"></div>
                   </WizardMachineProvider>

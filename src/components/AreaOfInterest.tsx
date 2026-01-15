@@ -4,7 +4,7 @@ import SketchTooltipOptions from '@arcgis/core/views/interactive/sketch/SketchTo
 import type { EventHandler } from '@arcgis/lumina';
 import '@arcgis/map-components/components/arcgis-search';
 import '@arcgis/map-components/components/arcgis-sketch';
-import { Label, useFirebaseAnalytics } from '@ugrc/utah-design-system';
+import { useFirebaseAnalytics } from '@ugrc/utah-design-system';
 import { useEffect, useRef } from 'react';
 import config from '../config';
 import useMap from '../hooks/useMap';
@@ -80,8 +80,10 @@ export default function AreaOfInterest() {
 
   return (
     <div className="flex flex-col gap-3">
-      <Label>
-        Search for an address
+      <div>
+        <span className="w-fit cursor-default text-sm font-medium text-zinc-700 dark:text-zinc-300">
+          Search for an address
+        </span>
         <arcgis-search
           includeDefaultSourcesDisabled
           locationDisabled
@@ -92,9 +94,11 @@ export default function AreaOfInterest() {
           resultGraphicDisabled
           sources={sources}
         />
-      </Label>
-      <Label>
-        Or draw on the map using the tools below
+      </div>
+      <div>
+        <span className="w-fit cursor-default text-sm font-medium text-zinc-700 dark:text-zinc-300">
+          Or draw on the map using the tools below
+        </span>
         <div className="flex items-center justify-start">
           <arcgis-sketch
             className="border border-gray-400"
@@ -123,7 +127,7 @@ export default function AreaOfInterest() {
             tooltipOptions={tooltipOptions}
           />
         </div>
-      </Label>
+      </div>
     </div>
   );
 }
