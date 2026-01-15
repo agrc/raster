@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.2-rc.3](https://github.com/agrc/raster/compare/v3.0.2...v3.0.2-rc.3) (2026-01-15)
+
+
+### Bug Fixes
+
+* a11y fixes and improvements ([5194ea5](https://github.com/agrc/raster/commit/5194ea5e6928cb1619d5aa82491a0d8900592540))
+
+
+### Dependencies
+
+* bump npm dependencies 🌲 ([63ac0d4](https://github.com/agrc/raster/commit/63ac0d4dcb20019edf6e8344fb80aff1b1692c7d))
+
 ## [3.0.2](https://github.com/agrc/raster/compare/v3.0.1...v3.0.2) (2026-01-12)
 
 
