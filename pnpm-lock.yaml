@@ -33,8 +33,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(@lit/context@1.1.6)
       '@ugrc/utah-design-system':
-        specifier: ^1.34.0
-        version: 1.34.0(@lit/context@1.1.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@3.4.19)
+        specifier: ^1.34.1
+        version: 1.34.1(@lit/context@1.1.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@3.4.19)
       '@ugrc/utilities':
         specifier: ^3.1.1
         version: 3.1.1(@lit/context@1.1.6)(react@19.2.3)
@@ -63,8 +63,8 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(react@19.2.3)
       react-error-boundary:
-        specifier: ^6.0.0
-        version: 6.0.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+        specifier: ^6.0.3
+        version: 6.0.3(react@19.2.3)
       react-stately:
         specifier: ^3.43.0
         version: 3.43.0(react@19.2.3)
@@ -82,7 +82,7 @@ importers:
         specifier: ^1.57.0
         version: 1.57.0
       '@storybook/react-vite':
-        specifier: ^10.0.7
+        specifier: ^10.1.11
         version: 10.1.11(esbuild@0.27.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(rollup@4.54.0)(storybook@10.1.11(@testing-library/dom@10.4.1)(prettier@3.7.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)(vite@7.3.0(@types/node@24.10.4)(jiti@1.21.7))
       '@types/node':
         specifier: ^24.10.1
@@ -130,7 +130,7 @@ importers:
         specifier: ^0.7.2
         version: 0.7.2(prettier-plugin-organize-imports@4.3.0(prettier@3.7.4)(typescript@5.9.3))(prettier@3.7.4)
       storybook:
-        specifier: ^10.0.7
+        specifier: ^10.1.11
         version: 10.1.11(@testing-library/dom@10.4.1)(prettier@3.7.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       tailwindcss:
         specifier: ^3.4.17
@@ -1858,8 +1858,8 @@ packages:
   '@ugrc/tsconfigs@1.0.3':
     resolution: {integrity: sha512-9Z84bZpLJ6wRi4sm6RWvckPHs/Q6XZCHW5yjeHZzboZi/1bsJUOoh3F5wT/qQ5EKewDcHk65WcvUTWPc+JYjtQ==}
 
-  '@ugrc/utah-design-system@1.34.0':
-    resolution: {integrity: sha512-mZSfselDj46DW/dMmrcH0QS16KHAKsv4YaPZtIOHRlId0FXncntquuLaamY4GdZYVUS3QHP5sWOqyQra04lfQg==}
+  '@ugrc/utah-design-system@1.34.1':
+    resolution: {integrity: sha512-mpEVIMpwD3Xi+PpZt+KX96X81tkd27SpKGcMS46f6Ni8WcxMODe5Wl9Cwjzlsrvd3q6Pwj/v8OtQ/Imv7I8Zqg==}
     peerDependencies:
       react: '>=16.8'
 
@@ -3450,11 +3450,10 @@ packages:
     peerDependencies:
       react: ^19.2.3
 
-  react-error-boundary@6.0.1:
-    resolution: {integrity: sha512-zArgQpjJUN1ZLMEKWtifxQweW3yfvwL5j2nh3Pesze1qG6r5oCDMy/TA97bUF01wy4xCeeL4/pd8GHmvEsP3Bg==}
+  react-error-boundary@6.0.3:
+    resolution: {integrity: sha512-5guqn2UYpCFjE8UDMA8J7Kke+YSGBFrKQRJb3XdcaGZXYINZfQXgBt3ifY6MvjkN7QROc5A8zclyoSCwrcRUKw==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
-      react-dom: ^18.0.0 || ^19.0.0
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -6410,7 +6409,7 @@ snapshots:
     dependencies:
       '@total-typescript/tsconfig': 1.0.4
 
-  '@ugrc/utah-design-system@1.34.0(@lit/context@1.1.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@3.4.19)':
+  '@ugrc/utah-design-system@1.34.1(@lit/context@1.1.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@3.4.19)':
     dependencies:
       '@arcgis/core': 4.33.14(@lit/context@1.1.6)
       '@esri/arcgis-rest-geocoding': 4.0.3(@esri/arcgis-rest-request@4.7.3)
@@ -8263,10 +8262,9 @@ snapshots:
       react: 19.2.3
       scheduler: 0.27.0
 
-  react-error-boundary@6.0.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+  react-error-boundary@6.0.3(react@19.2.3):
     dependencies:
       react: 19.2.3
-      react-dom: 19.2.3(react@19.2.3)
 
   react-is@16.13.1: {}
 
