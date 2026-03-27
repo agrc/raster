@@ -76,7 +76,7 @@ export default function App() {
 
   return (
     <>
-      <main id="main-content" className="flex h-screen flex-col md:gap-2">
+      <main id="main-content" tabIndex={-1} className="flex h-screen flex-col md:gap-2">
         <Header links={links}>
           <div className="flex h-full grow items-center gap-3">
             <UgrcLogo />
