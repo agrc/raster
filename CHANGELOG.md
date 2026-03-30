@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.3](https://github.com/agrc/raster/compare/v3.0.2...v3.0.3) (2026-03-30)
+
+
+### Features
+
+* **a11y:** add high contrast base map ([164aaa0](https://github.com/agrc/raster/commit/164aaa0cde375f68ee7e499ddbb8d7260a744159))
+
+
+### Bug Fixes
+
+* **a11y:** add skip-link content id ([3ffd26f](https://github.com/agrc/raster/commit/3ffd26fbbbe238779442082e12c9427800144f3e))
+
 ## [3.0.2](https://github.com/agrc/raster/compare/v3.0.1...v3.0.2) (2026-01-15)
 
 
