@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/agrc/raster/compare/v3.0.3...v4.0.0) (2026-04-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* This is a total rewrite of the application
+
+### Bug Fixes
+
+* start fresh with atlas template ([a4ce429](https://github.com/agrc/raster/commit/a4ce4295c16d1972d448c47496efa95b55d9ac32))
+
 ## [3.0.3](https://github.com/agrc/raster/compare/v3.0.2...v3.0.3) (2026-03-30)
 
 
