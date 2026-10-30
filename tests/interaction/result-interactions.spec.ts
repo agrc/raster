@@ -2,17 +2,16 @@
 // Refactored: Uses shared test helpers to eliminate duplication
 
 import { expect, test } from '@playwright/test';
-import { completeBasicSearch, expandCategory, findProductWithPreview } from '../fixtures/test-helpers';
+import { completeBasicSearch, expandProduct, findProductWithPreview } from '../fixtures/test-helpers';
 
 test.describe('Search Result Interaction Testing', () => {
   test('2.1 Test Extent Zoom Functionality', async ({ page }) => {
     await completeBasicSearch(page);
 
-    // Expand a product category
-    await expandCategory(page);
+    const productRow = await expandProduct(page, 'NAIP 2024 (60cm)', '4-Band (county mosaic)');
 
     // Click the "Extent" button on a product
-    const extentButton = page.getByRole('button', { name: 'Extent' });
+    const extentButton = productRow.getByRole('button', { name: 'Extent', exact: true });
     await extentButton.click();
 
     // Verify the extent button is visible (it was clicked successfully)
@@ -46,7 +45,7 @@ test.describe('Search Result Interaction Testing', () => {
     await completeBasicSearch(page);
 
     // Expand a product item to show details
-    await expandCategory(page);
+    await expandProduct(page, 'NAIP 2024 (60cm)', '4-Band (county mosaic)');
 
     // Click the "more info" button
     await page.getByRole('button', { name: 'more info' }).click();
@@ -87,7 +86,7 @@ test.describe('Search Result Interaction Testing', () => {
     await completeBasicSearch(page);
 
     // Expand a product item to show details
-    await expandCategory(page);
+    await expandProduct(page, 'NAIP 2024 (60cm)', '4-Band (county mosaic)');
 
     // Look for "web page" link in the details section
     const webPageLink = page.getByRole('link', { name: /web page.*opens in a new window/ });
@@ -104,7 +103,7 @@ test.describe('Search Result Interaction Testing', () => {
     await completeBasicSearch(page);
 
     // Expand a product item to show details
-    await expandCategory(page);
+    await expandProduct(page, 'NAIP 2024 (60cm)', '4-Band (county mosaic)');
 
     // Click a "Download" button on a product that has one
     const downloadButton = page.getByRole('button', { name: 'Download', exact: true });

@@ -166,6 +166,15 @@ export async function expandCategory(page: Page, categoryName?: string) {
   }
 }
 
+export async function expandProduct(page: Page, categoryName: string, productName: string) {
+  await expandCategory(page, categoryName);
+  const productRow = page.getByRole('row', { name: productName, exact: true });
+  await productRow.getByRole('button', { name: `Expand ${productName}`, exact: true }).click();
+  await expect(productRow).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.getByRole('button', { name: 'more info', exact: true })).toBeVisible();
+  return productRow;
+}
+
 /**
  * Find a product with a Preview button
  */
