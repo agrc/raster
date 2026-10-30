@@ -179,6 +179,7 @@ You can combine all of the above, for example:
 
 Dependency build approvals and the seven-day release-age policy are configured in
 `pnpm-workspace.yaml`. CI and Firebase deployment jobs use PNPM 12 with frozen installs.
+The deployment action runs the locally installed `firebase-tools` CLI.
 
 ### Commands
 
