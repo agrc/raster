@@ -155,7 +155,7 @@ export function getCategoryRows(page: Page) {
  */
 export async function expandCategory(page: Page, categoryName?: string) {
   if (categoryName) {
-    const expandButton = page.getByRole('button', { name: new RegExp(`Expand ${categoryName}`, 'i') });
+    const expandButton = page.getByRole('button', { name: `Expand ${categoryName}`, exact: true });
     await expandButton.click();
     await page.waitForTimeout(TIMEOUTS.ANIMATION);
   } else {
@@ -164,6 +164,15 @@ export async function expandCategory(page: Page, categoryName?: string) {
     await firstExpandButton.click();
     await page.waitForTimeout(TIMEOUTS.ANIMATION);
   }
+}
+
+export async function expandProduct(page: Page, categoryName: string, productName: string) {
+  await expandCategory(page, categoryName);
+  const productRow = page.getByRole('row', { name: productName, exact: true });
+  await productRow.getByRole('button', { name: `Expand ${productName}`, exact: true }).click();
+  await expect(productRow).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.getByRole('button', { name: 'more info', exact: true })).toBeVisible();
+  return productRow;
 }
 
 /**

@@ -18,23 +18,23 @@ jobs:
 
     steps:
       - name: ⬇️ Set up code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           show-progress: false
 
       - name: 📦 Setup PNPM
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
-          version: latest
+          version: '12'
 
       - name: ⎔ Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: lts/*
           cache: pnpm
 
       - name: 📥 Download dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: 🧶 Lint
         run: pnpm run lint
@@ -48,23 +48,23 @@ jobs:
 
     steps:
       - name: ⬇️ Set up code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           show-progress: false
 
       - name: 📦 Setup PNPM
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
-          version: latest
+          version: '12'
 
       - name: ⎔ Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: lts/*
           cache: pnpm
 
       - name: 📥 Download dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: 🧪 Run tests
         run: pnpm test
@@ -72,30 +72,30 @@ jobs:
   test-e2e:
     name: End-to-End tests
     needs: [test-unit, test-check]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 60
     environment: dev
 
     steps:
       - name: ⬇️ Set up code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           show-progress: false
 
       - name: 📦 Setup PNPM
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
-          version: latest
+          version: '12'
 
       - name: ⎔ Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: lts/*
           cache: pnpm
 
       - name: 📥 Download dependencies
         run: |-
-          pnpm install
+          pnpm install --frozen-lockfile
           pnpm run copy:arcgis
           pnpm exec playwright install --with-deps
 
@@ -106,7 +106,7 @@ jobs:
           VITE_FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
 
       - name: ⬆️ Upload Playwright report
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
@@ -122,9 +122,13 @@ jobs:
       name: preview
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
       - name: 🚀 Deploy
-        uses: agrc/firebase-website-deploy-composite-action@v1
+        uses: agrc/firebase-website-deploy-composite-action@v2
         with:
+          pnpm-version: '12'
           identity-provider: ${{ secrets.IDENTITY_PROVIDER }}
           service-account-email: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
           project-id: ${{ secrets.PROJECT_ID }}
