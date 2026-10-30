@@ -1,6 +1,12 @@
 minimumReleaseAge: 10080
 minimumReleaseAgeExcludePrune: true
 minimumReleaseAgeStrict: true
+minimumReleaseAgeExclude:
+  - '@babel/generator@7.29.12'
+  - '@babel/helper-string-parser@7.29.11'
+  - '@babel/parser@7.29.12'
+  - '@babel/traverse@7.29.12'
+  - '@babel/types@7.29.11'
 overrides:
   '@ugrc/utah-design-system@1.35.0>react-stately': '$react-stately'
 packageExtensions:
