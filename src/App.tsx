@@ -14,11 +14,11 @@ import { useUrlParams } from './hooks/useUrlParams';
 
 const version = import.meta.env.PACKAGE_VERSION;
 
-const ErrorFallback = ({ error }: { error: Error }) => {
+const ErrorFallback = ({ error }: { error: unknown }) => {
   return (
     <div role="alert">
       <p>Something went wrong:</p>
-      <pre style={{ color: 'red' }}>{error.message}</pre>
+      <pre style={{ color: 'red' }}>{error instanceof Error ? error.message : String(error)}</pre>
     </div>
   );
 };
