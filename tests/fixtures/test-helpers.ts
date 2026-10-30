@@ -155,7 +155,7 @@ export function getCategoryRows(page: Page) {
  */
 export async function expandCategory(page: Page, categoryName?: string) {
   if (categoryName) {
-    const expandButton = page.getByRole('button', { name: new RegExp(`Expand ${categoryName}`, 'i') });
+    const expandButton = page.getByRole('button', { name: `Expand ${categoryName}`, exact: true });
     await expandButton.click();
     await page.waitForTimeout(TIMEOUTS.ANIMATION);
   } else {

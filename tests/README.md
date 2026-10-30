@@ -50,6 +50,7 @@ The `fixtures/test-helpers.ts` file provides reusable utilities to eliminate cod
 
 - `getCategoryRows(page)` - Get all category rows
 - `expandCategory(page, categoryName)` - Expand a specific category
+- `expandProduct(page, categoryName, productName)` - Expand a category and product details; return the product row for scoped actions
 - `findProductWithPreview(page, maxCategoriesToCheck)` - Find a product with preview capability
 
 ## Usage Example
@@ -110,7 +111,7 @@ test.describe('My New Feature', () => {
     await completeBasicSearch(page);
 
     // Your unique test logic
-    await expandCategory(page, 'NAIP 2024');
+    await expandCategory(page, 'NAIP 2024 (60cm)');
     await expect(page.getByRole('button', { name: 'My Feature' })).toBeVisible();
   });
 });
