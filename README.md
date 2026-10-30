@@ -181,6 +181,12 @@ Dependency build approvals and the seven-day release-age policy are configured i
 `pnpm-workspace.yaml`. CI and Firebase deployment jobs use PNPM 12 with frozen installs.
 The deployment action runs the locally installed `firebase-tools` CLI.
 
+The Babel security update has exact-version release-age exceptions in
+`pnpm-workspace.yaml`. Remove each exception after its version is seven days old:
+`@babel/helper-string-parser@7.29.11` and `@babel/types@7.29.11` after
+2026-10-30 22:46 UTC, and `@babel/generator@7.29.12`, `@babel/parser@7.29.12`,
+and `@babel/traverse@7.29.12` after 2026-11-05 16:44 UTC.
+
 Until Utah Design System 1.35.0 is replaced, the workspace configuration aligns its
 React Stately dependency with the app and declares its otherwise-transitive
 `@react-stately/data` type dependency. These compatibility entries are scoped to
