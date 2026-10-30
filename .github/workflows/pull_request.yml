@@ -18,17 +18,17 @@ jobs:
 
     steps:
       - name: ⬇️ Set up code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           show-progress: false
 
       - name: 📦 Setup PNPM
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: latest
 
       - name: ⎔ Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: lts/*
           cache: pnpm
@@ -48,17 +48,17 @@ jobs:
 
     steps:
       - name: ⬇️ Set up code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           show-progress: false
 
       - name: 📦 Setup PNPM
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: latest
 
       - name: ⎔ Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: lts/*
           cache: pnpm
@@ -78,17 +78,17 @@ jobs:
 
     steps:
       - name: ⬇️ Set up code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           show-progress: false
 
       - name: 📦 Setup PNPM
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: latest
 
       - name: ⎔ Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: lts/*
           cache: pnpm
@@ -106,7 +106,7 @@ jobs:
           VITE_FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
 
       - name: ⬆️ Upload Playwright report
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
@@ -123,7 +123,7 @@ jobs:
 
     steps:
       - name: 🚀 Deploy
-        uses: agrc/firebase-website-deploy-composite-action@v1
+        uses: agrc/firebase-website-deploy-composite-action@v2
         with:
           identity-provider: ${{ secrets.IDENTITY_PROVIDER }}
           service-account-email: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
