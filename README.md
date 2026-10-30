@@ -181,6 +181,11 @@ Dependency build approvals and the seven-day release-age policy are configured i
 `pnpm-workspace.yaml`. CI and Firebase deployment jobs use PNPM 12 with frozen installs.
 The deployment action runs the locally installed `firebase-tools` CLI.
 
+Until Utah Design System 1.35.0 is replaced, the workspace configuration aligns its
+React Stately dependency with the app and declares its otherwise-transitive
+`@react-stately/data` type dependency. These compatibility entries are scoped to
+that design-system version.
+
 ### Commands
 
 | Command          | Description                  |

@@ -1,6 +1,12 @@
 minimumReleaseAge: 10080
 minimumReleaseAgeExcludePrune: true
 minimumReleaseAgeStrict: true
+overrides:
+  '@ugrc/utah-design-system@1.35.0>react-stately': '$react-stately'
+packageExtensions:
+  '@ugrc/utah-design-system@1.35.0':
+    dependencies:
+      '@react-stately/data': '3.15.0'
 allowBuilds:
   '@firebase/util': true
   '@vaadin/vaadin-usage-statistics': true
