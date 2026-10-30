@@ -1169,9 +1169,6 @@ packages:
   '@protobufjs/pool@1.1.0':
     resolution: {integrity: sha512-0kELaGSIDBKvcgS4zkjz1PeddatrjYcmMWOlAuAPwAeccUrPHdUqo/J6LiymHHEiJT5NrF1UVwxY14f+fy4WQw==}
 
-  '@protobufjs/utf8@1.1.0':
-    resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
-
   '@protobufjs/utf8@1.1.2':
     resolution: {integrity: sha512-b1UQwcEZ4yCnMCD8DAL1VlbvBJE9/IX4FTIp7BG1xYpf29SLazLSrqUkj4w7Y5y7cCVP6E5tcqqcI0xemPkHug==}
 
@@ -7017,7 +7014,7 @@ snapshots:
     dependencies:
       '@hono/node-server': 2.1.5(hono@4.13.13)
       ajv: 8.20.0
-      ajv-formats: 3.0.1
+      ajv-formats: 3.0.1(ajv@8.20.0)
       content-type: 1.0.5
       cors: 2.8.6
       cross-spawn: 7.0.6
@@ -7117,8 +7114,6 @@ snapshots:
   '@protobufjs/path@1.1.2': {}
 
   '@protobufjs/pool@1.1.0': {}
-
-  '@protobufjs/utf8@1.1.0': {}
 
   '@protobufjs/utf8@1.1.2': {}
 
@@ -8856,8 +8851,8 @@ snapshots:
     optionalDependencies:
       ajv: 8.20.0
 
-  ajv-formats@3.0.1:
-    dependencies:
+  ajv-formats@3.0.1(ajv@8.20.0):
+    optionalDependencies:
       ajv: 8.20.0
 
   ajv@6.12.6:
@@ -10171,7 +10166,7 @@ snapshots:
       '@modelcontextprotocol/sdk': 1.32.1(supports-color@7.2.0)(zod@4.6.7)
       abort-controller: 3.0.0
       ajv: 8.20.0
-      ajv-formats: 3.0.1
+      ajv-formats: 3.0.1(ajv@8.20.0)
       archiver: 7.0.1
       async-lock: 1.4.1
       body-parser: 1.20.9(supports-color@7.2.0)
@@ -11691,7 +11686,7 @@ snapshots:
       '@protobufjs/inquire': 1.1.0
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
-      '@protobufjs/utf8': 1.1.0
+      '@protobufjs/utf8': 1.1.2
       '@types/node': 24.10.4
       long: 5.3.2
 
