@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.4](https://github.com/agrc/raster/compare/v3.0.3...v3.0.4) (2026-10-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* This is a total rewrite of the application
+
+### Bug Fixes
+
+* **deps:** update Babel and allow verified patch versions ([#331](https://github.com/agrc/raster/issues/331)) ([7642516](https://github.com/agrc/raster/commit/7642516dae0f472ff02bc82a97ab029873217d0a))
+* start fresh with atlas template ([a4ce429](https://github.com/agrc/raster/commit/a4ce4295c16d1972d448c47496efa95b55d9ac32))
+
 ## [3.0.3](https://github.com/agrc/raster/compare/v3.0.2...v3.0.3) (2026-03-30)
 
 
