@@ -168,7 +168,7 @@ You can combine all of the above, for example:
 
 ### Setup
 
-1. Install dependencies: `pnpm install`
+1. Install Node.js 24 LTS and PNPM 12, then install dependencies: `pnpm install --frozen-lockfile`
 2. Copy ArcGIS assets: `pnpm copy:arcgis`
 3. Create `.env` file:
 
@@ -176,6 +176,9 @@ You can combine all of the above, for example:
    VITE_DISCOVER=<quad-word-token>
    VITE_FIREBASE_CONFIG=<json-config>
    ```
+
+Dependency build approvals and the seven-day release-age policy are configured in
+`pnpm-workspace.yaml`. CI and Firebase deployment jobs use PNPM 12 with frozen installs.
 
 ### Commands
 

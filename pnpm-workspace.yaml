@@ -1,0 +1,8 @@
+minimumReleaseAge: 10080
+minimumReleaseAgeExcludePrune: true
+minimumReleaseAgeStrict: true
+allowBuilds:
+  '@firebase/util': true
+  '@vaadin/vaadin-usage-statistics': true
+  esbuild: true
+  protobufjs: true
