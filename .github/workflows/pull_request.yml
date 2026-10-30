@@ -72,7 +72,7 @@ jobs:
   test-e2e:
     name: End-to-End tests
     needs: [test-unit, test-check]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 60
     environment: dev
 
