@@ -51,7 +51,11 @@ test.describe('Search Result Interaction Testing', () => {
     await page.getByRole('button', { name: 'more info' }).click();
 
     // Verify a modal dialog opens over the page
-    const dialog = page.getByRole('dialog', { name: 'more info' });
+    const dialog = page.getByRole('dialog').filter({
+      has: page.getByText('.6 Meter 4-Band Digital Orthophotography from 2024 NAIP (county mosaics)', {
+        exact: true,
+      }),
+    });
     await expect(dialog).toBeVisible();
 
     // Verify dialog displays a title matching the product description
