@@ -74,7 +74,6 @@ jobs:
     needs: [test-unit, test-check]
     runs-on: ubuntu-24.04
     timeout-minutes: 60
-    environment: dev
 
     steps:
       - name: ⬇️ Set up code
@@ -102,8 +101,10 @@ jobs:
       - name: 🎭 Run Playwright tests
         run: pnpm exec playwright test --max-failures=10 --reporter=line,html
         env:
-          VITE_DISCOVER: ${{ secrets.VITE_DISCOVER }}
-          VITE_FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+          # E2E tests do not require authenticated basemap tiles or Firebase services.
+          VITE_DISCOVER: dummy-dummy-dummy-dummy
+          VITE_FIREBASE_CONFIG: >-
+            {"apiKey":"AIzaSyDummyKeyForE2ETestingOnly000000000","authDomain":"raster-e2e.invalid","projectId":"raster-e2e-dummy","storageBucket":"raster-e2e-dummy.invalid","messagingSenderId":"123456789012","appId":"1:123456789012:web:0123456789abcdef012345","measurementId":"G-DUMMY12345"}
 
       - name: ⬆️ Upload Playwright report
         uses: actions/upload-artifact@v7
