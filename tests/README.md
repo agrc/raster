@@ -78,6 +78,14 @@ test('Search for Aerial Photography', async ({ page }) => {
 
 ## Running Tests
 
+The pull request workflow supplies a dummy `VITE_DISCOVER` token and a structurally
+valid dummy `VITE_FIREBASE_CONFIG`, so E2E tests can run without repository or
+environment secrets, including on Dependabot PRs. These values allow the app to
+initialize but do not authenticate Discover basemap tiles or connect to a real
+Firebase project. The suite still queries the public raster data services; it
+does not validate authenticated tile rendering or Firebase functionality.
+Preview and production deployments continue to use their existing credentials.
+
 ```bash
 # Run all tests
 pnpm exec playwright test
