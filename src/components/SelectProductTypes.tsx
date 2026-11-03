@@ -1,4 +1,8 @@
-import { Button, Checkbox, Link, Tooltip, useFirebaseAnalytics } from '@ugrc/utah-design-system';
+import { Button } from '@ugrc/utah-design-system/components/Button';
+import { Checkbox } from '@ugrc/utah-design-system/components/Checkbox';
+import { Link } from '@ugrc/utah-design-system/components/Link';
+import { Tooltip } from '@ugrc/utah-design-system/components/Tooltip';
+import { useFirebaseAnalytics } from '@ugrc/utah-design-system/contexts/FirebaseAnalyticsProvider';
 import { HelpCircle } from 'lucide-react';
 import { TooltipTrigger } from 'react-aria-components';
 import config from '../config';

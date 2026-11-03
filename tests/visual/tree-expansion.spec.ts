@@ -43,15 +43,16 @@ test.describe('Visual and Interaction Testing', () => {
     await expect(aCategoryRow).toBeVisible();
 
     // Collapse the top-level Aerial Photography
-    await page.getByRole('button', { name: 'Collapse Aerial Photography' }).click();
-    await expect(page.getByRole('button', { name: 'Expand Aerial Photography' })).toBeVisible();
+    const aerialPhotographyRow = page.getByRole('row', { name: 'Aerial Photography', exact: true });
+    await aerialPhotographyRow.getByRole('button', { name: 'Toggle Aerial Photography' }).click();
+    await expect(aerialPhotographyRow).toHaveAttribute('aria-expanded', 'false');
 
     // Verify categories collapse (no level 2 rows visible)
     await expect(page.getByRole('row', { level: 2 })).toHaveCount(0);
 
     // Expand Aerial Photography again
-    await page.getByRole('button', { name: 'Expand Aerial Photography' }).click();
-    await expect(page.getByRole('button', { name: 'Collapse Aerial Photography' })).toBeVisible();
+    await aerialPhotographyRow.getByRole('button', { name: 'Toggle Aerial Photography' }).click();
+    await expect(aerialPhotographyRow).toHaveAttribute('aria-expanded', 'true');
 
     // Verify categories are visible again
     await expect(page.getByRole('row', { level: 2 }).first()).toBeVisible();

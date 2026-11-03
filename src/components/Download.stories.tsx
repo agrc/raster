@@ -1,3 +1,4 @@
+import type { GeometryUnion } from '@arcgis/core/geometry/types';
 import type { Meta, StoryContext, StoryObj } from '@storybook/react-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { ComponentType } from 'react';
@@ -34,7 +35,7 @@ const mockAoi = {
       ],
     ],
   }),
-} as unknown as __esri.GeometryUnion;
+} as unknown as GeometryUnion;
 
 const mockTilesData = {
   objectIdFieldName: 'OBJECTID',

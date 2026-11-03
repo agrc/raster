@@ -2,7 +2,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { turnEmailsIntoLinks } from './MoreInfo';
 // Mock the design system Link to a simple anchor to avoid CSS and web component imports in tests
-vi.mock('@ugrc/utah-design-system', () => {
+vi.mock('@ugrc/utah-design-system/components/Link', () => {
   const Link = ({ href, children }: { href?: string; children?: unknown }) => <a href={href}>{children as string}</a>;
 
   return { Link };

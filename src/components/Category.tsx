@@ -11,9 +11,10 @@ type CategoryProps = {
   category: string;
   products: IFeature[];
   productType: ProductTypeKey;
+  onMoreInfo: (title: string, productType: ProductTypeKey, objectId: number) => void;
 };
 
-export default function Category({ category, products, productType }: CategoryProps) {
+export default function Category({ category, products, productType, onMoreInfo }: CategoryProps) {
   let categoryLabel = removeCurlyBracesContent(category);
 
   if (productType === 'lidar') {
@@ -28,14 +29,15 @@ export default function Category({ category, products, productType }: CategoryPr
   }
 
   return (
-    <TreeItem textValue={categoryLabel} id={category} key={category} className="ml-2 mt-1">
-      <TreeItemContent>{categoryLabel}</TreeItemContent>
+    <TreeItem textValue={categoryLabel} id={category} key={category} className="group ml-2 mt-1">
+      <TreeItemContent isExpandable={sortedProducts.length > 0}>{categoryLabel}</TreeItemContent>
       {sortedProducts.map((product) => (
         <Product
           productType={productType}
           key={product.attributes[config.EXTENT_FIELDS.OBJECTID]}
           id={product.attributes[config.EXTENT_FIELDS.OBJECTID]}
           feature={product as ProductFeature}
+          onMoreInfo={onMoreInfo}
         />
       ))}
     </TreeItem>

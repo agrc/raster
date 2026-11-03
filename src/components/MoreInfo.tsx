@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { Banner, Button, ExternalLink, Link } from '@ugrc/utah-design-system';
-import { X } from 'lucide-react';
+import { Banner } from '@ugrc/utah-design-system/components/Banner';
+import { Button } from '@ugrc/utah-design-system/components/Button';
+import { ExternalLink, Link } from '@ugrc/utah-design-system/components/Link';
 import { twJoin } from 'tailwind-merge';
 import config from '../config';
 import getMoreInfo from '../services/moreInfo';
@@ -37,13 +38,12 @@ export function turnEmailsIntoLinks(text: string | null | undefined) {
 }
 
 type MoreInfoProps = {
-  title: string;
   productType: ProductTypeKey;
   objectId: number;
   getMoreInfoFn?: typeof getMoreInfo; // for storybook tests
 };
 
-export default function MoreInfo({ title, productType, objectId, getMoreInfoFn = getMoreInfo }: MoreInfoProps) {
+export default function MoreInfo({ productType, objectId, getMoreInfoFn = getMoreInfo }: MoreInfoProps) {
   const { data, error, isLoading, refetch } = useQuery({
     queryKey: ['moreInfo', productType, objectId],
     queryFn: () => getMoreInfoFn(productType, objectId),
@@ -51,12 +51,6 @@ export default function MoreInfo({ title, productType, objectId, getMoreInfoFn =
 
   return (
     <>
-      <div slot="title" className="flex items-start justify-between">
-        <span className="text-xl font-bold">{title}</span>
-        <Button slot="close" variant="icon" size="small" aria-label="Close">
-          <X />
-        </Button>
-      </div>
       {isLoading ? (
         <ListLoader />
       ) : error || !data ? (

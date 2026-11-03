@@ -1,4 +1,9 @@
-import { Disclosure, DisclosureGroup, DisclosureHeader, DisclosurePanel } from '@ugrc/utah-design-system';
+import {
+  Disclosure,
+  DisclosureGroup,
+  DisclosureHeader,
+  DisclosurePanel,
+} from '@ugrc/utah-design-system/components/Disclosure';
 import useWizardMachine from '../hooks/useWizardMachine';
 import type { StepActionTypes } from '../services/wizardMachine';
 import AreaOfInterest from './AreaOfInterest';

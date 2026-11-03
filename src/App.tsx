@@ -1,4 +1,8 @@
-import { Drawer, Footer, Header, SocialMedia, UgrcLogo, useFirebaseApp } from '@ugrc/utah-design-system';
+import { Drawer } from '@ugrc/utah-design-system/components/Drawer';
+import { Footer } from '@ugrc/utah-design-system/components/Footer';
+import { Header, UgrcLogo } from '@ugrc/utah-design-system/components/Header';
+import { SocialMedia } from '@ugrc/utah-design-system/components/SocialMedia';
+import { useFirebaseApp } from '@ugrc/utah-design-system/contexts/FirebaseAppProvider';
 import { useEffect } from 'react';
 import { useOverlayTrigger } from 'react-aria';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -94,7 +98,7 @@ export default function App() {
                     <h1 className="sr-only">Raster Data Discovery Wizard</h1>
                     <h2 className="sr-only">Follow the four steps to discover and download raster data</h2>
                     <Wizard />
-                    <div className="qualtrics-survey m-2 rounded-lg bg-gray-100 px-2 pb-2 pt-1 text-sm"></div>
+                    <div className="qualtrics-survey m-2 rounded-lg bg-gray-100 px-2 pt-1 pb-2 text-sm"></div>
                   </WizardMachineProvider>
                 </Drawer>
                 <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">

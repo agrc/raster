@@ -1,4 +1,6 @@
 import Graphic from '@arcgis/core/Graphic';
+import Extent from '@arcgis/core/geometry/Extent';
+import { fromJSON } from '@arcgis/core/geometry/support/jsonUtils';
 import {
   queryFeatures,
   type IQueryFeaturesOptions,
@@ -89,7 +91,7 @@ export async function getInitialProductTypes(): Promise<ProductTypeKey[]> {
 
 export async function getGraphicsAndExtent(urlParams?: UrlParams) {
   const categories = urlParams?.categories || [];
-  const graphics: __esri.Graphic[] = [];
+  const graphics: Graphic[] = [];
 
   if (categories.length === 0) {
     return { graphics, extent: null };
@@ -110,11 +112,11 @@ export async function getGraphicsAndExtent(urlParams?: UrlParams) {
           (f) =>
             new Graphic({
               attributes: f.attributes,
-              geometry: {
+              geometry: fromJSON({
                 type: 'polygon',
                 spatialReference: { wkid: 3857 },
                 ...f.geometry,
-              },
+              }),
               symbol: config.RESULT_SYMBOL,
             }),
         ),
@@ -123,7 +125,7 @@ export async function getGraphicsAndExtent(urlParams?: UrlParams) {
   );
 
   // Calculate the combined extent of all features
-  let combinedExtent: __esri.Extent | null = null;
+  let combinedExtent: Extent | null = null;
   if (graphics.length > 0) {
     combinedExtent = graphics[0]!.geometry!.extent!;
     for (let i = 1; i < graphics.length; i++) {

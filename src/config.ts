@@ -2,12 +2,9 @@ import Color from '@arcgis/core/Color';
 import PictureMarkerSymbol from '@arcgis/core/symbols/PictureMarkerSymbol';
 import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
 import SimpleLineSymbol from '@arcgis/core/symbols/SimpleLineSymbol';
-import resolveConfig from 'tailwindcss/resolveConfig';
-import tailwindConfig from '../tailwind.config';
 import type { ProductTypeKey } from './types';
 
-const fullConfig = resolveConfig(tailwindConfig);
-const green = new Color(fullConfig.theme.colors.green[600]);
+const green = new Color('#16a34a');
 const greenTransparent = new Color([green.r, green.g, green.b, 0.75]);
 
 const demMoreInfoFieldInfos = {
@@ -120,8 +117,7 @@ const config: Config = {
   RESULT_SYMBOL: new SimpleFillSymbol({
     style: 'none',
     outline: {
-      // @ts-expect-error this is a custom color
-      color: fullConfig.theme.colors.accent[500],
+      color: '#eaca00',
       width: 3,
     },
   }),
@@ -129,8 +125,7 @@ const config: Config = {
     style: 'solid',
     color: 'transparent',
     outline: {
-      // @ts-expect-error this is a custom color
-      color: fullConfig.theme.colors.primary[500],
+      color: '#b16ec7',
       width: 2,
     },
   }),
@@ -138,7 +133,7 @@ const config: Config = {
     style: 'solid',
     color: greenTransparent,
     outline: {
-      color: fullConfig.theme.colors.green[800],
+      color: '#166534',
       width: 2,
     },
   }),

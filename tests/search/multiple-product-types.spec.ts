@@ -2,7 +2,14 @@
 // Refactored: Uses shared test helpers
 
 import { expect, test } from '@playwright/test';
-import { drawPointOnMap, expandStep, navigateToApp, selectProduct, waitForResults } from '../fixtures/test-helpers';
+import {
+  drawPointOnMap,
+  expandStep,
+  navigateToApp,
+  selectProduct,
+  TIMEOUTS,
+  waitForResults,
+} from '../fixtures/test-helpers';
 
 test.describe('Multiple Product Type Search', () => {
   test('3.1 Search for Aerial Photography and Lidar Together', async ({ page }) => {
@@ -24,29 +31,28 @@ test.describe('Multiple Product Type Search', () => {
     await waitForResults(page);
 
     // Verify results section shows two separate product type headers
-    await expect(page.getByRole('button', { name: 'Collapse Aerial Photography' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Collapse Lidar DEMs' })).toBeVisible();
-
     // Verify each product type has its own category tree
-    const aerialPhotoRow = page.getByRole('row', { name: /Aerial Photography/ }).first();
-    const lidarRow = page.getByRole('row', { name: /Lidar DEMs/ }).first();
+    const aerialPhotoRow = page.getByRole('row', { name: 'Aerial Photography', exact: true });
+    const lidarRow = page.getByRole('row', { name: 'Lidar DEMs', exact: true });
     await expect(aerialPhotoRow).toBeVisible();
-    await expect(lidarRow).toBeVisible();
+    await expect(lidarRow).toBeVisible({ timeout: TIMEOUTS.RESULTS_LOAD });
+    await expect(aerialPhotoRow.getByRole('button', { name: 'Toggle Aerial Photography' })).toBeVisible();
+    await expect(lidarRow.getByRole('button', { name: 'Toggle Lidar DEMs' })).toBeVisible();
 
     // Verify Aerial Photography has categories
-    await expect(page.getByRole('button', { name: /Expand NAIP/ }).first()).toBeVisible();
+    await expect(page.getByRole('button', { name: /^Toggle NAIP/ }).first()).toBeVisible();
 
     // Verify Lidar DEMs has categories
-    await expect(page.getByRole('button', { name: /Expand .5 Meter/ }).first()).toBeVisible();
+    await expect(page.getByRole('button', { name: /^Toggle .5 Meter/ }).first()).toBeVisible();
 
     // Verify both product types can be expanded independently
-    await page.getByRole('button', { name: 'Collapse Aerial Photography' }).click();
-    await expect(page.getByRole('button', { name: 'Expand Aerial Photography' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Collapse Lidar DEMs' })).toBeVisible();
+    await aerialPhotoRow.getByRole('button', { name: 'Toggle Aerial Photography' }).click();
+    await expect(aerialPhotoRow).toHaveAttribute('aria-expanded', 'false');
+    await expect(lidarRow).toHaveAttribute('aria-expanded', 'true');
 
     // Re-expand Aerial Photography
-    await page.getByRole('button', { name: 'Expand Aerial Photography' }).click();
-    await expect(page.getByRole('button', { name: 'Collapse Aerial Photography' })).toBeVisible();
+    await aerialPhotoRow.getByRole('button', { name: 'Toggle Aerial Photography' }).click();
+    await expect(aerialPhotoRow).toHaveAttribute('aria-expanded', 'true');
   });
 
   test('3.2 Verify Product Type Display Order', async ({ page }) => {
@@ -68,7 +74,7 @@ test.describe('Multiple Product Type Search', () => {
     await expect(secondProductType).toContainText('Lidar DEMs');
 
     // Verify order is consistent with Step 1 checkbox order
-    await expect(firstProductType.getByRole('button', { name: 'Collapse Aerial Photography' })).toBeVisible();
-    await expect(secondProductType.getByRole('button', { name: 'Collapse Lidar DEMs' })).toBeVisible();
+    await expect(firstProductType.getByRole('button', { name: 'Toggle Aerial Photography' })).toBeVisible();
+    await expect(secondProductType.getByRole('button', { name: 'Toggle Lidar DEMs' })).toBeVisible();
   });
 });

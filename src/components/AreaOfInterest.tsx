@@ -1,27 +1,28 @@
 import Collection from '@arcgis/core/core/Collection';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
 import SketchTooltipOptions from '@arcgis/core/views/interactive/sketch/SketchTooltipOptions';
+import LocatorSearchSource from '@arcgis/core/widgets/Search/LocatorSearchSource';
 import type { EventHandler } from '@arcgis/lumina';
 import '@arcgis/map-components/components/arcgis-search';
 import '@arcgis/map-components/components/arcgis-sketch';
-import { useFirebaseAnalytics } from '@ugrc/utah-design-system';
+import { useFirebaseAnalytics } from '@ugrc/utah-design-system/contexts/FirebaseAnalyticsProvider';
 import { useEffect, useRef } from 'react';
 import config from '../config';
 import useMap from '../hooks/useMap';
 import useWizardMachine from '../hooks/useWizardMachine';
 
-const sources = new Collection<__esri.LocatorSearchSource>([
-  {
+const sources: HTMLArcgisSearchElement['sources'] = new Collection([
+  new LocatorSearchSource({
     name: 'Street Address',
     placeholder: 'e.g. 123 South Main St',
     url: 'https://masquerade.ugrc.utah.gov/arcgis/rest/services/UtahLocator/GeocodeServer',
-  },
+  }),
 ]);
 const tooltipOptions = new SketchTooltipOptions({ enabled: true });
 
 export default function AreaOfInterest() {
   const { mapView } = useMap();
-  const drawingLayerRef = useRef<__esri.GraphicsLayer>(new GraphicsLayer());
+  const drawingLayerRef = useRef<GraphicsLayer>(new GraphicsLayer());
   const { send } = useWizardMachine();
   const searchRef = useRef<HTMLArcgisSearchElement>(null);
   const sketchRef = useRef<HTMLArcgisSketchElement>(null);
@@ -41,7 +42,7 @@ export default function AreaOfInterest() {
   const onSketchCreate: EventHandler<HTMLArcgisSketchElement['arcgisCreate']> = (event) => {
     const { state, graphic } = event.detail;
 
-    if (state === 'complete') {
+    if (state === 'complete' && graphic) {
       searchRef.current?.clear();
 
       drawingLayerRef.current.removeAll();

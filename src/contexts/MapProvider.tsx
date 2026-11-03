@@ -1,6 +1,7 @@
 import Graphic from '@arcgis/core/Graphic';
 import MapView from '@arcgis/core/views/MapView';
-import { useGraphicManager } from '@ugrc/utilities/hooks';
+import type { GeometryUnion } from '@arcgis/core/geometry/types';
+import useGraphicManager from '@ugrc/utilities/hooks/useGraphicManager';
 import { createContext, type ReactNode, useState } from 'react';
 import config from '../config';
 
@@ -9,21 +10,24 @@ export const MapContext = createContext<{
   mapView: MapView | null;
   setMapView: (mapView: MapView | null) => void;
   setGraphic: (graphic: GraphicOptions) => void;
-  zoom: (geometry: __esri.GoToTarget2D) => void;
+  zoom: (geometry: GeometryUnion) => void;
 } | null>(null);
 
 export const MapProvider = ({ children }: { children: ReactNode }) => {
   const [mapView, setMapView] = useState<MapView | null>(null);
   const { setGraphic } = useGraphicManager(mapView);
 
-  const zoom = (geometry: __esri.GoToTarget2D): void => {
+  const zoom = (geometry: GeometryUnion): void => {
     if (!mapView) {
       console.warn('attempting to zoom before the mapView is set');
 
       return;
     }
 
-    mapView.goTo(geometry.extent.clone().expand(config.DEFAULT_EXTENT_EXPAND));
+    const extent = geometry.extent;
+    if (extent) {
+      mapView.goTo(extent.clone().expand(config.DEFAULT_EXTENT_EXPAND));
+    }
   };
 
   return (

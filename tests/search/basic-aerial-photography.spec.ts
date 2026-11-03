@@ -2,7 +2,13 @@
 // Refactored: Uses shared test helpers to reduce duplication
 
 import { expect, test } from '@playwright/test';
-import { CATEGORY_PATTERN, completeBasicSearch, expandProduct, getCategoryRows } from '../fixtures/test-helpers';
+import {
+  CATEGORY_PATTERN,
+  completeBasicSearch,
+  expandCategory,
+  expandProduct,
+  getCategoryRows,
+} from '../fixtures/test-helpers';
 
 test.describe('Basic Aerial Photography Search', () => {
   test('1.1 Search for Aerial Photography in Salt Lake County Area', async ({ page }) => {
@@ -29,7 +35,7 @@ test.describe('Basic Aerial Photography Search', () => {
     expect(await categories.count()).toBeGreaterThan(0);
 
     const firstCategory = categories.first();
-    await firstCategory.getByRole('button', { name: /Expand/i }).click();
+    await expandCategory(page);
     await page.waitForTimeout(500);
 
     const allRows = page.getByRole('row');

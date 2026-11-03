@@ -1,5 +1,6 @@
 import Collection from '@arcgis/core/core/Collection';
 import { watch } from '@arcgis/core/core/reactiveUtils';
+import LocatorSearchSource from '@arcgis/core/widgets/Search/LocatorSearchSource';
 import type { EventHandler } from '@arcgis/lumina';
 import '@arcgis/map-components/components/arcgis-expand';
 import '@arcgis/map-components/components/arcgis-home';
@@ -8,8 +9,10 @@ import '@arcgis/map-components/components/arcgis-map';
 import '@arcgis/map-components/components/arcgis-search';
 import '@arcgis/map-components/components/arcgis-zoom';
 import { useQuery } from '@tanstack/react-query';
-import { BusyBar, LayerSelector, type LayerSelectorProps } from '@ugrc/utah-design-system';
-import { useViewLoading, utahMercatorExtent } from '@ugrc/utilities/hooks';
+import { LayerSelector, type LayerSelectorProps } from '@ugrc/utah-design-system/components/LayerSelector';
+import { BusyBar } from '@ugrc/utah-design-system/components/Spinner';
+import { utahMercatorExtent } from '@ugrc/utilities/hooks/useDefaultExtent';
+import useViewLoading from '@ugrc/utilities/hooks/useViewLoading';
 import { useEffect, useRef, useState } from 'react';
 import config from '../config';
 import useMap from '../hooks/useMap';
@@ -17,12 +20,12 @@ import { getGraphicsAndExtent, parseUrlParams } from '../services/urlParams';
 import PreviewControls from './PreviewControls';
 import TilesControls from './TilesControls';
 
-const sources = new Collection<__esri.LocatorSearchSource>([
-  {
+const sources: HTMLArcgisSearchElement['sources'] = new Collection([
+  new LocatorSearchSource({
     name: 'Search for address or place',
     placeholder: 'e.g. Manti or Salt Flats',
     url: 'https://masquerade.ugrc.utah.gov/arcgis/rest/services/UtahLocator/GeocodeServer',
-  },
+  }),
 ]);
 
 export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMapElement['arcgisViewClick']> }) => {
@@ -59,11 +62,8 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
     );
 
     const selectorOptions: LayerSelectorProps = {
-      options: {
-        view: map.view,
-        quadWord: import.meta.env.VITE_DISCOVER,
-        basemaps: ['Terrain', 'Hybrid', 'Imagery', 'Lite', 'Topo', 'High Contrast'],
-      },
+      quadWord: import.meta.env.VITE_DISCOVER,
+      basemaps: ['Terrain', 'Hybrid', 'Imagery', 'Lite', 'Topo', 'High Contrast'],
     };
 
     setSelectorOptions(selectorOptions);
@@ -74,6 +74,7 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
       id={config.MAP_ELEMENT_ID}
       ref={mapRef}
       className="size-full"
+      basemap="streets"
       onarcgisViewClick={onClick}
       extent={
         urlData?.extent?.expand(config.DEFAULT_EXTENT_EXPAND) ?? utahMercatorExtent.expand(config.DEFAULT_EXTENT_EXPAND)
@@ -88,13 +89,13 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
     >
       <BusyBar busy={viewIsLoading} />
       {/* group PreviewControls and TilesControls inside the same container so that we can allow them to be positioned together */}
-      <div className="absolute left-1/2 top-4 z-10 flex -translate-x-1/2 flex-col gap-2">
+      <div className="absolute top-4 left-1/2 z-10 flex -translate-x-1/2 flex-col gap-2">
         <PreviewControls />
         <TilesControls />
       </div>
-      <arcgis-zoom position="top-left"></arcgis-zoom>
-      <arcgis-home position="top-left"></arcgis-home>
-      <arcgis-expand position="top-left" expandTooltip="Search" expandIcon="search">
+      <arcgis-zoom slot="top-left"></arcgis-zoom>
+      <arcgis-home slot="top-left"></arcgis-home>
+      <arcgis-expand slot="top-left" expandTooltip="Search" expandIcon="search">
         <arcgis-search
           includeDefaultSourcesDisabled
           locationDisabled

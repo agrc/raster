@@ -20,7 +20,7 @@ test.describe('Edge Cases and Error Handling', () => {
     await page.waitForTimeout(300);
 
     // Click just below the map "Search" button to target a likely no-coverage area
-    const searchBtn = page.getByRole('button', { name: 'Search' });
+    const searchBtn = page.locator('arcgis-map').getByRole('button', { name: 'Search' });
     await expect(searchBtn).toBeVisible();
     const box = await searchBtn.boundingBox();
     if (!box) throw new Error('Search button bounding box not available');
@@ -33,7 +33,7 @@ test.describe('Edge Cases and Error Handling', () => {
     await expect(resultsGrid).toBeVisible({ timeout: 15000 });
 
     // Verify: "Aerial Photography" header appears
-    await expect(page.getByRole('button', { name: 'Collapse Aerial Photography' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Toggle Aerial Photography' })).toBeVisible();
 
     // Verify: "No products found" message appears
     const noResults = page.getByText('No products found');
