@@ -2,15 +2,14 @@
 // Refactored: Uses shared test helpers
 
 import { expect, test } from '@playwright/test';
-import { completeBasicSearch } from '../fixtures/test-helpers';
+import { completeBasicSearch, expandCategory } from '../fixtures/test-helpers';
 
 test.describe('Visual and Interaction Testing', () => {
   test('6.1 Test Product Hover Highlighting', async ({ page }) => {
     await completeBasicSearch(page);
 
     // Expand a category to show products
-    const firstCategoryExpand = page.getByRole('button', { name: /Expand / }).first();
-    await firstCategoryExpand.click();
+    await expandCategory(page);
 
     // Move mouse over a product item without clicking
     const firstProductRow = page.getByRole('row', { level: 3 }).first();

@@ -1,4 +1,4 @@
-import { Link } from '@ugrc/utah-design-system';
+import { Link } from '@ugrc/utah-design-system/components/Link';
 import config from '../config';
 import { useUrlParams } from '../hooks/useUrlParams';
 import useWizardMachine from '../hooks/useWizardMachine';

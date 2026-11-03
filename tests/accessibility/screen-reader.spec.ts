@@ -32,6 +32,6 @@ test.describe('Accessibility Testing', () => {
 
     // Verify rows and interactive buttons are present
     await expect(page.getByRole('row', { level: 1 }).first()).toBeVisible();
-    await expect(page.getByRole('button', { name: /Expand|Collapse/ }).first()).toBeVisible();
+    await expect(page.getByRole('button', { name: /^Toggle / }).first()).toBeVisible();
   });
 });

@@ -1,4 +1,5 @@
-import { Link, useFirebaseAnalytics } from '@ugrc/utah-design-system';
+import { Link } from '@ugrc/utah-design-system/components/Link';
+import { useFirebaseAnalytics } from '@ugrc/utah-design-system/contexts/FirebaseAnalyticsProvider';
 import { Check } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { twJoin } from 'tailwind-merge';

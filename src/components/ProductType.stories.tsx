@@ -1,3 +1,4 @@
+import type { GeometryUnion } from '@arcgis/core/geometry/types';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState, type ComponentType } from 'react';
@@ -11,7 +12,7 @@ import ProductType from './ProductType';
 
 const mockAoi = {
   toJSON: () => ({}),
-} as unknown as __esri.GeometryUnion;
+} as unknown as GeometryUnion;
 
 const QueryClientDecorator = (Story: ComponentType) => {
   const [client] = useState(

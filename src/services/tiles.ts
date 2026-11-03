@@ -1,4 +1,5 @@
 import { getJsonType } from '@arcgis/core/geometry/support/jsonUtils';
+import type { GeometryUnion } from '@arcgis/core/geometry/types';
 import { queryFeatures, type GeometryType, type IQueryFeaturesResponse } from '@esri/arcgis-rest-feature-service';
 import config from '../config';
 import type { ProductTypeKey, TileFeature } from '../types';
@@ -16,7 +17,7 @@ export class MaxTilesExceededError extends Error {
   }
 }
 
-export default async function getTiles(productType: ProductTypeKey, tileIndex: string, aoi: __esri.GeometryUnion) {
+export default async function getTiles(productType: ProductTypeKey, tileIndex: string, aoi: GeometryUnion) {
   const outFields = Object.values(config.INDEX_FIELDS);
 
   const url = config.INDEX_SERVICE_URLS[productType];

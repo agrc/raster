@@ -2,7 +2,7 @@
 // Refactored: Uses shared test helpers
 
 import { expect, test } from '@playwright/test';
-import { completeBasicSearch } from '../fixtures/test-helpers';
+import { completeBasicSearch, getCategoryRows } from '../fixtures/test-helpers';
 
 test.describe('Accessibility Testing', () => {
   test('7.1 Keyboard Navigation Through Results', async ({ page }) => {
@@ -13,12 +13,12 @@ test.describe('Accessibility Testing', () => {
     await resultsGrid.click();
 
     // Use keyboard to expand a category
-    const expandBtn = page.getByRole('button', { name: /Expand / }).first();
+    const categoryRow = getCategoryRows(page).first();
+    const wasExpanded = (await categoryRow.getAttribute('aria-expanded')) === 'true';
+    const expandBtn = categoryRow.getByRole('button', { name: /^Toggle / });
     await expandBtn.focus();
     await page.keyboard.press('Enter');
 
-    // Verify expanded state by locating corresponding Collapse button
-    const collapseBtn = page.getByRole('button', { name: /Collapse / }).first();
-    await expect(collapseBtn).toBeVisible();
+    await expect(categoryRow).toHaveAttribute('aria-expanded', String(!wasExpanded));
   });
 });

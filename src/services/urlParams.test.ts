@@ -1,3 +1,6 @@
+import type Extent from '@arcgis/core/geometry/Extent';
+import type Geometry from '@arcgis/core/geometry/Geometry';
+import type { GraphicProperties } from '@arcgis/core/Graphic';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const graphicConstructorSpy = vi.fn();
@@ -6,18 +9,22 @@ vi.mock('@arcgis/core/Graphic', () => {
   return {
     default: class {
       attributes: unknown;
-      geometry: __esri.Geometry;
+      geometry: Geometry;
       symbol: unknown;
 
-      constructor(options: __esri.GraphicProperties) {
+      constructor(options: GraphicProperties) {
         graphicConstructorSpy(options);
         this.attributes = options.attributes;
-        this.geometry = options.geometry as __esri.Geometry;
+        this.geometry = options.geometry as Geometry;
         this.symbol = options.symbol;
       }
     },
   };
 });
+
+vi.mock('@arcgis/core/geometry/support/jsonUtils', () => ({
+  fromJSON: (geometry: unknown) => geometry,
+}));
 
 vi.mock('@esri/arcgis-rest-feature-service', () => ({
   queryFeatures: vi.fn(),
@@ -107,13 +114,13 @@ describe('getInitialProductTypes', () => {
 
 describe('getGraphicsAndExtent', () => {
   it('returns graphics and the combined extent for matching features', async () => {
-    const combinedExtent = { id: 'combined' } as unknown as __esri.Extent;
+    const combinedExtent = { id: 'combined' } as unknown as Extent;
     const unionSpy = vi.fn(() => combinedExtent);
     const extentA = {
       id: 'extentA',
       union: unionSpy,
-    } as unknown as __esri.Extent;
-    const extentB = { id: 'extentB' } as unknown as __esri.Extent;
+    } as unknown as Extent;
+    const extentB = { id: 'extentB' } as unknown as Extent;
 
     const featuresByType: Partial<
       Record<ProductTypeKey, Array<{ attributes: Record<string, unknown>; geometry: Record<string, unknown> }>>

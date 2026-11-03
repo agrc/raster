@@ -1,15 +1,17 @@
 import Graphic from '@arcgis/core/Graphic';
-import { fromJSON } from '@arcgis/core/geometry/support/jsonUtils';
+import Polygon from '@arcgis/core/geometry/Polygon';
 import type { IPolygon } from '@esri/arcgis-rest-request';
-import { Button, Dialog, ExternalLink, Modal, ToggleButton, useFirebaseAnalytics } from '@ugrc/utah-design-system';
-import { DialogTrigger, TreeItem as RACTreeItem } from 'react-aria-components';
+import { Button } from '@ugrc/utah-design-system/components/Button';
+import { ExternalLink } from '@ugrc/utah-design-system/components/Link';
+import { ToggleButton } from '@ugrc/utah-design-system/components/ToggleButton';
+import { useFirebaseAnalytics } from '@ugrc/utah-design-system/contexts/FirebaseAnalyticsProvider';
+import { TreeItem as RACTreeItem } from 'react-aria-components';
 import { twJoin } from 'tailwind-merge';
 import config from '../config';
 import useMap from '../hooks/useMap';
 import usePreview from '../hooks/usePreview';
 import useWizardMachine from '../hooks/useWizardMachine';
 import type { ProductTypeKey } from '../types';
-import MoreInfo from './MoreInfo';
 import { TreeItemContent } from './TreeItemContent';
 import { isUrlLike, isYes } from './utils';
 
@@ -32,12 +34,17 @@ export type ProductFeature = {
     [config.EXTENT_FIELDS.REPORT]?: string;
   };
 };
-type ProductProps = { feature: ProductFeature; id: number; productType: ProductTypeKey };
+type ProductProps = {
+  feature: ProductFeature;
+  id: number;
+  productType: ProductTypeKey;
+  onMoreInfo: (title: string, productType: ProductTypeKey, objectId: number) => void;
+};
 
-const commonItemClasses = 'rounded ml-6';
+const commonItemClasses = 'rounded ml-6 group';
 const buttonClasses = 'my-0 rounded px-1';
 
-export default function Product({ feature, id, productType }: ProductProps) {
+export default function Product({ feature, id, productType, onMoreInfo }: ProductProps) {
   const {
     Product,
     Category,
@@ -69,8 +76,7 @@ export default function Product({ feature, id, productType }: ProductProps) {
   const logEvent = useFirebaseAnalytics();
   const previewId = `${Category} | ${Product}`;
 
-  const geometry = fromJSON({
-    type: 'polygon',
+  const geometry = new Polygon({
     ...feature.geometry,
     spatialReference: { wkid: 3857 },
   });
@@ -127,7 +133,7 @@ export default function Product({ feature, id, productType }: ProductProps) {
       onMouseEnter={addGraphic}
       onMouseLeave={removeGraphic}
       textValue={Product}
-      className={`${commonItemClasses} flex min-h-8 items-center bg-secondary-700 data-[expanded]:rounded-b-none hover:bg-secondary-500 pressed:bg-secondary-600 [&:not(:first-child)]:mt-1`}
+      className={`${commonItemClasses} bg-secondary-700 hover:bg-secondary-500 pressed:bg-secondary-600 flex min-h-8 items-center data-[expanded]:rounded-b-none [&:not(:first-child)]:mt-1`}
     >
       <TreeItemContent className="text-white shadow-none" buttons={getButtons()}>
         {Product}
@@ -138,26 +144,22 @@ export default function Product({ feature, id, productType }: ProductProps) {
         textValue="details"
         className={`${commonItemClasses} rounded-t-none bg-white px-2 py-1 text-sm dark:bg-zinc-800 dark:text-white`}
       >
-        <TreeItemContent>
+        <TreeItemContent isExpandable={false}>
           <>
             {Description}
             <div className="my-1 flex w-full items-center justify-between">
-              <DialogTrigger>
+              <>
                 <Button
                   variant="secondary"
                   size="extraSmall"
                   onPress={() => {
+                    onMoreInfo(Description, productType, OBJECTID);
                     logEvent('result_more_info_click', { productType, product: Product });
                   }}
                 >
                   more info
                 </Button>
-                <Modal isDismissable>
-                  <Dialog>
-                    <MoreInfo title={Description} productType={productType} objectId={OBJECTID} />
-                  </Dialog>
-                </Modal>
-              </DialogTrigger>
+              </>
               {isUrlLike(HTML_Page) ? (
                 <ExternalLink
                   href={HTML_Page}

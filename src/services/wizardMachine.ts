@@ -1,3 +1,4 @@
+import type { GeometryUnion } from '@arcgis/core/geometry/types';
 import { and, assign, fromPromise, setup } from 'xstate';
 import type { ProductTypeKey } from '../types';
 import { getInitialProductTypes, parseUrlParams } from './urlParams';
@@ -5,7 +6,7 @@ import { getInitialProductTypes, parseUrlParams } from './urlParams';
 export type ContextType = {
   productTypes: ProductTypeKey[];
   urlCategories?: string[];
-  aoi?: __esri.GeometryUnion | nullish;
+  aoi?: GeometryUnion | null | undefined;
   download: {
     productType: ProductTypeKey;
     tileIndex: string;
@@ -164,7 +165,7 @@ export const machine = setup({
           report?: string;
         }
       | { type: 'TOGGLE_PRODUCT_TYPE'; productType: ProductTypeKey }
-      | { type: 'SET_AOI'; aoi: __esri.GeometryUnion | nullish },
+      | { type: 'SET_AOI'; aoi: GeometryUnion | null | undefined },
   },
   actors: {
     getInitialProductTypes: fromPromise(getInitialProductTypes),

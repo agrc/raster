@@ -1,4 +1,5 @@
 import { getJsonType } from '@arcgis/core/geometry/support/jsonUtils';
+import type { GeometryUnion } from '@arcgis/core/geometry/types';
 import {
   queryFeatures,
   type GeometryType,
@@ -11,7 +12,7 @@ import type { ProductTypeKey } from '../types';
 
 const typesWithoutMetadataAndReport: ProductTypeKey[] = ['aerialPhotography', 'contours', 'drg'];
 
-export async function query(productType: ProductTypeKey, aoi: __esri.GeometryUnion, urlCategories?: string[]) {
+export async function query(productType: ProductTypeKey, aoi: GeometryUnion, urlCategories?: string[]) {
   let where = `lower(${config.EXTENT_FIELDS.SHOW}) = 'y'`;
   if (urlCategories && urlCategories.length > 0) {
     const categoryConditions = urlCategories
@@ -78,7 +79,7 @@ export function groupByCategory(features: IFeature[]) {
   return grouped;
 }
 
-export default async function search(productType: ProductTypeKey, aoi: __esri.GeometryUnion, urlCategories?: string[]) {
+export default async function search(productType: ProductTypeKey, aoi: GeometryUnion, urlCategories?: string[]) {
   const results = await query(productType, aoi, urlCategories);
 
   return groupByCategory(results);

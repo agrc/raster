@@ -1,8 +1,12 @@
 import { whenOnce } from '@arcgis/core/core/reactiveUtils';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
+import type { FieldProperties } from '@arcgis/core/layers/support/Field';
 import FeatureSet from '@arcgis/core/rest/support/FeatureSet';
 import { useQuery } from '@tanstack/react-query';
-import { Banner, Button, ExternalLink, Link, useFirebaseAnalytics } from '@ugrc/utah-design-system';
+import { Banner } from '@ugrc/utah-design-system/components/Banner';
+import { Button } from '@ugrc/utah-design-system/components/Button';
+import { ExternalLink, Link } from '@ugrc/utah-design-system/components/Link';
+import { useFirebaseAnalytics } from '@ugrc/utah-design-system/contexts/FirebaseAnalyticsProvider';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import config from '../config';
@@ -151,7 +155,7 @@ export default function Download({ getTilesService = getTiles }: DownloadProps) 
   const { snapshot } = useWizardMachine();
   const { productType, tileIndex, description, metadata, report } = snapshot.context.download || {};
   const { mapView, zoom } = useMap();
-  const featureLayerRef = useRef<__esri.FeatureLayer | null>(null);
+  const featureLayerRef = useRef<FeatureLayer | null>(null);
   const [highlightedOid, setHighlightedOid] = useState<number | null>(null);
   const logEvent = useFirebaseAnalytics();
   const { data, error, isLoading, refetch } = useQuery({
@@ -230,7 +234,7 @@ export default function Download({ getTilesService = getTiles }: DownloadProps) 
   useEffect(() => {
     if (!mapView?.map || !data || featureLayerRef.current?.id === layerId) return;
 
-    const downloadedField: __esri.FieldProperties = {
+    const downloadedField: FieldProperties = {
       name: DOWNLOADED,
       type: 'string',
       defaultValue: NO,
@@ -263,10 +267,10 @@ export default function Download({ getTilesService = getTiles }: DownloadProps) 
         overwriteActions: true,
         outFields: Object.values(config.INDEX_FIELDS),
         title: '{TILE}',
-        content: ({ graphic }: { graphic: TileFeature }) => {
+        content: ({ graphic }) => {
           popupRoot.render(
             <PopupContent
-              attributes={graphic.attributes}
+              attributes={graphic.attributes as TileFeature['attributes']}
               description={description ?? ''}
               metadata={metadata}
               report={report}
@@ -281,7 +285,10 @@ export default function Download({ getTilesService = getTiles }: DownloadProps) 
 
     mapView.map.add(featureLayerRef.current);
     whenOnce(() => featureLayerRef.current?.fullExtent).then(() => {
-      zoom(featureLayerRef.current!.fullExtent);
+      const extent = featureLayerRef.current?.fullExtent;
+      if (extent) {
+        zoom(extent);
+      }
     });
 
     setCount(data.features.length);

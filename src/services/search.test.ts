@@ -9,6 +9,7 @@ vi.mock('@esri/arcgis-rest-feature-service', () => ({
 }));
 
 import { getJsonType } from '@arcgis/core/geometry/support/jsonUtils';
+import type { GeometryUnion } from '@arcgis/core/geometry/types';
 import { queryFeatures, type IFeature } from '@esri/arcgis-rest-feature-service';
 import config from '../config';
 import type { ProductTypeKey } from '../types';
@@ -51,7 +52,7 @@ describe('query', () => {
   const geometryJson = { type: 'polygon', rings: [] };
   const geometry = {
     toJSON: vi.fn(() => geometryJson),
-  } as unknown as __esri.GeometryUnion;
+  } as unknown as GeometryUnion;
 
   beforeEach(() => {
     vi.clearAllMocks();

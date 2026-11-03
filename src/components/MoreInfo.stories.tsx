@@ -1,9 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Dialog, Modal } from '@ugrc/utah-design-system';
+import { Button } from '@ugrc/utah-design-system/components/Button';
+import { Dialog } from '@ugrc/utah-design-system/components/Dialog';
+import { Modal } from '@ugrc/utah-design-system/components/Modal';
+import { X } from 'lucide-react';
+import { Heading } from 'react-aria-components';
 import { useState, type ComponentType } from 'react';
 import type { ProductTypeKey } from '../types';
 import MoreInfo from './MoreInfo';
+
+const title = '1 Meter 4-Band Color Digital Orthophotography from 2009 NAIP';
 
 const QueryClientDecorator = (Story: ComponentType) => {
   const [client] = useState(
@@ -21,6 +27,18 @@ const QueryClientDecorator = (Story: ComponentType) => {
     <QueryClientProvider client={client}>
       <Modal isOpen={true} isDismissable>
         <Dialog>
+          <Heading slot="title" className="pr-10 text-xl font-bold">
+            {title}
+          </Heading>
+          <Button
+            slot="close"
+            variant="icon"
+            size="small"
+            className="absolute top-3 right-3"
+            aria-label="Close"
+          >
+            <X />
+          </Button>
           <Story />
         </Dialog>
       </Modal>
@@ -32,7 +50,6 @@ const meta = {
   component: MoreInfo,
   decorators: [QueryClientDecorator],
   args: {
-    title: '1 Meter 4-Band Color Digital Orthophotography from 2009 NAIP',
     productType: 'aerialPhotography' as ProductTypeKey,
     objectId: 1,
   },

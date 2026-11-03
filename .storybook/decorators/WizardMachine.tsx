@@ -1,3 +1,4 @@
+import type { GeometryUnion } from '@arcgis/core/geometry/types';
 import type { ComponentType } from 'react';
 import { createActor } from 'xstate';
 import { WizardMachineContext } from '../../src/contexts/WizardMachineProvider';
@@ -9,7 +10,7 @@ export const WizardMachineDecorator = (Story: ComponentType) => {
       value: 'step3',
       context: {
         productTypes: ['lidar'],
-        aoi: {} as __esri.GeometryUnion,
+        aoi: {} as GeometryUnion,
         download: null,
       },
     }),

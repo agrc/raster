@@ -147,21 +147,19 @@ export async function completeBasicSearch(page: Page, options: BasicSearchOption
  * Get all category rows matching the common pattern
  */
 export function getCategoryRows(page: Page) {
-  return page.getByRole('row').filter({ hasText: CATEGORY_PATTERN });
+  return page.getByRole('row', { level: 2 }).filter({ hasText: CATEGORY_PATTERN });
 }
 
 /**
  * Expand a category by name or get the first available category
  */
 export async function expandCategory(page: Page, categoryName?: string) {
-  if (categoryName) {
-    const expandButton = page.getByRole('button', { name: `Expand ${categoryName}`, exact: true });
-    await expandButton.click();
-    await page.waitForTimeout(TIMEOUTS.ANIMATION);
-  } else {
-    // Expand first available category
-    const firstExpandButton = page.getByRole('button', { name: /Expand / }).first();
-    await firstExpandButton.click();
+  const categoryRow = categoryName
+    ? page.getByRole('row', { name: categoryName, exact: true })
+    : getCategoryRows(page).first();
+
+  if ((await categoryRow.getAttribute('aria-expanded')) !== 'true') {
+    await categoryRow.getByRole('button', { name: /^Toggle / }).click();
     await page.waitForTimeout(TIMEOUTS.ANIMATION);
   }
 }
@@ -169,7 +167,9 @@ export async function expandCategory(page: Page, categoryName?: string) {
 export async function expandProduct(page: Page, categoryName: string, productName: string) {
   await expandCategory(page, categoryName);
   const productRow = page.getByRole('row', { name: productName, exact: true });
-  await productRow.getByRole('button', { name: `Expand ${productName}`, exact: true }).click();
+  if ((await productRow.getAttribute('aria-expanded')) !== 'true') {
+    await productRow.getByRole('button').first().click();
+  }
   await expect(productRow).toHaveAttribute('aria-expanded', 'true');
   await expect(page.getByRole('button', { name: 'more info', exact: true })).toBeVisible();
   return productRow;
@@ -188,9 +188,9 @@ export async function findProductWithPreview(page: Page, maxCategoriesToCheck = 
   const maxToCheck = Math.min(await categories.count(), maxCategoriesToCheck);
   for (let i = 0; i < maxToCheck && previewCount === 0; i++) {
     const cat = categories.nth(i);
-    const expandBtn = cat.getByRole('button', { name: /Expand/i });
-    if (await expandBtn.isVisible()) {
-      await expandBtn.click();
+    const toggleButton = cat.getByRole('button', { name: /^Toggle / });
+    if ((await cat.getAttribute('aria-expanded')) !== 'true' && (await toggleButton.isVisible())) {
+      await toggleButton.click();
       await page.waitForTimeout(TIMEOUTS.ANIMATION);
     }
     previewButton = page.getByRole('button', { name: 'Preview', exact: true }).first();
