@@ -1,5 +1,42 @@
 # Changelog
 
+## [3.0.4-rc.1](https://github.com/agrc/raster/compare/v3.0.3...v3.0.4-rc.1) (2026-11-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* This is a total rewrite of the application
+
+### Features
+
+* complete frontend dependency migration for [#341](https://github.com/agrc/raster/issues/341) ([6cf4248](https://github.com/agrc/raster/commit/6cf4248300b78478970614a973c5faeeebc96ac3))
+* dark mode base map ([5bd0c0e](https://github.com/agrc/raster/commit/5bd0c0e39b4f53c0b2127ff8e9000bc727742609))
+
+
+### Bug Fixes
+
+* add underline style to download link in PopupContent ([c824110](https://github.com/agrc/raster/commit/c824110a2ca471bce042b7385a20b7b5b9d1d5bd)), refs [#165](https://github.com/agrc/raster/issues/165)
+* address product tree review feedback ([837d6e2](https://github.com/agrc/raster/commit/837d6e2d43ce42ee83e7640a5cec86f1a0f838fe))
+* **deps:** update Babel and allow verified patch versions ([#331](https://github.com/agrc/raster/issues/331)) ([7642516](https://github.com/agrc/raster/commit/7642516dae0f472ff02bc82a97ab029873217d0a))
+* implement official header and footer ([d8975c3](https://github.com/agrc/raster/commit/d8975c3a845298fef36795b422966ae50a1cc739))
+* start fresh with atlas template ([a4ce429](https://github.com/agrc/raster/commit/a4ce4295c16d1972d448c47496efa95b55d9ac32))
+
+
+### Dependencies
+
+* bump @humanfs/node from 0.16.7 to 0.16.8 ([#324](https://github.com/agrc/raster/issues/324)) ([02c6bc5](https://github.com/agrc/raster/commit/02c6bc537b9a70a2da7bd420ada3870f03edae3b))
+* bump @protobufjs/utf8 from 1.1.0 to 1.1.2 ([#327](https://github.com/agrc/raster/issues/327)) ([b300cf1](https://github.com/agrc/raster/commit/b300cf1d2c0479e91186eaef94dba17fa8984a15))
+* bump ajv from 6.12.6 to 6.15.0 ([d3258dd](https://github.com/agrc/raster/commit/d3258dd397afa66b0f2d3a769940029f789b8a59))
+* bump flatted from 3.3.3 to 3.4.4 ([ffa390d](https://github.com/agrc/raster/commit/ffa390d4c48a77343dc5c2ecad4c6430b852459c))
+* bump js-yaml from 4.1.1 to 4.3.2 ([51ff044](https://github.com/agrc/raster/commit/51ff0449aa60499c04ac984aff4330fec85ddb8c))
+* bump lodash-es from 4.17.22 to 4.18.1 ([118fc53](https://github.com/agrc/raster/commit/118fc538fa9bf05e4686657267adc0b2910620f9))
+* bump postcss-selector-parser from 6.1.2 to 6.1.5 ([#326](https://github.com/agrc/raster/issues/326)) ([f5a5258](https://github.com/agrc/raster/commit/f5a525896b5435c6f711ab36c9714741e7f361f1))
+* bump protobufjs from 7.5.4 to 7.6.6 ([#325](https://github.com/agrc/raster/issues/325)) ([25fc827](https://github.com/agrc/raster/commit/25fc827092ce1eaab7b28e19d022744cc43aeb84))
+* bump websocket-driver from 0.7.4 to 0.7.5 ([a916923](https://github.com/agrc/raster/commit/a916923f27637a1d786c20063d1f333154c18d16))
+* **dev:** bump happy-dom from 20.14.6 to 21.0.4 ([b215c70](https://github.com/agrc/raster/commit/b215c708baa931d8a0feb8f30f8332f74d045bd2))
+* **dev:** bump vite from 7.3.1 to 7.3.7 ([#329](https://github.com/agrc/raster/issues/329)) ([303b764](https://github.com/agrc/raster/commit/303b764f8688ca664a875deb04dda4b4b626737d))
+* **dev:** bump vite from 8.2.2 to 8.2.4 ([4a24525](https://github.com/agrc/raster/commit/4a245253c8ea21228720dcdf293168e83b88b5c1))
+
 ## [3.0.3](https://github.com/agrc/raster/compare/v3.0.2...v3.0.3) (2026-03-30)
 
 
