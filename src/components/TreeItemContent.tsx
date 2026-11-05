@@ -19,29 +19,26 @@ export function TreeItemContent(
   return (
     <RACTreeItemContent>
       {({ isExpanded }) => (
-        <>
+        <div className={isExpandable ? 'flex items-center' : undefined}>
           {isExpandable ? (
             <RACButton
               slot="chevron"
               aria-label={`Toggle ${typeof children === 'string' ? children : 'item'}`}
               className={twMerge(
-                'flex min-h-8 w-full items-center justify-start gap-2 rounded px-2 text-sm text-zinc-900 hover:bg-black/5 dark:text-zinc-300 dark:hover:bg-white/10',
+                'flex min-h-8 min-w-0 flex-1 items-center justify-start gap-2 rounded px-2 text-sm text-zinc-900 hover:bg-black/5 dark:text-zinc-300 dark:hover:bg-white/10',
                 className,
               )}
             >
               <ChevronRight
-                className={twJoin(
-                  'size-4 shrink-0 transition-transform duration-200',
-                  isExpanded && 'rotate-90',
-                )}
+                className={twJoin('size-4 shrink-0 transition-transform duration-200', isExpanded && 'rotate-90')}
               />
               {children}
             </RACButton>
           ) : (
             children
           )}
-          {isExpandable && buttons && <div className="mr-1">{buttons}</div>}
-        </>
+          {isExpandable && buttons && <div className="mr-1 shrink-0">{buttons}</div>}
+        </div>
       )}
     </RACTreeItemContent>
   );
