@@ -53,7 +53,7 @@ export default function App() {
       <div className="flex h-screen flex-col">
         <div id="utah-header-target" />
         <UtahChrome title={title ?? 'UGRC Raster Data Discovery'} />
-        <main id="main-content" tabIndex={-1} className="flex min-h-0 flex-1 flex-col md:gap-2">
+        <main id="main-content" tabIndex={-1} className="mt-2 flex min-h-0 flex-1 flex-col md:gap-2">
           <section className="relative flex min-h-0 flex-1 overflow-x-hidden md:mr-2">
             <MapProvider>
               <TilesContextProvider>
