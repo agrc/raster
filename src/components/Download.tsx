@@ -105,6 +105,7 @@ function PopupContent({ attributes, description, metadata, report, logEvent, mar
         <a
           download
           href={`${PATH}${TILE}${EXT}`}
+          style={{ textDecoration: 'underline' }}
           onClick={() => {
             markAsDownloaded(OBJECTID);
             logEvent('tile_download_click', {
