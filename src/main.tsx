@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import initializeTheme from '@ugrc/esri-theme-toggle';
 import { FirebaseAnalyticsProvider } from '@ugrc/utah-design-system/contexts/FirebaseAnalyticsProvider';
 import { FirebaseAppProvider } from '@ugrc/utah-design-system/contexts/FirebaseAppProvider';
+import '@utahdts/utah-design-system-header/css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';

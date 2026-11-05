@@ -40,6 +40,7 @@
     "@ugrc/esri-theme-toggle": "^2.0.1",
     "@ugrc/utah-design-system": "^4.3.2",
     "@ugrc/utilities": "^5.0.1",
+    "@utahdts/utah-design-system-header": "^5.3.0",
     "@xstate/react": "^6.1.0",
     "firebase": "^12.19.0",
     "lucide-react": "^1.62.0",

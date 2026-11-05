@@ -1,6 +1,4 @@
 import { Drawer } from '@ugrc/utah-design-system/components/Drawer';
-import { Footer } from '@ugrc/utah-design-system/components/Footer';
-import { Header, UgrcLogo } from '@ugrc/utah-design-system/components/Header';
 import { SocialMedia } from '@ugrc/utah-design-system/components/SocialMedia';
 import { useFirebaseApp } from '@ugrc/utah-design-system/contexts/FirebaseAppProvider';
 import { useEffect } from 'react';
@@ -8,6 +6,7 @@ import { useOverlayTrigger } from 'react-aria';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useOverlayTriggerState } from 'react-stately';
 import { MapContainer } from './components/MapContainer';
+import UtahChrome from './components/UtahChrome';
 import Wizard from './components/Wizard';
 import config from './config';
 import { MapProvider } from './contexts/MapProvider';
@@ -15,8 +14,6 @@ import PreviewProvider from './contexts/PreviewProvider';
 import TilesContextProvider from './contexts/TilesContextProvider';
 import WizardMachineProvider from './contexts/WizardMachineProvider';
 import { useUrlParams } from './hooks/useUrlParams';
-
-const version = import.meta.env.PACKAGE_VERSION;
 
 const ErrorFallback = ({ error }: { error: unknown }) => {
   return (
@@ -26,33 +23,6 @@ const ErrorFallback = ({ error }: { error: unknown }) => {
     </div>
   );
 };
-
-const links = [
-  {
-    key: 'UGRC Homepage',
-    action: { url: 'https://gis.utah.gov' },
-  },
-  {
-    key: 'Discover Product Page',
-    action: { url: 'https://gis.utah.gov/products/discover/' },
-  },
-  {
-    key: 'UGRC Base Map Information',
-    action: { url: 'https://gis.utah.gov/products/sgid/base-maps/' },
-  },
-  {
-    key: 'UGRC Aerial Photography',
-    action: { url: 'https://gis.utah.gov/products/sgid/aerial-photography/' },
-  },
-  {
-    key: 'UGRC Lidar',
-    action: { url: 'https://gis.utah.gov/products/sgid/elevation/lidar/' },
-  },
-  {
-    key: `Version ${version} changelog`,
-    action: { url: `https://github.com/agrc/raster/releases/v${version}` },
-  },
-];
 
 export default function App() {
   const app = useFirebaseApp();
@@ -80,41 +50,37 @@ export default function App() {
 
   return (
     <>
-      <main id="main-content" tabIndex={-1} className="flex h-screen flex-col md:gap-2">
-        <Header links={links}>
-          <div className="flex h-full grow items-center gap-3">
-            <UgrcLogo />
-            <h2 className="font-heading text-2xl font-black text-zinc-600 md:text-4xl lg:text-5xl dark:text-zinc-100">
-              {title ?? 'UGRC Raster Data Discovery'}
-            </h2>
-          </div>
-        </Header>
-        <section className="relative flex min-h-0 flex-1 overflow-x-hidden md:mr-2">
-          <MapProvider>
-            <TilesContextProvider>
-              <PreviewProvider>
-                <Drawer main state={sideBarState} {...sideBarTriggerProps} size="large">
-                  <WizardMachineProvider>
-                    <h1 className="sr-only">Raster Data Discovery Wizard</h1>
-                    <h2 className="sr-only">Follow the four steps to discover and download raster data</h2>
-                    <Wizard />
-                    <div className="qualtrics-survey m-2 rounded-lg bg-gray-100 px-2 pt-1 pb-2 text-sm"></div>
-                  </WizardMachineProvider>
-                </Drawer>
-                <div className="relative flex flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
-                  <div className="relative flex-1 overflow-hidden dark:rounded">
-                    <ErrorBoundary FallbackComponent={ErrorFallback}>
-                      <MapContainer />
-                    </ErrorBoundary>
+      <div className="flex h-screen flex-col">
+        <div id="utah-header-target" />
+        <UtahChrome title={title ?? 'UGRC Raster Data Discovery'} />
+        <main id="main-content" tabIndex={-1} className="flex min-h-0 flex-1 flex-col md:gap-2">
+          <section className="relative flex min-h-0 flex-1 overflow-x-hidden md:mr-2">
+            <MapProvider>
+              <TilesContextProvider>
+                <PreviewProvider>
+                  <Drawer main state={sideBarState} {...sideBarTriggerProps} size="large">
+                    <WizardMachineProvider>
+                      <h1 className="sr-only">Raster Data Discovery Wizard</h1>
+                      <h2 className="sr-only">Follow the four steps to discover and download raster data</h2>
+                      <Wizard />
+                      <div className="qualtrics-survey m-2 rounded-lg bg-gray-100 px-2 pt-1 pb-2 text-sm"></div>
+                    </WizardMachineProvider>
+                  </Drawer>
+                  <div className="relative flex min-h-0 flex-1 flex-col rounded border border-b-0 border-zinc-200 dark:border-0 dark:border-zinc-700">
+                    <div className="relative min-h-0 flex-1 overflow-hidden dark:rounded">
+                      <ErrorBoundary FallbackComponent={ErrorFallback}>
+                        <MapContainer />
+                      </ErrorBoundary>
+                    </div>
+                    <SocialMedia />
                   </div>
-                  <SocialMedia />
-                </div>
-              </PreviewProvider>
-            </TilesContextProvider>
-          </MapProvider>
-        </section>
-      </main>
-      <Footer />
+                </PreviewProvider>
+              </TilesContextProvider>
+            </MapProvider>
+          </section>
+        </main>
+      </div>
+      <div id="utah-footer-target" />
     </>
   );
 }

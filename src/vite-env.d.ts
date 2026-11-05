@@ -2,6 +2,8 @@
 /// <reference types="@esri/calcite-components/types/react" />
 /// <reference types="vite/client" />
 
+declare module '@utahdts/utah-design-system-header/css';
+
 interface ImportMetaEnv {
   readonly VITE_DISCOVER: string;
   readonly VITE_FIREBASE_CONFIG: string;
