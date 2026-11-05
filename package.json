@@ -65,7 +65,7 @@
     "@ugrc/tsconfigs": "^1.0.4",
     "@vitejs/plugin-react": "6.1.1",
     "cpy-cli": "7.0.0",
-    "eslint": "^9.39.5",
+    "eslint": "^10.10.0",
     "firebase-tools": "^15.34.1",
     "happy-dom": "^21.0.4",
     "prettier": "^3.9.10",
