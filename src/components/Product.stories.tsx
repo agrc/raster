@@ -10,6 +10,7 @@ import Product, { type ProductFeature } from './Product';
 const meta = {
   component: Product,
   decorators: [MapViewDecorator, PreviewDecorator, WizardMachineDecorator, AnalyticsProviderDecorator],
+  args: { onMoreInfo: () => {} },
   render: (args) => (
     <div className="w-96 rounded-b-lg bg-gray-100 px-2 py-2 dark:bg-black">
       <Tree aria-label="Product" selectionMode="none" defaultExpandedKeys={['HRO 2012 (12.5cm)-0']}>

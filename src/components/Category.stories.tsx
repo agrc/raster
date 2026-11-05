@@ -11,6 +11,7 @@ import type { ProductFeature } from './Product';
 const meta = {
   component: Category,
   decorators: [MapViewDecorator, PreviewDecorator, WizardMachineDecorator, AnalyticsProviderDecorator],
+  args: { onMoreInfo: () => {} },
   render: (args) => (
     <div className="w-96 rounded-b-lg bg-gray-100 px-2 py-2 dark:bg-black">
       <Tree aria-label="Category" selectionMode="none" defaultExpandedKeys={[args.category]}>
