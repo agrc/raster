@@ -8,11 +8,13 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [react(), tailwindcss(), loadVersion()],
   optimizeDeps: {
-    include: ['react-aria > use-sync-external-store/shim/index.js'],
-  },
-  resolve: {
-    // this is only applicable when pnpm-linking the utah-design-package
-    // dedupe: ['firebase', '@arcgis/core', 'react', 'react-dom'],
+    include: [
+      'react-aria > use-sync-external-store/shim/index.js',
+      '@arcgis/core/Basemap',
+      '@arcgis/core/layers/support/LOD',
+      '@arcgis/core/layers/TileLayer',
+      '@arcgis/core/layers/VectorTileLayer',
+    ],
   },
   test: {
     environment: 'happy-dom',
