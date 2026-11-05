@@ -50,7 +50,7 @@ test.describe('Basic Aerial Photography Search', () => {
   test('1.3 Verify Product Actions Are Available', async ({ page }) => {
     await completeBasicSearch(page);
 
-    await expandProduct(page, 'NAIP 2024 (60cm)', '4-Band (county mosaic)');
+    const productRow = await expandProduct(page, 'NAIP 2024 (60cm)', '4-Band (county mosaic)');
 
     const extentButton = page.getByRole('button', { name: /Extent/i }).first();
     await expect(extentButton).toBeVisible();
@@ -60,6 +60,14 @@ test.describe('Basic Aerial Photography Search', () => {
     if (previewCount > 0) {
       await expect(previewButton).toBeVisible();
     }
+
+    const trailingAction = previewCount > 0 ? previewButton : extentButton;
+    const rowBounds = await productRow.boundingBox();
+    const actionBounds = await trailingAction.boundingBox();
+    if (!rowBounds || !actionBounds) {
+      throw new Error('Product row and action button must have layout bounds');
+    }
+    expect(rowBounds.x + rowBounds.width - (actionBounds.x + actionBounds.width)).toBeLessThan(12);
 
     const moreInfoButton = page.getByRole('button', { name: /more info/i }).first();
     await expect(moreInfoButton).toBeVisible();

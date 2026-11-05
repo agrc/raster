@@ -19,7 +19,7 @@ export function TreeItemContent(
   return (
     <RACTreeItemContent>
       {({ isExpanded }) => (
-        <div className={isExpandable ? 'flex items-center' : undefined}>
+        <div className={isExpandable ? 'flex min-w-0 flex-1 items-center' : undefined}>
           {isExpandable ? (
             <RACButton
               slot="chevron"
@@ -37,7 +37,7 @@ export function TreeItemContent(
           ) : (
             children
           )}
-          {isExpandable && buttons && <div className="mr-1 shrink-0">{buttons}</div>}
+          {isExpandable && buttons && <div className="mr-1 ml-auto shrink-0">{buttons}</div>}
         </div>
       )}
     </RACTreeItemContent>
