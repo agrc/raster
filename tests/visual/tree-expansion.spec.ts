@@ -57,4 +57,23 @@ test.describe('Visual and Interaction Testing', () => {
     // Verify categories are visible again
     await expect(page.getByRole('row', { level: 2 }).first()).toBeVisible();
   });
+
+  test('Tree chevrons reflect their own expansion state', async ({ page }) => {
+    await completeBasicSearch(page);
+
+    const categoryRow = page.getByRole('row', { level: 2 }).first();
+    const categoryToggle = categoryRow.getByRole('button', { name: /^Toggle / });
+    const categoryChevron = categoryToggle.locator('svg');
+
+    if ((await categoryRow.getAttribute('aria-expanded')) === 'true') {
+      await categoryToggle.click();
+    }
+
+    await expect(categoryRow).toHaveAttribute('aria-expanded', 'false');
+    await expect(categoryChevron).not.toHaveClass(/rotate-90/);
+
+    await categoryToggle.click();
+    await expect(categoryRow).toHaveAttribute('aria-expanded', 'true');
+    await expect(categoryChevron).toHaveClass(/rotate-90/);
+  });
 });
