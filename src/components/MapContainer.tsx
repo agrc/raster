@@ -63,7 +63,7 @@ export const MapContainer = ({ onClick }: { onClick?: EventHandler<HTMLArcgisMap
 
     const selectorOptions: LayerSelectorProps = {
       quadWord: import.meta.env.VITE_DISCOVER,
-      basemaps: ['Terrain', 'Hybrid', 'Imagery', 'Lite', 'Topo', 'High Contrast'],
+      basemaps: ['Terrain', 'Hybrid', 'Imagery', 'Lite', 'Topo', 'High Contrast', 'Dark'],
     };
 
     setSelectorOptions(selectorOptions);
