@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.0.4-rc.2](https://github.com/agrc/raster/compare/v3.0.4-rc.1...v3.0.4-rc.2) (2026-11-05)
+
+
+### Bug Fixes
+
+* fix extent/preview button placements ([98afad8](https://github.com/agrc/raster/commit/98afad8622e561f0e62d339a7d669cede91778ca))
+* fix gutters below new header ([b607973](https://github.com/agrc/raster/commit/b607973a1044e6bd4f67b654db56183b062160d8))
+
 ## [3.0.4-rc.1](https://github.com/agrc/raster/compare/v3.0.3...v3.0.4-rc.1) (2026-11-05)
 
 
