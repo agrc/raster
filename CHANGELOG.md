@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.5](https://github.com/agrc/raster/compare/v3.0.4-rc.2...v3.0.5) (2026-11-09)
+
+
+### Bug Fixes
+
+* force deploy ([cab4050](https://github.com/agrc/raster/commit/cab405099c43f7dcf996375c1a28a06a11a2004d))
+
 ## [3.0.4](https://github.com/agrc/raster/compare/v3.0.3...v3.0.4) (2026-11-05)
 
 
